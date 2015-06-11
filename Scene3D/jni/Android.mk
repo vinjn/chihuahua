@@ -29,8 +29,21 @@ LOCAL_SRC_FILES := \
     				$(ASSIMP_PATH)/code/Assimp.cpp \
     				$(ASSIMP_PATH)/code/BaseImporter.cpp \
     				$(ASSIMP_PATH)/code/BaseProcess.cpp \
-    				$(ASSIMP_PATH)/code/ColladaLoader.cpp \
-    				$(ASSIMP_PATH)/code/ColladaParser.cpp \
+					$(ASSIMP_PATH)/code/FBXAnimation.cpp \
+					$(ASSIMP_PATH)/code/FBXBinaryTokenizer.cpp \
+					$(ASSIMP_PATH)/code/FBXConverter.cpp \
+					$(ASSIMP_PATH)/code/FBXDeformer.cpp \
+					$(ASSIMP_PATH)/code/FBXDocument.cpp \
+					$(ASSIMP_PATH)/code/FBXDocumentUtil.cpp \
+					$(ASSIMP_PATH)/code/FBXImporter.cpp \
+					$(ASSIMP_PATH)/code/FBXMaterial.cpp \
+					$(ASSIMP_PATH)/code/FBXMeshGeometry.cpp \
+					$(ASSIMP_PATH)/code/FBXModel.cpp \
+					$(ASSIMP_PATH)/code/FBXNodeAttribute.cpp \
+					$(ASSIMP_PATH)/code/FBXParser.cpp \
+					$(ASSIMP_PATH)/code/FBXProperties.cpp \
+					$(ASSIMP_PATH)/code/FBXTokenizer.cpp \
+					$(ASSIMP_PATH)/code/FBXUtil.cpp \
     				$(ASSIMP_PATH)/code/ConvertToLHProcess.cpp \
     				$(ASSIMP_PATH)/code/DefaultIOStream.cpp \
     				$(ASSIMP_PATH)/code/DefaultIOSystem.cpp \

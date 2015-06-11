@@ -112,7 +112,7 @@ extern "C"
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationFps(JNIEnv * env, jclass cls, jlong nodePtr, jfloat fps)
     {
-        Scene3D_setNodeAnimationIndex(nodePtr, fps);
+        Scene3D_setNodeAnimationFps(nodePtr, fps);
     }    
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimation(JNIEnv * env, jclass cls, jlong nodePtr, jstring jAnimationName, jboolean isLoop)
