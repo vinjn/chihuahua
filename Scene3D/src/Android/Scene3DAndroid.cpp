@@ -120,6 +120,11 @@ extern "C"
         Scene3D_setNodeAnimationStartEnd(nodePtr, start, end);
     }
 
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationLoop(JNIEnv * env, jclass cls, jlong nodePtr, jboolean isLoop)
+    {
+        Scene3D_setNodeAnimationLoop(nodePtr, isLoop);
+    }
+
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimation(JNIEnv * env, jclass cls, jlong nodePtr, jstring jAnimationName)
     {
         const char *animationName = env->GetStringUTFChars(jAnimationName, JNI_FALSE);
