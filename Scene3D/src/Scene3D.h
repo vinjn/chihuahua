@@ -276,21 +276,35 @@ void Scene3D_setNodeAnimationFps(long nodePtr, f32 fps)
     }
 }
 
-void Scene3D_setNodeAnimation(long nodePtr, const c8* animationName, bool isLoop)
+void Scene3D_setNodeAnimation(long nodePtr, const c8* animationName)
 {
     scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
         node->setAnimation(animationName);
+    }
+}
+
+void Scene3D_setNodeAnimationLoop(long nodePtr, bool isLoop)
+{
+    scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
+    {
         node->setLoopMode(isLoop);
     }
 }
 
-void Scene3D_setNodeAnimationIndex(long nodePtr, u32 index, bool isLoop)
+void Scene3D_setNodeAnimationIndex(long nodePtr, u32 index)
 {
     scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
         node->setAnimation(index);
-        node->setLoopMode(isLoop);
+    }
+}
+
+void Scene3D_setNodeAnimationStartEnd(long nodePtr, s32 start, s32 end)
+{
+    scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
+    {
+        node->setFrameLoop(start, end);
     }
 }
 

@@ -383,6 +383,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
     for (unsigned int i = 0; i < pScene->mNumAnimations; ++i)
     {
         aiAnimation* anim = pScene->mAnimations[i];
+        float totalFrames = anim->mDuration;
 
         //std::cout << "numChannels : " << anim->mNumChannels << std::endl;
         for (unsigned int j = 0; j < anim->mNumChannels; ++j)
@@ -396,7 +397,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
 
                 scene::ISkinnedMesh::SPositionKey* irrKey = mesh->addPositionKey(joint);
 
-                irrKey->frame = frameNumber + k;
+                irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumPositionKeys;
                 irrKey->position = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
             }
             for (unsigned int k = 0; k < nodeAnim->mNumRotationKeys; ++k)
@@ -409,7 +410,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 
                 scene::ISkinnedMesh::SRotationKey* irrKey = mesh->addRotationKey(joint);
 
-                irrKey->frame = frameNumber + k;
+                irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
                 irrKey->rotation = quat;
             }
             for (unsigned int k = 0; k < nodeAnim->mNumScalingKeys; ++k)
@@ -418,7 +419,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
 
                 scene::ISkinnedMesh::SScaleKey* irrKey = mesh->addScaleKey(joint);
 
-                irrKey->frame = frameNumber + k;
+                irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
                 irrKey->scale = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
             }
         }
@@ -428,13 +429,13 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
         {
             anim->mName.C_Str(),
             frameNumber,
-            frameNumber + deltaFrameNumber,
+            frameNumber + totalFrames,
             static_cast<s32>(deltaFrameNumber / anim->mDuration)
         };
         animationData.fps = 24; // WTF?
         mesh->AnimationData.insert(animationData);
 
-        frameNumber += deltaFrameNumber;
+        frameNumber += totalFrames;
     }
 
     mesh->setDirty();

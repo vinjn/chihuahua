@@ -201,9 +201,9 @@ int main()
 191 - 211 cockatoo_death
 213 - 230 cockatoo_jumping
 */
-        node->setFrameLoop(64, 82);
+        node->setFrameLoop(85, 130);
         node->setLoopMode(true);
-        node->setAnimationSpeed(10);
+        node->setAnimationSpeed(30);
 
         node->setPosition({ idx++ * 20.0f, idx * 5.0f, 0.0f });
         core::aabbox3df bbox = node->getBoundingBox();

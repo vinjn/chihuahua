@@ -113,18 +113,23 @@ extern "C"
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationFps(JNIEnv * env, jclass cls, jlong nodePtr, jfloat fps)
     {
         Scene3D_setNodeAnimationFps(nodePtr, fps);
-    }    
+    }
 
-    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimation(JNIEnv * env, jclass cls, jlong nodePtr, jstring jAnimationName, jboolean isLoop)
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationStartEnd(JNIEnv * env, jclass cls, jlong nodePtr, jint start, jint end)
+    {
+        Scene3D_setNodeAnimationStartEnd(nodePtr, start, end);
+    }
+
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimation(JNIEnv * env, jclass cls, jlong nodePtr, jstring jAnimationName)
     {
         const char *animationName = env->GetStringUTFChars(jAnimationName, JNI_FALSE);
-        Scene3D_setNodeAnimation(nodePtr, animationName, isLoop);
+        Scene3D_setNodeAnimation(nodePtr, animationName);
         env->ReleaseStringUTFChars(jAnimationName, animationName);
     }
 
-    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationIndex(JNIEnv * env, jclass cls, jlong nodePtr, jlong index, jboolean isLoop)
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationIndex(JNIEnv * env, jclass cls, jlong nodePtr, jlong index)
     {
-        Scene3D_setNodeAnimationIndex(nodePtr, index, isLoop);
+        Scene3D_setNodeAnimationIndex(nodePtr, index);
     }    
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addDummyNode(JNIEnv * env, jclass cls)
