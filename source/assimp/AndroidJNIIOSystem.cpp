@@ -75,11 +75,18 @@ AndroidJNIIOSystem::~AndroidJNIIOSystem()
 
 // ------------------------------------------------------------------------------------------------
 // Tests for the existence of a file at the given path.
-bool AndroidJNIIOSystem::Exists( const char* pFile) const
+bool AndroidJNIIOSystem::Exists(const char* pFile) const
 {
-	AAsset* asset = AAssetManager_open(mApkAssetManager, pFile,
-			AASSET_MODE_UNKNOWN);
-	FILE* file = ::fopen( (mApkWorkspacePath + getOsSeparator() + std::string(pFile)).c_str(), "rb");
+	FILE* file = ::fopen(pFile, "rb");
+	if (file)
+	{
+		::fclose(file);
+		__android_log_print(ANDROID_LOG_ERROR, "Assimp", "Abosulte path exists %s", pFile);
+		return true;
+	}
+
+	AAsset* asset = AAssetManager_open(mApkAssetManager, pFile, AASSET_MODE_UNKNOWN);
+	file = ::fopen( (mApkWorkspacePath + getOsSeparator() + std::string(pFile)).c_str(), "rb");
 
 	if (!asset && !file)
 		{
@@ -155,12 +162,16 @@ IOStream* AndroidJNIIOSystem::Open( const char* strFile, const char* strMode)
 	ai_assert(NULL != strFile);
 	ai_assert(NULL != strMode);
 
-	// WTF??????
-	std::string fullPath(mApkWorkspacePath + getOsSeparator() + std::string(strFile));
-	if	(Exists(strFile))
-		AndroidExtractAsset(std::string(strFile));
+	FILE* file = ::fopen( strFile, strMode);
+	std::string fullPath(strFile);
+	if (file == NULL)
+	{
+		fullPath = std::string(mApkWorkspacePath + getOsSeparator() + std::string(strFile));
+		if	(Exists(strFile))
+			AndroidExtractAsset(std::string(strFile));
 
-	FILE* file = ::fopen( fullPath.c_str(), strMode);
+		file = ::fopen( fullPath.c_str(), strMode);
+	}
 
 	if( NULL == file)
 		return NULL;
