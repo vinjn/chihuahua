@@ -32,7 +32,7 @@ int main()
 
     c8* files[] =
     {
-        "../../media/Cockatoo/duck.fbx"
+        "../../media/duck.fbx"
     };
 
     const float kCamDistZ = 40;
