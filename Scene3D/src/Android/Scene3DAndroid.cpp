@@ -151,6 +151,16 @@ extern "C"
         return node;
     }
 
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_removeNode(JNIEnv * env, jclass cls, jlong nodePtr)
+    {
+        Scene3D_removeNode(nodePtr);
+    }
+
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_destroyScene(JNIEnv * env, jclass cls)
+    {
+        Scene3D_destroyScene();
+    }
+
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_getRootNode(JNIEnv *env, jclass cls)
     {
         return Scene3D_getRootNode();

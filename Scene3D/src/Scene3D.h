@@ -308,6 +308,18 @@ void Scene3D_setNodeAnimationStartEnd(long nodePtr, s32 start, s32 end)
     }
 }
 
+void Scene3D_destroyScene()
+{
+    arRootNode->removeAll();
+}
+
+void Scene3D_removeNode(long nodePtr)
+{
+    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    scene::IDummyTransformationSceneNode* transformNode = (scene::IDummyTransformationSceneNode*)(node->getParent());
+    delete transformNode;
+}
+
 long Scene3D_addMeshNode(const c8* meshName)
 {
     scene::IAnimatedMeshSceneNode* node = NULL;
