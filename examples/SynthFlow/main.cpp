@@ -14,11 +14,21 @@ using namespace gui;
 #pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 #endif
 
+#define WORLD_SIZE 100
+#define NODE_COUNT 100
+IAnimatedMeshSceneNode* gNodes[NODE_COUNT];
+
+IrrlichtDevice *device;
+f32 random(float min, float max)
+{
+    static IRandomizer* randomizer = device->getRandomizer();
+    f32 v = randomizer->frand();
+    return min + v * (max - min);
+}
 
 int main()
 {
-	IrrlichtDevice *device =
-        createDevice(video::EDT_OGLES2, dimension2d<u32>(800, 600), 16,
+	device = createDevice(video::EDT_OGLES2, dimension2d<u32>(800, 600), 16,
 			false, false, false, 0);
 
 	if (!device)
@@ -30,37 +40,55 @@ int main()
 	ISceneManager* smgr = device->getSceneManager();
 	IGUIEnvironment* guienv = device->getGUIEnvironment();
 
-    c8* files[] =
+    c8* meshFiles[] =
     {
-        "../../media/duck.fbx"
+        "../../media/duck.fbx",
+    };
+
+    c8* texFiles[] =
+    {
+        "../../media/rockwall.jpg",
+        "../../media/Shanghai5.jpg",
+        "../../media/dwarf.jpg",
     };
 
     const float kCamDistZ = 40;
     int idx = 0;
-    for (auto file : files)
+    for (auto node : gNodes)
     {
-        IAnimatedMesh* mesh = getMeshFromAssimp(smgr, file);
-        for (s32 i = 0; i<mesh->getAnimationCount(); i++)
-        {
-            s32 begin, end, fps;
-            mesh->getFrameLoop(i, begin, end, fps);
-            int test = 0;
-        }
-        auto node = smgr->addAnimatedMeshSceneNode(mesh);
+        auto emptyNode = smgr->addEmptySceneNode();
+        emptyNode->setPosition({
+            random(-WORLD_SIZE, WORLD_SIZE),
+            random(-WORLD_SIZE, WORLD_SIZE),
+            random(-WORLD_SIZE, WORLD_SIZE)
+        });
 
-        node->setPosition({ idx++ * 20.0f, idx * 5.0f, 0.0f });
+        IAnimatedMesh* mesh = getMeshFromAssimp(smgr, meshFiles[rand() % _countof(meshFiles)]);
+        node = smgr->addAnimatedMeshSceneNode(mesh, emptyNode);
+
         core::aabbox3df bbox = node->getBoundingBox();
         float newScale = kCamDistZ * 0.5f / bbox.getRadius();
-        node->setScale(core::vector3df(newScale));
+        node->setScale({ newScale, newScale, newScale });
         node->setMaterialFlag(video::EMF_LIGHTING, false);
-        node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
+        node->setMaterialTexture(0, driver->getTexture(texFiles[rand() % _countof(texFiles)]));
+
+        // animator
+        auto rotAnimator = smgr->createRotationAnimator({
+            random(0, 1),
+            random(0, 1),
+            random(0, 1),
+        });
+        node->addAnimator(rotAnimator);
+
+        auto flyAnimator = smgr->createFlyCircleAnimator({}, random(0, 20));
+        node->addAnimator(flyAnimator);
     }
 
 #if 1
-    smgr->addCameraSceneNode(0, vector3df(0, kCamDistZ, -kCamDistZ), vector3df(0, 0, 0));
+    smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
 #else
 	auto camera = smgr->addCameraSceneNodeFPS(0);
-    camera->setPosition({ 0.0f, kCamDistZ, -kCamDistZ });
+    camera->setPosition({ 0.0f, 0.0f, -kCamDistZ * 3 });
 #endif
 
 	while(device->run())
