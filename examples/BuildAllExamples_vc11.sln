@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Irrlicht", "..\source\Irrlicht\Irrlicht11.0.vcxproj", "{E08E042A-6C45-411B-92BE-3CC31331019F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01.HelloWorld", "01.HelloWorld\HelloWorld_vc11.vcxproj", "{5AD4C95C-BA38-4692-BA4B-8C25A86208F9}"
@@ -148,6 +150,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "30.Profiling", "30.Profilin
 	ProjectSection(ProjectDependencies) = postProject
 		{E08E042A-6C45-411B-92BE-3CC31331019F} = {E08E042A-6C45-411B-92BE-3CC31331019F}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SynthFlow", "SynthFlow\SynthFlow_vc11.vcxproj", "{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -413,6 +417,14 @@ Global
 		{65D9DE2E-B73E-4ADF-96D1-BF4A8B7F4F97}.Release|Win32.Build.0 = Release|Win32
 		{65D9DE2E-B73E-4ADF-96D1-BF4A8B7F4F97}.Release|x64.ActiveCfg = Release|x64
 		{65D9DE2E-B73E-4ADF-96D1-BF4A8B7F4F97}.Release|x64.Build.0 = Release|x64
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Debug|Win32.Build.0 = Debug|Win32
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Debug|x64.ActiveCfg = Debug|x64
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Debug|x64.Build.0 = Debug|x64
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Release|Win32.ActiveCfg = Release|Win32
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Release|Win32.Build.0 = Release|Win32
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Release|x64.ActiveCfg = Release|x64
+		{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
