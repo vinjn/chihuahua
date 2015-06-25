@@ -42,14 +42,17 @@ int main()
 
     c8* meshFiles[] =
     {
-        "../../media/duck.fbx",
+        //"../../media/duck.fbx",
+        "../../media/Cockatoo/Cockatoo.FBX",
     };
 
     c8* texFiles[] =
     {
-        "../../media/rockwall.jpg",
         "../../media/Shanghai5.jpg",
+        "../../media/RGB_24bits_palette_R85.png",
+        "../../media/100-percent-ramp.jpg",
         "../../media/dwarf.jpg",
+        "../../media/Cockatoo/Cockatoo_D.png",
     };
 
     const float kCamDistZ = 40;
@@ -65,9 +68,10 @@ int main()
 
         IAnimatedMesh* mesh = getMeshFromAssimp(smgr, meshFiles[rand() % _countof(meshFiles)]);
         node = smgr->addAnimatedMeshSceneNode(mesh, emptyNode);
+        node->setFrameLoop(0, 0);
 
         core::aabbox3df bbox = node->getBoundingBox();
-        float newScale = kCamDistZ * 0.5f / bbox.getRadius();
+        float newScale = kCamDistZ * 0.6f / bbox.getRadius();
         node->setScale({ newScale, newScale, newScale });
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMaterialTexture(0, driver->getTexture(texFiles[rand() % _countof(texFiles)]));
@@ -85,7 +89,7 @@ int main()
     }
 
 #if 1
-    smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
+    smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 4), vector3df(0, 0, 0));
 #else
 	auto camera = smgr->addCameraSceneNodeFPS(0);
     camera->setPosition({ 0.0f, 0.0f, -kCamDistZ * 3 });
