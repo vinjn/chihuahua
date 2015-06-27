@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -67,80 +67,80 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SDL-Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='SDL-Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static lib - Release - Fast FPU|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static lib - Release - Fast FPU|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static lib - Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static lib - Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static lib - Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static lib - Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Fast FPU|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release - Fast FPU|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -1020,9 +1020,6 @@
     <ClInclude Include="..\assimp\code\ProcessHelper.h" />
     <ClInclude Include="..\assimp\code\ScenePreprocessor.h" />
     <ClInclude Include="..\assimp\code\TriangulateProcess.h" />
-    <ClInclude Include="..\assimp\code\XFileHelper.h" />
-    <ClInclude Include="..\assimp\code\XFileImporter.h" />
-    <ClInclude Include="..\assimp\code\XFileParser.h" />
     <ClInclude Include="..\assimp\contrib\ConvertUTF\ConvertUTF.h" />
     <ClInclude Include="..\assimp\IrrAssimpImport.h" />
     <ClInclude Include="CCgMaterialRenderer.h" />
@@ -1291,6 +1288,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt" />
+    <None Include="..\..\examples\FbxTest\FbxTest_vc11.vcxproj" />
     <None Include="..\..\readme.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -1298,8 +1296,6 @@
     <ClCompile Include="..\assimp\code\Assimp.cpp" />
     <ClCompile Include="..\assimp\code\BaseImporter.cpp" />
     <ClCompile Include="..\assimp\code\BaseProcess.cpp" />
-    <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
-    <ClCompile Include="..\assimp\code\ColladaParser.cpp" />
     <ClCompile Include="..\assimp\code\ConvertToLHProcess.cpp" />
     <ClCompile Include="..\assimp\code\DefaultIOStream.cpp" />
     <ClCompile Include="..\assimp\code\DefaultIOSystem.cpp" />
@@ -1323,7 +1319,6 @@
     <ClCompile Include="..\assimp\code\Importer.cpp" />
     <ClCompile Include="..\assimp\code\ImporterRegistry.cpp" />
     <ClCompile Include="..\assimp\code\MaterialSystem.cpp" />
-    <ClCompile Include="..\assimp\code\MS3DLoader.cpp" />
     <ClCompile Include="..\assimp\code\PostStepRegistry.cpp" />
     <ClCompile Include="..\assimp\code\ProcessHelper.cpp" />
     <ClCompile Include="..\assimp\code\ScenePreprocessor.cpp" />
@@ -1334,8 +1329,6 @@
     <ClCompile Include="..\assimp\code\ValidateDataStructure.cpp" />
     <ClCompile Include="..\assimp\code\Version.cpp" />
     <ClCompile Include="..\assimp\code\VertexTriangleAdjacency.cpp" />
-    <ClCompile Include="..\assimp\code\XFileImporter.cpp" />
-    <ClCompile Include="..\assimp\code\XFileParser.cpp" />
     <ClCompile Include="..\assimp\contrib\ConvertUTF\ConvertUTF.c" />
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
     <ClCompile Include="CCgMaterialRenderer.cpp" />

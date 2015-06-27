@@ -1425,15 +1425,6 @@
     <ClInclude Include="..\assimp\IrrAssimpImport.h">
       <Filter>assimp</Filter>
     </ClInclude>
-    <ClInclude Include="..\assimp\code\XFileHelper.h">
-      <Filter>assimp\importer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\assimp\code\XFileImporter.h">
-      <Filter>assimp\importer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\assimp\code\XFileParser.h">
-      <Filter>assimp\importer</Filter>
-    </ClInclude>
     <ClInclude Include="..\assimp\code\FBXCompileConfig.h">
       <Filter>assimp\importer\fbx</Filter>
     </ClInclude>
@@ -1472,6 +1463,7 @@
     <None Include="..\..\readme.txt">
       <Filter>doc</Filter>
     </None>
+    <None Include="..\..\examples\FbxTest\FbxTest_vc11.vcxproj" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDefaultSceneNodeAnimatorFactory.cpp">
@@ -2518,22 +2510,7 @@
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp">
       <Filter>assimp</Filter>
     </ClCompile>
-    <ClCompile Include="..\assimp\code\ColladaLoader.cpp">
-      <Filter>assimp\importer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assimp\code\ColladaParser.cpp">
-      <Filter>assimp\importer</Filter>
-    </ClCompile>
     <ClCompile Include="..\assimp\code\SkeletonMeshBuilder.cpp">
-      <Filter>assimp\importer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assimp\code\XFileImporter.cpp">
-      <Filter>assimp\importer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assimp\code\XFileParser.cpp">
-      <Filter>assimp\importer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assimp\code\MS3DLoader.cpp">
       <Filter>assimp\importer</Filter>
     </ClCompile>
     <ClCompile Include="..\assimp\code\FBXAnimation.cpp">

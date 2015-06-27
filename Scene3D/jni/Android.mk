@@ -25,7 +25,6 @@ LOCAL_SRC_FILES := \
 					$(SCENE3D_PATH)/CAndroidAssetFileArchive.cpp \
 					$(SCENE3D_PATH)/CAndroidAssetReader.cpp \
     				$(ASSIMP_PATH)/AssimpWrapper.cpp \
-    				$(ASSIMP_PATH)/AndroidJNIIOSystem.cpp \
     				$(ASSIMP_PATH)/code/Assimp.cpp \
     				$(ASSIMP_PATH)/code/BaseImporter.cpp \
     				$(ASSIMP_PATH)/code/BaseProcess.cpp \

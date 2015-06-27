@@ -13,6 +13,8 @@ irr::scene::IAnimatedMesh* getMesh(irr::scene::ISceneManager* smgr, IrrAssimpImp
         return msh;
 
     os::Printer::log("Loading mesh from Assimp", path, ELL_INFORMATION);
+
+    // TODO: replace with smgr->getFileSystem()->existFile(path)
     io::IReadFile* file = smgr->getFileSystem()->createAndOpenFile(path);
     if (!file)
     {
@@ -22,12 +24,16 @@ irr::scene::IAnimatedMesh* getMesh(irr::scene::ISceneManager* smgr, IrrAssimpImp
 
     msh = importer.loadMesh(path);
 
+    char info[256];
     if (msh)
     {
         s32 animCount = msh->getAnimationCount();
         for (s32 i = 0; i < animCount; i++)
         {
-            os::Printer::log("----animation", msh->getAnimationName(i), ELL_INFORMATION);
+            s32 begin, end, fps;
+            msh->getFrameLoop(i, begin, end, fps);
+            sprintf(info, "%s frames %d - %d fps: %d", msh->getAnimationName(i), begin, end, fps);
+            os::Printer::log("----animation", info, ELL_INFORMATION);
         }
         smgr->getMeshCache()->addMesh(path, msh);
         msh->drop();
@@ -57,14 +63,6 @@ bool isLoadable(irr::core::stringc path)
     irr::core::getFileNameExtension(extension, path);
     return importer.IsExtensionSupported(extension.c_str());
 }
-
-#ifdef __ANDROID__
-IRRLICHT_API void IRRCALLCONV setAssimpJNIAssetPath(const irr::io::path& path, struct AAssetManager* assetManager)
-{
-    IrrAssimpImport::sInternalDataPath = path;
-    IrrAssimpImport::sAssetManager = assetManager;
-}
-#endif
 
 IRRLICHT_API irr::scene::IAnimatedMesh* IRRCALLCONV getMeshFromAssimp(irr::scene::ISceneManager* smgr, const irr::io::path& path)
 {

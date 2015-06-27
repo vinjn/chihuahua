@@ -59,11 +59,6 @@ extern "C"
                 break;
             }
         }
-
-        // assimp filesystem
-        const char *internalDataPath = env->GetStringUTFChars(jInternalDataPath, JNI_FALSE);
-        setAssimpJNIAssetPath(internalDataPath, amgr);
-        env->ReleaseStringUTFChars(jInternalDataPath, internalDataPath);
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addPointLight(JNIEnv * env, jclass cls, jfloat radius)

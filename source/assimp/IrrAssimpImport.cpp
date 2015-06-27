@@ -2,25 +2,17 @@
 #include <iostream>
 #include "../Irrlicht/CSkinnedMesh.h"
 #include "../Irrlicht/os.h"
+#include "../code/DefaultIOSystem.h"
+#include "../code/MemoryIOWrapper.h"
 
 using namespace irr;
 
-#ifdef __ANDROID__
-    #include <android/native_activity.h>
-    #include "assimp/port/AndroidJNI/AndroidJNIIOSystem.h"
-
-    irr::core::stringc IrrAssimpImport::sInternalDataPath;
-    AAssetManager* IrrAssimpImport::sAssetManager;
-#endif
-
 IrrAssimpImport::IrrAssimpImport(irr::scene::ISceneManager* smgr) : Smgr(smgr), FileSystem(smgr->getFileSystem())
 {
-    //ctor
 }
 
 IrrAssimpImport::~IrrAssimpImport()
 {
-    //dtor
 }
 
 void Log(core::vector3df vect)
@@ -154,13 +146,42 @@ video::ITexture* IrrAssimpImport::getTexture(core::stringc path, core::stringc f
     // TODO after 1.9 release : Rewrite this with IMeshTextureLoader
 }
 
+struct IrrlichtIOSystem : public Assimp::DefaultIOSystem
+{
+    IrrlichtIOSystem(io::IFileSystem* fs) : mFileSystem(fs)
+    {
+
+    }
+
+    bool Exists(const char* pFile) const
+    {
+        return mFileSystem->existFile(pFile);
+    }
+
+    Assimp::IOStream* Open(const char* strFile, const char* strMode)
+    {
+        io::IReadFile* file = mFileSystem->createAndOpenFile(strFile);
+        if (!file)
+        {
+            return NULL;
+        }
+
+        size_t len = file->getSize();
+        uint8_t* buff = new uint8_t[len];
+        file->read(buff, len);
+        file->drop();
+
+        bool deleteBuffInIOStream = true;
+        return new Assimp::MemoryIOStream(buff, len, deleteBuffInIOStream);
+    }
+
+    io::IFileSystem* mFileSystem;
+};
+
 irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
 {
     Assimp::Importer Importer;
-#ifdef __ANDROID__
-    Assimp::AndroidJNIIOSystem* ioSystem = new Assimp::AndroidJNIIOSystem(sInternalDataPath.c_str(), sAssetManager);
-    Importer.SetIOHandler(ioSystem);  
-#endif
+    Importer.SetIOHandler(new IrrlichtIOSystem(FileSystem));
 
     const aiScene* pScene = Importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 
