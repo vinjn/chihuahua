@@ -63,15 +63,6 @@ LOCAL_SRC_FILES := \
     				$(ASSIMP_PATH)/code/VertexTriangleAdjacency.cpp \
     				$(ASSIMP_PATH)/contrib/ConvertUTF/ConvertUTF.c \
     				$(ASSIMP_PATH)/IrrAssimpImport.cpp \
-					aesGladman/aescrypt.cpp \
-					aesGladman/aeskey.cpp \
-					aesGladman/aestab.cpp \
-					aesGladman/fileenc.cpp \
-					aesGladman/hmac.cpp \
-					aesGladman/prng.cpp \
-					aesGladman/pwd2key.cpp \
-					aesGladman/sha1.cpp \
-					aesGladman/sha2.cpp \
 					C3DSMeshFileLoader.cpp \
 					CAnimatedMeshHalfLife.cpp \
 					CAnimatedMeshMD2.cpp \
@@ -236,13 +227,6 @@ LOCAL_SRC_FILES := \
 					Irrlicht.cpp \
 					irrXML.cpp \
 					os.cpp	 \
-					bzip2/blocksort.c \
-					bzip2/bzcompress.c \
-					bzip2/bzlib.c \
-					bzip2/crctable.c \
-					bzip2/decompress.c \
-					bzip2/huffman.c \
-					bzip2/randtable.c \
 					jpeglib/jaricom.c \
 					jpeglib/jcapimin.c \
 					jpeglib/jcapistd.c \
@@ -303,11 +287,8 @@ LOCAL_SRC_FILES := \
 					libpng/pngwio.c \
 					libpng/pngwrite.c \
 					libpng/pngwtran.c \
-					libpng/pngwutil.c \
-					lzma/LzmaDec.c \
-zlib/adler32.c   zlib/crc32.c    zlib/gzclose.c  zlib/gzread.c   zlib/infback.c  zlib/inflate.c   zlib/trees.c    zlib/zutil.c\
-zlib/compress.c  zlib/deflate.c  zlib/gzlib.c    zlib/gzwrite.c  zlib/inffast.c  zlib/inftrees.c  zlib/uncompr.c
+					libpng/pngwutil.c
 
-LOCAL_LDLIBS     := -llog -lGLESv1_CM -lGLESv2 -lEGL -landroid
+LOCAL_LDLIBS     := -llog -lGLESv2 -lEGL -landroid -lz
 
 include $(BUILD_SHARED_LIBRARY)

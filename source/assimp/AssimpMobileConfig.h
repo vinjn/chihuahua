@@ -1,6 +1,8 @@
 #ifndef _ASSIMP_MOBILE_CONFIG_
 #define _ASSIMP_MOBILE_CONFIG_
 
+#define ASSIMP_BUILD_NO_OWN_ZLIB
+
 // ImporterRegistry.cpp
 #define ASSIMP_BUILD_NO_X_IMPORTER
 #define ASSIMP_BUILD_NO_3DS_IMPORTER
