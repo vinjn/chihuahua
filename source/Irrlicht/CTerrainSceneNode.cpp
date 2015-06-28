@@ -6,7 +6,7 @@
 // developed by Spintz. He made it available for Irrlicht and allowed it to be
 // distributed under this licence. I only modified some parts. A lot of thanks
 // go to him.
-#include "MobileCompileConfig.h"
+#include "../../include/MobileCompileConfig.h"
 #ifndef NO_IRR_COMPILE_WITH_TERRAIN_NODE_
 
 #include "CTerrainSceneNode.h"

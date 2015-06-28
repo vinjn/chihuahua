@@ -190,6 +190,10 @@ public:
 };
 #endif
 
+IVideoDriver* driver;
+ISceneManager* smgr;
+IGUIEnvironment* guienv;
+
 IrrlichtDevice *startup()
 {
 	// create device
@@ -217,9 +221,9 @@ IrrlichtDevice *startup()
 	if (!device)
 		return 0;
 
-	IVideoDriver* driver = device->getVideoDriver();
-	ISceneManager* smgr = device->getSceneManager();
-	IGUIEnvironment* guienv = device->getGUIEnvironment();
+	driver = device->getVideoDriver();
+	smgr = device->getSceneManager();
+	guienv = device->getGUIEnvironment();
     
 #if defined(_IRR_IPHONE_PLATFORM_)
     	stringc mediaPath = "media/";
@@ -239,18 +243,20 @@ IrrlichtDevice *startup()
 	}
 #endif
 
-	IGUIStaticText *text = guienv->addStaticText(L"FPS: 25",
-		rect<s32>(140,15,200,30), false, false, 0, 100 );
-
-
-#if !defined(_IRR_IPHONE_PLATFORM_) 
-    // programmable quit button isn't allowed on iOS.
-	guienv->addButton(core::rect<int>(200,10,238,30), 0, 2, L"Quit");
+    if (guienv)
+    {
+        IGUIStaticText *text = guienv->addStaticText(L"FPS: 25",
+                                                     rect<s32>(140,15,200,30), false, false, 0, 100 );
+        
+#if !defined(_IRR_IPHONE_PLATFORM_)
+        // programmable quit button isn't allowed on iOS.
+        guienv->addButton(core::rect<int>(200,10,238,30), 0, 2, L"Quit");
 #endif
-
-	// add irrlicht logo
-	guienv->addImage(driver->getTexture(mediaPath + "irrlichtlogo3.png"),
-					core::position2d<s32>(0,-2));
+        
+        // add irrlicht logo
+        guienv->addImage(driver->getTexture(mediaPath + "irrlichtlogo3.png"),
+                         core::position2d<s32>(0,-2));
+    }
 	return device;
 }
 
@@ -273,18 +279,22 @@ int run ( IrrlichtDevice *device )
 	{
 		device->getVideoDriver()->beginScene(true, true, SColor(0,100,100,100));
 		device->getSceneManager()->drawAll();
-		device->getGUIEnvironment()->drawAll();
+        
+        if (guienv)
+        {
+            guienv->drawAll();
+            IGUIElement *stat = guienv->getRootGUIElement()->getElementFromId ( 100 );
+            if ( stat )
+            {
+                stringw str = L"FPS: ";
+                str += (s32)device->getVideoDriver()->getFPS();
+                
+                stat->setText ( str.c_str() );
+            }
+
+        }
 		device->getVideoDriver()->endScene ();
 
-		IGUIElement *stat = device->getGUIEnvironment()->
-			getRootGUIElement()->getElementFromId ( 100 );
-		if ( stat )
-		{
-			stringw str = L"FPS: ";
-			str += (s32)device->getVideoDriver()->getFPS();
-
-			stat->setText ( str.c_str() );
-		}
 	}
 
 #ifndef _IRR_IPHONE_PLATFORM_
@@ -506,7 +516,7 @@ int example_helloworld()
     	stringc mediaPath = "../../media/";
 #endif
 
-	IAnimatedMesh* mesh = smgr->getMesh(mediaPath + "sydney.md2");
+	IAnimatedMesh* mesh = smgr->getMesh(mediaPath + "metaioman.md2");
 
 	if (!mesh)
 	{
@@ -531,8 +541,8 @@ int example_helloworld()
 	if (node)
 	{
 		node->setMaterialFlag(EMF_LIGHTING, false);
-		node->setMD2Animation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "sydney.bmp") );
+		node->setAnimation(scene::EMAT_STAND);
+		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "metaioman.png") );
 	}
 
 	/*

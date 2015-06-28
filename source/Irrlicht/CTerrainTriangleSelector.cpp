@@ -1,7 +1,7 @@
 // Copyright (C) 2002-2012 Nikolaus Gebhardt
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
-#include "MobileCompileConfig.h"
+#include "../../include/MobileCompileConfig.h"
 #ifndef NO_IRR_COMPILE_WITH_TERRAIN_NODE_
 
 #include "CTerrainTriangleSelector.h"
