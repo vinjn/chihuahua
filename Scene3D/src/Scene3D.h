@@ -1,11 +1,8 @@
 #pragma once
 
-#include <GLES/gl.h>
-#include <GLES2/gl2.h>
 #include "irrlicht.h"
 #include "os.h"
 #include "CLogger.h"
-#include "FullScreenSceneNode.h"
 #include "AssimpWrapper.h"
 
 using namespace irr;
@@ -20,13 +17,8 @@ namespace irr
 {
 namespace video
 {
-IVideoDriver* createOGLES1Driver(const SIrrlichtCreationParameters& params,
-                                 io::IFileSystem* io, video::IContextManager* contextManager);
-
 IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
                                  io::IFileSystem* io, video::IContextManager* contextManager);
-
-IVideoDriver* createNullDriver(io::IFileSystem* io, const dimension2d<u32>& screenSize);
 
 IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileSystem* filesystem)
 {
@@ -35,13 +27,6 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
 
     switch (params.DriverType)
     {
-    case video::EDT_OGLES1:
-#ifdef _IRR_COMPILE_WITH_OGLES1_
-        videoDriver = video::createOGLES1Driver(params, filesystem, contextManager);
-#else
-        print("No OpenGL ES 1.0 support compiled in.", ELL_ERROR);
-#endif
-        break;
     case video::EDT_OGLES2:
 #ifdef _IRR_COMPILE_WITH_OGLES2_
         videoDriver = video::createOGLES2Driver(params, filesystem, contextManager);
@@ -49,18 +34,8 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
         print("No OpenGL ES 2.0 support compiled in.", ELL_ERROR);
 #endif
         break;
-    case video::EDT_NULL:
-        videoDriver = video::createNullDriver(filesystem, params.WindowSize);
-        break;
-    case video::EDT_SOFTWARE:
-    case video::EDT_BURNINGSVIDEO:
-    case video::EDT_OPENGL:
-    case video::EDT_DIRECT3D8:
-    case video::EDT_DIRECT3D9:
-        print("This driver is not available. Try OpenGL ES 1.0 or ES 2.0.", ELL_ERROR);
-        break;
     default:
-        print("Unable to create video driver of unknown type.", ELL_ERROR);
+        print("This driver is not available. Try OpenGL ES 1.0 or ES 2.0.", ELL_ERROR);
         break;
     }
     return videoDriver;

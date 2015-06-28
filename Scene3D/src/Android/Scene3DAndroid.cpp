@@ -1,7 +1,6 @@
 // Wrapper of Scene3D.h for Android JNI
 #include <jni.h>
 #include <android/log.h>
-#include <GLES/gl.h>
 #include <GLES2/gl2.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
