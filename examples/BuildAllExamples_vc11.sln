@@ -155,6 +155,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SynthFlow", "SynthFlow\Synt
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxTest", "FbxTest\FbxTest_vc11.vcxproj", "{CB2AE636-7126-46AB-A56F-4AAD804C745B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlaneTest", "PlaneTest\PlaneTest.vcxproj", "{3112FD12-1FDA-426F-87FF-2FB0DD55912B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -435,6 +437,14 @@ Global
 		{CB2AE636-7126-46AB-A56F-4AAD804C745B}.Release|Win32.Build.0 = Release|Win32
 		{CB2AE636-7126-46AB-A56F-4AAD804C745B}.Release|x64.ActiveCfg = Release|x64
 		{CB2AE636-7126-46AB-A56F-4AAD804C745B}.Release|x64.Build.0 = Release|x64
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Debug|Win32.Build.0 = Debug|Win32
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Debug|x64.ActiveCfg = Debug|x64
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Debug|x64.Build.0 = Debug|x64
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Release|Win32.ActiveCfg = Release|Win32
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Release|Win32.Build.0 = Release|Win32
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Release|x64.ActiveCfg = Release|x64
+		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

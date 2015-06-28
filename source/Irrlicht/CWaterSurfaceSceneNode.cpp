@@ -1,6 +1,8 @@
 // Copyright (C) 2002-2012 Nikolaus Gebhardt
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
+#include "MobileCompileConfig.h"
+#ifndef NO_IRR_COMPILE_WITH_WATER_SURFACE_NODE_
 
 #include "CWaterSurfaceSceneNode.h"
 #include "ISceneManager.h"
@@ -135,3 +137,4 @@ f32 CWaterSurfaceSceneNode::addWave(const core::vector3df &source, f32 time) con
 } // end namespace scene
 } // end namespace irr
 
+#endif

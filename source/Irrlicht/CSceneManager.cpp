@@ -573,6 +573,10 @@ IVolumeLightSceneNode* CSceneManager::addVolumeLightSceneNode(
 		const video::SColor foot, const video::SColor tail,
 		const core::vector3df& position, const core::vector3df& rotation, const core::vector3df& scale)
 {
+#ifdef NO_IRR_COMPILE_WITH_VOLUME_LIGHT_NODE_
+	os::Printer::log("Volume light scene node is disabled.", ELL_ERROR);
+	return NULL;
+#else
 	if (!parent)
 		parent = this;
 
@@ -580,6 +584,7 @@ IVolumeLightSceneNode* CSceneManager::addVolumeLightSceneNode(
 	node->drop();
 
 	return node;
+#endif
 }
 
 
@@ -638,6 +643,10 @@ ISceneNode* CSceneManager::addWaterSurfaceSceneNode(IMesh* mesh, f32 waveHeight,
 	ISceneNode* parent, s32 id, const core::vector3df& position,
 	const core::vector3df& rotation, const core::vector3df& scale)
 {
+#ifdef NO_IRR_COMPILE_WITH_WATER_SURFACE_NODE_
+	os::Printer::log("Water scene node is disabled.", ELL_ERROR);
+	return NULL;
+#else	
 	if (!parent)
 		parent = this;
 
@@ -647,6 +656,7 @@ ISceneNode* CSceneManager::addWaterSurfaceSceneNode(IMesh* mesh, f32 waveHeight,
 	node->drop();
 
 	return node;
+#endif
 }
 
 
@@ -690,10 +700,10 @@ IMeshSceneNode* CSceneManager::addOctreeSceneNode(IAnimatedMesh* mesh, ISceneNod
 IMeshSceneNode* CSceneManager::addOctreeSceneNode(IMesh* mesh, ISceneNode* parent,
 		s32 id, s32 minimalPolysPerNode, bool alsoAddIfMeshPointerZero)
 {
-#ifdef NO_IRR_COMPILE_WITH_TERRAIN_NODE_
+#ifdef NO_IRR_COMPILE_WITH_OCTREE_NODE_
 	os::Printer::log("Octree scene node is disabled.", ELL_ERROR);
 	return NULL;
-#else	
+#else
 	if (!alsoAddIfMeshPointerZero && !mesh)
 		return 0;
 
@@ -824,6 +834,10 @@ ISceneNode* CSceneManager::addSkyBoxSceneNode(video::ITexture* top, video::IText
 	video::ITexture* left, video::ITexture* right, video::ITexture* front,
 	video::ITexture* back, ISceneNode* parent, s32 id)
 {
+#ifdef NO_IRR_COMPILE_WITH_SKY_DOME_NODE_
+	os::Printer::log("Sky dome scene node is disabled.", ELL_ERROR);
+	return NULL;
+#else
 	if (!parent)
 		parent = this;
 
@@ -832,6 +846,7 @@ ISceneNode* CSceneManager::addSkyBoxSceneNode(video::ITexture* top, video::IText
 
 	node->drop();
 	return node;
+#endif
 }
 
 
@@ -841,6 +856,10 @@ ISceneNode* CSceneManager::addSkyDomeSceneNode(video::ITexture* texture,
 	u32 horiRes, u32 vertRes, f32 texturePercentage,f32 spherePercentage, f32 radius,
 	ISceneNode* parent, s32 id)
 {
+#ifdef NO_IRR_COMPILE_WITH_SKY_BOX_NODE_
+	os::Printer::log("Sky box scene node is disabled.", ELL_ERROR);
+	return NULL;
+#else	
 	if (!parent)
 		parent = this;
 
@@ -849,6 +868,7 @@ ISceneNode* CSceneManager::addSkyDomeSceneNode(video::ITexture* texture,
 
 	node->drop();
 	return node;
+#endif
 }
 
 
