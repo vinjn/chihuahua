@@ -4,6 +4,7 @@
 #include "os.h"
 #include "CLogger.h"
 #include "AssimpWrapper.h"
+#include "FullScreenSceneNode.h"
 
 using namespace irr;
 using namespace core;

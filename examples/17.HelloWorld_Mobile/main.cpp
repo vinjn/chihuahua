@@ -6,12 +6,14 @@
 */
 
 #include <irrlicht.h>
+#include <AssimpWrapper.h>
 
 #ifdef _IRR_WINDOWS_
 	#include <windows.h>
 #elif defined(_IRR_IPHONE_PLATFORM_)
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
+    #include "Scene3DiOS.h"
 #endif
 
 using namespace irr;
@@ -190,8 +192,8 @@ public:
 };
 #endif
 
-IVideoDriver* driver;
-ISceneManager* smgr;
+//IVideoDriver* driver;
+//ISceneManager* smgr;
 IGUIEnvironment* guienv;
 
 IrrlichtDevice *startup()
@@ -325,7 +327,7 @@ int example_customscenenode()
 	IGUIEnvironment* guienv = device->getGUIEnvironment();
 
 
-	smgr->addCameraSceneNode(0, vector3df(0,-40,0), vector3df(0,0,0));
+	smgr->addCameraSceneNode(0, vector3df(0,-400,0), vector3df(0,0,0));
 
 	CSampleSceneNode *myNode = 
 		new CSampleSceneNode(smgr->getRootSceneNode(), smgr, 666);
@@ -516,7 +518,8 @@ int example_helloworld()
     	stringc mediaPath = "../../media/";
 #endif
 
-	IAnimatedMesh* mesh = smgr->getMesh(mediaPath + "metaioman.md2");
+    
+	IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "Cockatoo/Cockatoo.FBX");
 
 	if (!mesh)
 	{
@@ -542,7 +545,7 @@ int example_helloworld()
 	{
 		node->setMaterialFlag(EMF_LIGHTING, false);
 		node->setAnimation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "metaioman.png") );
+		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "Cockatoo/Cockatoo_D.png") );
 	}
 
 	/*
@@ -550,7 +553,7 @@ int example_helloworld()
 	(0, 30, -40). The camera looks from there to (0,5,0), which is
 	approximately the place where our md2 model is.
 	*/
-	smgr->addCameraSceneNode(0, vector3df(0,30,-40), vector3df(0,5,0));
+	smgr->addCameraSceneNode(0, vector3df(0,30,-200), vector3df(0,5,0));
 
 #ifdef _IRR_IPHONE_PLATFORM_
     	return device;

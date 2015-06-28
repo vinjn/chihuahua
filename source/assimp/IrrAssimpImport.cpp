@@ -2,8 +2,8 @@
 #include <iostream>
 #include "../Irrlicht/CSkinnedMesh.h"
 #include "../Irrlicht/os.h"
-#include "../code/DefaultIOSystem.h"
-#include "../code/MemoryIOWrapper.h"
+#include "code/DefaultIOSystem.h"
+#include "code/MemoryIOWrapper.h"
 
 using namespace irr;
 

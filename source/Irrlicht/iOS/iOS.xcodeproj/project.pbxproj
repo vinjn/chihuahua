@@ -367,6 +367,64 @@
 		5ED2488817317FFC00A13B86 /* Interface_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488617317FFC00A13B86 /* Interface_iPad.xib */; };
 		5ED2488917317FFC00A13B86 /* Interface_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488717317FFC00A13B86 /* Interface_iPhone.xib */; };
 		5EEAE050171DF3C700C7BC68 /* leakHunter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */; };
+		7495CED61B402E690083A25C /* IrrAssimpImport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CED41B402E690083A25C /* IrrAssimpImport.cpp */; };
+		7495CF8F1B4038270083A25C /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8D1B4038270083A25C /* ConvertUTF.c */; };
+		7495CF901B4038270083A25C /* ConvertUTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 7495CF8E1B4038270083A25C /* ConvertUTF.h */; };
+		7495CF921B403A5B0083A25C /* ConvertToLHProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF911B403A5B0083A25C /* ConvertToLHProcess.cpp */; };
+		7495CF931B403B010083A25C /* DefaultIOStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF581B40380D0083A25C /* DefaultIOStream.cpp */; };
+		7495CF941B403B010083A25C /* DefaultIOStream.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF591B40380D0083A25C /* DefaultIOStream.h */; };
+		7495CF951B403B010083A25C /* DefaultIOSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF5A1B40380D0083A25C /* DefaultIOSystem.cpp */; };
+		7495CF961B403B010083A25C /* DefaultIOSystem.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF5B1B40380D0083A25C /* DefaultIOSystem.h */; };
+		7495CF971B403B010083A25C /* DefaultLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF5C1B40380D0083A25C /* DefaultLogger.cpp */; };
+		7495CF981B403B010083A25C /* DefaultProgressHandler.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF5D1B40380D0083A25C /* DefaultProgressHandler.h */; };
+		7495CF991B403B010083A25C /* GenVertexNormalsProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF5E1B40380D0083A25C /* GenVertexNormalsProcess.cpp */; };
+		7495CF9A1B403B010083A25C /* GenVertexNormalsProcess.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF5F1B40380D0083A25C /* GenVertexNormalsProcess.h */; };
+		7495CF9B1B403B010083A25C /* ConvertUTF.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8B1B40381D0083A25C /* ConvertUTF.h */; };
+		7495CF9C1B403B010083A25C /* Importer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF601B40380D0083A25C /* Importer.cpp */; };
+		7495CF9D1B403B010083A25C /* ConvertUTF.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8E1B4038270083A25C /* ConvertUTF.h */; };
+		7495CF9E1B403B010083A25C /* Importer.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF611B40380D0083A25C /* Importer.h */; };
+		7495CF9F1B403B010083A25C /* ImporterRegistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF621B40380D0083A25C /* ImporterRegistry.cpp */; };
+		7495CFA01B403B010083A25C /* MaterialSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF631B40380D0083A25C /* MaterialSystem.cpp */; };
+		7495CFA11B403B010083A25C /* MaterialSystem.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF641B40380D0083A25C /* MaterialSystem.h */; };
+		7495CFA21B403B010083A25C /* PostStepRegistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF651B40380D0083A25C /* PostStepRegistry.cpp */; };
+		7495CFA31B403B010083A25C /* ProcessHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF661B40380D0083A25C /* ProcessHelper.cpp */; };
+		7495CFA41B403B010083A25C /* ProcessHelper.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF671B40380D0083A25C /* ProcessHelper.h */; };
+		7495CFA51B403B010083A25C /* ScenePreprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF681B40380D0083A25C /* ScenePreprocessor.cpp */; };
+		7495CFA61B403B010083A25C /* ScenePreprocessor.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF691B40380D0083A25C /* ScenePreprocessor.h */; };
+		7495CFA71B403B010083A25C /* SGSpatialSort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF6A1B40380D0083A25C /* SGSpatialSort.cpp */; };
+		7495CFA81B403B010083A25C /* SGSpatialSort.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF6B1B40380D0083A25C /* SGSpatialSort.h */; };
+		7495CFA91B403B010083A25C /* SkeletonMeshBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF6C1B40380D0083A25C /* SkeletonMeshBuilder.cpp */; };
+		7495CFAA1B403B010083A25C /* SkeletonMeshBuilder.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF6D1B40380D0083A25C /* SkeletonMeshBuilder.h */; };
+		7495CFAB1B403B010083A25C /* SpatialSort.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF6E1B40380D0083A25C /* SpatialSort.cpp */; };
+		7495CFAC1B403B010083A25C /* SpatialSort.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF6F1B40380D0083A25C /* SpatialSort.h */; };
+		7495CFAD1B403B010083A25C /* TriangulateProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF701B40380D0083A25C /* TriangulateProcess.cpp */; };
+		7495CFAE1B403B010083A25C /* TriangulateProcess.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF711B40380D0083A25C /* TriangulateProcess.h */; };
+		7495CFAF1B403B010083A25C /* ValidateDataStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF721B40380D0083A25C /* ValidateDataStructure.cpp */; };
+		7495CFB01B403B010083A25C /* ValidateDataStructure.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF731B40380D0083A25C /* ValidateDataStructure.h */; };
+		7495CFB11B403B010083A25C /* Version.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF741B40380D0083A25C /* Version.cpp */; };
+		7495CFB21B403B010083A25C /* Vertex.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF751B40380D0083A25C /* Vertex.h */; };
+		7495CFB31B403B010083A25C /* VertexTriangleAdjacency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF761B40380D0083A25C /* VertexTriangleAdjacency.cpp */; };
+		7495CFB41B403B010083A25C /* VertexTriangleAdjacency.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF771B40380D0083A25C /* VertexTriangleAdjacency.h */; };
+		7495CFB51B403B010083A25C /* BaseImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF341B4037570083A25C /* BaseImporter.cpp */; };
+		7495CFB61B403B010083A25C /* BaseProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF351B4037570083A25C /* BaseProcess.cpp */; };
+		7495CFB71B403B010083A25C /* FBXAnimation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF361B4037570083A25C /* FBXAnimation.cpp */; };
+		7495CFB81B403B010083A25C /* FBXBinaryTokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF371B4037570083A25C /* FBXBinaryTokenizer.cpp */; };
+		7495CFB91B403B010083A25C /* FBXConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF381B4037570083A25C /* FBXConverter.cpp */; };
+		7495CFBA1B403B010083A25C /* FBXDeformer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF391B4037570083A25C /* FBXDeformer.cpp */; };
+		7495CFBB1B403B010083A25C /* FBXDocument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF3A1B4037570083A25C /* FBXDocument.cpp */; };
+		7495CFBC1B403B010083A25C /* FBXDocumentUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF3B1B4037570083A25C /* FBXDocumentUtil.cpp */; };
+		7495CFBD1B403B010083A25C /* FBXImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF3C1B4037570083A25C /* FBXImporter.cpp */; };
+		7495CFBE1B403B010083A25C /* FBXMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF3D1B4037570083A25C /* FBXMaterial.cpp */; };
+		7495CFBF1B403B010083A25C /* FBXMeshGeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF3E1B4037570083A25C /* FBXMeshGeometry.cpp */; };
+		7495CFC01B403B010083A25C /* FBXModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF3F1B4037570083A25C /* FBXModel.cpp */; };
+		7495CFC11B403B010083A25C /* FBXNodeAttribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF401B4037570083A25C /* FBXNodeAttribute.cpp */; };
+		7495CFC21B403B010083A25C /* FBXParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF411B4037570083A25C /* FBXParser.cpp */; };
+		7495CFC31B403B010083A25C /* FBXProperties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF421B4037570083A25C /* FBXProperties.cpp */; };
+		7495CFC41B403B010083A25C /* FBXTokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF431B4037570083A25C /* FBXTokenizer.cpp */; };
+		7495CFC51B403B010083A25C /* FBXTokenizer.h in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF441B4037570083A25C /* FBXTokenizer.h */; };
+		7495CFC61B403B010083A25C /* FBXUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF451B4037570083A25C /* FBXUtil.cpp */; };
+		7495CFC71B403B010083A25C /* Assimp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF321B4036EF0083A25C /* Assimp.cpp */; };
+		7495CFC81B403B010083A25C /* AssimpWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF101B402E900083A25C /* AssimpWrapper.cpp */; };
 		74F362391B21D742000309FC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74F362381B21D742000309FC /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -1173,6 +1231,111 @@
 		5EEAE04A171DF38900C7BC68 /* irrunpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = irrunpack.h; path = ../../../include/irrunpack.h; sourceTree = "<group>"; };
 		5EEAE04B171DF38900C7BC68 /* leakHunter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = leakHunter.h; path = ../../../include/leakHunter.h; sourceTree = "<group>"; };
 		5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = leakHunter.cpp; path = ../leakHunter.cpp; sourceTree = "<group>"; };
+		7495CECD1B402A700083A25C /* Scene3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene3D.h; path = ../../../Scene3D/src/Scene3D.h; sourceTree = "<group>"; };
+		7495CECF1B402A780083A25C /* Scene3DiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene3DiOS.h; path = ../../../Scene3D/src/iOS/Scene3DiOS.h; sourceTree = "<group>"; };
+		7495CED41B402E690083A25C /* IrrAssimpImport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IrrAssimpImport.cpp; path = ../../assimp/IrrAssimpImport.cpp; sourceTree = "<group>"; };
+		7495CED51B402E690083A25C /* IrrAssimpImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IrrAssimpImport.h; path = ../../assimp/IrrAssimpImport.h; sourceTree = "<group>"; };
+		7495CEDA1B402E7A0083A25C /* ai_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ai_assert.h; sourceTree = "<group>"; };
+		7495CEDB1B402E7A0083A25C /* anim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = anim.h; sourceTree = "<group>"; };
+		7495CEDC1B402E7A0083A25C /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		7495CEDD1B402E7A0083A25C /* cexport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cexport.h; sourceTree = "<group>"; };
+		7495CEDE1B402E7A0083A25C /* cfileio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfileio.h; sourceTree = "<group>"; };
+		7495CEDF1B402E7A0083A25C /* cimport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cimport.h; sourceTree = "<group>"; };
+		7495CEE01B402E7A0083A25C /* color4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color4.h; sourceTree = "<group>"; };
+		7495CEE11B402E7A0083A25C /* color4.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = color4.inl; sourceTree = "<group>"; };
+		7495CEE31B402E7A0083A25C /* poppack1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = poppack1.h; sourceTree = "<group>"; };
+		7495CEE41B402E7A0083A25C /* pstdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pstdint.h; sourceTree = "<group>"; };
+		7495CEE51B402E7A0083A25C /* pushpack1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pushpack1.h; sourceTree = "<group>"; };
+		7495CEE61B402E7A0083A25C /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		7495CEE71B402E7A0083A25C /* DefaultLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DefaultLogger.hpp; sourceTree = "<group>"; };
+		7495CEE81B402E7A0083A25C /* defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defs.h; sourceTree = "<group>"; };
+		7495CEE91B402E7A0083A25C /* Exporter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Exporter.hpp; sourceTree = "<group>"; };
+		7495CEEA1B402E7A0083A25C /* Importer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Importer.hpp; sourceTree = "<group>"; };
+		7495CEEB1B402E7A0083A25C /* importerdesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = importerdesc.h; sourceTree = "<group>"; };
+		7495CEEC1B402E7A0083A25C /* IOStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IOStream.hpp; sourceTree = "<group>"; };
+		7495CEED1B402E7A0083A25C /* IOSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = IOSystem.hpp; sourceTree = "<group>"; };
+		7495CEEE1B402E7A0083A25C /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = light.h; sourceTree = "<group>"; };
+		7495CEEF1B402E7A0083A25C /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Logger.hpp; sourceTree = "<group>"; };
+		7495CEF01B402E7A0083A25C /* LogStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LogStream.hpp; sourceTree = "<group>"; };
+		7495CEF11B402E7A0083A25C /* material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
+		7495CEF21B402E7A0083A25C /* material.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = material.inl; sourceTree = "<group>"; };
+		7495CEF31B402E7A0083A25C /* matrix3x3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix3x3.h; sourceTree = "<group>"; };
+		7495CEF41B402E7A0083A25C /* matrix3x3.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix3x3.inl; sourceTree = "<group>"; };
+		7495CEF51B402E7A0083A25C /* matrix4x4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix4x4.h; sourceTree = "<group>"; };
+		7495CEF61B402E7A0083A25C /* matrix4x4.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix4x4.inl; sourceTree = "<group>"; };
+		7495CEF71B402E7A0083A25C /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		7495CEF81B402E7A0083A25C /* metadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metadata.h; sourceTree = "<group>"; };
+		7495CEF91B402E7A0083A25C /* NullLogger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NullLogger.hpp; sourceTree = "<group>"; };
+		7495CEFC1B402E7A0083A25C /* AndroidJNIIOSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AndroidJNIIOSystem.h; sourceTree = "<group>"; };
+		7495CEFD1B402E7A0083A25C /* postprocess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocess.h; sourceTree = "<group>"; };
+		7495CEFE1B402E7A0083A25C /* ProgressHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ProgressHandler.hpp; sourceTree = "<group>"; };
+		7495CEFF1B402E7A0083A25C /* quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = quaternion.h; sourceTree = "<group>"; };
+		7495CF001B402E7A0083A25C /* quaternion.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quaternion.inl; sourceTree = "<group>"; };
+		7495CF011B402E7A0083A25C /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
+		7495CF021B402E7A0083A25C /* texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = texture.h; sourceTree = "<group>"; };
+		7495CF031B402E7A0083A25C /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		7495CF041B402E7A0083A25C /* vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2.h; sourceTree = "<group>"; };
+		7495CF051B402E7A0083A25C /* vector2.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vector2.inl; sourceTree = "<group>"; };
+		7495CF061B402E7A0083A25C /* vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector3.h; sourceTree = "<group>"; };
+		7495CF071B402E7A0083A25C /* vector3.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vector3.inl; sourceTree = "<group>"; };
+		7495CF081B402E7A0083A25C /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		7495CF101B402E900083A25C /* AssimpWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssimpWrapper.cpp; path = ../../assimp/AssimpWrapper.cpp; sourceTree = "<group>"; };
+		7495CF321B4036EF0083A25C /* Assimp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Assimp.cpp; path = ../../assimp/code/Assimp.cpp; sourceTree = "<group>"; };
+		7495CF341B4037570083A25C /* BaseImporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseImporter.cpp; path = ../../assimp/code/BaseImporter.cpp; sourceTree = "<group>"; };
+		7495CF351B4037570083A25C /* BaseProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseProcess.cpp; path = ../../assimp/code/BaseProcess.cpp; sourceTree = "<group>"; };
+		7495CF361B4037570083A25C /* FBXAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXAnimation.cpp; path = ../../assimp/code/FBXAnimation.cpp; sourceTree = "<group>"; };
+		7495CF371B4037570083A25C /* FBXBinaryTokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXBinaryTokenizer.cpp; path = ../../assimp/code/FBXBinaryTokenizer.cpp; sourceTree = "<group>"; };
+		7495CF381B4037570083A25C /* FBXConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXConverter.cpp; path = ../../assimp/code/FBXConverter.cpp; sourceTree = "<group>"; };
+		7495CF391B4037570083A25C /* FBXDeformer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXDeformer.cpp; path = ../../assimp/code/FBXDeformer.cpp; sourceTree = "<group>"; };
+		7495CF3A1B4037570083A25C /* FBXDocument.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXDocument.cpp; path = ../../assimp/code/FBXDocument.cpp; sourceTree = "<group>"; };
+		7495CF3B1B4037570083A25C /* FBXDocumentUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXDocumentUtil.cpp; path = ../../assimp/code/FBXDocumentUtil.cpp; sourceTree = "<group>"; };
+		7495CF3C1B4037570083A25C /* FBXImporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXImporter.cpp; path = ../../assimp/code/FBXImporter.cpp; sourceTree = "<group>"; };
+		7495CF3D1B4037570083A25C /* FBXMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXMaterial.cpp; path = ../../assimp/code/FBXMaterial.cpp; sourceTree = "<group>"; };
+		7495CF3E1B4037570083A25C /* FBXMeshGeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXMeshGeometry.cpp; path = ../../assimp/code/FBXMeshGeometry.cpp; sourceTree = "<group>"; };
+		7495CF3F1B4037570083A25C /* FBXModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXModel.cpp; path = ../../assimp/code/FBXModel.cpp; sourceTree = "<group>"; };
+		7495CF401B4037570083A25C /* FBXNodeAttribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXNodeAttribute.cpp; path = ../../assimp/code/FBXNodeAttribute.cpp; sourceTree = "<group>"; };
+		7495CF411B4037570083A25C /* FBXParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXParser.cpp; path = ../../assimp/code/FBXParser.cpp; sourceTree = "<group>"; };
+		7495CF421B4037570083A25C /* FBXProperties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXProperties.cpp; path = ../../assimp/code/FBXProperties.cpp; sourceTree = "<group>"; };
+		7495CF431B4037570083A25C /* FBXTokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXTokenizer.cpp; path = ../../assimp/code/FBXTokenizer.cpp; sourceTree = "<group>"; };
+		7495CF441B4037570083A25C /* FBXTokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBXTokenizer.h; path = ../../assimp/code/FBXTokenizer.h; sourceTree = "<group>"; };
+		7495CF451B4037570083A25C /* FBXUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FBXUtil.cpp; path = ../../assimp/code/FBXUtil.cpp; sourceTree = "<group>"; };
+		7495CF581B40380D0083A25C /* DefaultIOStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DefaultIOStream.cpp; path = ../../assimp/code/DefaultIOStream.cpp; sourceTree = "<group>"; };
+		7495CF591B40380D0083A25C /* DefaultIOStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultIOStream.h; path = ../../assimp/code/DefaultIOStream.h; sourceTree = "<group>"; };
+		7495CF5A1B40380D0083A25C /* DefaultIOSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DefaultIOSystem.cpp; path = ../../assimp/code/DefaultIOSystem.cpp; sourceTree = "<group>"; };
+		7495CF5B1B40380D0083A25C /* DefaultIOSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultIOSystem.h; path = ../../assimp/code/DefaultIOSystem.h; sourceTree = "<group>"; };
+		7495CF5C1B40380D0083A25C /* DefaultLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DefaultLogger.cpp; path = ../../assimp/code/DefaultLogger.cpp; sourceTree = "<group>"; };
+		7495CF5D1B40380D0083A25C /* DefaultProgressHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultProgressHandler.h; path = ../../assimp/code/DefaultProgressHandler.h; sourceTree = "<group>"; };
+		7495CF5E1B40380D0083A25C /* GenVertexNormalsProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GenVertexNormalsProcess.cpp; path = ../../assimp/code/GenVertexNormalsProcess.cpp; sourceTree = "<group>"; };
+		7495CF5F1B40380D0083A25C /* GenVertexNormalsProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GenVertexNormalsProcess.h; path = ../../assimp/code/GenVertexNormalsProcess.h; sourceTree = "<group>"; };
+		7495CF601B40380D0083A25C /* Importer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Importer.cpp; path = ../../assimp/code/Importer.cpp; sourceTree = "<group>"; };
+		7495CF611B40380D0083A25C /* Importer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Importer.h; path = ../../assimp/code/Importer.h; sourceTree = "<group>"; };
+		7495CF621B40380D0083A25C /* ImporterRegistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ImporterRegistry.cpp; path = ../../assimp/code/ImporterRegistry.cpp; sourceTree = "<group>"; };
+		7495CF631B40380D0083A25C /* MaterialSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialSystem.cpp; path = ../../assimp/code/MaterialSystem.cpp; sourceTree = "<group>"; };
+		7495CF641B40380D0083A25C /* MaterialSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaterialSystem.h; path = ../../assimp/code/MaterialSystem.h; sourceTree = "<group>"; };
+		7495CF651B40380D0083A25C /* PostStepRegistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostStepRegistry.cpp; path = ../../assimp/code/PostStepRegistry.cpp; sourceTree = "<group>"; };
+		7495CF661B40380D0083A25C /* ProcessHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProcessHelper.cpp; path = ../../assimp/code/ProcessHelper.cpp; sourceTree = "<group>"; };
+		7495CF671B40380D0083A25C /* ProcessHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProcessHelper.h; path = ../../assimp/code/ProcessHelper.h; sourceTree = "<group>"; };
+		7495CF681B40380D0083A25C /* ScenePreprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScenePreprocessor.cpp; path = ../../assimp/code/ScenePreprocessor.cpp; sourceTree = "<group>"; };
+		7495CF691B40380D0083A25C /* ScenePreprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScenePreprocessor.h; path = ../../assimp/code/ScenePreprocessor.h; sourceTree = "<group>"; };
+		7495CF6A1B40380D0083A25C /* SGSpatialSort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SGSpatialSort.cpp; path = ../../assimp/code/SGSpatialSort.cpp; sourceTree = "<group>"; };
+		7495CF6B1B40380D0083A25C /* SGSpatialSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SGSpatialSort.h; path = ../../assimp/code/SGSpatialSort.h; sourceTree = "<group>"; };
+		7495CF6C1B40380D0083A25C /* SkeletonMeshBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SkeletonMeshBuilder.cpp; path = ../../assimp/code/SkeletonMeshBuilder.cpp; sourceTree = "<group>"; };
+		7495CF6D1B40380D0083A25C /* SkeletonMeshBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonMeshBuilder.h; path = ../../assimp/code/SkeletonMeshBuilder.h; sourceTree = "<group>"; };
+		7495CF6E1B40380D0083A25C /* SpatialSort.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpatialSort.cpp; path = ../../assimp/code/SpatialSort.cpp; sourceTree = "<group>"; };
+		7495CF6F1B40380D0083A25C /* SpatialSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpatialSort.h; path = ../../assimp/code/SpatialSort.h; sourceTree = "<group>"; };
+		7495CF701B40380D0083A25C /* TriangulateProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TriangulateProcess.cpp; path = ../../assimp/code/TriangulateProcess.cpp; sourceTree = "<group>"; };
+		7495CF711B40380D0083A25C /* TriangulateProcess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangulateProcess.h; path = ../../assimp/code/TriangulateProcess.h; sourceTree = "<group>"; };
+		7495CF721B40380D0083A25C /* ValidateDataStructure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ValidateDataStructure.cpp; path = ../../assimp/code/ValidateDataStructure.cpp; sourceTree = "<group>"; };
+		7495CF731B40380D0083A25C /* ValidateDataStructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ValidateDataStructure.h; path = ../../assimp/code/ValidateDataStructure.h; sourceTree = "<group>"; };
+		7495CF741B40380D0083A25C /* Version.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Version.cpp; path = ../../assimp/code/Version.cpp; sourceTree = "<group>"; };
+		7495CF751B40380D0083A25C /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vertex.h; path = ../../assimp/code/Vertex.h; sourceTree = "<group>"; };
+		7495CF761B40380D0083A25C /* VertexTriangleAdjacency.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VertexTriangleAdjacency.cpp; path = ../../assimp/code/VertexTriangleAdjacency.cpp; sourceTree = "<group>"; };
+		7495CF771B40380D0083A25C /* VertexTriangleAdjacency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VertexTriangleAdjacency.h; path = ../../assimp/code/VertexTriangleAdjacency.h; sourceTree = "<group>"; };
+		7495CF8A1B40381D0083A25C /* ConvertUTF.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ConvertUTF.c; path = ../../assimp/contrib/ConvertUTF/ConvertUTF.c; sourceTree = "<group>"; };
+		7495CF8B1B40381D0083A25C /* ConvertUTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvertUTF.h; path = ../../assimp/contrib/ConvertUTF/ConvertUTF.h; sourceTree = "<group>"; };
+		7495CF8D1B4038270083A25C /* ConvertUTF.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ConvertUTF.c; path = ../../assimp/contrib/ConvertUTF/ConvertUTF.c; sourceTree = "<group>"; };
+		7495CF8E1B4038270083A25C /* ConvertUTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvertUTF.h; path = ../../assimp/contrib/ConvertUTF/ConvertUTF.h; sourceTree = "<group>"; };
+		7495CF911B403A5B0083A25C /* ConvertToLHProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConvertToLHProcess.cpp; path = ../../assimp/code/ConvertToLHProcess.cpp; sourceTree = "<group>"; };
 		74F362381B21D742000309FC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2062,6 +2225,9 @@
 		5E96FAE515515650000A0A05 = {
 			isa = PBXGroup;
 			children = (
+				7495CED31B402E570083A25C /* assimp */,
+				7495CECF1B402A780083A25C /* Scene3DiOS.h */,
+				7495CECD1B402A700083A25C /* Scene3D.h */,
 				74F362381B21D742000309FC /* Default-568h@2x.png */,
 				5ED24838173151F300A13B86 /* Examples */,
 				5E7CF2E115516CC00014DCBA /* Frameworks */,
@@ -2129,6 +2295,165 @@
 			path = ../../../media/Shaders;
 			sourceTree = "<group>";
 		};
+		7495CED31B402E570083A25C /* assimp */ = {
+			isa = PBXGroup;
+			children = (
+				7495CF311B4036050083A25C /* src */,
+				7495CF101B402E900083A25C /* AssimpWrapper.cpp */,
+				7495CED81B402E7A0083A25C /* include */,
+				7495CED41B402E690083A25C /* IrrAssimpImport.cpp */,
+				7495CED51B402E690083A25C /* IrrAssimpImport.h */,
+			);
+			name = assimp;
+			sourceTree = "<group>";
+		};
+		7495CED81B402E7A0083A25C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				7495CED91B402E7A0083A25C /* assimp */,
+			);
+			name = include;
+			path = ../../assimp/include;
+			sourceTree = "<group>";
+		};
+		7495CED91B402E7A0083A25C /* assimp */ = {
+			isa = PBXGroup;
+			children = (
+				7495CEDA1B402E7A0083A25C /* ai_assert.h */,
+				7495CEDB1B402E7A0083A25C /* anim.h */,
+				7495CEDC1B402E7A0083A25C /* camera.h */,
+				7495CEDD1B402E7A0083A25C /* cexport.h */,
+				7495CEDE1B402E7A0083A25C /* cfileio.h */,
+				7495CEDF1B402E7A0083A25C /* cimport.h */,
+				7495CEE01B402E7A0083A25C /* color4.h */,
+				7495CEE11B402E7A0083A25C /* color4.inl */,
+				7495CEE21B402E7A0083A25C /* Compiler */,
+				7495CEE61B402E7A0083A25C /* config.h */,
+				7495CEE71B402E7A0083A25C /* DefaultLogger.hpp */,
+				7495CEE81B402E7A0083A25C /* defs.h */,
+				7495CEE91B402E7A0083A25C /* Exporter.hpp */,
+				7495CEEA1B402E7A0083A25C /* Importer.hpp */,
+				7495CEEB1B402E7A0083A25C /* importerdesc.h */,
+				7495CEEC1B402E7A0083A25C /* IOStream.hpp */,
+				7495CEED1B402E7A0083A25C /* IOSystem.hpp */,
+				7495CEEE1B402E7A0083A25C /* light.h */,
+				7495CEEF1B402E7A0083A25C /* Logger.hpp */,
+				7495CEF01B402E7A0083A25C /* LogStream.hpp */,
+				7495CEF11B402E7A0083A25C /* material.h */,
+				7495CEF21B402E7A0083A25C /* material.inl */,
+				7495CEF31B402E7A0083A25C /* matrix3x3.h */,
+				7495CEF41B402E7A0083A25C /* matrix3x3.inl */,
+				7495CEF51B402E7A0083A25C /* matrix4x4.h */,
+				7495CEF61B402E7A0083A25C /* matrix4x4.inl */,
+				7495CEF71B402E7A0083A25C /* mesh.h */,
+				7495CEF81B402E7A0083A25C /* metadata.h */,
+				7495CEF91B402E7A0083A25C /* NullLogger.hpp */,
+				7495CEFA1B402E7A0083A25C /* port */,
+				7495CEFD1B402E7A0083A25C /* postprocess.h */,
+				7495CEFE1B402E7A0083A25C /* ProgressHandler.hpp */,
+				7495CEFF1B402E7A0083A25C /* quaternion.h */,
+				7495CF001B402E7A0083A25C /* quaternion.inl */,
+				7495CF011B402E7A0083A25C /* scene.h */,
+				7495CF021B402E7A0083A25C /* texture.h */,
+				7495CF031B402E7A0083A25C /* types.h */,
+				7495CF041B402E7A0083A25C /* vector2.h */,
+				7495CF051B402E7A0083A25C /* vector2.inl */,
+				7495CF061B402E7A0083A25C /* vector3.h */,
+				7495CF071B402E7A0083A25C /* vector3.inl */,
+				7495CF081B402E7A0083A25C /* version.h */,
+			);
+			path = assimp;
+			sourceTree = "<group>";
+		};
+		7495CEE21B402E7A0083A25C /* Compiler */ = {
+			isa = PBXGroup;
+			children = (
+				7495CEE31B402E7A0083A25C /* poppack1.h */,
+				7495CEE41B402E7A0083A25C /* pstdint.h */,
+				7495CEE51B402E7A0083A25C /* pushpack1.h */,
+			);
+			path = Compiler;
+			sourceTree = "<group>";
+		};
+		7495CEFA1B402E7A0083A25C /* port */ = {
+			isa = PBXGroup;
+			children = (
+				7495CEFB1B402E7A0083A25C /* AndroidJNI */,
+			);
+			path = port;
+			sourceTree = "<group>";
+		};
+		7495CEFB1B402E7A0083A25C /* AndroidJNI */ = {
+			isa = PBXGroup;
+			children = (
+				7495CEFC1B402E7A0083A25C /* AndroidJNIIOSystem.h */,
+			);
+			path = AndroidJNI;
+			sourceTree = "<group>";
+		};
+		7495CF311B4036050083A25C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				7495CF581B40380D0083A25C /* DefaultIOStream.cpp */,
+				7495CF591B40380D0083A25C /* DefaultIOStream.h */,
+				7495CF5A1B40380D0083A25C /* DefaultIOSystem.cpp */,
+				7495CF5B1B40380D0083A25C /* DefaultIOSystem.h */,
+				7495CF5C1B40380D0083A25C /* DefaultLogger.cpp */,
+				7495CF5D1B40380D0083A25C /* DefaultProgressHandler.h */,
+				7495CF5E1B40380D0083A25C /* GenVertexNormalsProcess.cpp */,
+				7495CF5F1B40380D0083A25C /* GenVertexNormalsProcess.h */,
+				7495CF8A1B40381D0083A25C /* ConvertUTF.c */,
+				7495CF8B1B40381D0083A25C /* ConvertUTF.h */,
+				7495CF911B403A5B0083A25C /* ConvertToLHProcess.cpp */,
+				7495CF601B40380D0083A25C /* Importer.cpp */,
+				7495CF8D1B4038270083A25C /* ConvertUTF.c */,
+				7495CF8E1B4038270083A25C /* ConvertUTF.h */,
+				7495CF611B40380D0083A25C /* Importer.h */,
+				7495CF621B40380D0083A25C /* ImporterRegistry.cpp */,
+				7495CF631B40380D0083A25C /* MaterialSystem.cpp */,
+				7495CF641B40380D0083A25C /* MaterialSystem.h */,
+				7495CF651B40380D0083A25C /* PostStepRegistry.cpp */,
+				7495CF661B40380D0083A25C /* ProcessHelper.cpp */,
+				7495CF671B40380D0083A25C /* ProcessHelper.h */,
+				7495CF681B40380D0083A25C /* ScenePreprocessor.cpp */,
+				7495CF691B40380D0083A25C /* ScenePreprocessor.h */,
+				7495CF6A1B40380D0083A25C /* SGSpatialSort.cpp */,
+				7495CF6B1B40380D0083A25C /* SGSpatialSort.h */,
+				7495CF6C1B40380D0083A25C /* SkeletonMeshBuilder.cpp */,
+				7495CF6D1B40380D0083A25C /* SkeletonMeshBuilder.h */,
+				7495CF6E1B40380D0083A25C /* SpatialSort.cpp */,
+				7495CF6F1B40380D0083A25C /* SpatialSort.h */,
+				7495CF701B40380D0083A25C /* TriangulateProcess.cpp */,
+				7495CF711B40380D0083A25C /* TriangulateProcess.h */,
+				7495CF721B40380D0083A25C /* ValidateDataStructure.cpp */,
+				7495CF731B40380D0083A25C /* ValidateDataStructure.h */,
+				7495CF741B40380D0083A25C /* Version.cpp */,
+				7495CF751B40380D0083A25C /* Vertex.h */,
+				7495CF761B40380D0083A25C /* VertexTriangleAdjacency.cpp */,
+				7495CF771B40380D0083A25C /* VertexTriangleAdjacency.h */,
+				7495CF341B4037570083A25C /* BaseImporter.cpp */,
+				7495CF351B4037570083A25C /* BaseProcess.cpp */,
+				7495CF361B4037570083A25C /* FBXAnimation.cpp */,
+				7495CF371B4037570083A25C /* FBXBinaryTokenizer.cpp */,
+				7495CF381B4037570083A25C /* FBXConverter.cpp */,
+				7495CF391B4037570083A25C /* FBXDeformer.cpp */,
+				7495CF3A1B4037570083A25C /* FBXDocument.cpp */,
+				7495CF3B1B4037570083A25C /* FBXDocumentUtil.cpp */,
+				7495CF3C1B4037570083A25C /* FBXImporter.cpp */,
+				7495CF3D1B4037570083A25C /* FBXMaterial.cpp */,
+				7495CF3E1B4037570083A25C /* FBXMeshGeometry.cpp */,
+				7495CF3F1B4037570083A25C /* FBXModel.cpp */,
+				7495CF401B4037570083A25C /* FBXNodeAttribute.cpp */,
+				7495CF411B4037570083A25C /* FBXParser.cpp */,
+				7495CF421B4037570083A25C /* FBXProperties.cpp */,
+				7495CF431B4037570083A25C /* FBXTokenizer.cpp */,
+				7495CF441B4037570083A25C /* FBXTokenizer.h */,
+				7495CF451B4037570083A25C /* FBXUtil.cpp */,
+				7495CF321B4036EF0083A25C /* Assimp.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2136,6 +2461,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7495CF901B4038270083A25C /* ConvertUTF.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2247,6 +2573,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7495CF931B403B010083A25C /* DefaultIOStream.cpp in Sources */,
+				7495CF941B403B010083A25C /* DefaultIOStream.h in Sources */,
+				7495CF951B403B010083A25C /* DefaultIOSystem.cpp in Sources */,
+				7495CF961B403B010083A25C /* DefaultIOSystem.h in Sources */,
+				7495CF971B403B010083A25C /* DefaultLogger.cpp in Sources */,
+				7495CF981B403B010083A25C /* DefaultProgressHandler.h in Sources */,
+				7495CF991B403B010083A25C /* GenVertexNormalsProcess.cpp in Sources */,
+				7495CF9A1B403B010083A25C /* GenVertexNormalsProcess.h in Sources */,
+				7495CF8F1B4038270083A25C /* ConvertUTF.c in Sources */,
+				7495CF9B1B403B010083A25C /* ConvertUTF.h in Sources */,
+				7495CF9C1B403B010083A25C /* Importer.cpp in Sources */,
+				7495CF9D1B403B010083A25C /* ConvertUTF.h in Sources */,
+				7495CF9E1B403B010083A25C /* Importer.h in Sources */,
+				7495CF9F1B403B010083A25C /* ImporterRegistry.cpp in Sources */,
+				7495CFA01B403B010083A25C /* MaterialSystem.cpp in Sources */,
+				7495CFA11B403B010083A25C /* MaterialSystem.h in Sources */,
+				7495CFA21B403B010083A25C /* PostStepRegistry.cpp in Sources */,
+				7495CFA31B403B010083A25C /* ProcessHelper.cpp in Sources */,
+				7495CFA41B403B010083A25C /* ProcessHelper.h in Sources */,
+				7495CFA51B403B010083A25C /* ScenePreprocessor.cpp in Sources */,
+				7495CFA61B403B010083A25C /* ScenePreprocessor.h in Sources */,
+				7495CFA71B403B010083A25C /* SGSpatialSort.cpp in Sources */,
+				7495CFA81B403B010083A25C /* SGSpatialSort.h in Sources */,
+				7495CFA91B403B010083A25C /* SkeletonMeshBuilder.cpp in Sources */,
+				7495CFAA1B403B010083A25C /* SkeletonMeshBuilder.h in Sources */,
+				7495CFAB1B403B010083A25C /* SpatialSort.cpp in Sources */,
+				7495CFAC1B403B010083A25C /* SpatialSort.h in Sources */,
+				7495CFAD1B403B010083A25C /* TriangulateProcess.cpp in Sources */,
+				7495CFAE1B403B010083A25C /* TriangulateProcess.h in Sources */,
+				7495CFAF1B403B010083A25C /* ValidateDataStructure.cpp in Sources */,
+				7495CFB01B403B010083A25C /* ValidateDataStructure.h in Sources */,
+				7495CFB11B403B010083A25C /* Version.cpp in Sources */,
+				7495CFB21B403B010083A25C /* Vertex.h in Sources */,
+				7495CFB31B403B010083A25C /* VertexTriangleAdjacency.cpp in Sources */,
+				7495CFB41B403B010083A25C /* VertexTriangleAdjacency.h in Sources */,
+				7495CFB51B403B010083A25C /* BaseImporter.cpp in Sources */,
+				7495CFB61B403B010083A25C /* BaseProcess.cpp in Sources */,
+				7495CFB71B403B010083A25C /* FBXAnimation.cpp in Sources */,
+				7495CFB81B403B010083A25C /* FBXBinaryTokenizer.cpp in Sources */,
+				7495CFB91B403B010083A25C /* FBXConverter.cpp in Sources */,
+				7495CFBA1B403B010083A25C /* FBXDeformer.cpp in Sources */,
+				7495CFBB1B403B010083A25C /* FBXDocument.cpp in Sources */,
+				7495CFBC1B403B010083A25C /* FBXDocumentUtil.cpp in Sources */,
+				7495CFBD1B403B010083A25C /* FBXImporter.cpp in Sources */,
+				7495CFBE1B403B010083A25C /* FBXMaterial.cpp in Sources */,
+				7495CFBF1B403B010083A25C /* FBXMeshGeometry.cpp in Sources */,
+				7495CFC01B403B010083A25C /* FBXModel.cpp in Sources */,
+				7495CFC11B403B010083A25C /* FBXNodeAttribute.cpp in Sources */,
+				7495CFC21B403B010083A25C /* FBXParser.cpp in Sources */,
+				7495CFC31B403B010083A25C /* FBXProperties.cpp in Sources */,
+				7495CFC41B403B010083A25C /* FBXTokenizer.cpp in Sources */,
+				7495CFC51B403B010083A25C /* FBXTokenizer.h in Sources */,
+				7495CFC61B403B010083A25C /* FBXUtil.cpp in Sources */,
+				7495CFC71B403B010083A25C /* Assimp.cpp in Sources */,
+				7495CFC81B403B010083A25C /* AssimpWrapper.cpp in Sources */,
 				5E3EA45B1586A27C00C17C1D /* CIrrDeviceiOS.mm in Sources */,
 				5E3EA45C1586A27C00C17C1D /* aescrypt.cpp in Sources */,
 				5E3EA45D1586A27C00C17C1D /* aeskey.cpp in Sources */,
@@ -2389,6 +2770,7 @@
 				5E3EA5171586A27D00C17C1D /* CGUIContextMenu.cpp in Sources */,
 				5E3EA5191586A27D00C17C1D /* CGUIEditBox.cpp in Sources */,
 				5E3EA51B1586A27D00C17C1D /* CGUIEnvironment.cpp in Sources */,
+				7495CF921B403A5B0083A25C /* ConvertToLHProcess.cpp in Sources */,
 				5E3EA51D1586A27D00C17C1D /* CGUIFileOpenDialog.cpp in Sources */,
 				5E3EA51F1586A27D00C17C1D /* CGUIFont.cpp in Sources */,
 				5E30A72019215C1400C90671 /* CNSOGLManager.mm in Sources */,
@@ -2530,6 +2912,7 @@
 				5E3EA6341586A27D00C17C1D /* CTRFlat.cpp in Sources */,
 				5E3EA6351586A27D00C17C1D /* CTRFlatWire.cpp in Sources */,
 				5E3EA6361586A27D00C17C1D /* CTRGouraud.cpp in Sources */,
+				7495CED61B402E690083A25C /* IrrAssimpImport.cpp in Sources */,
 				5E3EA6371586A27D00C17C1D /* CTRGouraud2.cpp in Sources */,
 				5E3EA6381586A27D00C17C1D /* CTRGouraudAlpha2.cpp in Sources */,
 				5E3EA6391586A27D00C17C1D /* CTRGouraudAlphaNoZ2.cpp in Sources */,
@@ -2602,9 +2985,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/Irrlicht.dst;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../../include,
+					../../assimp/include,
+					../../assimp/code/BoostWorkaround,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/.. $(SRCROOT)/../assimp/include $(SRCROOT)/../../include $(SRCROOT)/../../Scene3D/src/iOS";
 			};
 			name = Debug;
 		};
@@ -2612,9 +3003,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/Irrlicht.dst;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../../include,
+					../../assimp/include,
+					../../assimp/code/BoostWorkaround,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/.. $(SRCROOT)/../assimp/include $(SRCROOT)/../../include $(SRCROOT)/../../Scene3D/src/iOS";
 			};
 			name = Release;
 		};
@@ -2630,7 +3029,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
@@ -2646,7 +3045,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "NDEBUG=1";
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
