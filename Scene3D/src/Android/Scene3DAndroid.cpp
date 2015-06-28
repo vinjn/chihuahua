@@ -86,6 +86,11 @@ extern "C"
         return Scene3D_addCubeNode(size);
     }
 
+    JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addPlaneNode(JNIEnv * env, jclass cls, jfloat width, jfloat height)
+    {
+        return Scene3D_addPlaneNode(width, height);
+    }
+
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addSphereNode(JNIEnv * env, jclass cls, jfloat radius)
     {
         return Scene3D_addSphereNode(radius);

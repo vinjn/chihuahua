@@ -226,6 +226,7 @@ static void postProcessNode(scene::ISceneNode* node, const c8* name)
     if (node)
     {
         node->setID(getNewNodeId(NODE_VISIBLE_CATEGORY));
+        node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
         node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
         node->setName(name);
@@ -236,6 +237,19 @@ long Scene3D_addCubeNode(float size)
 {
     scene::ISceneNode* node = smgr->addCubeSceneNode(size, addDummySceneNode());
     postProcessNode(node, "cube");
+
+    return (long)node;
+}
+
+long Scene3D_addPlaneNode(float width, float height)
+{
+    scene::IMesh* planeMesh = smgr->getGeometryCreator()->
+                                createPlaneMesh(core::dimension2d<f32>(width, height));
+    scene::ISceneNode* node = smgr->addMeshSceneNode(planeMesh, addDummySceneNode());
+    node->setRotation(core::vector3df(-90, 0, 0));
+    planeMesh->drop();
+
+    postProcessNode(node, "plane");
 
     return (long)node;
 }
@@ -329,7 +343,6 @@ long Scene3D_addMeshNode(const c8* meshName)
         if (node)
         {
             postProcessNode(node, meshName);
-            node->setMaterialFlag(video::EMF_LIGHTING, false);
             node->setAnimation(0U);
         }
     }

@@ -14,17 +14,7 @@ using namespace gui;
 #pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 #endif
 
-#define WORLD_SIZE 100
-#define NODE_COUNT 1
-IAnimatedMeshSceneNode* gNodes[NODE_COUNT];
-
 IrrlichtDevice *device;
-f32 random(float min, float max)
-{
-    static IRandomizer* randomizer = device->getRandomizer();
-    f32 v = randomizer->frand();
-    return min + v * (max - min);
-}
 
 int main()
 {
@@ -34,40 +24,20 @@ int main()
 	if (!device)
 		return 1;
 
-	device->setWindowCaption(L"FbxTest");
+	device->setWindowCaption(L"PlaneTest");
 
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
-	IGUIEnvironment* guienv = device->getGUIEnvironment();
-
-    c8* meshFiles[] =
-    {
-        //"../../media/Cockatoo/Cockatoo_ASC.fbx",
-        "../../media/Cockatoo/Cockatoo_ASC.FBX",
-    };
-
-    c8* texFiles[] =
-    {
-        "../../media/Cockatoo/Cockatoo_D.png",
-    };
 
     const float kCamDistZ = 40;
-    int idx = 0;
-    for (auto node : gNodes)
-    {
-        auto emptyNode = smgr->addEmptySceneNode();
 
-        IAnimatedMesh* mesh = getMeshFromAssimp(smgr, meshFiles[rand() % _countof(meshFiles)]);
-
-        node = smgr->addAnimatedMeshSceneNode(mesh, emptyNode);
-        node->setLoopMode(true);
-
-        core::aabbox3df bbox = node->getBoundingBox();
-        float newScale = kCamDistZ * 1.0f / bbox.getRadius();
-        node->setScale({ newScale, newScale, newScale });
-        node->setMaterialFlag(video::EMF_LIGHTING, false);
-        node->setMaterialTexture(0, driver->getTexture(texFiles[rand() % _countof(texFiles)]));
-    }
+    scene::IMesh* planeMesh = smgr->getGeometryCreator()->createPlaneMesh({ 10, 10 });
+    scene::IMeshSceneNode* node = smgr->addMeshSceneNode(planeMesh);
+    node->setRotation({ -90, 0, 0 });
+    //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
+    //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
+    node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
+    planeMesh->drop();
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));

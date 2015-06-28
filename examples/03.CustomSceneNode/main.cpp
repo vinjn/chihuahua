@@ -89,7 +89,7 @@ int main()
 
     FullScreenSceneNode *myNode =
         new FullScreenSceneNode(smgr->getRootSceneNode(), smgr, 666, 3);
-    myNode->Material.setTexture(0, driver->getTexture("../../media/test1.bmp"));
+    myNode->Material.setTexture(0, driver->getTexture("../../media/Shanghai5.jpg"));
 
     /*
     To animate something in this boring scene consisting only of one
