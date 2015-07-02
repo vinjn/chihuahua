@@ -40,16 +40,4 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Scene3D.java</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Android/src/com/hiscene/Scene3D.java</locationURI>
-		</link>
-		<link>
-			<name>src/com/hiscene/Scene3D.java</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Android/src/com/hiscene/Scene3D.java</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

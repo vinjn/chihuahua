@@ -133,7 +133,7 @@ public final class MainActivity extends Activity implements Renderer {
 			long hitNodePtr = Scene3D.pickNodeFromScreen(event.getX(),
 					event.getY());
 			if (hitNodePtr != 0 && hitNodePtr != mCubeNode) {
-				Scene3D.setNodeAnimation(hitNodePtr, "shock_down", true);
+				Scene3D.setNodeAnimation(hitNodePtr, "shock_down");
 			}
 		}
 
@@ -179,7 +179,7 @@ public final class MainActivity extends Activity implements Renderer {
 			float k = (float) (Math.random() * 0 + 3);
 			long nodePtr = Scene3D.addMeshNode("metaioman.md2");
 			Scene3D.setNodeTexture(nodePtr, Scene3D.getTexture("metaioman.png"));
-			Scene3D.setNodeAnimation(nodePtr, "idle", true);
+			Scene3D.setNodeAnimation(nodePtr, "idle");
 			Scene3D.setNodePosition(nodePtr, x, y, 0);
 			Scene3D.setNodeRotation(nodePtr, 0, 0, z);
 			Scene3D.setNodeScale(nodePtr, k, k, k);
