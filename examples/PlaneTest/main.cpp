@@ -1,6 +1,7 @@
 #include <irrlicht.h>
 #include "AssimpWrapper.h"
 #include "bx/commandline.h"
+#include "bx/float4x4_t.h"
 
 using namespace irr;
 

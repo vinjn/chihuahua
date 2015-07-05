@@ -323,8 +323,8 @@
       <TypeLibraryName>.\..\Debug/Irrlicht.tlb</TypeLibraryName>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;ANGLE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;ANGLE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BGFX_CONFIG_RENDERER_OPENGLES;WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
       <ExceptionHandling>
       </ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -402,7 +402,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;ANGLE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;ANGLE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
@@ -1011,36 +1011,6 @@
     <ClInclude Include="..\..\include\SParticle.h" />
     <ClInclude Include="..\..\include\SSkinMeshBuffer.h" />
     <ClInclude Include="..\..\include\SViewFrustum.h" />
-    <ClInclude Include="..\..\include\EGUIAlignment.h" />
-    <ClInclude Include="..\..\include\EGUIElementTypes.h" />
-    <ClInclude Include="..\..\include\EMessageBoxFlags.h" />
-    <ClInclude Include="..\..\include\EFocusFlags.h" />
-    <ClInclude Include="..\..\include\ICursorControl.h" />
-    <ClInclude Include="..\..\include\IGUIButton.h" />
-    <ClInclude Include="..\..\include\IGUICheckbox.h" />
-    <ClInclude Include="..\..\include\IGUIComboBox.h" />
-    <ClInclude Include="..\..\include\IGUIContextMenu.h" />
-    <ClInclude Include="..\..\include\IGUIEditBox.h" />
-    <ClInclude Include="..\..\include\IGUIElement.h" />
-    <ClInclude Include="..\..\include\IGUIElementFactory.h" />
-    <ClInclude Include="..\..\include\IGUIEnvironment.h" />
-    <ClInclude Include="..\..\include\IGUIFileOpenDialog.h" />
-    <ClInclude Include="..\..\include\IGUIFont.h" />
-    <ClInclude Include="..\..\include\IGUIImage.h" />
-    <ClInclude Include="..\..\include\IGUIImageList.h" />
-    <ClInclude Include="..\..\include\IGUIInOutFader.h" />
-    <ClInclude Include="..\..\include\IGUIListBox.h" />
-    <ClInclude Include="..\..\include\IGUIMeshViewer.h" />
-    <ClInclude Include="..\..\include\IGUIProfiler.h" />
-    <ClInclude Include="..\..\include\IGUIScrollBar.h" />
-    <ClInclude Include="..\..\include\IGUISkin.h" />
-    <ClInclude Include="..\..\include\IGUISpinBox.h" />
-    <ClInclude Include="..\..\include\IGUISpriteBank.h" />
-    <ClInclude Include="..\..\include\IGUIStaticText.h" />
-    <ClInclude Include="..\..\include\IGUITabControl.h" />
-    <ClInclude Include="..\..\include\IGUIToolbar.h" />
-    <ClInclude Include="..\..\include\IGUITreeView.h" />
-    <ClInclude Include="..\..\include\IGUIWindow.h" />
     <ClInclude Include="..\assimp\AssimpMobileConfig.h" />
     <ClInclude Include="..\assimp\code\BaseProcess.h" />
     <ClInclude Include="..\assimp\code\ConvertToLHProcess.h" />
@@ -1060,8 +1030,34 @@
     <ClInclude Include="..\assimp\code\TriangulateProcess.h" />
     <ClInclude Include="..\assimp\contrib\ConvertUTF\ConvertUTF.h" />
     <ClInclude Include="..\assimp\IrrAssimpImport.h" />
-    <ClInclude Include="CCgMaterialRenderer.h" />
-    <ClInclude Include="CD3D9CgMaterialRenderer.h" />
+    <ClInclude Include="..\bgfx\include\bgfx.h" />
+    <ClInclude Include="..\bgfx\include\bgfxdefines.h" />
+    <ClInclude Include="..\bgfx\include\bgfxplatform.h" />
+    <ClInclude Include="..\bgfx\src\bgfx_p.h" />
+    <ClInclude Include="..\bgfx\src\charset.h" />
+    <ClInclude Include="..\bgfx\src\config.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear0.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear1.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear2.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear3.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear4.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear5.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear6.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_clear7.bin.h" />
+    <ClInclude Include="..\bgfx\src\fs_debugfont.bin.h" />
+    <ClInclude Include="..\bgfx\src\glcontext_egl.h" />
+    <ClInclude Include="..\bgfx\src\glimports.h" />
+    <ClInclude Include="..\bgfx\src\image.h" />
+    <ClInclude Include="..\bgfx\src\ovr.h" />
+    <ClInclude Include="..\bgfx\src\renderdoc.h" />
+    <ClInclude Include="..\bgfx\src\renderer.h" />
+    <ClInclude Include="..\bgfx\src\renderer_d3d.h" />
+    <ClInclude Include="..\bgfx\src\renderer_d3d11.h" />
+    <ClInclude Include="..\bgfx\src\renderer_d3d9.h" />
+    <ClInclude Include="..\bgfx\src\renderer_gl.h" />
+    <ClInclude Include="..\bgfx\src\vertexdecl.h" />
+    <ClInclude Include="..\bgfx\src\vs_clear.bin.h" />
+    <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h" />
     <ClInclude Include="CDefaultSceneNodeAnimatorFactory.h" />
     <ClInclude Include="CDefaultSceneNodeFactory.h" />
     <ClInclude Include="CEGLManager.h" />
@@ -1077,11 +1073,6 @@
     <ClInclude Include="COGLES2ParallaxMapRenderer.h" />
     <ClInclude Include="COGLES2Renderer2D.h" />
     <ClInclude Include="COGLES2Texture.h" />
-    <ClInclude Include="COGLESDriver.h" />
-    <ClInclude Include="COGLESExtensionHandler.h" />
-    <ClInclude Include="COGLESMaterialRenderer.h" />
-    <ClInclude Include="COGLESTexture.h" />
-    <ClInclude Include="COpenGLCgMaterialRenderer.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CWGLManager.h" />
     <ClInclude Include="Octree.h" />
@@ -1167,30 +1158,7 @@
     <ClInclude Include="CPLYMeshWriter.h" />
     <ClInclude Include="CSTLMeshWriter.h" />
     <ClInclude Include="CVideoModeList.h" />
-    <ClInclude Include="CSoftwareDriver.h" />
-    <ClInclude Include="CSoftwareTexture.h" />
-    <ClInclude Include="CTRTextureGouraud.h" />
-    <ClInclude Include="CZBuffer.h" />
-    <ClInclude Include="ITriangleRenderer.h" />
-    <ClInclude Include="IZBuffer.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="S2DVertex.h" />
-    <ClInclude Include="COpenGLDriver.h" />
-    <ClInclude Include="COpenGLExtensionHandler.h" />
-    <ClInclude Include="COpenGLMaterialRenderer.h" />
-    <ClInclude Include="COpenGLNormalMapRenderer.h" />
-    <ClInclude Include="COpenGLParallaxMapRenderer.h" />
-    <ClInclude Include="COpenGLShaderMaterialRenderer.h" />
-    <ClInclude Include="COpenGLSLMaterialRenderer.h" />
-    <ClInclude Include="COpenGLTexture.h" />
-    <ClInclude Include="glext.h" />
-    <ClInclude Include="wglext.h" />
-    <ClInclude Include="CD3D8Driver.h" />
-    <ClInclude Include="CD3D8MaterialRenderer.h" />
-    <ClInclude Include="CD3D8NormalMapRenderer.h" />
-    <ClInclude Include="CD3D8ParallaxMapRenderer.h" />
-    <ClInclude Include="CD3D8ShaderMaterialRenderer.h" />
-    <ClInclude Include="CD3D8Texture.h" />
     <ClInclude Include="CColorConverter.h" />
     <ClInclude Include="CFPSCounter.h" />
     <ClInclude Include="CImage.h" />
@@ -1213,22 +1181,6 @@
     <ClInclude Include="CImageLoaderRGB.h" />
     <ClInclude Include="CImageLoaderTGA.h" />
     <ClInclude Include="CImageLoaderWAL.h" />
-    <ClInclude Include="CD3D9Driver.h" />
-    <ClInclude Include="CD3D9HLSLMaterialRenderer.h" />
-    <ClInclude Include="CD3D9MaterialRenderer.h" />
-    <ClInclude Include="CD3D9NormalMapRenderer.h" />
-    <ClInclude Include="CD3D9ParallaxMapRenderer.h" />
-    <ClInclude Include="CD3D9ShaderMaterialRenderer.h" />
-    <ClInclude Include="CD3D9Texture.h" />
-    <ClInclude Include="CDepthBuffer.h" />
-    <ClInclude Include="CSoftware2MaterialRenderer.h" />
-    <ClInclude Include="CSoftwareDriver2.h" />
-    <ClInclude Include="CSoftwareTexture2.h" />
-    <ClInclude Include="IBurningShader.h" />
-    <ClInclude Include="IDepthBuffer.h" />
-    <ClInclude Include="S4DVertex.h" />
-    <ClInclude Include="SoftwareDriver2_compile_config.h" />
-    <ClInclude Include="SoftwareDriver2_helper.h" />
     <ClInclude Include="CLogger.h" />
     <ClInclude Include="COSOperator.h" />
     <ClInclude Include="CTimer.h" />
@@ -1293,40 +1245,9 @@
     <ClInclude Include="CXMLWriter.h" />
     <ClInclude Include="CZipReader.h" />
     <ClInclude Include="IAttribute.h" />
-    <ClInclude Include="BuiltInFont.h" />
-    <ClInclude Include="CDefaultGUIElementFactory.h" />
-    <ClInclude Include="CGUIButton.h" />
-    <ClInclude Include="CGUICheckbox.h" />
-    <ClInclude Include="CGUIColorSelectDialog.h" />
-    <ClInclude Include="CGUIComboBox.h" />
-    <ClInclude Include="CGUIContextMenu.h" />
-    <ClInclude Include="CGUIEditBox.h" />
-    <ClInclude Include="CGUIEnvironment.h" />
-    <ClInclude Include="CGUIFileOpenDialog.h" />
-    <ClInclude Include="CGUIFont.h" />
-    <ClInclude Include="CGUIImage.h" />
-    <ClInclude Include="CGUIImageList.h" />
-    <ClInclude Include="CGUIInOutFader.h" />
-    <ClInclude Include="CGUIListBox.h" />
-    <ClInclude Include="CGUIMenu.h" />
-    <ClInclude Include="CGUIMeshViewer.h" />
-    <ClInclude Include="CGUIMessageBox.h" />
-    <ClInclude Include="CGUIModalScreen.h" />
-    <ClInclude Include="CGUIProfiler.h" />
-    <ClInclude Include="CGUIScrollBar.h" />
-    <ClInclude Include="CGUISkin.h" />
-    <ClInclude Include="CGUISpinBox.h" />
-    <ClInclude Include="CGUISpriteBank.h" />
-    <ClInclude Include="CGUIStaticText.h" />
-    <ClInclude Include="CGUITabControl.h" />
-    <ClInclude Include="CGUITable.h" />
-    <ClInclude Include="CGUIToolBar.h" />
-    <ClInclude Include="CGUITreeView.h" />
-    <ClInclude Include="CGUIWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt" />
-    <None Include="..\..\examples\FbxTest\FbxTest_vc11.vcxproj" />
     <None Include="..\..\include\bx\float4_swizzle.inl" />
     <None Include="..\..\readme.txt" />
   </ItemGroup>
@@ -1370,8 +1291,18 @@
     <ClCompile Include="..\assimp\code\VertexTriangleAdjacency.cpp" />
     <ClCompile Include="..\assimp\contrib\ConvertUTF\ConvertUTF.c" />
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
-    <ClCompile Include="CCgMaterialRenderer.cpp" />
-    <ClCompile Include="CD3D9CgMaterialRenderer.cpp" />
+    <ClCompile Include="..\bgfx\src\bgfx.cpp" />
+    <ClCompile Include="..\bgfx\src\glcontext_egl.cpp" />
+    <ClCompile Include="..\bgfx\src\image.cpp" />
+    <ClCompile Include="..\bgfx\src\ovr.cpp" />
+    <ClCompile Include="..\bgfx\src\renderdoc.cpp" />
+    <ClCompile Include="..\bgfx\src\renderer_d3d11.cpp" />
+    <ClCompile Include="..\bgfx\src\renderer_d3d12.cpp" />
+    <ClCompile Include="..\bgfx\src\renderer_d3d9.cpp" />
+    <ClCompile Include="..\bgfx\src\renderer_gl.cpp" />
+    <ClCompile Include="..\bgfx\src\renderer_null.cpp" />
+    <ClCompile Include="..\bgfx\src\renderer_vk.cpp" />
+    <ClCompile Include="..\bgfx\src\vertexdecl.cpp" />
     <ClCompile Include="CDefaultSceneNodeAnimatorFactory.cpp" />
     <ClCompile Include="CDefaultSceneNodeFactory.cpp" />
     <ClCompile Include="CEGLManager.cpp" />
@@ -1387,10 +1318,6 @@
     <ClCompile Include="COGLES2ParallaxMapRenderer.cpp" />
     <ClCompile Include="COGLES2Renderer2D.cpp" />
     <ClCompile Include="COGLES2Texture.cpp" />
-    <ClCompile Include="COGLESDriver.cpp" />
-    <ClCompile Include="COGLESExtensionHandler.cpp" />
-    <ClCompile Include="COGLESTexture.cpp" />
-    <ClCompile Include="COpenGLCgMaterialRenderer.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="C3DSMeshFileLoader.cpp" />
     <ClCompile Include="CSMFMeshFileLoader.cpp" />
@@ -1473,31 +1400,6 @@
     <ClCompile Include="CPLYMeshWriter.cpp" />
     <ClCompile Include="CSTLMeshWriter.cpp" />
     <ClCompile Include="CVideoModeList.cpp" />
-    <ClCompile Include="CSoftwareDriver.cpp" />
-    <ClCompile Include="CSoftwareTexture.cpp" />
-    <ClCompile Include="CTRFlat.cpp" />
-    <ClCompile Include="CTRFlatWire.cpp" />
-    <ClCompile Include="CTRGouraud.cpp" />
-    <ClCompile Include="CTRGouraudWire.cpp" />
-    <ClCompile Include="CTRTextureFlat.cpp" />
-    <ClCompile Include="CTRTextureFlatWire.cpp" />
-    <ClCompile Include="CTRTextureGouraud.cpp" />
-    <ClCompile Include="CTRTextureGouraudAdd.cpp" />
-    <ClCompile Include="CTRTextureGouraudNoZ.cpp" />
-    <ClCompile Include="CTRTextureGouraudWire.cpp" />
-    <ClCompile Include="CZBuffer.cpp" />
-    <ClCompile Include="COpenGLDriver.cpp" />
-    <ClCompile Include="COpenGLExtensionHandler.cpp" />
-    <ClCompile Include="COpenGLNormalMapRenderer.cpp" />
-    <ClCompile Include="COpenGLParallaxMapRenderer.cpp" />
-    <ClCompile Include="COpenGLShaderMaterialRenderer.cpp" />
-    <ClCompile Include="COpenGLSLMaterialRenderer.cpp" />
-    <ClCompile Include="COpenGLTexture.cpp" />
-    <ClCompile Include="CD3D8Driver.cpp" />
-    <ClCompile Include="CD3D8NormalMapRenderer.cpp" />
-    <ClCompile Include="CD3D8ParallaxMapRenderer.cpp" />
-    <ClCompile Include="CD3D8ShaderMaterialRenderer.cpp" />
-    <ClCompile Include="CD3D8Texture.cpp" />
     <ClCompile Include="CColorConverter.cpp" />
     <ClCompile Include="CFPSCounter.cpp" />
     <ClCompile Include="CImage.cpp" />
@@ -1519,37 +1421,6 @@
     <ClCompile Include="CImageLoaderRGB.cpp" />
     <ClCompile Include="CImageLoaderTGA.cpp" />
     <ClCompile Include="CImageLoaderWAL.cpp" />
-    <ClCompile Include="CD3D9Driver.cpp" />
-    <ClCompile Include="CD3D9HLSLMaterialRenderer.cpp" />
-    <ClCompile Include="CD3D9NormalMapRenderer.cpp" />
-    <ClCompile Include="CD3D9ParallaxMapRenderer.cpp" />
-    <ClCompile Include="CD3D9ShaderMaterialRenderer.cpp" />
-    <ClCompile Include="CD3D9Texture.cpp" />
-    <ClCompile Include="CBurningShader_Raster_Reference.cpp" />
-    <ClCompile Include="CDepthBuffer.cpp" />
-    <ClCompile Include="CSoftwareDriver2.cpp" />
-    <ClCompile Include="CSoftwareTexture2.cpp" />
-    <ClCompile Include="CTRGouraud2.cpp" />
-    <ClCompile Include="CTRGouraudAlpha2.cpp" />
-    <ClCompile Include="CTRGouraudAlphaNoZ2.cpp" />
-    <ClCompile Include="CTRNormalMap.cpp" />
-    <ClCompile Include="CTRStencilShadow.cpp" />
-    <ClCompile Include="CTRTextureBlend.cpp" />
-    <ClCompile Include="CTRTextureDetailMap2.cpp" />
-    <ClCompile Include="CTRTextureGouraud2.cpp" />
-    <ClCompile Include="CTRTextureGouraudAdd2.cpp" />
-    <ClCompile Include="CTRTextureGouraudAddNoZ2.cpp" />
-    <ClCompile Include="CTRTextureGouraudAlpha.cpp" />
-    <ClCompile Include="CTRTextureGouraudAlphaNoZ.cpp" />
-    <ClCompile Include="CTRTextureGouraudNoZ2.cpp" />
-    <ClCompile Include="CTRTextureGouraudVertexAlpha2.cpp" />
-    <ClCompile Include="CTRTextureLightMap2_Add.cpp" />
-    <ClCompile Include="CTRTextureLightMap2_M1.cpp" />
-    <ClCompile Include="CTRTextureLightMap2_M2.cpp" />
-    <ClCompile Include="CTRTextureLightMap2_M4.cpp" />
-    <ClCompile Include="CTRTextureLightMapGouraud2_M4.cpp" />
-    <ClCompile Include="CTRTextureWire2.cpp" />
-    <ClCompile Include="IBurningShader.cpp" />
     <ClCompile Include="CLogger.cpp" />
     <ClCompile Include="COSOperator.cpp" />
     <ClCompile Include="Irrlicht.cpp" />
@@ -1668,35 +1539,6 @@
     <ClCompile Include="CXMLWriter.cpp" />
     <ClCompile Include="CZipReader.cpp" />
     <ClCompile Include="irrXML.cpp" />
-    <ClCompile Include="CDefaultGUIElementFactory.cpp" />
-    <ClCompile Include="CGUIButton.cpp" />
-    <ClCompile Include="CGUICheckbox.cpp" />
-    <ClCompile Include="CGUIColorSelectDialog.cpp" />
-    <ClCompile Include="CGUIComboBox.cpp" />
-    <ClCompile Include="CGUIContextMenu.cpp" />
-    <ClCompile Include="CGUIEditBox.cpp" />
-    <ClCompile Include="CGUIEnvironment.cpp" />
-    <ClCompile Include="CGUIFileOpenDialog.cpp" />
-    <ClCompile Include="CGUIFont.cpp" />
-    <ClCompile Include="CGUIImage.cpp" />
-    <ClCompile Include="CGUIImageList.cpp" />
-    <ClCompile Include="CGUIInOutFader.cpp" />
-    <ClCompile Include="CGUIListBox.cpp" />
-    <ClCompile Include="CGUIMenu.cpp" />
-    <ClCompile Include="CGUIMeshViewer.cpp" />
-    <ClCompile Include="CGUIMessageBox.cpp" />
-    <ClCompile Include="CGUIModalScreen.cpp" />
-    <ClCompile Include="CGUIProfiler.cpp" />
-    <ClCompile Include="CGUIScrollBar.cpp" />
-    <ClCompile Include="CGUISkin.cpp" />
-    <ClCompile Include="CGUISpinBox.cpp" />
-    <ClCompile Include="CGUISpriteBank.cpp" />
-    <ClCompile Include="CGUIStaticText.cpp" />
-    <ClCompile Include="CGUITabControl.cpp" />
-    <ClCompile Include="CGUITable.cpp" />
-    <ClCompile Include="CGUIToolBar.cpp" />
-    <ClCompile Include="CGUITreeView.cpp" />
-    <ClCompile Include="CGUIWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Irrlicht.rc" />

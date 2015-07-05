@@ -505,7 +505,11 @@ GL_IMPORT_NV___(true,  PFNGLBEGINQUERYPROC,                        glBeginQuery)
 GL_IMPORT_NV___(true,  PFNGLENDQUERYPROC,                          glEndQuery);
 GL_IMPORT_NV___(true,  PFNGLGETQUERYOBJECTUI64VPROC,               glGetQueryObjectui64v);
 
-GL_IMPORT      (true,  PFNGLINVALIDATEFRAMEBUFFERPROC,             glInvalidateFramebuffer, glDiscardFramebufferEXT);
+#if 0 // TODO:
+GL_IMPORT(true, PFNGLINVALIDATEFRAMEBUFFERPROC, glInvalidateFramebuffer, glDiscardFramebufferEXT);
+#else
+GL_IMPORT_EXT__(true, PFNGLINVALIDATEFRAMEBUFFERPROC, glInvalidateFramebuffer);
+#endif
 
 #	elif !BGFX_USE_GL_DYNAMIC_LIB
 GL_IMPORT______(true,  PFNGLTEXIMAGE3DPROC,                        glTexImage3D);

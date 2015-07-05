@@ -16,9 +16,6 @@
     <Filter Include="include\scene">
       <UniqueIdentifier>{af459bf5-2849-4a0e-9a21-91acbbf1c6b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\gui">
-      <UniqueIdentifier>{aa649d49-922d-4118-8574-f05c13d67706}</UniqueIdentifier>
-    </Filter>
     <Filter Include="doc">
       <UniqueIdentifier>{a72cb2e5-a5c3-41bc-9c86-fdbdae8f7866}</UniqueIdentifier>
     </Filter>
@@ -49,15 +46,6 @@
     <Filter Include="Irrlicht\video">
       <UniqueIdentifier>{3cb7865d-a5e9-4b22-8f54-dde759b88c51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Irrlicht\video\Software">
-      <UniqueIdentifier>{919fcfa4-4277-4c88-8bfc-4bfcfcbb1b65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Irrlicht\video\OpenGL">
-      <UniqueIdentifier>{834213c7-9515-49de-aa27-8d3ed9c0c87a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Irrlicht\video\Direct3D8">
-      <UniqueIdentifier>{19838bc4-396f-4d23-ad1b-3bb652e33e6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Irrlicht\video\Null">
       <UniqueIdentifier>{a9ca9d4d-7678-4687-b78b-15236c0dcf53}</UniqueIdentifier>
     </Filter>
@@ -66,12 +54,6 @@
     </Filter>
     <Filter Include="Irrlicht\video\Null\Loader">
       <UniqueIdentifier>{e2571a61-945c-4509-b47c-daea464916ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Irrlicht\video\Direct3D9">
-      <UniqueIdentifier>{1354e9fa-cea6-461e-af7f-9940bb5f0a2f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Irrlicht\video\Burning Video">
-      <UniqueIdentifier>{ac7af7ba-0e6b-4da4-a695-a0070a4da974}</UniqueIdentifier>
     </Filter>
     <Filter Include="Irrlicht\irr">
       <UniqueIdentifier>{1173499e-79e8-4c34-8046-abc325e2f2a9}</UniqueIdentifier>
@@ -100,12 +82,6 @@
     <Filter Include="Irrlicht\io">
       <UniqueIdentifier>{799f220e-3a58-4788-876b-88c175b69871}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Irrlicht\gui">
-      <UniqueIdentifier>{da421793-4674-481c-be46-f7a44e78aee5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Irrlicht\video\OpenGL-ES 1.x">
-      <UniqueIdentifier>{b9aa9ad0-40c0-441f-bd76-35f7605e56c7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Irrlicht\video\OpenGL-ES 2.x">
       <UniqueIdentifier>{c2f0234a-9b9c-4e5c-84ab-4cee646fdb06}</UniqueIdentifier>
     </Filter>
@@ -127,7 +103,10 @@
     <Filter Include="assimp\importer\fbx">
       <UniqueIdentifier>{1bf4304f-7f8b-408f-ac5e-a19595c28630}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bx">
+    <Filter Include="bgfx">
+      <UniqueIdentifier>{8c23df36-1013-4b49-8a36-63d1b7b894a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bx">
       <UniqueIdentifier>{6fac9945-8aef-4970-955a-b4f13ffa1bfc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -513,96 +492,6 @@
     <ClInclude Include="..\..\include\SViewFrustum.h">
       <Filter>include\scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\EGUIAlignment.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\EGUIElementTypes.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\EMessageBoxFlags.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\EFocusFlags.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\ICursorControl.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIButton.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUICheckbox.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIComboBox.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIContextMenu.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIEditBox.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIElement.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIElementFactory.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIEnvironment.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIFileOpenDialog.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIFont.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIImage.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIImageList.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIInOutFader.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIListBox.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIMeshViewer.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIProfiler.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIScrollBar.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUISkin.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUISpinBox.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUISpriteBank.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIStaticText.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUITabControl.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIToolbar.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUITreeView.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\IGUIWindow.h">
-      <Filter>include\gui</Filter>
-    </ClInclude>
     <ClInclude Include="CDefaultSceneNodeAnimatorFactory.h">
       <Filter>Irrlicht\scene</Filter>
     </ClInclude>
@@ -864,75 +753,6 @@
     <ClInclude Include="CVideoModeList.h">
       <Filter>Irrlicht\video</Filter>
     </ClInclude>
-    <ClInclude Include="CSoftwareDriver.h">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClInclude>
-    <ClInclude Include="CSoftwareTexture.h">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClInclude>
-    <ClInclude Include="CTRTextureGouraud.h">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClInclude>
-    <ClInclude Include="CZBuffer.h">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClInclude>
-    <ClInclude Include="ITriangleRenderer.h">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClInclude>
-    <ClInclude Include="IZBuffer.h">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClInclude>
-    <ClInclude Include="S2DVertex.h">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLDriver.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLExtensionHandler.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLMaterialRenderer.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLNormalMapRenderer.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLParallaxMapRenderer.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLShaderMaterialRenderer.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLSLMaterialRenderer.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLTexture.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="glext.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="wglext.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D8Driver.h">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D8MaterialRenderer.h">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D8NormalMapRenderer.h">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D8ParallaxMapRenderer.h">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D8ShaderMaterialRenderer.h">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D8Texture.h">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClInclude>
     <ClInclude Include="CColorConverter.h">
       <Filter>Irrlicht\video\Null</Filter>
     </ClInclude>
@@ -998,54 +818,6 @@
     </ClInclude>
     <ClInclude Include="CImageLoaderWAL.h">
       <Filter>Irrlicht\video\Null\Loader</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9Driver.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9HLSLMaterialRenderer.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9MaterialRenderer.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9NormalMapRenderer.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9ParallaxMapRenderer.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9ShaderMaterialRenderer.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9Texture.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="CDepthBuffer.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="CSoftware2MaterialRenderer.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="CSoftwareDriver2.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="CSoftwareTexture2.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="IBurningShader.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="IDepthBuffer.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="S4DVertex.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="SoftwareDriver2_compile_config.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClInclude>
-    <ClInclude Include="SoftwareDriver2_helper.h">
-      <Filter>Irrlicht\video\Burning Video</Filter>
     </ClInclude>
     <ClInclude Include="CLogger.h">
       <Filter>Irrlicht\irr</Filter>
@@ -1239,96 +1011,6 @@
     <ClInclude Include="IAttribute.h">
       <Filter>Irrlicht\io</Filter>
     </ClInclude>
-    <ClInclude Include="BuiltInFont.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CDefaultGUIElementFactory.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIButton.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUICheckbox.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIColorSelectDialog.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIComboBox.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIContextMenu.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIEditBox.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIEnvironment.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIFileOpenDialog.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIFont.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIImage.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIImageList.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIInOutFader.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIListBox.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIMenu.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIMeshViewer.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIMessageBox.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIModalScreen.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIProfiler.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIScrollBar.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUISkin.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUISpinBox.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUISpriteBank.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIStaticText.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUITabControl.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUITable.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIToolBar.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUITreeView.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="CGUIWindow.h">
-      <Filter>Irrlicht\gui</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\IAnimatedMeshMD3.h">
       <Filter>include\scene</Filter>
     </ClInclude>
@@ -1350,15 +1032,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\EMaterialFlags.h">
       <Filter>include\video</Filter>
-    </ClInclude>
-    <ClInclude Include="CD3D9CgMaterialRenderer.h">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClInclude>
-    <ClInclude Include="COpenGLCgMaterialRenderer.h">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="CCgMaterialRenderer.h">
-      <Filter>Irrlicht\video</Filter>
     </ClInclude>
     <ClInclude Include="COGLES2Driver.h">
       <Filter>Irrlicht\video\OpenGL-ES 2.x</Filter>
@@ -1383,18 +1056,6 @@
     </ClInclude>
     <ClInclude Include="COGLES2Texture.h">
       <Filter>Irrlicht\video\OpenGL-ES 2.x</Filter>
-    </ClInclude>
-    <ClInclude Include="COGLESDriver.h">
-      <Filter>Irrlicht\video\OpenGL-ES 1.x</Filter>
-    </ClInclude>
-    <ClInclude Include="COGLESExtensionHandler.h">
-      <Filter>Irrlicht\video\OpenGL-ES 1.x</Filter>
-    </ClInclude>
-    <ClInclude Include="COGLESMaterialRenderer.h">
-      <Filter>Irrlicht\video\OpenGL-ES 1.x</Filter>
-    </ClInclude>
-    <ClInclude Include="COGLESTexture.h">
-      <Filter>Irrlicht\video\OpenGL-ES 1.x</Filter>
     </ClInclude>
     <ClInclude Include="CImageLoaderPVR.h">
       <Filter>Irrlicht\video\Null\Loader</Filter>
@@ -1459,118 +1120,202 @@
       <Filter>assimp\importer\fbx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\allocator.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\blockalloc.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\bx.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\cl.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\commandline.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\config.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\cpu.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\debug.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\endian.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\float4_langext.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\float4_neon.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\float4_ni.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\float4_ref.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\float4_sse.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\float4_t.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\float4x4_t.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\foreach.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\fpumath.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\handlealloc.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\hash.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\macros.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\maputil.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\mpscqueue.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\mutex.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\os.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\platform.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\process.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\radixsort.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\readerwriter.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\ringbuffer.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\rng.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\sem.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\spscqueue.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\string.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\thread.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\timer.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\tokenizecmd.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\bx\uint32_t.h">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\include\bgfx.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\include\bgfxdefines.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\include\bgfxplatform.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\bgfx_p.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\charset.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\config.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear0.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear1.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear2.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear3.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear4.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear5.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear6.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear7.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_debugfont.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glcontext_egl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glimports.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\image.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\ovr.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderdoc.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_gl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\vertexdecl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\vs_clear.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_d3d.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_d3d9.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_d3d11.h">
+      <Filter>bgfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1580,9 +1325,8 @@
     <None Include="..\..\readme.txt">
       <Filter>doc</Filter>
     </None>
-    <None Include="..\..\examples\FbxTest\FbxTest_vc11.vcxproj" />
     <None Include="..\..\include\bx\float4_swizzle.inl">
-      <Filter>include\bx</Filter>
+      <Filter>bx</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1838,81 +1582,6 @@
     <ClCompile Include="CVideoModeList.cpp">
       <Filter>Irrlicht\video</Filter>
     </ClCompile>
-    <ClCompile Include="CSoftwareDriver.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CSoftwareTexture.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRFlat.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRFlatWire.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRGouraud.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRGouraudWire.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureFlat.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureFlatWire.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraud.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudAdd.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudNoZ.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudWire.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="CZBuffer.cpp">
-      <Filter>Irrlicht\video\Software</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLDriver.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLExtensionHandler.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLNormalMapRenderer.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLParallaxMapRenderer.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLShaderMaterialRenderer.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLSLMaterialRenderer.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLTexture.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D8Driver.cpp">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D8NormalMapRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D8ParallaxMapRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D8ShaderMaterialRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D8Texture.cpp">
-      <Filter>Irrlicht\video\Direct3D8</Filter>
-    </ClCompile>
     <ClCompile Include="CColorConverter.cpp">
       <Filter>Irrlicht\video\Null</Filter>
     </ClCompile>
@@ -1975,99 +1644,6 @@
     </ClCompile>
     <ClCompile Include="CImageLoaderWAL.cpp">
       <Filter>Irrlicht\video\Null\Loader</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D9Driver.cpp">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D9HLSLMaterialRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D9NormalMapRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D9ParallaxMapRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D9ShaderMaterialRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D9Texture.cpp">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="CBurningShader_Raster_Reference.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CDepthBuffer.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CSoftwareDriver2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CSoftwareTexture2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRGouraud2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRGouraudAlpha2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRGouraudAlphaNoZ2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRNormalMap.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRStencilShadow.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureBlend.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureDetailMap2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraud2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudAdd2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudAddNoZ2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudAlpha.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudAlphaNoZ.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudNoZ2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureGouraudVertexAlpha2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureLightMap2_Add.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureLightMap2_M1.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureLightMap2_M2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureLightMap2_M4.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureLightMapGouraud2_M4.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="CTRTextureWire2.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
-    </ClCompile>
-    <ClCompile Include="IBurningShader.cpp">
-      <Filter>Irrlicht\video\Burning Video</Filter>
     </ClCompile>
     <ClCompile Include="CLogger.cpp">
       <Filter>Irrlicht\irr</Filter>
@@ -2423,107 +1999,11 @@
     <ClCompile Include="irrXML.cpp">
       <Filter>Irrlicht\io</Filter>
     </ClCompile>
-    <ClCompile Include="CDefaultGUIElementFactory.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIButton.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUICheckbox.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIColorSelectDialog.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIComboBox.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIContextMenu.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIEditBox.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIEnvironment.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIFileOpenDialog.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIFont.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIImage.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIImageList.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIInOutFader.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIListBox.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIMenu.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIMeshViewer.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIMessageBox.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIModalScreen.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIProfiler.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIScrollBar.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUISkin.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUISpinBox.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUISpriteBank.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIStaticText.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUITabControl.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUITable.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIToolBar.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUITreeView.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
-    <ClCompile Include="CGUIWindow.cpp">
-      <Filter>Irrlicht\gui</Filter>
-    </ClCompile>
     <ClCompile Include="CSceneLoaderIrr.cpp">
       <Filter>Irrlicht\scene\loaders</Filter>
     </ClCompile>
     <ClCompile Include="CSMFMeshFileLoader.cpp">
       <Filter>Irrlicht\scene\loaders</Filter>
-    </ClCompile>
-    <ClCompile Include="CD3D9CgMaterialRenderer.cpp">
-      <Filter>Irrlicht\video\Direct3D9</Filter>
-    </ClCompile>
-    <ClCompile Include="COpenGLCgMaterialRenderer.cpp">
-      <Filter>Irrlicht\video\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="CCgMaterialRenderer.cpp">
-      <Filter>Irrlicht\video</Filter>
     </ClCompile>
     <ClCompile Include="COGLES2Driver.cpp">
       <Filter>Irrlicht\video\OpenGL-ES 2.x</Filter>
@@ -2548,15 +2028,6 @@
     </ClCompile>
     <ClCompile Include="COGLES2Texture.cpp">
       <Filter>Irrlicht\video\OpenGL-ES 2.x</Filter>
-    </ClCompile>
-    <ClCompile Include="COGLESDriver.cpp">
-      <Filter>Irrlicht\video\OpenGL-ES 1.x</Filter>
-    </ClCompile>
-    <ClCompile Include="COGLESExtensionHandler.cpp">
-      <Filter>Irrlicht\video\OpenGL-ES 1.x</Filter>
-    </ClCompile>
-    <ClCompile Include="COGLESTexture.cpp">
-      <Filter>Irrlicht\video\OpenGL-ES 1.x</Filter>
     </ClCompile>
     <ClCompile Include="CImageLoaderPVR.cpp">
       <Filter>Irrlicht\video\Null\Loader</Filter>
@@ -2677,6 +2148,42 @@
     </ClCompile>
     <ClCompile Include="..\assimp\code\FBXUtil.cpp">
       <Filter>assimp\importer\fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\bgfx.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\glcontext_egl.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\image.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\ovr.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderdoc.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_gl.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_null.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_vk.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\vertexdecl.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_d3d9.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_d3d11.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_d3d12.cpp">
+      <Filter>bgfx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

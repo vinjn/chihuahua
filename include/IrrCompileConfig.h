@@ -70,7 +70,7 @@
 // vinjn: add gles2 support to windows desktop simulator
 // #define NO_IRR_COMPILE_WITH_OGLES1_
 // #define NO_IRR_COMPILE_WITH_OGLES2_
-#undef NO_IRR_COMPILE_WITH_GUI_
+//#undef NO_IRR_COMPILE_WITH_GUI_
 #endif
 
 //! WINCE is a very restricted environment for mobile devices
