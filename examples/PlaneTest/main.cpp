@@ -1,5 +1,6 @@
 #include <irrlicht.h>
 #include "AssimpWrapper.h"
+#include "bx/commandline.h"
 
 using namespace irr;
 
@@ -16,8 +17,10 @@ using namespace gui;
 
 IrrlichtDevice *device;
 
-int main()
+int main(int argc, char const* const* argv)
 {
+    bx::CommandLine cmdLine(argc, argv);
+
 	device = createDevice(video::EDT_OGLES2, dimension2d<u32>(800, 600), 16,
 			false, false, false, 0);
 

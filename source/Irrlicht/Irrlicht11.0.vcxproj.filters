@@ -127,6 +127,9 @@
     <Filter Include="assimp\importer\fbx">
       <UniqueIdentifier>{1bf4304f-7f8b-408f-ac5e-a19595c28630}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\bx">
+      <UniqueIdentifier>{6fac9945-8aef-4970-955a-b4f13ffa1bfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1455,6 +1458,120 @@
     <ClInclude Include="..\assimp\code\FBXUtil.h">
       <Filter>assimp\importer\fbx</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\bx\allocator.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\blockalloc.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\bx.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\cl.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\commandline.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\config.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\cpu.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\debug.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\endian.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\float4_langext.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\float4_neon.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\float4_ni.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\float4_ref.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\float4_sse.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\float4_t.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\float4x4_t.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\foreach.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\fpumath.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\handlealloc.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\hash.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\macros.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\maputil.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\mpscqueue.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\mutex.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\os.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\platform.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\process.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\radixsort.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\readerwriter.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\ringbuffer.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\rng.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\sem.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\spscqueue.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\string.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\thread.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\timer.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\tokenizecmd.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bx\uint32_t.h">
+      <Filter>include\bx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -1464,6 +1581,9 @@
       <Filter>doc</Filter>
     </None>
     <None Include="..\..\examples\FbxTest\FbxTest_vc11.vcxproj" />
+    <None Include="..\..\include\bx\float4_swizzle.inl">
+      <Filter>include\bx</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CDefaultSceneNodeAnimatorFactory.cpp">
