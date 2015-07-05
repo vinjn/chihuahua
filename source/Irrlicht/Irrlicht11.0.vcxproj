@@ -1058,6 +1058,10 @@
     <ClInclude Include="..\bgfx\src\vertexdecl.h" />
     <ClInclude Include="..\bgfx\src\vs_clear.bin.h" />
     <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h" />
+    <ClCompile Include="CBgfxDriver.cpp">
+      <FileType>CppHeader</FileType>
+    </ClCompile>
+    <ClInclude Include="CBgfxTexture.h" />
     <ClInclude Include="CDefaultSceneNodeAnimatorFactory.h" />
     <ClInclude Include="CDefaultSceneNodeFactory.h" />
     <ClInclude Include="CEGLManager.h" />
@@ -1303,6 +1307,7 @@
     <ClCompile Include="..\bgfx\src\renderer_null.cpp" />
     <ClCompile Include="..\bgfx\src\renderer_vk.cpp" />
     <ClCompile Include="..\bgfx\src\vertexdecl.cpp" />
+    <ClCompile Include="CBgfxTexture.cpp" />
     <ClCompile Include="CDefaultSceneNodeAnimatorFactory.cpp" />
     <ClCompile Include="CDefaultSceneNodeFactory.cpp" />
     <ClCompile Include="CEGLManager.cpp" />

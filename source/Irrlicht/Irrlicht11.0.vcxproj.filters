@@ -109,6 +109,9 @@
     <Filter Include="bx">
       <UniqueIdentifier>{6fac9945-8aef-4970-955a-b4f13ffa1bfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Irrlicht\video\bgfx">
+      <UniqueIdentifier>{51a36935-c23a-4603-bfa6-f6daee7300ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1317,6 +1320,9 @@
     <ClInclude Include="..\bgfx\src\renderer_d3d11.h">
       <Filter>bgfx</Filter>
     </ClInclude>
+    <ClInclude Include="CBgfxTexture.h">
+      <Filter>Irrlicht\video\bgfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -2184,6 +2190,12 @@
     </ClCompile>
     <ClCompile Include="..\bgfx\src\renderer_d3d12.cpp">
       <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="CBgfxTexture.cpp">
+      <Filter>Irrlicht\video\bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="CBgfxDriver.cpp">
+      <Filter>Irrlicht\video\bgfx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
