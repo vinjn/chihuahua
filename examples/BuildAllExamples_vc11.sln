@@ -154,8 +154,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SynthFlow", "SynthFlow\SynthFlow_vc11.vcxproj", "{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxTest", "FbxTest\FbxTest_vc11.vcxproj", "{CB2AE636-7126-46AB-A56F-4AAD804C745B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E08E042A-6C45-411B-92BE-3CC31331019F} = {E08E042A-6C45-411B-92BE-3CC31331019F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlaneTest", "PlaneTest\PlaneTest.vcxproj", "{3112FD12-1FDA-426F-87FF-2FB0DD55912B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E08E042A-6C45-411B-92BE-3CC31331019F} = {E08E042A-6C45-411B-92BE-3CC31331019F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

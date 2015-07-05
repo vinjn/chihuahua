@@ -59,7 +59,11 @@ namespace video
         
 		//! OpenGL-ES 2.x driver, for embedded and mobile systems
 		/** Supports shaders etc. */
-		EDT_OGLES2,
+        EDT_OGLES2,
+
+        //! bgfx based driver
+        /** Supports shaders etc. */
+        EDT_BGFX,
 
 		//! No driver, just for counting the elements
 		EDT_COUNT
@@ -74,7 +78,8 @@ namespace video
 		"Direct3D 9.0c",
 		"OpenGL 1.x/2.x/3.x",
 		"OpenGL ES1",
-		"OpenGL ES2",
+        "OpenGL ES2",
+        "bgfx",
 		0 
 	};
 	

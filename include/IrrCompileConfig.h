@@ -71,6 +71,7 @@
 // #define NO_IRR_COMPILE_WITH_OGLES1_
 // #define NO_IRR_COMPILE_WITH_OGLES2_
 //#undef NO_IRR_COMPILE_WITH_GUI_
+#define _IRR_COMPILE_WITH_BGFX_
 #endif
 
 //! WINCE is a very restricted environment for mobile devices

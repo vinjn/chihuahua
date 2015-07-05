@@ -387,6 +387,13 @@ namespace irr
 #else
 					return false;
 #endif
+                case video::EDT_BGFX:
+#ifdef _IRR_COMPILE_WITH_BGFX_
+                    return true;
+#else
+                    return false;
+#endif
+
 				default:
 					return false;
 			}

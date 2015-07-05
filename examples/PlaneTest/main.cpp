@@ -22,7 +22,7 @@ int main(int argc, char const* const* argv)
 {
     bx::CommandLine cmdLine(argc, argv);
 
-	device = createDevice(video::EDT_OGLES2, dimension2d<u32>(800, 600), 16,
+	device = createDevice(video::EDT_BGFX, dimension2d<u32>(800, 600), 16,
 			false, false, false, 0);
 
 	if (!device)
@@ -43,7 +43,7 @@ int main(int argc, char const* const* argv)
     node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
     planeMesh->drop();
 
-#if 0
+#if 1
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
 #else
 	auto camera = smgr->addCameraSceneNodeFPS(0);

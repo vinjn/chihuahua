@@ -14,8 +14,10 @@
 #include "CNullDriver.h"
 #include "IMaterialRendererServices.h"
 #include "EDriverFeatures.h"
-#include "fast_atof.h"
 #include "IContextManager.h"
+
+#include "bgfx.h"
+#include "bgfxplatform.h"
 
 namespace irr
 {
@@ -34,13 +36,20 @@ namespace irr
 #endif
                 ) :CNullDriver(io, params.WindowSize)
             {
+                bgfx::winSetHwnd((HWND)params.WindowId);
+                bgfx::init();
 
+                uint32_t reset = BGFX_RESET_VSYNC;
+                bgfx::reset(ScreenSize.Width, ScreenSize.Height, reset);
+
+                uint32_t debug = BGFX_DEBUG_TEXT;
+                bgfx::setDebug(debug);
             }
 
             //! destructor
             virtual ~CBgfxDriver()
             {
-
+                bgfx::shutdown();
             }
 
             //! clears the zbuffer
@@ -49,13 +58,23 @@ namespace irr
                 const SExposedVideoData& videoData = SExposedVideoData(),
                 core::rect<s32>* sourceRect = 0)
             {
-                return false;
+                // Set view 0 clear state.
+                bgfx::setViewClear(0
+                    , (backBuffer ? BGFX_CLEAR_COLOR : 0) | (zBuffer ? BGFX_CLEAR_DEPTH : 0) | 0
+                    , color.color
+                    , 1.0f
+                    , 0
+                    );
+
+                return true;
             }
 
             //! presents the rendered scene on the screen, returns false if failed
             virtual bool endScene()
             {
-                return false;
+                bgfx::frame();
+
+                return true;
             }
 
             //! sets transformation
@@ -199,10 +218,16 @@ namespace irr
                 video::SColor rightDownEdge = video::SColor(0, 0, 0, 0)) _IRR_OVERRIDE_ {}
 
             //! sets a viewport
-            virtual void setViewPort(const core::rect<s32>& area) {}
+            virtual void setViewPort(const core::rect<s32>& area)
+            {
+                bgfx::setViewRect(0, area.UpperLeftCorner.X, area.UpperLeftCorner.Y, area.LowerRightCorner.X, area.LowerRightCorner.Y);
+            }
 
             //! Only used internally by the engine
-            virtual void OnResize(const core::dimension2d<u32>& size) {}
+            virtual void OnResize(const core::dimension2d<u32>& size) 
+            {
+                bgfx::reset(size.Width, size.Height);
+            }
 
             //! Returns type of video driver
             virtual E_DRIVER_TYPE getDriverType() const
