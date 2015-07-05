@@ -19,18 +19,26 @@ namespace irr
 namespace video
 {
 IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
-                                 io::IFileSystem* io, video::IContextManager* contextManager);
+        io::IFileSystem* io
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
+        , IContextManager* contextManager
+#elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
+        , CIrrDeviceIPhone* device
+#endif
+    );
 
 IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileSystem* filesystem)
 {
-    IContextManager* contextManager = NULL; // Leave context work to Java side
     IVideoDriver* videoDriver = NULL;
 
     switch (params.DriverType)
     {
     case video::EDT_OGLES2:
 #ifdef _IRR_COMPILE_WITH_OGLES2_
-        videoDriver = video::createOGLES2Driver(params, filesystem, contextManager);
+        char info[256];
+        sprintf(info, "Scene3D build version: %s %s", __DATE__, __TIME__);
+        print(info);
+        videoDriver = video::createOGLES2Driver(params, filesystem, NULL);
 #else
         print("No OpenGL ES 2.0 support compiled in.", ELL_ERROR);
 #endif
