@@ -1,6 +1,8 @@
 #ifndef _ASSIMP_MOBILE_CONFIG_
 #define _ASSIMP_MOBILE_CONFIG_
 
+#define _HAS_EXCEPTIONS 0
+
 #define ASSIMP_BUILD_NO_OWN_ZLIB
 
 // ImporterRegistry.cpp

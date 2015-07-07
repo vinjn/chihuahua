@@ -65,6 +65,7 @@ namespace irr
                     , 1.0f
                     , 0
                     );
+                bgfx::submit(0);
 
                 return true;
             }
@@ -226,7 +227,9 @@ namespace irr
             //! Only used internally by the engine
             virtual void OnResize(const core::dimension2d<u32>& size) 
             {
+                CNullDriver::OnResize(size);
                 bgfx::reset(size.Width, size.Height);
+                bgfx::setViewRect(0, 0, 0, size.Width, size.Height);
             }
 
             //! Returns type of video driver
