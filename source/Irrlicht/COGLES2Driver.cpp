@@ -2949,7 +2949,7 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setBlendEquation(GLenum mode)
 	{
-		if (BlendEquation != mode)
+		// if (BlendEquation != mode)
 		{
 			glBlendEquation(mode);
 
@@ -2994,7 +2994,7 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setBlend(bool enable)
 	{
-		if (Blend != enable)
+		// if (Blend != enable)
 		{
 			if (enable)
 				glEnable(GL_BLEND);
@@ -3053,7 +3053,7 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setDepthMask(bool enable)
 	{
-		if (DepthMask != enable)
+		// if (DepthMask != enable)
 		{
 			if (enable)
 				glDepthMask(GL_TRUE);
@@ -3066,7 +3066,7 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setDepthTest(bool enable)
 	{
-		if (DepthTest != enable)
+		// if (DepthTest != enable)
 		{
 			if (enable)
 				glEnable(GL_DEPTH_TEST);
@@ -3079,7 +3079,7 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setProgram(GLuint program)
 	{
-		if (Program != program)
+		// if (Program != program)
 		{
 			glUseProgram(program);
 			Program = program;
@@ -3093,7 +3093,7 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setActiveTexture(GLuint id)
 	{
-		if (ActiveTextureID != id && id < MATERIAL_MAX_TEXTURES)
+		// if (ActiveTextureID != id && id < MATERIAL_MAX_TEXTURES)
 		{
 			glActiveTexture(GL_TEXTURE0 + id);
 
