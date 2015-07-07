@@ -40,6 +40,8 @@ int main()
 	ISceneManager* smgr = device->getSceneManager();
 	IGUIEnvironment* guienv = device->getGUIEnvironment();
 
+    scene::ISceneNode* skydome = smgr->addSkyDomeSceneNode(driver->getTexture("../../media/skydome.jpg"), 16, 8, 0.95f, 2.0f);
+
     c8* meshFiles[] =
     {
         //"../../media/duck.fbx",
@@ -49,8 +51,8 @@ int main()
     c8* texFiles[] =
     {
         "../../media/Shanghai5.jpg",
-        "../../media/RGB_24bits_palette_R85.png",
-        "../../media/100-percent-ramp.jpg",
+        "../../media/Belgium_block_pxr128.jpg",
+        "../../media/Slag_stone_pxr128.jpg",
         "../../media/dwarf.jpg",
         "../../media/Cockatoo/Cockatoo_D.png",
     };
@@ -83,9 +85,11 @@ int main()
             random(0, 1),
         });
         node->addAnimator(rotAnimator);
+        rotAnimator->drop();
 
         auto flyAnimator = smgr->createFlyCircleAnimator({}, random(0, 20));
         node->addAnimator(flyAnimator);
+        flyAnimator->drop();
     }
 
 #if 1
