@@ -15,6 +15,7 @@
 #include "IMaterialRendererServices.h"
 #include "EDriverFeatures.h"
 #include "IContextManager.h"
+#include "CBgfxTexture.h"
 
 #include "bgfx.h"
 #include "bgfxplatform.h"
@@ -67,6 +68,9 @@ namespace irr
                     );
                 bgfx::submit(0);
 
+                // Use debug font to print information about this example.
+                bgfx::dbgTextClear();
+
                 return true;
             }
 
@@ -78,10 +82,31 @@ namespace irr
                 return true;
             }
 
+            core::matrix4 Matrices[ETS_COUNT];
+
             //! sets transformation
             virtual void setTransform(E_TRANSFORMATION_STATE state, const core::matrix4& mat)
             {
+                Matrices[state] = mat;
 
+                switch (state)
+                {
+                case ETS_VIEW:
+                case ETS_PROJECTION:
+                    bgfx::setViewTransform(0, Matrices[ETS_VIEW].pointer(), Matrices[ETS_PROJECTION].pointer());
+                    break;
+                case ETS_WORLD:
+                    bgfx::setTransform(mat.pointer());
+                    break;
+                default:
+                    break;
+                }
+            }
+
+            //! Returns the transformation set by setTransform
+            virtual const core::matrix4& getTransform(E_TRANSFORMATION_STATE state) const
+            {
+                return Matrices[state];
             }
 
             //! updates hardware buffer if needed
@@ -244,12 +269,6 @@ namespace irr
                 return ECF_UNKNOWN;
             }
 
-            //! Returns the transformation set by setTransform
-            virtual const core::matrix4& getTransform(E_TRANSFORMATION_STATE state) const
-            {
-                return core::matrix4();
-            }
-
             //! Can be called by an IMaterialRenderer to make its work easier.
             virtual void setBasicRenderStates(const SMaterial& material, const SMaterial& lastmaterial, bool resetAllRenderstates) {}
 
@@ -391,7 +410,12 @@ namespace irr
             //! returns a device dependent texture from a software surface (IImage)
             virtual ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData)
             {
-                return NULL;
+                CBgfxTexture* texture = 0;
+
+                if (surface && checkColorFormat(surface->getColorFormat(), surface->getDimension()))
+                    texture = new CBgfxTexture(surface, name, false, mipmapData);
+
+                return texture;
             }
 
             //! returns a device dependent texture from a software surface (IImage)
