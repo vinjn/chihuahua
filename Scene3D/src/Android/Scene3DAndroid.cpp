@@ -7,7 +7,6 @@
 #include "CAndroidAssetFileArchive.h"
 
 #define printf(...) __android_log_print(ANDROID_LOG_INFO, "Irrlicht", __VA_ARGS__);
-#include "FullScreenSceneNode.h"
 
 #include "../Scene3D.h"
 
