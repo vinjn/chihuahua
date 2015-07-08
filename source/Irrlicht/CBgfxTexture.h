@@ -7,6 +7,7 @@
 
 #include "ITexture.h"
 #include "CImage.h"
+#include "bgfx.h"
 
 namespace irr
 {
@@ -39,12 +40,6 @@ public:
 	//! Returns (=size) of the texture.
 	virtual const core::dimension2d<u32>& getSize() const _IRR_OVERRIDE_;
 
-	//! returns unoptimized surface
-	virtual CImage* getImage();
-
-	//! returns texture surface
-	virtual CImage* getTexture();
-
 	//! returns driver type of texture (=the driver, who created the texture)
 	virtual E_DRIVER_TYPE getDriverType() const _IRR_OVERRIDE_;
 
@@ -62,10 +57,12 @@ public:
 	virtual bool isRenderTarget() const _IRR_OVERRIDE_;
 
 private:
-	CImage* Image;
-	CImage* Texture;
 	core::dimension2d<u32> OrigSize;
 	bool IsRenderTarget;
+
+    IImage* LockImage;
+    bgfx::TextureHandle Texture;
+    bgfx::TextureInfo   Info;
 };
 
 

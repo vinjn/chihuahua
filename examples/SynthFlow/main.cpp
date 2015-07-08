@@ -9,10 +9,12 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-#ifdef _IRR_WINDOWS_
+#ifdef _DEBUG
+#pragma comment(lib, "Irrlicht_d.lib")
+#else
 #pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 #endif
+#pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 
 #define WORLD_SIZE 100
 #define NODE_COUNT 100

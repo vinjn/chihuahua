@@ -70,12 +70,6 @@
     <Filter Include="Irrlicht\irr\extern\libpng">
       <UniqueIdentifier>{6f10ce97-ed8b-47bc-a189-f2262eb467e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Irrlicht\irr\extern\aesGladman">
-      <UniqueIdentifier>{5d58bc55-284e-4880-9226-85083e65d660}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Irrlicht\irr\extern\bzip2">
-      <UniqueIdentifier>{064ee182-9f07-4026-ac22-c141ae2c7281}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Irrlicht\irr\device">
       <UniqueIdentifier>{6e842906-e193-451d-8716-12eaafabd0d8}</UniqueIdentifier>
     </Filter>
@@ -908,36 +902,6 @@
     </ClInclude>
     <ClInclude Include="libpng\pngconf.h">
       <Filter>Irrlicht\irr\extern\libpng</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\aes.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\aesopt.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\fileenc.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\hmac.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\prng.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\pwd2key.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\sha1.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="aesGladman\sha2.h">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClInclude>
-    <ClInclude Include="bzip2\bzlib.h">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
-    </ClInclude>
-    <ClInclude Include="bzip2\bzlib_private.h">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
     </ClInclude>
     <ClInclude Include="CIrrDeviceConsole.h">
       <Filter>Irrlicht\irr\device</Filter>
@@ -1887,54 +1851,6 @@
     </ClCompile>
     <ClCompile Include="libpng\pngwutil.c">
       <Filter>Irrlicht\irr\extern\libpng</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\aescrypt.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\aeskey.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\aestab.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\fileenc.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\hmac.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\prng.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\pwd2key.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\sha1.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="aesGladman\sha2.cpp">
-      <Filter>Irrlicht\irr\extern\aesGladman</Filter>
-    </ClCompile>
-    <ClCompile Include="bzip2\blocksort.c">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
-    </ClCompile>
-    <ClCompile Include="bzip2\bzcompress.c">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
-    </ClCompile>
-    <ClCompile Include="bzip2\bzlib.c">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
-    </ClCompile>
-    <ClCompile Include="bzip2\crctable.c">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
-    </ClCompile>
-    <ClCompile Include="bzip2\decompress.c">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
-    </ClCompile>
-    <ClCompile Include="bzip2\huffman.c">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
-    </ClCompile>
-    <ClCompile Include="bzip2\randtable.c">
-      <Filter>Irrlicht\irr\extern\bzip2</Filter>
     </ClCompile>
     <ClCompile Include="CIrrDeviceConsole.cpp">
       <Filter>Irrlicht\irr\device</Filter>

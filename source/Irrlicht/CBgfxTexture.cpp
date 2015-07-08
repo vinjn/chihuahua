@@ -16,7 +16,7 @@ namespace video
 //! constructor
 CBgfxTexture::CBgfxTexture(IImage* image, const io::path& name,
 		bool renderTarget, void* mipmapData)
-: ITexture(name), Texture(0), IsRenderTarget(renderTarget)
+: ITexture(name), IsRenderTarget(renderTarget), LockImage(NULL)
 {
 	#ifdef _DEBUG
 	setDebugName("CBgfxTexture");
@@ -25,20 +25,22 @@ CBgfxTexture::CBgfxTexture(IImage* image, const io::path& name,
 	OrigSize = image->getDimension();
 	core::dimension2d<u32> optSize=OrigSize.getOptimalSize();
 
-	Image = new CImage(ECF_A1R5G5B5, OrigSize);
+    uint32_t _flags = BGFX_TEXTURE_NONE;
+    Texture = bgfx::createTexture2D(uint16_t(OrigSize.Width), uint16_t(OrigSize.Height), 1
+        , bgfx::TextureFormat::RGBA8
+        , _flags
+        , bgfx::copy(image->lock(), OrigSize.Width*OrigSize.Height * 4)
+        );
+    image->unlock();
 
-	image->copyTo(Image);
-
-	if (optSize == OrigSize)
-	{
-		Texture = Image;
-		Texture->grab();
-	}
-	else
-	{
-		Texture = new CImage(ECF_A1R5G5B5, optSize);
-		Image->copyToScaling(Texture);
-	}
+    bgfx::calcTextureSize(Info
+        , uint16_t(OrigSize.Width)
+        , uint16_t(OrigSize.Height)
+        , 0
+        , false
+        , 1
+        , bgfx::TextureFormat::RGBA8
+        );
 }
 
 
@@ -46,11 +48,10 @@ CBgfxTexture::CBgfxTexture(IImage* image, const io::path& name,
 //! destructor
 CBgfxTexture::~CBgfxTexture()
 {
-	if (Image)
-		Image->drop();
+	if (LockImage)
+        LockImage->drop();
 
-	if (Texture)
-		Texture->drop();
+    //bgfx::destroyTexture(Texture);
 }
 
 
@@ -58,7 +59,7 @@ CBgfxTexture::~CBgfxTexture()
 //! lock function
 void* CBgfxTexture::lock(E_TEXTURE_LOCK_MODE mode, u32 mipmapLevel)
 {
-	return Image->lock();
+	return LockImage->lock();
 }
 
 
@@ -66,13 +67,13 @@ void* CBgfxTexture::lock(E_TEXTURE_LOCK_MODE mode, u32 mipmapLevel)
 //! unlock function
 void CBgfxTexture::unlock()
 {
-	if (Image != Texture)
-	{
-		os::Printer::log("Performance warning, slow unlock of non power of 2 texture.", ELL_WARNING);
-		Image->copyToScaling(Texture);
-	}
+	//if (LockImage != Texture)
+	//{
+	//	os::Printer::log("Performance warning, slow unlock of non power of 2 texture.", ELL_WARNING);
+	//	Image->copyToScaling(Texture);
+	//}
 
-	Image->unlock();
+    LockImage->unlock();
 }
 
 
@@ -86,24 +87,8 @@ const core::dimension2d<u32>& CBgfxTexture::getOriginalSize() const
 //! Returns (=size) of the texture.
 const core::dimension2d<u32>& CBgfxTexture::getSize() const
 {
-	return Image->getDimension();
+	return core::dimension2d<u32>(Info.width, Info.height);
 }
-
-
-//! returns unoptimized surface
-CImage* CBgfxTexture::getImage()
-{
-	return Image;
-}
-
-
-
-//! returns texture surface
-CImage* CBgfxTexture::getTexture()
-{
-	return Texture;
-}
-
 
 
 //! returns driver type of texture (=the driver, who created the texture)
@@ -117,7 +102,7 @@ E_DRIVER_TYPE CBgfxTexture::getDriverType() const
 //! returns color format of texture
 ECOLOR_FORMAT CBgfxTexture::getColorFormat() const
 {
-	return ECF_A1R5G5B5;
+	return ECF_A8R8G8B8;
 }
 
 
@@ -125,7 +110,7 @@ ECOLOR_FORMAT CBgfxTexture::getColorFormat() const
 //! returns pitch of texture (in bytes)
 u32 CBgfxTexture::getPitch() const
 {
-	return Image->getDimension().Width * 2;
+	return Info.width * Info.bitsPerPixel;
 }
 
 

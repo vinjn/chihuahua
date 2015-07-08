@@ -11,9 +11,10 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-#ifdef _IRR_WINDOWS_
+#ifdef _DEBUG
+#pragma comment(lib, "Irrlicht_d.lib")
+#else
 #pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 #endif
 
 IrrlichtDevice *device;
@@ -35,13 +36,12 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    auto mesh = getMeshFromAssimp(smgr, "c:/Users/vincentz/Downloads/1409111100_37555.obj/file-28.obj");
+    auto mesh = getMeshFromAssimp(smgr, "../../media/warrior.obj");
     auto node = smgr->addMeshSceneNode(mesh);
     node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
-    node->setMaterialTexture(0, driver->getTexture("c:/Users/vincentz/Downloads/1409111100_37555.obj/28.jpg"));
-    mesh->drop();
+    node->setMaterialTexture(0, driver->getTexture("../../media/metaioman.png"));
 
 #if 1
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
