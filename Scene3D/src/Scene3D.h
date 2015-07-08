@@ -18,25 +18,33 @@ namespace irr
 {
 namespace video
 {
+
 IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
-                                 io::IFileSystem* io, video::IContextManager* contextManager);
+        io::IFileSystem* io
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
+        , IContextManager* contextManager
+#elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
+        , CIrrDeviceIPhone* device
+#endif
+    );
+
+IVideoDriver* createNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& screenSize);
+
 
 IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileSystem* filesystem)
 {
-    IContextManager* contextManager = NULL; // Leave context work to Java side
     IVideoDriver* videoDriver = NULL;
 
     switch (params.DriverType)
     {
     case video::EDT_OGLES2:
-#ifdef _IRR_COMPILE_WITH_OGLES2_
-        videoDriver = video::createOGLES2Driver(params, filesystem, contextManager);
-#else
-        print("No OpenGL ES 2.0 support compiled in.", ELL_ERROR);
-#endif
+        videoDriver = video::createOGLES2Driver(params, filesystem, NULL);
         break;
+    case video::EDT_NULL:
+        videoDriver = video::createNullDriver(filesystem, params.WindowSize);
+        break;        
     default:
-        print("This driver is not available. Try OpenGL ES 1.0 or ES 2.0.", ELL_ERROR);
+        print("This driver is not available. Try OpenGL ES 2.0.", ELL_ERROR);
         break;
     }
     return videoDriver;
@@ -168,7 +176,6 @@ void Scene3D_resize(int width, int height)
     // TODO: memory leak
     // if (driver == NULL)
     {
-        // createDriverAndSmgr(width, height, isGlesV2 ? video::EDT_OGLES2 : video::EDT_OGLES1);
         createDriverAndSmgr(width, height, video::EDT_OGLES2);
     }
 
