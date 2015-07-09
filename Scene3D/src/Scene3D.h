@@ -16,6 +16,7 @@ static void print(const c8* text, ELOG_LEVEL ll = ELL_INFORMATION)
 
 namespace irr
 {
+    class CIrrDeviceIPhone;
 namespace video
 {
 
