@@ -1,8 +1,8 @@
 #pragma once
 
 #include "irrlicht.h"
-#include "os.h"
-#include "CLogger.h"
+#include "../source/irrlicht/os.h"
+#include "../source/irrlicht/CLogger.h"
 #include "AssimpWrapper.h"
 #include "FullScreenSceneNode.h"
 

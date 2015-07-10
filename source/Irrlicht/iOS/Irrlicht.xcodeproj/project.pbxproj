@@ -12,7 +12,6 @@
 		5E30A72019215C1400C90671 /* CNSOGLManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5E30A70C19215C1400C90671 /* CNSOGLManager.mm */; };
 		5E30A72319215C1400C90671 /* CProfiler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30A70F19215C1400C90671 /* CProfiler.cpp */; };
 		5E30A72519215C1400C90671 /* CWGLManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30A71119215C1400C90671 /* CWGLManager.cpp */; };
-		5E3EA45B1586A27C00C17C1D /* CIrrDeviceiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EA1C21586440400C17C1D /* CIrrDeviceiOS.mm */; };
 		5E3EA46C1586A27C00C17C1D /* jaricom.c in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EA2BA15867F8000C17C1D /* jaricom.c */; };
 		5E3EA46D1586A27C00C17C1D /* jcapimin.c in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EA2BB15867F8000C17C1D /* jcapimin.c */; };
 		5E3EA46E1586A27C00C17C1D /* jcapistd.c in Sources */ = {isa = PBXBuildFile; fileRef = 5E3EA2BC15867F8000C17C1D /* jcapistd.c */; };
@@ -204,10 +203,6 @@
 		5E3EA6161586A27D00C17C1D /* CSkyBoxSceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30476715515B4400D9E53B /* CSkyBoxSceneNode.cpp */; };
 		5E3EA6181586A27D00C17C1D /* CSkyDomeSceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30476915515B4400D9E53B /* CSkyDomeSceneNode.cpp */; };
 		5E3EA61A1586A27D00C17C1D /* CSMFMeshFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30476B15515B4400D9E53B /* CSMFMeshFileLoader.cpp */; };
-		5E3EA61D1586A27D00C17C1D /* CSoftwareDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30476E15515B4400D9E53B /* CSoftwareDriver.cpp */; };
-		5E3EA61F1586A27D00C17C1D /* CSoftwareDriver2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30477015515B4400D9E53B /* CSoftwareDriver2.cpp */; };
-		5E3EA6211586A27D00C17C1D /* CSoftwareTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30477215515B4400D9E53B /* CSoftwareTexture.cpp */; };
-		5E3EA6231586A27D00C17C1D /* CSoftwareTexture2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30477415515B4400D9E53B /* CSoftwareTexture2.cpp */; };
 		5E3EA6251586A27D00C17C1D /* CSphereSceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30477615515B4400D9E53B /* CSphereSceneNode.cpp */; };
 		5E3EA6271586A27D00C17C1D /* CSTLMeshFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30477815515B4400D9E53B /* CSTLMeshFileLoader.cpp */; };
 		5E3EA6291586A27D00C17C1D /* CSTLMeshWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E30477A15515B4400D9E53B /* CSTLMeshWriter.cpp */; };
@@ -227,7 +222,6 @@
 		5E3EA6661586A27E00C17C1D /* CXMLWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3047B715515B4400D9E53B /* CXMLWriter.cpp */; };
 		5E3EA6681586A27E00C17C1D /* CZBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3047B915515B4400D9E53B /* CZBuffer.cpp */; };
 		5E3EA66A1586A27E00C17C1D /* CZipReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3047BB15515B4400D9E53B /* CZipReader.cpp */; };
-		5E3EA6731586A27E00C17C1D /* IBurningShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3047C415515B4400D9E53B /* IBurningShader.cpp */; };
 		5E3EA6771586A27E00C17C1D /* Irrlicht.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3047CC15515B4400D9E53B /* Irrlicht.cpp */; };
 		5E3EA6781586A27E00C17C1D /* irrXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E3047CD15515B4400D9E53B /* irrXML.cpp */; };
 		5E4C3FEE18C7C8FF002AEDAF /* CMeshTextureLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5E4C3FEC18C7C8FF002AEDAF /* CMeshTextureLoader.cpp */; };
@@ -264,7 +258,6 @@
 		5ED2488817317FFC00A13B86 /* Interface_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488617317FFC00A13B86 /* Interface_iPad.xib */; };
 		5ED2488917317FFC00A13B86 /* Interface_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488717317FFC00A13B86 /* Interface_iPhone.xib */; };
 		5EEAE050171DF3C700C7BC68 /* leakHunter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */; };
-		7438300B1B4EAC73005B9F9D /* Scene3DiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7438300A1B4EAC73005B9F9D /* Scene3DiOS.mm */; };
 		7495CED61B402E690083A25C /* IrrAssimpImport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CED41B402E690083A25C /* IrrAssimpImport.cpp */; };
 		7495CF8F1B4038270083A25C /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8D1B4038270083A25C /* ConvertUTF.c */; };
 		7495CF901B4038270083A25C /* ConvertUTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 7495CF8E1B4038270083A25C /* ConvertUTF.h */; };
@@ -745,15 +738,6 @@
 		5E30476A15515B4400D9E53B /* CSkyDomeSceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSkyDomeSceneNode.h; path = ../CSkyDomeSceneNode.h; sourceTree = "<group>"; };
 		5E30476B15515B4400D9E53B /* CSMFMeshFileLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSMFMeshFileLoader.cpp; path = ../CSMFMeshFileLoader.cpp; sourceTree = "<group>"; };
 		5E30476C15515B4400D9E53B /* CSMFMeshFileLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSMFMeshFileLoader.h; path = ../CSMFMeshFileLoader.h; sourceTree = "<group>"; };
-		5E30476D15515B4400D9E53B /* CSoftware2MaterialRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSoftware2MaterialRenderer.h; path = ../CSoftware2MaterialRenderer.h; sourceTree = "<group>"; };
-		5E30476E15515B4400D9E53B /* CSoftwareDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSoftwareDriver.cpp; path = ../CSoftwareDriver.cpp; sourceTree = "<group>"; };
-		5E30476F15515B4400D9E53B /* CSoftwareDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSoftwareDriver.h; path = ../CSoftwareDriver.h; sourceTree = "<group>"; };
-		5E30477015515B4400D9E53B /* CSoftwareDriver2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSoftwareDriver2.cpp; path = ../CSoftwareDriver2.cpp; sourceTree = "<group>"; };
-		5E30477115515B4400D9E53B /* CSoftwareDriver2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSoftwareDriver2.h; path = ../CSoftwareDriver2.h; sourceTree = "<group>"; };
-		5E30477215515B4400D9E53B /* CSoftwareTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSoftwareTexture.cpp; path = ../CSoftwareTexture.cpp; sourceTree = "<group>"; };
-		5E30477315515B4400D9E53B /* CSoftwareTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSoftwareTexture.h; path = ../CSoftwareTexture.h; sourceTree = "<group>"; };
-		5E30477415515B4400D9E53B /* CSoftwareTexture2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSoftwareTexture2.cpp; path = ../CSoftwareTexture2.cpp; sourceTree = "<group>"; };
-		5E30477515515B4400D9E53B /* CSoftwareTexture2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSoftwareTexture2.h; path = ../CSoftwareTexture2.h; sourceTree = "<group>"; };
 		5E30477615515B4400D9E53B /* CSphereSceneNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSphereSceneNode.cpp; path = ../CSphereSceneNode.cpp; sourceTree = "<group>"; };
 		5E30477715515B4400D9E53B /* CSphereSceneNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSphereSceneNode.h; path = ../CSphereSceneNode.h; sourceTree = "<group>"; };
 		5E30477815515B4400D9E53B /* CSTLMeshFileLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CSTLMeshFileLoader.cpp; path = ../CSTLMeshFileLoader.cpp; sourceTree = "<group>"; };
@@ -801,8 +785,6 @@
 		5E3047C115515B4400D9E53B /* glext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glext.h; path = ../glext.h; sourceTree = "<group>"; };
 		5E3047C215515B4400D9E53B /* glxext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glxext.h; path = ../glxext.h; sourceTree = "<group>"; };
 		5E3047C315515B4400D9E53B /* IAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IAttribute.h; path = ../IAttribute.h; sourceTree = "<group>"; };
-		5E3047C415515B4400D9E53B /* IBurningShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IBurningShader.cpp; path = ../IBurningShader.cpp; sourceTree = "<group>"; };
-		5E3047C515515B4400D9E53B /* IBurningShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IBurningShader.h; path = ../IBurningShader.h; sourceTree = "<group>"; };
 		5E3047C615515B4400D9E53B /* IDepthBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IDepthBuffer.h; path = ../IDepthBuffer.h; sourceTree = "<group>"; };
 		5E3047C715515B4400D9E53B /* IImagePresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IImagePresenter.h; path = ../IImagePresenter.h; sourceTree = "<group>"; };
 		5E3047CC15515B4400D9E53B /* Irrlicht.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Irrlicht.cpp; path = ../Irrlicht.cpp; sourceTree = "<group>"; };
@@ -821,8 +803,6 @@
 		5E30A71219215C1400C90671 /* CWGLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CWGLManager.h; path = ../CWGLManager.h; sourceTree = "<group>"; };
 		5E30A71319215C1400C90671 /* EProfileIDs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EProfileIDs.h; path = ../EProfileIDs.h; sourceTree = "<group>"; };
 		5E30A71419215C1400C90671 /* gles3-ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "gles3-ext.h"; path = "../gles3-ext.h"; sourceTree = "<group>"; };
-		5E3EA1C11586440400C17C1D /* CIrrDeviceiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIrrDeviceiOS.h; sourceTree = "<group>"; };
-		5E3EA1C21586440400C17C1D /* CIrrDeviceiOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CIrrDeviceiOS.mm; sourceTree = "<group>"; };
 		5E3EA21515867D9100C17C1D /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = ../zlib/adler32.c; sourceTree = "<group>"; };
 		5E3EA21615867D9100C17C1D /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = compress.c; path = ../zlib/compress.c; sourceTree = "<group>"; };
 		5E3EA21715867D9100C17C1D /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = crc32.c; path = ../zlib/crc32.c; sourceTree = "<group>"; };
@@ -947,9 +927,6 @@
 		5EEAE04A171DF38900C7BC68 /* irrunpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = irrunpack.h; path = ../../../include/irrunpack.h; sourceTree = "<group>"; };
 		5EEAE04B171DF38900C7BC68 /* leakHunter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = leakHunter.h; path = ../../../include/leakHunter.h; sourceTree = "<group>"; };
 		5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = leakHunter.cpp; path = ../leakHunter.cpp; sourceTree = "<group>"; };
-		7438300A1B4EAC73005B9F9D /* Scene3DiOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Scene3DiOS.mm; path = ../../../Scene3D/src/iOS/Scene3DiOS.mm; sourceTree = "<group>"; };
-		7495CECD1B402A700083A25C /* Scene3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene3D.h; path = ../../../Scene3D/src/Scene3D.h; sourceTree = "<group>"; };
-		7495CECF1B402A780083A25C /* Scene3DiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene3DiOS.h; path = ../../../Scene3D/src/iOS/Scene3DiOS.h; sourceTree = "<group>"; };
 		7495CED41B402E690083A25C /* IrrAssimpImport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IrrAssimpImport.cpp; path = ../../assimp/IrrAssimpImport.cpp; sourceTree = "<group>"; };
 		7495CED51B402E690083A25C /* IrrAssimpImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IrrAssimpImport.h; path = ../../assimp/IrrAssimpImport.h; sourceTree = "<group>"; };
 		7495CEDA1B402E7A0083A25C /* ai_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ai_assert.h; sourceTree = "<group>"; };
@@ -1533,15 +1510,6 @@
 				5E30476A15515B4400D9E53B /* CSkyDomeSceneNode.h */,
 				5E30476B15515B4400D9E53B /* CSMFMeshFileLoader.cpp */,
 				5E30476C15515B4400D9E53B /* CSMFMeshFileLoader.h */,
-				5E30476D15515B4400D9E53B /* CSoftware2MaterialRenderer.h */,
-				5E30476E15515B4400D9E53B /* CSoftwareDriver.cpp */,
-				5E30476F15515B4400D9E53B /* CSoftwareDriver.h */,
-				5E30477015515B4400D9E53B /* CSoftwareDriver2.cpp */,
-				5E30477115515B4400D9E53B /* CSoftwareDriver2.h */,
-				5E30477215515B4400D9E53B /* CSoftwareTexture.cpp */,
-				5E30477315515B4400D9E53B /* CSoftwareTexture.h */,
-				5E30477415515B4400D9E53B /* CSoftwareTexture2.cpp */,
-				5E30477515515B4400D9E53B /* CSoftwareTexture2.h */,
 				5E30477615515B4400D9E53B /* CSphereSceneNode.cpp */,
 				5E30477715515B4400D9E53B /* CSphereSceneNode.h */,
 				5E30477815515B4400D9E53B /* CSTLMeshFileLoader.cpp */,
@@ -1584,7 +1552,6 @@
 				5E3047BA15515B4400D9E53B /* CZBuffer.h */,
 				5E3047BB15515B4400D9E53B /* CZipReader.cpp */,
 				5E3047BC15515B4400D9E53B /* CZipReader.h */,
-				5E3EA3351586811100C17C1D /* Devices */,
 				5E3047BD15515B4400D9E53B /* dmfsupport.h */,
 				5E3047BE15515B4400D9E53B /* eglext.h */,
 				5E30A71319215C1400C90671 /* EProfileIDs.h */,
@@ -1594,8 +1561,6 @@
 				5E3047C115515B4400D9E53B /* glext.h */,
 				5E3047C215515B4400D9E53B /* glxext.h */,
 				5E3047C315515B4400D9E53B /* IAttribute.h */,
-				5E3047C415515B4400D9E53B /* IBurningShader.cpp */,
-				5E3047C515515B4400D9E53B /* IBurningShader.h */,
 				5E3047C615515B4400D9E53B /* IDepthBuffer.h */,
 				5E3047C715515B4400D9E53B /* IImagePresenter.h */,
 				5E3047CC15515B4400D9E53B /* Irrlicht.cpp */,
@@ -1720,23 +1685,6 @@
 			name = libpng;
 			sourceTree = "<group>";
 		};
-		5E3EA3351586811100C17C1D /* Devices */ = {
-			isa = PBXGroup;
-			children = (
-				5E7B130C1586434F0011BD23 /* iOS */,
-			);
-			name = Devices;
-			sourceTree = "<group>";
-		};
-		5E7B130C1586434F0011BD23 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				5E3EA1C11586440400C17C1D /* CIrrDeviceiOS.h */,
-				5E3EA1C21586440400C17C1D /* CIrrDeviceiOS.mm */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 		5E7CF2E115516CC00014DCBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1755,9 +1703,6 @@
 			isa = PBXGroup;
 			children = (
 				7495CED31B402E570083A25C /* assimp */,
-				7495CECF1B402A780083A25C /* Scene3DiOS.h */,
-				7495CECD1B402A700083A25C /* Scene3D.h */,
-				7438300A1B4EAC73005B9F9D /* Scene3DiOS.mm */,
 				74F362381B21D742000309FC /* Default-568h@2x.png */,
 				5ED24838173151F300A13B86 /* Examples */,
 				5E7CF2E115516CC00014DCBA /* Frameworks */,
@@ -2046,7 +1991,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5E96FAEA15515650000A0A05 /* Build configuration list for PBXProject "iOS" */;
+			buildConfigurationList = 5E96FAEA15515650000A0A05 /* Build configuration list for PBXProject "Irrlicht" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2135,13 +2080,11 @@
 				7495CFC01B403B010083A25C /* FBXModel.cpp in Sources */,
 				7495CFC11B403B010083A25C /* FBXNodeAttribute.cpp in Sources */,
 				7495CFC21B403B010083A25C /* FBXParser.cpp in Sources */,
-				7438300B1B4EAC73005B9F9D /* Scene3DiOS.mm in Sources */,
 				7495CFC31B403B010083A25C /* FBXProperties.cpp in Sources */,
 				7495CFC41B403B010083A25C /* FBXTokenizer.cpp in Sources */,
 				7495CFC61B403B010083A25C /* FBXUtil.cpp in Sources */,
 				7495CFC71B403B010083A25C /* Assimp.cpp in Sources */,
 				7495CFC81B403B010083A25C /* AssimpWrapper.cpp in Sources */,
-				5E3EA45B1586A27C00C17C1D /* CIrrDeviceiOS.mm in Sources */,
 				5E3EA46C1586A27C00C17C1D /* jaricom.c in Sources */,
 				5E3EA46D1586A27C00C17C1D /* jcapimin.c in Sources */,
 				5E3EA46E1586A27C00C17C1D /* jcapistd.c in Sources */,
@@ -2337,11 +2280,7 @@
 				5E3EA6161586A27D00C17C1D /* CSkyBoxSceneNode.cpp in Sources */,
 				5E3EA6181586A27D00C17C1D /* CSkyDomeSceneNode.cpp in Sources */,
 				5E3EA61A1586A27D00C17C1D /* CSMFMeshFileLoader.cpp in Sources */,
-				5E3EA61D1586A27D00C17C1D /* CSoftwareDriver.cpp in Sources */,
 				5E30A72519215C1400C90671 /* CWGLManager.cpp in Sources */,
-				5E3EA61F1586A27D00C17C1D /* CSoftwareDriver2.cpp in Sources */,
-				5E3EA6211586A27D00C17C1D /* CSoftwareTexture.cpp in Sources */,
-				5E3EA6231586A27D00C17C1D /* CSoftwareTexture2.cpp in Sources */,
 				5E3EA6251586A27D00C17C1D /* CSphereSceneNode.cpp in Sources */,
 				5E3EA6271586A27D00C17C1D /* CSTLMeshFileLoader.cpp in Sources */,
 				5E3EA6291586A27D00C17C1D /* CSTLMeshWriter.cpp in Sources */,
@@ -2362,7 +2301,6 @@
 				5E3EA6661586A27E00C17C1D /* CXMLWriter.cpp in Sources */,
 				5E3EA6681586A27E00C17C1D /* CZBuffer.cpp in Sources */,
 				5E3EA66A1586A27E00C17C1D /* CZipReader.cpp in Sources */,
-				5E3EA6731586A27E00C17C1D /* IBurningShader.cpp in Sources */,
 				5E3EA6771586A27E00C17C1D /* Irrlicht.cpp in Sources */,
 				5E3EA6781586A27E00C17C1D /* irrXML.cpp in Sources */,
 				5E25C82B16A845D900320AA9 /* COGLES2FixedPipelineRenderer.cpp in Sources */,
@@ -2459,6 +2397,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2518,7 +2457,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5E96FAEA15515650000A0A05 /* Build configuration list for PBXProject "iOS" */ = {
+		5E96FAEA15515650000A0A05 /* Build configuration list for PBXProject "Irrlicht" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5E96FAFB15515650000A0A05 /* Debug */,

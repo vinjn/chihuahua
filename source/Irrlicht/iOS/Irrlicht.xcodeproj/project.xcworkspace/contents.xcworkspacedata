@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:">
+      location = "self:/Users/vinjn/Documents/Scene3D/source/Irrlicht/iOS/Irrlicht.xcodeproj">
    </FileRef>
 </Workspace>
