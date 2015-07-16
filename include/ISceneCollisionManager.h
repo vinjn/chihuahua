@@ -40,7 +40,7 @@ namespace scene
 		\return True if a collision was detected and false if not. */
 		virtual bool getCollisionPoint(const core::line3d<f32>& ray,
 				ITriangleSelector* selector, core::vector3df& outCollisionPoint,
-				core::triangle3df& outTriangle, ISceneNode*& outNode) =0;
+                core::triangle3df& outTriangle, ISceneNode*& outNode, s32* outTriangleId = 0) = 0;
 
 		//! Collides a moving ellipsoid with a 3d world with gravity and returns the resulting new position of the ellipsoid.
 		/** This can be used for moving a character in a 3d world: The
@@ -194,7 +194,8 @@ namespace scene
 								core::triangle3df& outTriangle,
 								s32 idBitMask = 0,
 								ISceneNode * collisionRootNode = 0,
-								bool noDebugObjects = false) = 0;
+								bool noDebugObjects = false,
+                                s32* outTriangleId = 0) = 0;
 	};
 
 
