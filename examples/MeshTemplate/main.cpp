@@ -23,7 +23,7 @@ int main(int argc, char const* const* argv)
 {
     bx::CommandLine cmdLine(argc, argv);
 
-	device = createDevice(video::EDT_BGFX, dimension2d<u32>(800, 600), 16,
+	device = createDevice(video::EDT_OGLES2, dimension2d<u32>(800, 600), 16,
 			false, false, false, 0);
 
 	if (!device)
@@ -36,12 +36,12 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    auto mesh = getMeshFromAssimp(smgr, "../../media/warrior.obj");
+    auto mesh = getMeshFromAssimp(smgr, "../../media/chair.fbx");
     auto node = smgr->addMeshSceneNode(mesh);
     node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
-    node->setMaterialTexture(0, driver->getTexture("../../media/metaioman.png"));
+    //node->setMaterialTexture(0, driver->getTexture("../../media/metaioman.png"));
 
 #if 1
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
