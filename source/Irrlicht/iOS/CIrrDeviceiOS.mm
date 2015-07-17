@@ -27,7 +27,7 @@
 #include "IFileSystem.h"
 
 #import <UIKit/UIKit.h>
-#import <CoreMotion/CoreMotion.h>
+//#import <CoreMotion/CoreMotion.h>
 #import <QuartzCore/CAEAGLLayer.h>
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
@@ -165,8 +165,8 @@
 	IrrIPhoneView* view;
     UIViewController* viewController;
 	irr::CIrrDeviceIPhone* dev;
-    CMMotionManager* motionManager;
-    CMAttitude* referenceAttitude;
+//    CMMotionManager* motionManager;
+//    CMAttitude* referenceAttitude;
 }
 - (id) initWithDevice: (irr::CIrrDeviceIPhone*) device;
 - (void) dealloc;
@@ -203,8 +203,8 @@
 		view = nil;
         viewController = nil;
 		dev = device;
-        motionManager = [[CMMotionManager alloc] init];
-        referenceAttitude = nil;
+//        motionManager = [[CMMotionManager alloc] init];
+//        referenceAttitude = nil;
 	}
 	return self;
 }
@@ -213,7 +213,7 @@
     [self deactivateAccelerometer];
     [self deactivateGyroscope];
     [self deactivateDeviceMotion];
-    [motionManager release];
+//    [motionManager release];
     [context release];
     [view release];
     [viewController release];
@@ -292,135 +292,135 @@
 }
 - (BOOL) activateAccelerometer: (float) updateInterval;
 {
-    if (motionManager.isAccelerometerAvailable && !motionManager.isAccelerometerActive)
-    {
-        motionManager.accelerometerUpdateInterval = updateInterval;
-        [motionManager startAccelerometerUpdates];
-        return TRUE;
-    }
+//    if (motionManager.isAccelerometerAvailable && !motionManager.isAccelerometerActive)
+//    {
+//        motionManager.accelerometerUpdateInterval = updateInterval;
+//        [motionManager startAccelerometerUpdates];
+//        return TRUE;
+//    }
     
     return FALSE;
 }
 - (BOOL) deactivateAccelerometer
 {
-    if (motionManager.isAccelerometerAvailable && motionManager.isAccelerometerActive)
-    {
-        [motionManager stopAccelerometerUpdates];
-        return TRUE;
-    }
+//    if (motionManager.isAccelerometerAvailable && motionManager.isAccelerometerActive)
+//    {
+//        [motionManager stopAccelerometerUpdates];
+//        return TRUE;
+//    }
     
     return FALSE;
 }
 - (BOOL) isAccelerometerActive
 {
-    if (motionManager.isAccelerometerActive)
-        return TRUE;
+//    if (motionManager.isAccelerometerActive)
+//        return TRUE;
     
     return FALSE;
 }
 - (BOOL) isAccelerometerAvailable
 {
-    if (motionManager.isAccelerometerAvailable)
-        return TRUE;
+//    if (motionManager.isAccelerometerAvailable)
+//        return TRUE;
     
     return FALSE;
 }
 - (void) getAccelerometerData:(double&) X ValueY: (double&) Y ValueZ: (double&) Z
 {
-    X = motionManager.accelerometerData.acceleration.x;
-    Y = motionManager.accelerometerData.acceleration.y;
-    Z = motionManager.accelerometerData.acceleration.z;
+//    X = motionManager.accelerometerData.acceleration.x;
+//    Y = motionManager.accelerometerData.acceleration.y;
+//    Z = motionManager.accelerometerData.acceleration.z;
 }
 - (BOOL) activateGyroscope: (float) updateInterval;
 {
-    if (motionManager.isGyroAvailable && !motionManager.isGyroActive)
-    {
-        motionManager.gyroUpdateInterval = updateInterval;
-        [motionManager startGyroUpdates];
-        return TRUE;
-    }
+//    if (motionManager.isGyroAvailable && !motionManager.isGyroActive)
+//    {
+//        motionManager.gyroUpdateInterval = updateInterval;
+//        [motionManager startGyroUpdates];
+//        return TRUE;
+//    }
     
     return FALSE;
 }
 - (BOOL) deactivateGyroscope
 {
-    if (motionManager.isGyroAvailable && motionManager.isGyroActive)
-    {
-        [motionManager stopGyroUpdates];
-        return TRUE;
-    }
+//    if (motionManager.isGyroAvailable && motionManager.isGyroActive)
+//    {
+//        [motionManager stopGyroUpdates];
+//        return TRUE;
+//    }
     
     return FALSE;
 }
 - (BOOL) isGyroscopeActive
 {
-    if (motionManager.isGyroActive)
-        return TRUE;
+//    if (motionManager.isGyroActive)
+//        return TRUE;
     
     return FALSE;
 }
 - (BOOL) isGyroscopeAvailable
 {
-    if (motionManager.isGyroAvailable)
-        return TRUE;
+//    if (motionManager.isGyroAvailable)
+//        return TRUE;
     
     return FALSE;
 }
 - (void) getGyroscopeData:(double&) X ValueY: (double&) Y ValueZ: (double&) Z
 {
-    X = motionManager.gyroData.rotationRate.x;
-    Y = motionManager.gyroData.rotationRate.y;
-    Z = motionManager.gyroData.rotationRate.z;
+//    X = motionManager.gyroData.rotationRate.x;
+//    Y = motionManager.gyroData.rotationRate.y;
+//    Z = motionManager.gyroData.rotationRate.z;
 }
 - (BOOL) activateDeviceMotion: (float) updateInterval;
 {
-    referenceAttitude = nil;
-    
-    if (motionManager.isDeviceMotionAvailable && !motionManager.isDeviceMotionActive)
-    {
-        motionManager.deviceMotionUpdateInterval = updateInterval;
-        [motionManager startDeviceMotionUpdates];
-        return TRUE;
-    }
+//    referenceAttitude = nil;
+//    
+//    if (motionManager.isDeviceMotionAvailable && !motionManager.isDeviceMotionActive)
+//    {
+//        motionManager.deviceMotionUpdateInterval = updateInterval;
+//        [motionManager startDeviceMotionUpdates];
+//        return TRUE;
+//    }
     
     return FALSE;
 }
 - (BOOL) deactivateDeviceMotion
 {
-    if (motionManager.isDeviceMotionAvailable && motionManager.isDeviceMotionActive)
-    {
-        [motionManager stopDeviceMotionUpdates];
-        return TRUE;
-    }
+//    if (motionManager.isDeviceMotionAvailable && motionManager.isDeviceMotionActive)
+//    {
+//        [motionManager stopDeviceMotionUpdates];
+//        return TRUE;
+//    }
     
     return FALSE;
 }
 - (BOOL) isDeviceMotionActive
 {
-    if (motionManager.isDeviceMotionActive)
-        return TRUE;
+//    if (motionManager.isDeviceMotionActive)
+//        return TRUE;
     
     return FALSE;
 }
 - (BOOL) isDeviceMotionAvailable
 {
-    if (motionManager.isDeviceMotionAvailable)
-        return TRUE;
+//    if (motionManager.isDeviceMotionAvailable)
+//        return TRUE;
     
     return FALSE;
 }
 - (void) getDeviceMotionData:(double&) X ValueY: (double&) Y ValueZ: (double&) Z
 {
-    CMAttitude* currentAttitude = motionManager.deviceMotion.attitude;
+//    CMAttitude* currentAttitude = motionManager.deviceMotion.attitude;
+//    
+//    if(referenceAttitude != nil)
+//        [currentAttitude multiplyByInverseOfAttitude: referenceAttitude];
+//    else
+//        referenceAttitude = [motionManager.deviceMotion.attitude retain];
     
-    if(referenceAttitude != nil)
-        [currentAttitude multiplyByInverseOfAttitude: referenceAttitude];
-    else
-        referenceAttitude = [motionManager.deviceMotion.attitude retain];
-    
-    X = currentAttitude.roll;
-    Y = currentAttitude.pitch;
-    Z = currentAttitude.yaw;
+//    X = currentAttitude.roll;
+//    Y = currentAttitude.pitch;
+//    Z = currentAttitude.yaw;
 }
 @end
 

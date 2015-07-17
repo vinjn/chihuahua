@@ -253,12 +253,10 @@
 		5ED2486117315F7A00A13B86 /* libIrrlicht.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF31215516E370014DCBA /* libIrrlicht.a */; };
 		5ED2486317315FA800A13B86 /* media in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2486217315FA800A13B86 /* media */; };
 		5ED24864173161C900A13B86 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF2EA15516CC00014DCBA /* OpenGLES.framework */; };
-		5ED24865173161F200A13B86 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EDC9F971638D8CF00E65F28 /* CoreMotion.framework */; };
 		5ED248661731622A00A13B86 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E7CF2E815516CC00014DCBA /* QuartzCore.framework */; };
 		5ED2488817317FFC00A13B86 /* Interface_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488617317FFC00A13B86 /* Interface_iPad.xib */; };
 		5ED2488917317FFC00A13B86 /* Interface_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488717317FFC00A13B86 /* Interface_iPhone.xib */; };
 		5EEAE050171DF3C700C7BC68 /* leakHunter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */; };
-		74676EA11B57FBFD00FB0B91 /* CIrrDeviceiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */; };
 		7495CED61B402E690083A25C /* IrrAssimpImport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CED41B402E690083A25C /* IrrAssimpImport.cpp */; };
 		7495CF8F1B4038270083A25C /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8D1B4038270083A25C /* ConvertUTF.c */; };
 		7495CF901B4038270083A25C /* ConvertUTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 7495CF8E1B4038270083A25C /* ConvertUTF.h */; };
@@ -299,6 +297,8 @@
 		7495CFC61B403B010083A25C /* FBXUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF451B4037570083A25C /* FBXUtil.cpp */; };
 		7495CFC71B403B010083A25C /* Assimp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF321B4036EF0083A25C /* Assimp.cpp */; };
 		7495CFC81B403B010083A25C /* AssimpWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF101B402E900083A25C /* AssimpWrapper.cpp */; };
+		74A325E41B58CD0300349950 /* CIrrDeviceiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */; };
+		74A325E51B58CD0600349950 /* CIrrDeviceiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 74676E9F1B57FBFD00FB0B91 /* CIrrDeviceiOS.h */; };
 		74F362391B21D742000309FC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74F362381B21D742000309FC /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -1050,7 +1050,6 @@
 			files = (
 				5ED2486117315F7A00A13B86 /* libIrrlicht.a in Frameworks */,
 				5ED248661731622A00A13B86 /* QuartzCore.framework in Frameworks */,
-				5ED24865173161F200A13B86 /* CoreMotion.framework in Frameworks */,
 				5ED24864173161C900A13B86 /* OpenGLES.framework in Frameworks */,
 				5ED2483F1731568400A13B86 /* UIKit.framework in Frameworks */,
 				5ED248401731568400A13B86 /* Foundation.framework in Frameworks */,
@@ -1941,6 +1940,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74A325E51B58CD0600349950 /* CIrrDeviceiOS.h in Headers */,
 				7495CF901B4038270083A25C /* ConvertUTF.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2104,6 +2104,7 @@
 				5E3EA4771586A27C00C17C1D /* jcmaster.c in Sources */,
 				5E3EA4781586A27C00C17C1D /* jcomapi.c in Sources */,
 				5E3EA4791586A27C00C17C1D /* jcparam.c in Sources */,
+				74A325E41B58CD0300349950 /* CIrrDeviceiOS.mm in Sources */,
 				5E4C3FEE18C7C8FF002AEDAF /* CMeshTextureLoader.cpp in Sources */,
 				5E3EA47A1586A27C00C17C1D /* jcprepct.c in Sources */,
 				5E3EA47B1586A27C00C17C1D /* jcsample.c in Sources */,
@@ -2320,7 +2321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5ED2485E173157AD00A13B86 /* main.cpp in Sources */,
-				74676EA11B57FBFD00FB0B91 /* CIrrDeviceiOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

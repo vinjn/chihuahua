@@ -66,7 +66,7 @@ COGLES1Driver::COGLES1Driver(const SIrrlichtCreationParameters& params,
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, ViewRenderbuffer);
 
 	ExposedData.OGLESIPhone.AppDelegate = Device;
-	Device->displayInitialize(&ExposedData.OGLESIPhone.Context, &ExposedData.OGLESIPhone.View);
+	if (Device) Device->displayInitialize(&ExposedData.OGLESIPhone.Context, &ExposedData.OGLESIPhone.View);
 
 	GLint backingWidth;
 	GLint backingHeight;
@@ -301,7 +301,7 @@ bool COGLES1Driver::endScene()
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
     glFlush();
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, ViewRenderbuffer);
-    Device->displayEnd();
+    if (Device) Device->displayEnd();
 #endif
 
 	return true;
@@ -316,7 +316,7 @@ bool COGLES1Driver::beginScene(bool backBuffer, bool zBuffer, SColor color,
 	CNullDriver::beginScene(backBuffer, zBuffer, color);
 
 #if defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
-    Device->displayBegin();
+    if (Device) Device->displayBegin();
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, ViewFramebuffer);
 #endif
 
