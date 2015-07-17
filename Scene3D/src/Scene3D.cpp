@@ -1,15 +1,11 @@
-#pragma once
-
-#include "irrlicht.h"
-#include "../source/irrlicht/os.h"
-#include "../source/irrlicht/CLogger.h"
+#include "Scene3D.h"
 #include "AssimpWrapper.h"
 #include "FullScreenSceneNode.h"
 
 using namespace irr;
 using namespace core;
 
-static void print(const c8* text, ELOG_LEVEL ll = ELL_INFORMATION)
+void print(const c8* text, ELOG_LEVEL ll)
 {
     os::Printer::log(text, ll);
 }
@@ -52,23 +48,6 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
 }
 }
 
-namespace gui
-{
-class IGUIEnvironment;
-IGUIEnvironment* createGUIEnvironment(io::IFileSystem* fs,
-                                      video::IVideoDriver* Driver, IOSOperator* op);
-}
-
-namespace scene
-{
-ISceneManager* createSceneManager(video::IVideoDriver* driver,
-                                  io::IFileSystem* fs, gui::ICursorControl* cc, gui::IGUIEnvironment *gui);
-}
-
-namespace io
-{
-IFileSystem* createFileSystem();
-}
 }
 
 video::IVideoDriver* driver;

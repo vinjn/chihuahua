@@ -1,5 +1,5 @@
 LOCAL_PATH := $(call my-dir)/../../source/Irrlicht
-SCENE3D_PATH := ../../Scene3D/src/Android
+SCENE3D_PATH := ../../Scene3D/src
 ASSIMP_PATH := ../assimp/
 
 include $(CLEAR_VARS)
@@ -21,9 +21,10 @@ LOCAL_C_INCLUDES := ../include \
 					../source/assimp/code/BoostWorkaround
 
 LOCAL_SRC_FILES := \
-					$(SCENE3D_PATH)/Scene3DAndroid.cpp \
-					$(SCENE3D_PATH)/CAndroidAssetFileArchive.cpp \
-					$(SCENE3D_PATH)/CAndroidAssetReader.cpp \
+					$(SCENE3D_PATH)/Scene3D.cpp \
+					$(SCENE3D_PATH)/Android/Scene3DAndroid.cpp \
+					$(SCENE3D_PATH)/Android/CAndroidAssetFileArchive.cpp \
+					$(SCENE3D_PATH)/Android/CAndroidAssetReader.cpp \
     				$(ASSIMP_PATH)/AssimpWrapper.cpp \
     				$(ASSIMP_PATH)/code/Assimp.cpp \
     				$(ASSIMP_PATH)/code/BaseImporter.cpp \
@@ -73,7 +74,6 @@ LOCAL_SRC_FILES := \
 					CBillboardSceneNode.cpp \
 					CBoneSceneNode.cpp \
 					CBSPMeshFileLoader.cpp \
-					CBurningShader_Raster_Reference.cpp \
 					CCameraSceneNode.cpp \
 					CColladaFileLoader.cpp \
 					CColladaMeshWriter.cpp \
@@ -82,7 +82,6 @@ LOCAL_SRC_FILES := \
 					CCubeSceneNode.cpp \
 					CDefaultSceneNodeAnimatorFactory.cpp \
 					CDefaultSceneNodeFactory.cpp \
-					CDepthBuffer.cpp \
 					CDMFLoader.cpp \
 					CDummyTransformationSceneNode.cpp \
 					CEmptySceneNode.cpp \
@@ -200,10 +199,6 @@ LOCAL_SRC_FILES := \
 					CSkyBoxSceneNode.cpp \
 					CSkyDomeSceneNode.cpp \
 					CSMFMeshFileLoader.cpp \
-					CSoftwareDriver.cpp \
-					CSoftwareDriver2.cpp \
-					CSoftwareTexture.cpp \
-					CSoftwareTexture2.cpp \
 					CSphereSceneNode.cpp \
 					CSTLMeshFileLoader.cpp \
 					CSTLMeshWriter.cpp \
@@ -223,7 +218,6 @@ LOCAL_SRC_FILES := \
 					CXMLWriter.cpp \
 					CZBuffer.cpp \
 					CZipReader.cpp \
-					IBurningShader.cpp \
 					Irrlicht.cpp \
 					irrXML.cpp \
 					os.cpp	 \
