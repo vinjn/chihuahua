@@ -4,6 +4,8 @@
 
 void Scene3D_initializeFileSystem()
 {
+    os::Printer::Logger = new CLogger(NULL);
+	
     print("initializeFileSystem()");
 
     fs = io::createFileSystem();
