@@ -13,7 +13,7 @@
 #elif defined(_IRR_IPHONE_PLATFORM_)
 	#import <UIKit/UIKit.h>
 	#import <Foundation/Foundation.h>
-    #include "Scene3DiOS.h"
+//    #include "Scene3DiOS.h"
 #endif
 
 using namespace irr;
@@ -192,8 +192,8 @@ public:
 };
 #endif
 
-//IVideoDriver* driver;
-//ISceneManager* smgr;
+IVideoDriver* driver;
+ISceneManager* smgr;
 IGUIEnvironment* guienv;
 
 IrrlichtDevice *startup()

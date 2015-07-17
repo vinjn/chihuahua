@@ -258,6 +258,7 @@
 		5ED2488817317FFC00A13B86 /* Interface_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488617317FFC00A13B86 /* Interface_iPad.xib */; };
 		5ED2488917317FFC00A13B86 /* Interface_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488717317FFC00A13B86 /* Interface_iPhone.xib */; };
 		5EEAE050171DF3C700C7BC68 /* leakHunter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */; };
+		74676EA11B57FBFD00FB0B91 /* CIrrDeviceiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */; };
 		7495CED61B402E690083A25C /* IrrAssimpImport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CED41B402E690083A25C /* IrrAssimpImport.cpp */; };
 		7495CF8F1B4038270083A25C /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8D1B4038270083A25C /* ConvertUTF.c */; };
 		7495CF901B4038270083A25C /* ConvertUTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 7495CF8E1B4038270083A25C /* ConvertUTF.h */; };
@@ -927,6 +928,8 @@
 		5EEAE04A171DF38900C7BC68 /* irrunpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = irrunpack.h; path = ../../../include/irrunpack.h; sourceTree = "<group>"; };
 		5EEAE04B171DF38900C7BC68 /* leakHunter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = leakHunter.h; path = ../../../include/leakHunter.h; sourceTree = "<group>"; };
 		5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = leakHunter.cpp; path = ../leakHunter.cpp; sourceTree = "<group>"; };
+		74676E9F1B57FBFD00FB0B91 /* CIrrDeviceiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIrrDeviceiOS.h; sourceTree = "<group>"; };
+		74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CIrrDeviceiOS.mm; sourceTree = "<group>"; };
 		7495CED41B402E690083A25C /* IrrAssimpImport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IrrAssimpImport.cpp; path = ../../assimp/IrrAssimpImport.cpp; sourceTree = "<group>"; };
 		7495CED51B402E690083A25C /* IrrAssimpImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IrrAssimpImport.h; path = ../../assimp/IrrAssimpImport.h; sourceTree = "<group>"; };
 		7495CEDA1B402E7A0083A25C /* ai_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ai_assert.h; sourceTree = "<group>"; };
@@ -1572,6 +1575,8 @@
 				5E3EA1EE15867BD700C17C1D /* Libraries */,
 				5E7CF763155187AA0014DCBA /* Octree.h */,
 				5E7CF764155187AA0014DCBA /* os.cpp */,
+				74676E9F1B57FBFD00FB0B91 /* CIrrDeviceiOS.h */,
+				74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */,
 				5E7CF765155187AA0014DCBA /* os.h */,
 				5E7CF766155187AA0014DCBA /* resource.h */,
 				5E7CF767155187AB0014DCBA /* S2DVertex.h */,
@@ -2315,6 +2320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5ED2485E173157AD00A13B86 /* main.cpp in Sources */,
+				74676EA11B57FBFD00FB0B91 /* CIrrDeviceiOS.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
