@@ -17,3 +17,8 @@ void Scene3D_initializeFileSystem()
     
     fs->changeWorkingDirectoryTo(NewPath);
 }
+
+void Scene3D_setNodeTexture(long nodePtr, long texturePtr)
+{
+    Scene3D_setNodeTextureAtLayer(nodePtr, 0, texturePtr);
+}
