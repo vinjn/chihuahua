@@ -60,43 +60,43 @@ extern "C"
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addPointLight(JNIEnv * env, jclass cls, jfloat radius)
     {
-        return Scene3D_addPointLight(radius);
+        return Scene3D::addPointLight(radius);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_resize(JNIEnv * env, jclass cls, jint width, jint height)
     {
-        Scene3D_resize(width, height);
+        Scene3D::resize(width, height);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_clear(JNIEnv * env, jclass cls)
     {
-        Scene3D_clear();
+        Scene3D::clear();
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_render(JNIEnv * env, jclass cls)
     {
-        Scene3D_render();
+        Scene3D::render();
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addCubeNode(JNIEnv * env, jclass cls, jfloat size)
     {
-        return Scene3D_addCubeNode(size);
+        return Scene3D::addCubeNode(size);
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addPlaneNode(JNIEnv * env, jclass cls, jfloat width, jfloat height)
     {
-        return Scene3D_addPlaneNode(width, height);
+        return Scene3D::addPlaneNode(width, height);
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addSphereNode(JNIEnv * env, jclass cls, jfloat radius)
     {
-        return Scene3D_addSphereNode(radius);
+        return Scene3D::addSphereNode(radius);
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_getTexture(JNIEnv * env, jclass cls, jstring jTextureName)
     {
         const char *textureName = env->GetStringUTFChars(jTextureName, JNI_FALSE);
-        jlong texture = Scene3D_getTexture(textureName);
+        jlong texture = Scene3D::getTexture(textureName);
         env->ReleaseStringUTFChars(jTextureName, textureName);
 
         return texture;
@@ -104,45 +104,45 @@ extern "C"
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeTextureAtLayer(JNIEnv * env, jclass cls, jlong nodePtr, jint textureLayer, jlong texturePtr)
     {
-        Scene3D_setNodeTextureAtLayer(nodePtr, textureLayer, texturePtr);
+        Scene3D::setNodeTextureAtLayer(nodePtr, textureLayer, texturePtr);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationFps(JNIEnv * env, jclass cls, jlong nodePtr, jfloat fps)
     {
-        Scene3D_setNodeAnimationFps(nodePtr, fps);
+        Scene3D::setNodeAnimationFps(nodePtr, fps);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationStartEnd(JNIEnv * env, jclass cls, jlong nodePtr, jint start, jint end)
     {
-        Scene3D_setNodeAnimationStartEnd(nodePtr, start, end);
+        Scene3D::setNodeAnimationStartEnd(nodePtr, start, end);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationLoop(JNIEnv * env, jclass cls, jlong nodePtr, jboolean isLoop)
     {
-        Scene3D_setNodeAnimationLoop(nodePtr, isLoop);
+        Scene3D::setNodeAnimationLoop(nodePtr, isLoop);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimation(JNIEnv * env, jclass cls, jlong nodePtr, jstring jAnimationName)
     {
         const char *animationName = env->GetStringUTFChars(jAnimationName, JNI_FALSE);
-        Scene3D_setNodeAnimation(nodePtr, animationName);
+        Scene3D::setNodeAnimation(nodePtr, animationName);
         env->ReleaseStringUTFChars(jAnimationName, animationName);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeAnimationIndex(JNIEnv * env, jclass cls, jlong nodePtr, jlong index)
     {
-        Scene3D_setNodeAnimationIndex(nodePtr, index);
+        Scene3D::setNodeAnimationIndex(nodePtr, index);
     }    
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addDummyNode(JNIEnv * env, jclass cls)
     {
-        return Scene3D_addDummyNode();
+        return Scene3D::addDummyNode();
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addMeshNode(JNIEnv * env, jclass cls, jstring jMeshName)
     {
         const char *meshName = env->GetStringUTFChars(jMeshName, JNI_FALSE);
-        jlong node = Scene3D_addMeshNode(meshName);
+        jlong node = Scene3D::addMeshNode(meshName);
         env->ReleaseStringUTFChars(jMeshName, meshName);
 
         return node;
@@ -150,97 +150,97 @@ extern "C"
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_removeNode(JNIEnv * env, jclass cls, jlong nodePtr)
     {
-        Scene3D_removeNode(nodePtr);
+        Scene3D::removeNode(nodePtr);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_destroyScene(JNIEnv * env, jclass cls)
     {
-        Scene3D_destroyScene();
+        Scene3D::destroyScene();
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_getRootNode(JNIEnv *env, jclass cls)
     {
-        return Scene3D_getRootNode();
+        return Scene3D::getRootNode();
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeVisible(JNIEnv *env, jclass cls, jlong nodePtr, jboolean visible)
     {
-        Scene3D_setNodeVisible(nodePtr, visible);
+        Scene3D::setNodeVisible(nodePtr, visible);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodePosition(JNIEnv * env, jclass cls, jlong nodePtr, jfloat x, jfloat y, jfloat z)
     {
-        Scene3D_setNodePosition(nodePtr, x, y, z);
+        Scene3D::setNodePosition(nodePtr, x, y, z);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeRotation(JNIEnv * env, jclass cls, jlong nodePtr, jfloat x, jfloat y, jfloat z)
     {
-        Scene3D_setNodeRotation(nodePtr, x, y, z);
+        Scene3D::setNodeRotation(nodePtr, x, y, z);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeScale(JNIEnv * env, jclass cls, jlong nodePtr, jfloat x, jfloat y, jfloat z)
     {
-        Scene3D_setNodeScale(nodePtr, x, y, z);
+        Scene3D::setNodeScale(nodePtr, x, y, z);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeParent(JNIEnv * env, jclass cls, jlong nodePtr, jlong parentPtr)
     {
-        Scene3D_setNodeParent(nodePtr, parentPtr);
+        Scene3D::setNodeParent(nodePtr, parentPtr);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeModelMatrix(JNIEnv * env, jclass cls, jlong nodePtr, jfloatArray jMatrix)
     {
         jfloat *matrix = env->GetFloatArrayElements(jMatrix, JNI_FALSE);
-        Scene3D_setNodeModelMatrix(nodePtr, matrix);
+        Scene3D::setNodeModelMatrix(nodePtr, matrix);
         env->ReleaseFloatArrayElements(jMatrix, matrix, JNI_FALSE);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setViewMatrix(JNIEnv * env, jclass cls, jlong nodePtr, jfloatArray jMatrix)
     {
         jfloat *matrix = env->GetFloatArrayElements(jMatrix, JNI_FALSE);
-        Scene3D_setViewMatrix(nodePtr, matrix);
+        Scene3D::setViewMatrix(nodePtr, matrix);
         env->ReleaseFloatArrayElements(jMatrix, matrix, JNI_FALSE);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setProjectionMatrix(JNIEnv * env, jclass cls, jfloatArray jMatrix)
     {
         jfloat *matrix = env->GetFloatArrayElements(jMatrix, JNI_FALSE);
-        Scene3D_setProjectionMatrix(matrix);
+        Scene3D::setProjectionMatrix(matrix);
         env->ReleaseFloatArrayElements(jMatrix, matrix, JNI_FALSE);
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addTexture(JNIEnv * env, jclass cls, jint width, jint height)
     {
-        return Scene3D_addTexture(width, height);
+        return Scene3D::addTexture(width, height);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_updateTexture(JNIEnv * env, jclass cls, jlong texturePtr, jbyteArray jImageData)
     {
         jbyte *srcData = env->GetByteArrayElements(jImageData, JNI_FALSE);
-        Scene3D_updateTexture(texturePtr, srcData);
+        Scene3D::updateTexture(texturePtr, srcData);
         env->ReleaseByteArrayElements(jImageData, srcData, JNI_FALSE);
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addFullScreenTextureNode(JNIEnv *env, jclass cls, jlong texturePtr, jint rotationType)
     {
-        return Scene3D_addFullScreenTextureNode(texturePtr, rotationType);
+        return Scene3D::addFullScreenTextureNode(texturePtr, rotationType);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_drawFullScreenTexture(JNIEnv *env, jclass cls, jlong texturePtr, jint rotationType)
     {
-        Scene3D_drawFullScreenTexture(texturePtr, rotationType);
+        Scene3D::drawFullScreenTexture(texturePtr, rotationType);
     }
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_writeTexture(JNIEnv *env, jclass cls, jlong texturePtr, jstring jFilename)
     {
         const char* filename = env->GetStringUTFChars(jFilename, JNI_FALSE);
-        Scene3D_writeTexture(texturePtr, filename);
+        Scene3D::writeTexture(texturePtr, filename);
         env->ReleaseStringUTFChars(jFilename, filename);
     }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_pickNodeFromScreen(JNIEnv *env, jclass cls, jint x, jint y)
     {
-        return Scene3D_pickNodeFromScreen(x, y);
+        return Scene3D::pickNodeFromScreen(x, y);
     }
 
 }

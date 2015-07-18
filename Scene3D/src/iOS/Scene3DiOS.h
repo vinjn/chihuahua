@@ -2,6 +2,13 @@
 
 #include "../Scene3D.h"
 
-void Scene3D_initializeFileSystem();
+namespace Scene3D
+{
+    void initializeFileSystem();
+    
+    void setNodeTexture(long nodePtr, long texturePtr);
+    
+    void setRootNodeVisible(bool visible);
+}
 
-void Scene3D_setNodeTexture(long nodePtr, long texturePtr);
+

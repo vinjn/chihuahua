@@ -44,66 +44,71 @@ namespace irr
     }
 }
 
-long Scene3D_addDummyNode();
 
-long Scene3D_addPointLight(float lightRadius);
+namespace Scene3D
+{
+    long addDummyNode();
 
-void Scene3D_resize(int width, int height);
+    long addPointLight(float lightRadius);
 
-void Scene3D_clear();
+    void resize(int width, int height);
 
-void Scene3D_render();
+    void clear();
 
-long Scene3D_addCubeNode(float size);
+    void render();
 
-long Scene3D_addPlaneNode(float width, float height);
+    long addCubeNode(float size);
 
-long Scene3D_addSphereNode(float radius);
+    long addPlaneNode(float width, float height);
 
-long Scene3D_getTexture(const c8* textureName);
+    long addSphereNode(float radius);
 
-void Scene3D_setNodeTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
+    long getTexture(const c8* textureName);
 
-void Scene3D_setNodeAnimationFps(long nodePtr, f32 fps);
+    void setNodeTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
 
-void Scene3D_setNodeAnimation(long nodePtr, const c8* animationName);
+    void setNodeAnimationFps(long nodePtr, f32 fps);
 
-void Scene3D_setNodeAnimationLoop(long nodePtr, bool isLoop);
+    void setNodeAnimation(long nodePtr, const c8* animationName);
 
-void Scene3D_setNodeAnimationIndex(long nodePtr, u32 index);
+    void setNodeAnimationLoop(long nodePtr, bool isLoop);
 
-void Scene3D_setNodeAnimationStartEnd(long nodePtr, s32 start, s32 end);
+    void setNodeAnimationIndex(long nodePtr, u32 index);
 
-void Scene3D_destroyScene();
+    void setNodeAnimationStartEnd(long nodePtr, s32 start, s32 end);
 
-void Scene3D_removeNode(long nodePtr);
+    void destroyScene();
 
-long Scene3D_addMeshNode(const c8* meshName);
+    void removeNode(long nodePtr);
 
-long Scene3D_getRootNode();
+    long addMeshNode(const c8* meshName);
 
-void Scene3D_setNodeVisible(long nodePtr, bool visible);
+    long getRootNode();
 
-void Scene3D_setNodePosition(long nodePtr, float x, float y, float z);
+    void setNodeVisible(long nodePtr, bool visible);
 
-void Scene3D_setNodeRotation(long nodePtr, float x, float y, float z);
+    void setNodePosition(long nodePtr, float x, float y, float z);
 
-void Scene3D_setNodeScale(long nodePtr, float x, float y, float z);
-void Scene3D_setNodeParent(long nodePtr, long parentPtr);
-void Scene3D_setNodeModelMatrix(long nodePtr, float* matrix);
+    void setNodeRotation(long nodePtr, float x, float y, float z);
 
-void Scene3D_setViewMatrix(long nodePtr, float* matrix);
+    void setNodeScale(long nodePtr, float x, float y, float z);
+    void setNodeParent(long nodePtr, long parentPtr);
+    void setNodeModelMatrix(long nodePtr, float* matrix);
 
-void Scene3D_setProjectionMatrix(float* matrix);
+    void setViewMatrix(long nodePtr, float* matrix);
 
-long Scene3D_addTexture(int width, int height);
+    void setProjectionMatrix(float* matrix);
 
-void Scene3D_updateTexture(long texturePtr, s8* srcData);
+    long addTexture(int width, int height);
 
-long Scene3D_addFullScreenTextureNode(long texturePtr, int rotationType);
+    void updateTexture(long texturePtr, s8* srcData);
 
-void Scene3D_drawFullScreenTexture(long texturePtr, int rotationType);
+    long addFullScreenTextureNode(long texturePtr, int rotationType);
 
-void Scene3D_writeTexture(long texturePtr, const c8* filename);
+    void drawFullScreenTexture(long texturePtr, int rotationType);
 
-long Scene3D_pickNodeFromScreen(int x, int y);
+    void writeTexture(long texturePtr, const c8* filename);
+
+    long pickNodeFromScreen(int x, int y);    
+}
+
