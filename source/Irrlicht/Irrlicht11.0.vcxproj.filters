@@ -106,6 +106,9 @@
     <Filter Include="Irrlicht\video\bgfx">
       <UniqueIdentifier>{51a36935-c23a-4603-bfa6-f6daee7300ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Irrlicht\video\d3d9">
+      <UniqueIdentifier>{41c7fd78-758b-4678-a94d-63b2dd9e023d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1287,6 +1290,27 @@
     <ClInclude Include="CBgfxTexture.h">
       <Filter>Irrlicht\video\bgfx</Filter>
     </ClInclude>
+    <ClInclude Include="CD3D9Driver.h">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3D9HLSLMaterialRenderer.h">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3D9MaterialRenderer.h">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3D9NormalMapRenderer.h">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3D9ParallaxMapRenderer.h">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3D9ShaderMaterialRenderer.h">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="CD3D9Texture.h">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -2112,6 +2136,24 @@
     </ClCompile>
     <ClCompile Include="CBgfxDriver.cpp">
       <Filter>Irrlicht\video\bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3D9Driver.cpp">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3D9HLSLMaterialRenderer.cpp">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3D9NormalMapRenderer.cpp">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3D9ParallaxMapRenderer.cpp">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3D9ShaderMaterialRenderer.cpp">
+      <Filter>Irrlicht\video\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="CD3D9Texture.cpp">
+      <Filter>Irrlicht\video\d3d9</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

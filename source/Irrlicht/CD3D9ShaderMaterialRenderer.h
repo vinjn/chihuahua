@@ -12,7 +12,7 @@
 #if defined(__BORLANDC__) || defined (__BCPLUSPLUS__)
 #include "irrMath.h"    // needed by borland for sqrtf define
 #endif
-#include <d3dx9shader.h>
+#include "DXSDK/d3dx9shader.h"
 
 #include "IMaterialRenderer.h"
 

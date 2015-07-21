@@ -1073,6 +1073,13 @@
       <FileType>CppHeader</FileType>
     </ClCompile>
     <ClInclude Include="CBgfxTexture.h" />
+    <ClInclude Include="CD3D9Driver.h" />
+    <ClInclude Include="CD3D9HLSLMaterialRenderer.h" />
+    <ClInclude Include="CD3D9MaterialRenderer.h" />
+    <ClInclude Include="CD3D9NormalMapRenderer.h" />
+    <ClInclude Include="CD3D9ParallaxMapRenderer.h" />
+    <ClInclude Include="CD3D9ShaderMaterialRenderer.h" />
+    <ClInclude Include="CD3D9Texture.h" />
     <ClInclude Include="CDefaultSceneNodeAnimatorFactory.h" />
     <ClInclude Include="CDefaultSceneNodeFactory.h" />
     <ClInclude Include="CEGLManager.h" />
@@ -1309,6 +1316,12 @@
     <ClCompile Include="..\bgfx\src\renderer_vk.cpp" />
     <ClCompile Include="..\bgfx\src\vertexdecl.cpp" />
     <ClCompile Include="CBgfxTexture.cpp" />
+    <ClCompile Include="CD3D9Driver.cpp" />
+    <ClCompile Include="CD3D9HLSLMaterialRenderer.cpp" />
+    <ClCompile Include="CD3D9NormalMapRenderer.cpp" />
+    <ClCompile Include="CD3D9ParallaxMapRenderer.cpp" />
+    <ClCompile Include="CD3D9ShaderMaterialRenderer.cpp" />
+    <ClCompile Include="CD3D9Texture.cpp" />
     <ClCompile Include="CDefaultSceneNodeAnimatorFactory.cpp" />
     <ClCompile Include="CDefaultSceneNodeFactory.cpp" />
     <ClCompile Include="CEGLManager.cpp" />
