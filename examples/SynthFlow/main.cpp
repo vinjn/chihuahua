@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <vector>
 #include <functional>
+#include "../source/Irrlicht/CD3D9HLSLMaterialRenderer.h"
 
 using namespace std;
 using namespace irr;
@@ -403,15 +404,55 @@ int main()
     test->setMaterialFlag(video::EMF_LIGHTING, false); // disable dynamic lighting
     test->setMaterialTexture(0, rtId); // set material of cube to render target
 
-    int newMaterialType1;
+    s32 mtrl;
     video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
-#if 0
+#if 1
     {
         MyShaderCallBack* mc = new MyShaderCallBack();
-        newMaterialType1 = gpu->addHighLevelShaderMaterialFromFiles(
-            vsFileName, "vertexMain", video::EVST_VS_1_1,
-            psFileName, "pixelMain", video::EPST_PS_1_1,
-            mc, video::EMT_SOLID, 0);
+
+        mtrl = gpu->addHighLevelShaderMaterial(
+            R"(
+float4x4 WorldViewProj;
+struct VS_IN 
+{
+    float4 Position  : POSITION;
+    float2 TexCoord1 : TEXCOORD1;
+};
+
+struct VS_OUT 
+{
+    float4 Position  : POSITION;
+    float2 TexCoord1 : TEXCOORD1;
+};
+
+VS_OUT main(VS_IN IN)
+{
+    VS_OUT OUT;
+    OUT.Position = mul(IN.Position, WorldViewProj);
+    OUT.TexCoord1 = IN.TexCoord1;
+    return OUT;
+}
+
+)",
+"main",
+EVST_VS_3_0,
+R"(
+struct VS_OUT 
+{
+    float4 Position  : POSITION;
+    float2 TexCoord1 : TEXCOORD1;
+};
+
+float4 main(VS_OUT IN) : COLOR
+{
+    return float4(IN.TexCoord1.xy, 1, 0);
+}
+)",
+"main",
+EPST_PS_3_0);
+
+        CD3D9HLSLMaterialRenderer* renderer = (CD3D9HLSLMaterialRenderer*)driver->getMaterialRenderer(mtrl);
+
         mc->drop();
     }
 #endif
