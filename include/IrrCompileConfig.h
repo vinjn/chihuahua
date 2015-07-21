@@ -71,6 +71,7 @@
 // #define NO_IRR_COMPILE_WITH_OGLES1_
 // #define NO_IRR_COMPILE_WITH_OGLES2_
 //#undef NO_IRR_COMPILE_WITH_GUI_
+#undef NO_IRR_COMPILE_WITH_DIRECT3D_9_
 #define _IRR_COMPILE_WITH_BGFX_
 #endif
 
@@ -204,7 +205,7 @@ If not defined, Windows Multimedia library is used, which offers also broad supp
 
 //! Only define _IRR_COMPILE_WITH_DIRECT3D_8_ if you have an appropriate DXSDK, e.g. Summer 2004
 // #define _IRR_COMPILE_WITH_DIRECT3D_8_
-//#define _IRR_COMPILE_WITH_DIRECT3D_9_
+#define _IRR_COMPILE_WITH_DIRECT3D_9_
 
 #ifdef NO_IRR_COMPILE_WITH_DIRECT3D_8_
 #undef _IRR_COMPILE_WITH_DIRECT3D_8_
