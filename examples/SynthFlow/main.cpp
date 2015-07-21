@@ -2,6 +2,7 @@
 #include "AssimpWrapper.h"
 #include <unordered_map>
 #include <vector>
+#include <functional>
 
 using namespace std;
 using namespace irr;
@@ -24,7 +25,7 @@ using namespace gui;
 
 #define NODE_COUNT_SHIFT 6
 #define WORLD_SIZE 100
-#define NODE_COUNT 2<<NODE_COUNT_SHIFT
+#define NODE_COUNT 1<<NODE_COUNT_SHIFT
 
 IVideoDriver* driver;
 ISceneManager* smgr;
@@ -115,29 +116,23 @@ struct Frame
     {
         features.clear();
 
-#if 0
-        int x = eventRecv.x;
-        int y = eventRecv.y;
-        {
-            {
-#else
-#define SPACING 100
+#define SPACING 10
+        //#pragma omp parallel for
         for (int x = 0; x < WINDOW_W - SPACING; x += SPACING)
         {
             for (int y = 0; y < WINDOW_H - SPACING; y += SPACING)
             {
-#endif
                 auto ray = coll->getRayFromScreenCoordinates(position2di(x, y));
                 vector3df hitPt;
                 triangle3df hitTri;
                 s32 hitTriId;
                 ISceneNode* hitNode = coll->getSceneNodeAndCollisionPointFromRay(ray,
                     hitPt, hitTri, 0, 0, false, &hitTriId);
-                
+
                 if (hitNode)
                 {
                     Feature feature =
-                    { 
+                    {
                         hitNode->getID(),
                         hitTriId,
                         vector2df(),
@@ -161,7 +156,7 @@ struct Frame
         for (auto& kv : features)
         {
             auto triangle = kv.second.triangleWorld;
-            driver->draw3DTriangle(triangle, video::SColor(0, 255, 0, 0));
+            //driver->draw3DTriangle(triangle, video::SColor(0, 255, 0, 0));
         }
     }
 };
@@ -172,6 +167,94 @@ vector<vector2df> trackFrameMotion(const Frame& frame_prev, const Frame& frame_c
 
     return motion;
 }
+
+
+class MyShaderCallBack : public video::IShaderConstantSetCallBack
+{
+public:
+    MyShaderCallBack() : WorldViewProjID(-1), TransWorldID(-1), InvWorldID(-1), PositionID(-1),
+        ColorID(-1), TextureID(-1), FirstUpdate(true)
+    {
+    }
+
+    virtual void OnSetConstants(video::IMaterialRendererServices* services,
+        s32 userData)
+    {
+        video::IVideoDriver* driver = services->getVideoDriver();
+
+        // get shader constants id.
+
+        if (FirstUpdate)
+        {
+            WorldViewProjID = services->getVertexShaderConstantID("mWorldViewProj");
+            TransWorldID = services->getVertexShaderConstantID("mTransWorld");
+            InvWorldID = services->getVertexShaderConstantID("mInvWorld");
+            PositionID = services->getVertexShaderConstantID("mLightPos");
+            ColorID = services->getVertexShaderConstantID("mLightColor");
+
+            // Textures ID are important only for OpenGL interface.
+
+            if (driver->getDriverType() == video::EDT_OPENGL)
+                TextureID = services->getVertexShaderConstantID("myTexture");
+
+            FirstUpdate = false;
+        }
+
+        // set inverted world matrix
+        // if we are using highlevel shaders (the user can select this when
+        // starting the program), we must set the constants by name.
+
+        core::matrix4 invWorld = driver->getTransform(video::ETS_WORLD);
+        invWorld.makeInverse();
+
+        services->setVertexShaderConstant(InvWorldID, invWorld.pointer(), 16);
+
+        // set clip matrix
+
+        core::matrix4 worldViewProj;
+        worldViewProj = driver->getTransform(video::ETS_PROJECTION);
+        worldViewProj *= driver->getTransform(video::ETS_VIEW);
+        worldViewProj *= driver->getTransform(video::ETS_WORLD);
+
+        services->setVertexShaderConstant(WorldViewProjID, worldViewProj.pointer(), 16);
+
+        // set camera position
+
+        core::vector3df pos = device->getSceneManager()->
+            getActiveCamera()->getAbsolutePosition();
+
+        services->setVertexShaderConstant(PositionID, reinterpret_cast<f32*>(&pos), 3);
+
+        // set light color
+
+        video::SColorf col(0.0f, 1.0f, 1.0f, 0.0f);
+
+        services->setVertexShaderConstant(ColorID,
+            reinterpret_cast<f32*>(&col), 4);
+
+        // set transposed world matrix
+
+        core::matrix4 world = driver->getTransform(video::ETS_WORLD);
+        world = world.getTransposed();
+
+        services->setVertexShaderConstant(TransWorldID, world.pointer(), 16);
+
+        // set texture, for textures you can use both an int and a float setPixelShaderConstant interfaces (You need it only for an OpenGL driver).
+        s32 TextureLayerID = 0;
+        services->setPixelShaderConstant(TextureID, &TextureLayerID, 1);
+    }
+
+private:
+    s32 WorldViewProjID;
+    s32 TransWorldID;
+    s32 InvWorldID;
+    s32 PositionID;
+    s32 ColorID;
+    s32 TextureID;
+
+    bool FirstUpdate;
+};
+
 
 void drawFrameDiff(Frame& prevFrame, Frame& currFrame)
 {
@@ -194,18 +277,50 @@ void drawFrameDiff(Frame& prevFrame, Frame& currFrame)
     }
 }
 
+struct ActionAnimator : public ISceneNodeAnimator
+{
+    typedef std::function<void(ISceneNode*, u32)> Action;
+
+    static void addActionToNode(ISceneNode* node, Action action)
+    {
+        ActionAnimator* actionAnimator = new ActionAnimator(action);
+        node->addAnimator(actionAnimator);
+        actionAnimator->drop();
+    }
+
+    ActionAnimator(Action action)
+    {
+        this->action = action;
+    }
+
+    virtual void animateNode(ISceneNode* node, u32 timeMs)
+    {
+        action(node, timeMs);
+    }
+
+    virtual ISceneNodeAnimator* createClone(ISceneNode* node,
+        ISceneManager* newManager)
+    {
+        ActionAnimator * newAnimator = new ActionAnimator(action);
+        newAnimator->cloneMembers(this);
+        return newAnimator;
+    }
+
+    Action action;
+};
+
 int main()
 {
     device = createDevice(video::EDT_DIRECT3D9, dimension2d<u32>(WINDOW_W, WINDOW_H), 16,
-			false, false, false, 0);
+        false, false, false, 0);
 
-	if (!device)
-		return 1;
+    if (!device)
+        return 1;
 
-	device->setWindowCaption(L"SynthFlow");
+    device->setWindowCaption(L"SynthFlow");
 
-	driver = device->getVideoDriver();
-	smgr = device->getSceneManager();
+    driver = device->getVideoDriver();
+    smgr = device->getSceneManager();
     coll = smgr->getSceneCollisionManager();
     device->setEventReceiver(&eventRecv);
 
@@ -262,6 +377,10 @@ int main()
         node->addAnimator(rotAnimator);
         rotAnimator->drop();
 
+        ActionAnimator::addActionToNode(node, [](ISceneNode* node, u32 timeMs){
+            printf("%d\n", node->getID());
+        });
+
         auto flyAnimator = smgr->createFlyCircleAnimator({}, random(0, 20));
         //node->addAnimator(flyAnimator);
         flyAnimator->drop();
@@ -270,7 +389,7 @@ int main()
 #if 1
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 4), vector3df(0, 0, 0));
 #else
-	auto camera = smgr->addCameraSceneNodeFPS(0);
+    auto camera = smgr->addCameraSceneNodeFPS(0);
     camera->setPosition({ 0.0f, 0.0f, -kCamDistZ * 3 });
 #endif
 
@@ -278,27 +397,53 @@ int main()
     int currFrameIdx = 1;
     Frame frames[2];
 
-	while(device->run())
-	{
-		driver->beginScene(true, true, SColor(255,100,101,140));
+    auto rtId = driver->addRenderTargetTexture(dimension2du(WINDOW_W, WINDOW_H), "rt", ECF_A8R8G8B8);
+
+    scene::ISceneNode* test = smgr->addCubeSceneNode(60);
+    test->setMaterialFlag(video::EMF_LIGHTING, false); // disable dynamic lighting
+    test->setMaterialTexture(0, rtId); // set material of cube to render target
+
+    int newMaterialType1;
+    video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
+#if 0
+    {
+        MyShaderCallBack* mc = new MyShaderCallBack();
+        newMaterialType1 = gpu->addHighLevelShaderMaterialFromFiles(
+            vsFileName, "vertexMain", video::EVST_VS_1_1,
+            psFileName, "pixelMain", video::EPST_PS_1_1,
+            mc, video::EMT_SOLID, 0);
+        mc->drop();
+    }
+#endif
+
+    while (device->run())
+    {
+        driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
         auto& prevFrame = frames[prevFrameIdx];
         auto& currFrame = frames[currFrameIdx];
 
-		smgr->drawAll();
-        currFrame.update();
-        currFrame.debugDraw();
+        driver->setRenderTarget(rtId);
+        test->setVisible(false);
+        smgr->drawAll();
+
+        driver->setRenderTarget(0);
+        test->setVisible(true);
+        smgr->drawAll();
+
+        //currFrame.update();
+        //currFrame.debugDraw();
 
         drawFrameDiff(prevFrame, currFrame);
 
-		driver->endScene();
+        driver->endScene();
 
         swap(currFrameIdx, prevFrameIdx);
-	}
+    }
 
-	device->drop();
+    device->drop();
 
-	return 0;
+    return 0;
 }
 
 /*
