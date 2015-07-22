@@ -306,11 +306,11 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 			core::triangle3df candidateTriangle;
 
 			// do intersection test in object space
-            s32 tempTriangleId;
+            s32 candidateTriangleId;
 			ISceneNode * hitNode = 0;
 			if (box.intersectsWithLine(line) &&
                 getCollisionPoint(ray, selector, candidateCollisionPoint, candidateTriangle, 
-                hitNode, &tempTriangleId))
+                hitNode, &candidateTriangleId))
 			{
 				const f32 distanceSquared = (candidateCollisionPoint - ray.start).getLengthSQ();
 
@@ -323,7 +323,7 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 					const core::vector3df rayVector = ray.getVector().normalize();
 					ray.end = ray.start + (rayVector * sqrtf(distanceSquared));
                     
-                    if (outTriangleId)  *outTriangleId = tempTriangleId;
+                    if (outTriangleId)  *outTriangleId = candidateTriangleId;
 				}
 			}
 		}

@@ -4,6 +4,7 @@
 #include <vector>
 #include <functional>
 #include "../source/Irrlicht/CD3D9HLSLMaterialRenderer.h"
+#include <assert.h>
 
 using namespace std;
 using namespace irr;
@@ -24,9 +25,10 @@ using namespace gui;
 #define WINDOW_W 800
 #define WINDOW_H 800
 
-#define NODE_COUNT_SHIFT 6
 #define WORLD_SIZE 100
-#define NODE_COUNT 1<<NODE_COUNT_SHIFT
+#define NODE_SIZE_X 5
+#define NODE_SIZE_Y 5
+#define NODE_COUNT NODE_SIZE_X * NODE_SIZE_Y
 
 IVideoDriver* driver;
 ISceneManager* smgr;
@@ -94,14 +96,14 @@ struct Feature
 
     static s32 getKey(s32 node, s32 triangle)
     {
-        return node + (triangle << NODE_COUNT_SHIFT);
+        return node + (triangle * NODE_COUNT);
     }
 
     // interm
     vector2df centroidUv;
 
     // Value?
-    triangle3df triangleModel;
+    vector2di triangleScreen[3];
     triangle3df triangleWorld;
 };
 
@@ -117,12 +119,19 @@ struct Frame
     {
         features.clear();
 
+#if 0
+        int x = eventRecv.x;
+        int y = eventRecv.y;
+        {
+            {
+#else
 #define SPACING 10
         //#pragma omp parallel for
-        for (int x = 0; x < WINDOW_W - SPACING; x += SPACING)
+        for (int x = 0; x < WINDOW_W - SPACING + 1; x += SPACING)
         {
-            for (int y = 0; y < WINDOW_H - SPACING; y += SPACING)
+            for (int y = 0; y < WINDOW_H - SPACING + 1; y += SPACING)
             {
+#endif
                 auto ray = coll->getRayFromScreenCoordinates(position2di(x, y));
                 vector3df hitPt;
                 triangle3df hitTri;
@@ -132,12 +141,18 @@ struct Frame
 
                 if (hitNode)
                 {
+                    auto scrHit = coll->getScreenCoordinatesFrom3DPosition(hitPt);
+
                     Feature feature =
                     {
                         hitNode->getID(),
                         hitTriId,
                         vector2df(),
-                        triangle3df(),
+                        {
+                            coll->getScreenCoordinatesFrom3DPosition(hitTri.pointA),
+                            coll->getScreenCoordinatesFrom3DPosition(hitTri.pointB),
+                            coll->getScreenCoordinatesFrom3DPosition(hitTri.pointC)
+                        },
                         hitTri
                     };
                     features.emplace(feature.getKey(), feature);
@@ -151,13 +166,64 @@ struct Frame
         video::SMaterial material;
         material.ZBuffer = ECFN_DISABLED;
         material.Wireframe = true;
+        material.Lighting = false;
         driver->setTransform(video::ETS_WORLD, core::matrix4());
         driver->setMaterial(material);
 
         for (auto& kv : features)
         {
             auto triangle = kv.second.triangleWorld;
-            //driver->draw3DTriangle(triangle, video::SColor(0, 255, 0, 0));
+            driver->draw3DTriangle(triangle, video::SColor(100, 255, 0, 0));
+        }
+    }
+
+    static void drawDiff(Frame& prevFrame, Frame& currFrame)
+    {
+        video::SMaterial material;
+        material.ZBuffer = ECFN_DISABLED;
+        material.Wireframe = false;
+        material.Lighting = false;
+        driver->setTransform(video::ETS_WORLD, core::matrix4());
+        driver->setMaterial(material);
+
+#if 0
+        for (auto& kv : prevFrame.features)
+        {
+            s32 key = kv.first;
+            if (currFrame.features.count(key))
+            {
+                const auto& prevValue = prevFrame.features.at(key);
+                const auto& currValue = currFrame.features.at(key);
+                assert(prevValue.nodeId == currValue.nodeId);
+                assert(prevValue.triangleId == currValue.triangleId);
+
+                driver->draw3DLine(prevValue.triangleWorld.pointA, currValue.triangleWorld.pointA,
+                    SColor(0, 255, 255, 0));
+                driver->draw3DLine(prevValue.triangleWorld.pointB, currValue.triangleWorld.pointB,
+                    SColor(0, 255, 255, 0));
+                driver->draw3DLine(prevValue.triangleWorld.pointC, currValue.triangleWorld.pointC,
+                    SColor(0, 255, 255, 0));
+            }
+        }
+#endif
+
+        for (auto& kv : prevFrame.features)
+        {
+            s32 key = kv.first;
+            if (currFrame.features.count(key))
+            {
+                const auto& prevValue = prevFrame.features.at(key);
+                const auto& currValue = currFrame.features.at(key);
+                assert(prevValue.nodeId == currValue.nodeId);
+                assert(prevValue.triangleId == currValue.triangleId);
+
+                driver->draw2DLine(prevValue.triangleScreen[0], currValue.triangleScreen[0],
+                    SColor(255, 0, 255, 255));
+                driver->draw2DLine(prevValue.triangleScreen[1], currValue.triangleScreen[1],
+                    SColor(255, 0, 255, 255));
+                driver->draw2DLine(prevValue.triangleScreen[2], currValue.triangleScreen[2],
+                    SColor(255, 0, 255, 255));
+            }
         }
     }
 };
@@ -256,28 +322,6 @@ private:
     bool FirstUpdate;
 };
 
-
-void drawFrameDiff(Frame& prevFrame, Frame& currFrame)
-{
-    video::SMaterial material;
-    material.ZBuffer = ECFN_DISABLED;
-    material.Wireframe = false;
-    driver->setTransform(video::ETS_WORLD, core::matrix4());
-    driver->setMaterial(material);
-
-    for (auto& kv : prevFrame.features)
-    {
-        s32 key = kv.first;
-        if (currFrame.features.count(key))
-        {
-            const auto& prevValue = prevFrame.features.at(key);
-            const auto& currValue = currFrame.features.at(key);
-            driver->draw3DLine(prevValue.triangleWorld.pointA, currValue.triangleWorld.pointA,
-                SColor(0, 255, 0, 0));
-        }
-    }
-}
-
 struct ActionAnimator : public ISceneNodeAnimator
 {
     typedef std::function<void(ISceneNode*, u32)> Action;
@@ -329,8 +373,9 @@ int main()
 
     c8* meshFiles[] =
     {
+        "../../media/stone.obj",
         //"../../media/duck.fbx",
-        "../../media/Cockatoo/Cockatoo.FBX",
+        //"../../media/Cockatoo/Cockatoo.FBX",
     };
 
     c8* texFiles[] =
@@ -345,35 +390,46 @@ int main()
     const float kCamDistZ = 40;
     int idx = 0;
     int sNodeId = 0;
-    for (auto node : gNodes)
+    for (int x = 0; x < NODE_SIZE_X; x++)
+        for (int y = 0; y < NODE_SIZE_Y; y++)
     {
+        auto& node = gNodes[y * NODE_SIZE_X + x];
         auto emptyNode = smgr->addEmptySceneNode();
+
         emptyNode->setPosition({
-            random(-WORLD_SIZE, WORLD_SIZE),
-            random(-WORLD_SIZE, WORLD_SIZE),
-            random(-WORLD_SIZE, WORLD_SIZE)
+            core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)x / NODE_SIZE_X),
+            core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)y / NODE_SIZE_Y),
+            0
         });
 
+#if 1
         IAnimatedMesh* mesh = getMeshFromAssimp(smgr, meshFiles[rand() % _countof(meshFiles)]);
         node = smgr->addAnimatedMeshSceneNode(mesh, emptyNode);
-        node->setID(sNodeId++);
         node->setFrameLoop(0, 0);
+#else
+        auto mesh = smgr->getGeometryCreator()->createCubeMesh(core::vector3df(1.0f));
+        auto aniMesh = smgr->getMeshManipulator()->createAnimatedMesh(mesh);
+        node = smgr->addAnimatedMeshSceneNode(aniMesh, emptyNode);
+        mesh->drop();
+        aniMesh->drop();
+#endif
+        node->setID(sNodeId++);
         auto selector = smgr->createTriangleSelector(node);
         node->setTriangleSelector(selector);
         selector->drop();
 
         aabbox3df bbox = node->getBoundingBox();
-        float newScale = kCamDistZ * 0.6f / bbox.getRadius();
+        float newScale = kCamDistZ * 0.5f / bbox.getRadius();
         node->setScale({ newScale, newScale, newScale });
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMaterialTexture(0, driver->getTexture(texFiles[rand() % _countof(texFiles)]));
 
         // animator
-        float kRotation = 0.05f;
+        float kRotation = 0.5f;
         auto rotAnimator = smgr->createRotationAnimator({
-            random(0, kRotation),
-            random(0, kRotation),
-            random(0, kRotation),
+            random(0.1f, kRotation),
+            random(0.1f, kRotation),
+            random(0.1f, kRotation),
         });
         node->addAnimator(rotAnimator);
         rotAnimator->drop();
@@ -464,22 +520,28 @@ EPST_PS_3_0);
         auto& prevFrame = frames[prevFrameIdx];
         auto& currFrame = frames[currFrameIdx];
 
+#if 0
         driver->setRenderTarget(rtId);
         test->setVisible(false);
         smgr->drawAll();
-
         driver->setRenderTarget(0);
         test->setVisible(true);
         smgr->drawAll();
+#else
+        test->setVisible(false);
+        smgr->drawAll();
+#endif
 
-        //currFrame.update();
-        //currFrame.debugDraw();
+        currFrame.update();
+        currFrame.debugDraw();
 
-        drawFrameDiff(prevFrame, currFrame);
+        Frame::drawDiff(prevFrame, currFrame);
 
         driver->endScene();
 
         swap(currFrameIdx, prevFrameIdx);
+
+        device->sleep(100);
     }
 
     device->drop();
