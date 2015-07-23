@@ -8,6 +8,8 @@
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
 #else
+#include <android/log.h>
+#define printf(...) __android_log_print(ANDROID_LOG_INFO, "Irrlicht", __VA_ARGS__);
 #include <GLES2/gl2.h>
 #endif
 

@@ -5,11 +5,6 @@
 using namespace irr;
 using namespace core;
 
-void print(const c8* text, ELOG_LEVEL ll)
-{
-    os::Printer::log(text, ll);
-}
-
 namespace irr
 {
     class CIrrDeviceIPhone;
@@ -41,7 +36,7 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
         videoDriver = video::createNullDriver(filesystem, params.WindowSize);
         break;        
     default:
-        print("This driver is not available. Try OpenGL ES 2.0.", ELL_ERROR);
+        printf("This driver is not available. Try OpenGL ES 2.0.");
         break;
     }
     return videoDriver;
@@ -73,22 +68,22 @@ s32 getNewNodeId(NodeIdCategory category)
 bool testGLError(const c8* comment = "")
 {
     GLenum g = glGetError();
-    print(comment, ELL_ERROR);
+    printf("%s\n", comment);
     switch (g)
     {
     case GL_NO_ERROR:
         return false;
     case GL_INVALID_ENUM:
-        print("GL_INVALID_ENUM", ELL_ERROR);
+        printf("GL_INVALID_ENUM");
         break;
     case GL_INVALID_VALUE:
-        print("GL_INVALID_VALUE", ELL_ERROR);
+        printf("GL_INVALID_VALUE");
         break;
     case GL_INVALID_OPERATION:
-        print("GL_INVALID_OPERATION", ELL_ERROR);
+        printf("GL_INVALID_OPERATION");
         break;
     case GL_OUT_OF_MEMORY:
-        print("GL_OUT_OF_MEMORY", ELL_ERROR);
+        printf("GL_OUT_OF_MEMORY");
         break;
     };
     return true;
@@ -153,7 +148,7 @@ namespace Scene3D
 
     void resize(int width, int height)
     {
-        print("resize()");
+        printf("resize()");
 
         // TODO: memory leak
         // if (driver == NULL)
@@ -168,7 +163,7 @@ namespace Scene3D
 
     void clear()
     {
-        // print("clear()");
+        // printf("clear()");
 
         driver->beginScene(true, true, video::SColor(255, 100, 100, 100));
         // driver->drawPixel(0, 0, video::SColor(255, 255, 0, 0));
@@ -177,7 +172,7 @@ namespace Scene3D
 
     void render()
     {
-        // print("render()");
+        // printf("render()");
         os::Timer::tick();
         // printf("fps: %d\n", driver->getFPS());
 

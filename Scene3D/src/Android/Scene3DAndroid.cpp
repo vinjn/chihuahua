@@ -1,11 +1,8 @@
 // Wrapper of Scene3D.h for Android JNI
 #include <jni.h>
-#include <android/log.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include "CAndroidAssetFileArchive.h"
-
-#define printf(...) __android_log_print(ANDROID_LOG_INFO, "Irrlicht", __VA_ARGS__);
 
 #include "../Scene3D.h"
 
@@ -28,7 +25,7 @@ extern "C"
 
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_initializeFileSystem(JNIEnv * env, jclass cls, jstring jInternalDataPath, jobject assetManager)
     {
-        print("initializeFileSystem()");
+        printf("initializeFileSystem()");
 
         AAssetManager* amgr = AAssetManager_fromJava(env, assetManager);
 
