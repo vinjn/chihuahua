@@ -16,6 +16,10 @@
 #include "CColorConverter.h"
 #include "IAttributeExchangingObject.h"
 
+#ifdef _IRR_COMPILE_WITH_STB_LOADER_
+#define STB_IMAGE_IMPLEMENTATION
+#include "../3rdparty/stb/stb_image.h"
+#endif
 
 namespace irr
 {
@@ -83,6 +87,76 @@ IImageWriter* createImageWriterPNG();
 //! creates a writer which is able to save ppm images
 IImageWriter* createImageWriterPPM();
 
+#ifdef _IRR_COMPILE_WITH_STB_LOADER_
+//! creates a loader which is able to load images via Stb
+class CImageLoaderStb : public IImageLoader
+{
+public:
+
+    //! constructor
+    CImageLoaderStb()
+    {
+        stbi_set_unpremultiply_on_load(1);
+        stbi_convert_iphone_png_to_rgb(1);
+    }
+
+    //! destructor
+    virtual ~CImageLoaderStb(){}
+
+    //! returns true if the file maybe is able to be loaded by this class
+    //! based on the file extension (e.g. ".tga")
+    virtual bool isALoadableFileExtension(const io::path& filename) const _IRR_OVERRIDE_
+    {
+        return core::hasFileExtension(filename, "jpg", "jpeg", "png") ||
+        core::hasFileExtension(filename, "tga", "bmp", "psd") ||
+        core::hasFileExtension(filename, "gif", "hdr", "pic") ||
+        core::hasFileExtension(filename, "pgm", "ppm");
+    }
+
+    //! returns true if the file maybe is able to be loaded by this class
+    virtual bool isALoadableFileFormat(io::IReadFile* file) const _IRR_OVERRIDE_
+    {
+        core::array<u8> data(file->getSize());
+        file->seek(0);
+        file->read(data.pointer(), file->getSize());
+        return stbi_info_from_memory((u8*)data.pointer(), file->getSize(), NULL, NULL, NULL) != 0;
+    }
+
+    //! creates a surface from the file
+    virtual IImage* loadImage(io::IReadFile* file) const _IRR_OVERRIDE_
+    {
+        int width = 0;
+        int height = 0;
+        int comp = 0;
+
+        core::array<u8> data(file->getSize());
+        file->seek(0);
+        file->read(data.pointer(), file->getSize());
+        u8* imgRaw = stbi_load_from_memory((u8*)data.pointer(), file->getSize(), &width, &height, &comp, 4);
+
+        // rgb -> bgr
+        {
+            u8* p = imgRaw;
+            for (int i = 0; i < width*height; ++i) {
+                u8 t = p[0];
+                p[0] = p[2];
+                p[2] = t;
+                p += 4;
+            }
+        }
+
+        IImage* image = new CImage(ECF_A8R8G8B8, core::dimension2du(width, height), imgRaw);
+
+        return image;
+    }
+};
+
+IImageLoader* createImageLoaderStb()
+{
+    return new CImageLoaderStb();
+}
+#endif
+
 //! constructor
 CNullDriver::CNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& screenSize)
 : FileSystem(io), MeshManipulator(0), ViewPort(0,0,0,0), ScreenSize(screenSize),
@@ -123,7 +197,7 @@ CNullDriver::CNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& scre
 		FileSystem->grab();
 
 	// create surface loader
-
+    
 #ifdef _IRR_COMPILE_WITH_WAL_LOADER_
 	SurfaceLoader.push_back(video::createImageLoaderHalfLife());
 	SurfaceLoader.push_back(video::createImageLoaderWAL());
@@ -161,7 +235,9 @@ CNullDriver::CNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& scre
 #ifdef _IRR_COMPILE_WITH_BMP_LOADER_
 	SurfaceLoader.push_back(video::createImageLoaderBMP());
 #endif
-
+#ifdef _IRR_COMPILE_WITH_STB_LOADER_
+    SurfaceLoader.push_back(video::createImageLoaderStb());
+#endif
 
 #ifdef _IRR_COMPILE_WITH_PPM_WRITER_
 	SurfaceWriter.push_back(video::createImageWriterPPM());
@@ -184,7 +260,6 @@ CNullDriver::CNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& scre
 #ifdef _IRR_COMPILE_WITH_BMP_WRITER_
 	SurfaceWriter.push_back(video::createImageWriterBMP());
 #endif
-
 
 	// set ExposedData to 0
 	memset(&ExposedData, 0, sizeof(ExposedData));
