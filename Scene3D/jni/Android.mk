@@ -63,27 +63,17 @@ LOCAL_SRC_FILES := \
     				$(ASSIMP_PATH)/code/VertexTriangleAdjacency.cpp \
     				$(ASSIMP_PATH)/contrib/ConvertUTF/ConvertUTF.c \
     				$(ASSIMP_PATH)/IrrAssimpImport.cpp \
-					C3DSMeshFileLoader.cpp \
-					CAnimatedMeshHalfLife.cpp \
+					ISceneNode.cpp \
 					CAnimatedMeshMD2.cpp \
-					CAnimatedMeshMD3.cpp \
 					CAnimatedMeshSceneNode.cpp \
 					CAttributes.cpp \
-					CB3DMeshFileLoader.cpp \
 					CBillboardSceneNode.cpp \
 					CBoneSceneNode.cpp \
-					CBSPMeshFileLoader.cpp \
-					CBurningShader_Raster_Reference.cpp \
 					CCameraSceneNode.cpp \
-					CColladaFileLoader.cpp \
-					CColladaMeshWriter.cpp \
 					CColorConverter.cpp \
-					CCSMLoader.cpp \
 					CCubeSceneNode.cpp \
 					CDefaultSceneNodeAnimatorFactory.cpp \
 					CDefaultSceneNodeFactory.cpp \
-					CDepthBuffer.cpp \
-					CDMFLoader.cpp \
 					CDummyTransformationSceneNode.cpp \
 					CEmptySceneNode.cpp \
 					CFileList.cpp \
@@ -92,40 +82,12 @@ LOCAL_SRC_FILES := \
 					leakHunter.cpp \
 					CGeometryCreator.cpp \
 					CImage.cpp \
-					CImageLoaderBMP.cpp \
-					CImageLoaderDDS.cpp \
-					CImageLoaderJPG.cpp \
-					CImageLoaderPCX.cpp \
-					CImageLoaderPNG.cpp \
-					CImageLoaderPPM.cpp \
-					CImageLoaderPSD.cpp \
-					CImageLoaderRGB.cpp \
-					CImageLoaderTGA.cpp \
-					CImageLoaderWAL.cpp \
 					CImageWriterBMP.cpp \
-					CImageWriterJPG.cpp \
-					CImageWriterPCX.cpp \
-					CImageWriterPNG.cpp \
-					CImageWriterPPM.cpp \
-					CImageWriterPSD.cpp \
-					CImageWriterTGA.cpp \
-					CImageLoaderPVR.cpp \
-					CIrrDeviceConsole.cpp \
-					CIrrDeviceFB.cpp \
-					CIrrDeviceLinux.cpp \
-					CIrrDeviceSDL.cpp \
 					CIrrDeviceStub.cpp \
-					CIrrDeviceWin32.cpp \
-					CIrrDeviceWinCE.cpp \
-					CIrrMeshFileLoader.cpp \
-					CIrrMeshWriter.cpp \
 					CLightSceneNode.cpp \
 					CLimitReadFile.cpp \
-					CLMTSMeshFileLoader.cpp \
 					CLogger.cpp \
-					CLWOMeshFileLoader.cpp \
 					CMD2MeshFileLoader.cpp \
-					CMD3MeshFileLoader.cpp \
 					CMemoryFile.cpp \
 					CMeshCache.cpp \
 					CMeshManipulator.cpp \
@@ -133,9 +95,6 @@ LOCAL_SRC_FILES := \
 					CMeshTextureLoader.cpp \
 					CMetaTriangleSelector.cpp \
 					CMountPointReader.cpp \
-					CMS3DMeshFileLoader.cpp \
-					CMY3DMeshFileLoader.cpp \
-					CNPKReader.cpp \
 					CNullDriver.cpp \
 					COBJMeshFileLoader.cpp \
 					COBJMeshWriter.cpp \
@@ -151,19 +110,7 @@ LOCAL_SRC_FILES := \
 					COGLES2ParallaxMapRenderer.cpp \
 					COGLES2Renderer2D.cpp \
 					COGLES2Texture.cpp \
-					COGLESDriver.cpp \
-					COGLESExtensionHandler.cpp \
-					COGLESTexture.cpp \
-					COgreMeshFileLoader.cpp \
-					COpenGLDriver.cpp \
-					COpenGLExtensionHandler.cpp \
-					COpenGLNormalMapRenderer.cpp \
-					COpenGLParallaxMapRenderer.cpp \
-					COpenGLShaderMaterialRenderer.cpp \
-					COpenGLSLMaterialRenderer.cpp \
-					COpenGLTexture.cpp \
 					COSOperator.cpp \
-					CPakReader.cpp \
 					CParticleAnimatedMeshSceneNodeEmitter.cpp \
 					CParticleAttractionAffector.cpp \
 					CParticleBoxEmitter.cpp \
@@ -177,11 +124,7 @@ LOCAL_SRC_FILES := \
 					CParticleScaleAffector.cpp \
 					CParticleSphereEmitter.cpp \
 					CParticleSystemSceneNode.cpp \
-					CPLYMeshFileLoader.cpp \
-					CPLYMeshWriter.cpp \
 					CProfiler.cpp \
-					CQ3LevelMesh.cpp \
-					CQuake3ShaderSceneNode.cpp \
 					CReadFile.cpp \
 					CSceneCollisionManager.cpp \
 					CSceneLoaderIrr.cpp \
@@ -199,15 +142,7 @@ LOCAL_SRC_FILES := \
 					CSkinnedMesh.cpp \
 					CSkyBoxSceneNode.cpp \
 					CSkyDomeSceneNode.cpp \
-					CSMFMeshFileLoader.cpp \
-					CSoftwareDriver.cpp \
-					CSoftwareDriver2.cpp \
-					CSoftwareTexture.cpp \
-					CSoftwareTexture2.cpp \
 					CSphereSceneNode.cpp \
-					CSTLMeshFileLoader.cpp \
-					CSTLMeshWriter.cpp \
-					CTarReader.cpp \
 					CTerrainSceneNode.cpp \
 					CTerrainTriangleSelector.cpp \
 					CTextSceneNode.cpp \
@@ -215,79 +150,14 @@ LOCAL_SRC_FILES := \
 					CTriangleSelector.cpp \
 					CVideoModeList.cpp \
 					CVolumeLightSceneNode.cpp \
-					CWADReader.cpp \
 					CWaterSurfaceSceneNode.cpp \
 					CWriteFile.cpp \
 					CXMeshFileLoader.cpp \
 					CXMLReader.cpp \
 					CXMLWriter.cpp \
-					CZBuffer.cpp \
-					CZipReader.cpp \
-					IBurningShader.cpp \
 					Irrlicht.cpp \
 					irrXML.cpp \
-					os.cpp	 \
-					jpeglib/jaricom.c \
-					jpeglib/jcapimin.c \
-					jpeglib/jcapistd.c \
-					jpeglib/jcarith.c \
-					jpeglib/jccoefct.c \
-					jpeglib/jccolor.c \
-					jpeglib/jcdctmgr.c \
-					jpeglib/jchuff.c \
-					jpeglib/jcinit.c \
-					jpeglib/jcmainct.c \
-					jpeglib/jcmarker.c \
-					jpeglib/jcmaster.c \
-					jpeglib/jcomapi.c \
-					jpeglib/jcparam.c \
-					jpeglib/jcprepct.c \
-					jpeglib/jcsample.c \
-					jpeglib/jctrans.c \
-					jpeglib/jdapimin.c \
-					jpeglib/jdapistd.c \
-					jpeglib/jdarith.c \
-					jpeglib/jdatadst.c \
-					jpeglib/jdatasrc.c \
-					jpeglib/jdcoefct.c \
-					jpeglib/jdcolor.c \
-					jpeglib/jddctmgr.c \
-					jpeglib/jdhuff.c \
-					jpeglib/jdinput.c \
-					jpeglib/jdmainct.c \
-					jpeglib/jdmarker.c \
-					jpeglib/jdmaster.c \
-					jpeglib/jdmerge.c \
-					jpeglib/jdpostct.c \
-					jpeglib/jdsample.c \
-					jpeglib/jdtrans.c \
-					jpeglib/jerror.c \
-					jpeglib/jfdctflt.c \
-					jpeglib/jfdctfst.c \
-					jpeglib/jfdctint.c \
-					jpeglib/jidctflt.c \
-					jpeglib/jidctfst.c \
-					jpeglib/jidctint.c \
-					jpeglib/jmemmgr.c \
-					jpeglib/jmemnobs.c \
-					jpeglib/jquant1.c \
-					jpeglib/jquant2.c \
-					jpeglib/jutils.c \
-					libpng/png.c \
-					libpng/pngerror.c \
-					libpng/pngget.c \
-					libpng/pngmem.c \
-					libpng/pngpread.c \
-					libpng/pngread.c \
-					libpng/pngrio.c \
-					libpng/pngrtran.c \
-					libpng/pngrutil.c \
-					libpng/pngset.c \
-					libpng/pngtrans.c \
-					libpng/pngwio.c \
-					libpng/pngwrite.c \
-					libpng/pngwtran.c \
-					libpng/pngwutil.c
+					os.cpp
 
 LOCAL_LDLIBS     := -llog -lGLESv2 -lEGL -landroid -lz
 
