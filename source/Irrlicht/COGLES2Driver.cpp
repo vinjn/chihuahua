@@ -130,14 +130,10 @@ COGLES2Driver::COGLES2Driver(const SIrrlichtCreationParameters& params,
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, ViewDepthRenderbuffer);
         windowSize = core::dimension2d<u32>(backingWidth, backingHeight);
 	}
-    else
-    {
-        windowSize = params.WindowSize;
-    }
+#endif
 
 	CNullDriver::ScreenSize = windowSize;
 	CNullDriver::ViewPort = core::rect<s32>(core::position2d<s32>(0,0), core::dimension2di(windowSize));
-#endif
 
 	genericDriverInit(windowSize, params.Stencilbuffer);
 }
