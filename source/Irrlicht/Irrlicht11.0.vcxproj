@@ -1430,6 +1430,7 @@
     <ClCompile Include="CLogger.cpp" />
     <ClCompile Include="COSOperator.cpp" />
     <ClCompile Include="Irrlicht.cpp" />
+    <ClCompile Include="ISceneNode.cpp" />
     <ClCompile Include="os.cpp" />
     <ClCompile Include="utf8.cpp" />
     <ClCompile Include="CProfiler.cpp" />

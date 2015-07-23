@@ -1930,6 +1930,9 @@
     <ClCompile Include="CD3D9Texture.cpp">
       <Filter>Irrlicht\video\d3d9</Filter>
     </ClCompile>
+    <ClCompile Include="ISceneNode.cpp">
+      <Filter>Irrlicht</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Irrlicht.rc" />
