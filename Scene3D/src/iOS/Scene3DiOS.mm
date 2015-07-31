@@ -1,6 +1,27 @@
 #include "Scene3DiOS.h"
+#include "irrlicht.h"
+#include "../source/irrlicht/os.h"
+#include "../source/irrlicht/CLogger.h"
 
 #import <UIKit/UIKit.h>
+
+using namespace irr;
+using namespace core;
+
+extern video::IVideoDriver* driver;
+extern scene::ISceneManager* smgr;
+extern scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
+extern scene::ICameraSceneNode* camera;
+extern io::IFileSystem* fs;
+extern int screenWidth, sceenHeight;
+
+namespace irr
+{
+    namespace io
+    {
+        IFileSystem* createFileSystem();
+    }
+}
 
 namespace Scene3D
 {
@@ -8,7 +29,7 @@ namespace Scene3D
     {
         os::Printer::Logger = new CLogger(NULL);
         
-        print("initializeFileSystem()");
+        printf("initializeFileSystem()");
         
         fs = io::createFileSystem();
         

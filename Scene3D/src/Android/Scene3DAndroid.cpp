@@ -1,10 +1,31 @@
 // Wrapper of Scene3D.h for Android JNI
+#include "irrlicht.h"
+#include "../source/irrlicht/os.h"
+#include "../source/irrlicht/CLogger.h"
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include "CAndroidAssetFileArchive.h"
 
 #include "../Scene3D.h"
+
+using namespace irr;
+using namespace core;
+
+extern video::IVideoDriver* driver;
+extern scene::ISceneManager* smgr;
+extern scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
+extern scene::ICameraSceneNode* camera;
+extern io::IFileSystem* fs;
+extern int screenWidth, sceenHeight;
+
+namespace irr
+{
+    namespace io
+    {
+        IFileSystem* createFileSystem();
+    }
+}
 
 extern "C"
 {
@@ -214,7 +235,7 @@ extern "C"
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_updateTexture(JNIEnv * env, jclass cls, jlong texturePtr, jbyteArray jImageData)
     {
         jbyte *srcData = env->GetByteArrayElements(jImageData, JNI_FALSE);
-        Scene3D::updateTexture(texturePtr, srcData);
+        Scene3D::updateTexture(texturePtr, (char*)srcData);
         env->ReleaseByteArrayElements(jImageData, srcData, JNI_FALSE);
     }
 

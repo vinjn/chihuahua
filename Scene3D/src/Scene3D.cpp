@@ -2,8 +2,37 @@
 #include "AssimpWrapper.h"
 #include "FullScreenSceneNode.h"
 
+#include "irrlicht.h"
+#include "FullScreenSceneNode.h"
+#include "../source/irrlicht/os.h"
+#include "../source/irrlicht/CLogger.h"
+
+#ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
+#include <OpenGLES/ES2/gl.h>
+#else
+#include <android/log.h>
+#define printf(...) __android_log_print(ANDROID_LOG_INFO, "Irrlicht", __VA_ARGS__);
+#include <GLES2/gl2.h>
+#endif
+
 using namespace irr;
 using namespace core;
+
+namespace irr
+{
+    namespace gui
+    {
+        class IGUIEnvironment;
+        IGUIEnvironment* createGUIEnvironment(io::IFileSystem* fs,
+                                              video::IVideoDriver* Driver, IOSOperator* op);
+    }
+    
+    namespace scene
+    {
+        ISceneManager* createSceneManager(video::IVideoDriver* driver,
+                                          io::IFileSystem* fs, gui::ICursorControl* cc, gui::IGUIEnvironment *gui);
+    }
+}
 
 namespace irr
 {
@@ -65,7 +94,7 @@ s32 getNewNodeId(NodeIdCategory category)
 }
 
 //! prints error if an error happened.
-bool testGLError(const c8* comment = "")
+bool testGLError(const char* comment = "")
 {
     GLenum g = glGetError();
     printf("%s\n", comment);
@@ -181,7 +210,7 @@ namespace Scene3D
         driver->endScene();
     }
 
-    static void postProcessNode(scene::ISceneNode* node, const c8* name)
+    static void postProcessNode(scene::ISceneNode* node, const char* name)
     {
         if (node)
         {
@@ -222,7 +251,7 @@ namespace Scene3D
         return (long)node;
     }
 
-    long getTexture(const c8* textureName)
+    long getTexture(const char* textureName)
     {
         video::ITexture* texture = NULL;
         if (textureName)
@@ -242,7 +271,7 @@ namespace Scene3D
         node->setMaterialTexture(textureLayer, texture);
     }
 
-    void setNodeAnimationFps(long nodePtr, f32 fps)
+    void setNodeAnimationFps(long nodePtr, float fps)
     {
         scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
         {
@@ -250,7 +279,7 @@ namespace Scene3D
         }
     }
 
-    void setNodeAnimation(long nodePtr, const c8* animationName)
+    void setNodeAnimation(long nodePtr, const char* animationName)
     {
         scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
         {
@@ -266,7 +295,7 @@ namespace Scene3D
         }
     }
 
-    void setNodeAnimationIndex(long nodePtr, u32 index)
+    void setNodeAnimationIndex(long nodePtr, int index)
     {
         scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
         {
@@ -274,7 +303,7 @@ namespace Scene3D
         }
     }
 
-    void setNodeAnimationStartEnd(long nodePtr, s32 start, s32 end)
+    void setNodeAnimationStartEnd(long nodePtr, int start, int end)
     {
         scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
         {
@@ -294,7 +323,7 @@ namespace Scene3D
         delete transformNode;
     }
 
-    long addMeshNode(const c8* meshName)
+    long addMeshNode(const char* meshName)
     {
         scene::IAnimatedMeshSceneNode* node = NULL;
         {
@@ -345,7 +374,7 @@ namespace Scene3D
         node->setParent(parent);
     }
 
-    void setNodeModelMatrix(long nodePtr, float* matrix)
+    void setNodeModelMatrix(long nodePtr, const float* matrix)
     {
         scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
         scene::IDummyTransformationSceneNode* transformNode = (scene::IDummyTransformationSceneNode*)(node->getParent());
@@ -361,7 +390,7 @@ namespace Scene3D
         transformNode->getRelativeTransformationMatrix().setM(matrix);
     }
 
-    void setViewMatrix(long nodePtr, float* matrix)
+    void setViewMatrix(long nodePtr, const float* matrix)
     {
         printf("setViewMatrix unimplemented.");
 
@@ -370,7 +399,7 @@ namespace Scene3D
         // camera->setProjectionMatrix(matrix);
     }
 
-    void setProjectionMatrix(float* matrix)
+    void setProjectionMatrix(const float* matrix)
     {
         matrix4 mat;
         mat.setM(matrix);
@@ -384,7 +413,7 @@ namespace Scene3D
         return (long)texture;
     }
 
-    void updateTexture(long texturePtr, s8* srcData)
+    void updateTexture(long texturePtr, const char* srcData)
     {
         video::ITexture* texture = (video::ITexture*)texturePtr;
 
@@ -471,7 +500,7 @@ namespace Scene3D
         // driver->draw2DRectangle(video::SColor(255, 255, 0, 0), recti(0, 0, 10, 10));
     }
 
-    void writeTexture(long texturePtr, const c8* filename)
+    void writeTexture(long texturePtr, const char* filename)
     {
         video::ITexture* texture = (video::ITexture*)texturePtr;
         video::IImage* image = driver->createImage(texture, position2d<s32>(0, 0), texture->getSize());

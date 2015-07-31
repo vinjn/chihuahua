@@ -299,6 +299,10 @@
 		7495CFC81B403B010083A25C /* AssimpWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF101B402E900083A25C /* AssimpWrapper.cpp */; };
 		74A325E41B58CD0300349950 /* CIrrDeviceiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */; };
 		74A325E51B58CD0600349950 /* CIrrDeviceiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 74676E9F1B57FBFD00FB0B91 /* CIrrDeviceiOS.h */; };
+		74E8AFC11B6BB5B9005C7FBB /* Scene3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 74E8AFBF1B6BB5B9005C7FBB /* Scene3D.cpp */; };
+		74E8AFC21B6BB5B9005C7FBB /* Scene3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 74E8AFC01B6BB5B9005C7FBB /* Scene3D.h */; };
+		74E8AFC51B6BB5C3005C7FBB /* Scene3DiOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 74E8AFC31B6BB5C3005C7FBB /* Scene3DiOS.h */; };
+		74E8AFC61B6BB5C3005C7FBB /* Scene3DiOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 74E8AFC41B6BB5C3005C7FBB /* Scene3DiOS.mm */; };
 		74F362391B21D742000309FC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 74F362381B21D742000309FC /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -1033,6 +1037,10 @@
 		7495CF8D1B4038270083A25C /* ConvertUTF.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ConvertUTF.c; path = ../../assimp/contrib/ConvertUTF/ConvertUTF.c; sourceTree = "<group>"; };
 		7495CF8E1B4038270083A25C /* ConvertUTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConvertUTF.h; path = ../../assimp/contrib/ConvertUTF/ConvertUTF.h; sourceTree = "<group>"; };
 		7495CF911B403A5B0083A25C /* ConvertToLHProcess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConvertToLHProcess.cpp; path = ../../assimp/code/ConvertToLHProcess.cpp; sourceTree = "<group>"; };
+		74E8AFBF1B6BB5B9005C7FBB /* Scene3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene3D.cpp; path = ../../../Scene3D/src/Scene3D.cpp; sourceTree = "<group>"; };
+		74E8AFC01B6BB5B9005C7FBB /* Scene3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene3D.h; path = ../../../Scene3D/src/Scene3D.h; sourceTree = "<group>"; };
+		74E8AFC31B6BB5C3005C7FBB /* Scene3DiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene3DiOS.h; path = ../../../Scene3D/src/iOS/Scene3DiOS.h; sourceTree = "<group>"; };
+		74E8AFC41B6BB5C3005C7FBB /* Scene3DiOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Scene3DiOS.mm; path = ../../../Scene3D/src/iOS/Scene3DiOS.mm; sourceTree = "<group>"; };
 		74F362381B21D742000309FC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1706,6 +1714,7 @@
 		5E96FAE515515650000A0A05 = {
 			isa = PBXGroup;
 			children = (
+				74E8AFBE1B6BB5A6005C7FBB /* Scene3D */,
 				7495CED31B402E570083A25C /* assimp */,
 				74F362381B21D742000309FC /* Default-568h@2x.png */,
 				5ED24838173151F300A13B86 /* Examples */,
@@ -1933,6 +1942,17 @@
 			name = src;
 			sourceTree = "<group>";
 		};
+		74E8AFBE1B6BB5A6005C7FBB /* Scene3D */ = {
+			isa = PBXGroup;
+			children = (
+				74E8AFBF1B6BB5B9005C7FBB /* Scene3D.cpp */,
+				74E8AFC01B6BB5B9005C7FBB /* Scene3D.h */,
+				74E8AFC31B6BB5C3005C7FBB /* Scene3DiOS.h */,
+				74E8AFC41B6BB5C3005C7FBB /* Scene3DiOS.mm */,
+			);
+			name = Scene3D;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1940,7 +1960,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74E8AFC21B6BB5B9005C7FBB /* Scene3D.h in Headers */,
 				74A325E51B58CD0600349950 /* CIrrDeviceiOS.h in Headers */,
+				74E8AFC51B6BB5C3005C7FBB /* Scene3DiOS.h in Headers */,
 				7495CF901B4038270083A25C /* ConvertUTF.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2094,6 +2116,7 @@
 				5E3EA46D1586A27C00C17C1D /* jcapimin.c in Sources */,
 				5E3EA46E1586A27C00C17C1D /* jcapistd.c in Sources */,
 				5E3EA46F1586A27C00C17C1D /* jcarith.c in Sources */,
+				74E8AFC11B6BB5B9005C7FBB /* Scene3D.cpp in Sources */,
 				5E3EA4701586A27C00C17C1D /* jccoefct.c in Sources */,
 				5E3EA4711586A27C00C17C1D /* jccolor.c in Sources */,
 				5E3EA4721586A27C00C17C1D /* jcdctmgr.c in Sources */,
@@ -2127,6 +2150,7 @@
 				5E3EA48C1586A27C00C17C1D /* jdsample.c in Sources */,
 				5E3EA48D1586A27C00C17C1D /* jdtrans.c in Sources */,
 				5E3EA48E1586A27C00C17C1D /* jerror.c in Sources */,
+				74E8AFC61B6BB5C3005C7FBB /* Scene3DiOS.mm in Sources */,
 				5E3EA48F1586A27C00C17C1D /* jfdctflt.c in Sources */,
 				5E3EA4901586A27C00C17C1D /* jfdctfst.c in Sources */,
 				5E3EA4911586A27C00C17C1D /* jfdctint.c in Sources */,
