@@ -544,6 +544,7 @@ int example_helloworld()
 	if (node)
 	{
 		node->setMaterialFlag(EMF_LIGHTING, false);
+//        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 		node->setAnimation(scene::EMAT_STAND);
 		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "Cockatoo/Cockatoo_D.png") );
 	}

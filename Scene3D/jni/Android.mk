@@ -221,10 +221,11 @@ LOCAL_SRC_FILES := \
 					Irrlicht.cpp \
 					irrXML.cpp \
 					os.cpp	 \
-					jpeglib/jaricom.c \
+					jpeglib/jdphuff.c \
+					jpeglib/jcphuff.c \
 					jpeglib/jcapimin.c \
+					jpeglib/jidctred.c \
 					jpeglib/jcapistd.c \
-					jpeglib/jcarith.c \
 					jpeglib/jccoefct.c \
 					jpeglib/jccolor.c \
 					jpeglib/jcdctmgr.c \
@@ -240,7 +241,6 @@ LOCAL_SRC_FILES := \
 					jpeglib/jctrans.c \
 					jpeglib/jdapimin.c \
 					jpeglib/jdapistd.c \
-					jpeglib/jdarith.c \
 					jpeglib/jdatadst.c \
 					jpeglib/jdatasrc.c \
 					jpeglib/jdcoefct.c \
