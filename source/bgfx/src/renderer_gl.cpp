@@ -81,10 +81,11 @@ namespace bgfx { namespace gl
 
 	static const GLenum s_attribType[] =
 	{
-		GL_UNSIGNED_BYTE,
-		GL_SHORT,
-		GL_HALF_FLOAT,
-		GL_FLOAT,
+		GL_UNSIGNED_BYTE,            // Uint8
+		GL_UNSIGNED_INT_10_10_10_2,  // Uint10
+		GL_SHORT,                    // Int16
+		GL_HALF_FLOAT,               // Half
+		GL_FLOAT,                    // Float
 	};
 	BX_STATIC_ASSERT(AttribType::Count == BX_COUNTOF(s_attribType) );
 
@@ -1051,17 +1052,17 @@ namespace bgfx { namespace gl
 		if (isDepth(_format) )
 		{
 			const ImageBlockInfo& info = getBlockInfo(_format);
-			if (0 < info.stencilBits)
-			{
-				attachment = GL_DEPTH_STENCIL_ATTACHMENT;
-			}
-			else if (0 == info.depthBits)
+			if (0 == info.depthBits)
 			{
 				attachment = GL_STENCIL_ATTACHMENT;
 			}
-			else
+			else if (0 == info.stencilBits)
 			{
 				attachment = GL_DEPTH_ATTACHMENT;
+			}
+			else
+			{
+				attachment = GL_DEPTH_STENCIL_ATTACHMENT;
 			}
 		}
 		else
@@ -1520,6 +1521,12 @@ namespace bgfx { namespace gl
 			g_caps.supported |= !!(BGFX_CONFIG_RENDERER_OPENGL || BGFX_CONFIG_RENDERER_OPENGLES >= 30)
 				|| s_extension[Extension::OES_vertex_half_float].m_supported
 				? BGFX_CAPS_VERTEX_ATTRIB_HALF
+				: 0
+				;
+			g_caps.supported |= false
+				|| s_extension[Extension::ARB_vertex_type_2_10_10_10_rev].m_supported
+				|| s_extension[Extension::OES_vertex_type_10_10_10_2].m_supported
+				? BGFX_CAPS_VERTEX_ATTRIB_UINT10
 				: 0
 				;
 			g_caps.supported |= !!(BGFX_CONFIG_RENDERER_OPENGL || BGFX_CONFIG_RENDERER_OPENGLES >= 30)
@@ -2467,7 +2474,7 @@ namespace bgfx { namespace gl
 					bx::write(&writer, magic);
 
 					TextureCreate tc;
-					tc.m_flags   = BGFX_TEXTURE_RT|(((m_resolution.m_flags & BGFX_RESET_MSAA_MASK) >> BGFX_RESET_MSAA_SHIFT) << BGFX_TEXTURE_RT_MSAA_SHIFT);;
+					tc.m_flags   = BGFX_TEXTURE_RT|( ((m_resolution.m_flags & BGFX_RESET_MSAA_MASK) >> BGFX_RESET_MSAA_SHIFT) << BGFX_TEXTURE_RT_MSAA_SHIFT);;
 					tc.m_width   = m_ovr.m_rtSize.w;
 					tc.m_height  = m_ovr.m_rtSize.h;
 					tc.m_sides   = 0;
@@ -3410,6 +3417,10 @@ namespace bgfx { namespace gl
 				m_used[used++] = ii;
 			}
 		}
+		BX_CHECK(used < BX_COUNTOF(m_used), "Out of bounds %d > array size %d."
+				, used
+				, BX_COUNTOF(m_used)
+				);
 		m_used[used] = Attrib::Count;
 
 		used = 0;
@@ -3422,6 +3433,10 @@ namespace bgfx { namespace gl
 				m_instanceData[used++] = loc;
 			}
 		}
+		BX_CHECK(used < BX_COUNTOF(m_instanceData), "Out of bounds %d > array size %d."
+				, used
+				, BX_COUNTOF(m_instanceData)
+				);
 		m_instanceData[used] = 0xffff;
 	}
 
@@ -4270,7 +4285,8 @@ namespace bgfx { namespace gl
 					if (usesTextureLod)
 					{
 						BX_WARN(s_extension[Extension::EXT_shader_texture_lod].m_supported, "EXT_shader_texture_lod is used but not supported by GLES2 driver.");
-						if (s_extension[Extension::EXT_shader_texture_lod].m_supported)
+						if (s_extension[Extension::EXT_shader_texture_lod].m_supported
+						/*&&  GL_VERTEX_SHADER == m_type*/)
 						{
 							writeString(&writer
 								, "#extension GL_EXT_shader_texture_lod : enable\n"
@@ -4818,9 +4834,7 @@ namespace bgfx { namespace gl
 		int64_t elapsed = -bx::getHPCounter();
 		int64_t captureElapsed = 0;
 
-		if (BX_ENABLED(BGFX_CONFIG_RENDERER_OPENGL)
-		&& (_render->m_debug & (BGFX_DEBUG_IFH|BGFX_DEBUG_STATS) )
-		&&  m_timerQuerySupport)
+		if (m_timerQuerySupport)
 		{
 			m_queries.begin(0, GL_TIME_ELAPSED);
 		}
@@ -5054,7 +5068,7 @@ namespace bgfx { namespace gl
 								case Binding::IndexBuffer:
 									{
 										const IndexBufferGL& buffer = m_indexBuffers[bind.m_idx];
-										GL_CHECK(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, ii, buffer.m_id));
+										GL_CHECK(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, ii, buffer.m_id) );
 										barrier |= GL_SHADER_STORAGE_BARRIER_BIT;
 									}
 									break;
@@ -5062,7 +5076,7 @@ namespace bgfx { namespace gl
 								case Binding::VertexBuffer:
 									{
 										const VertexBufferGL& buffer = m_vertexBuffers[bind.m_idx];
-										GL_CHECK(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, ii, buffer.m_id));
+										GL_CHECK(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, ii, buffer.m_id) );
 										barrier |= GL_SHADER_STORAGE_BARRIER_BIT;
 									}
 									break;
@@ -5217,7 +5231,7 @@ namespace bgfx { namespace gl
 								GLint ref = (stencil&BGFX_STENCIL_FUNC_REF_MASK)>>BGFX_STENCIL_FUNC_REF_SHIFT;
 								GLint mask = (stencil&BGFX_STENCIL_FUNC_RMASK_MASK)>>BGFX_STENCIL_FUNC_RMASK_SHIFT;
 								uint32_t func = (stencil&BGFX_STENCIL_TEST_MASK)>>BGFX_STENCIL_TEST_SHIFT;
-								GL_CHECK(glStencilFuncSeparate(face, s_cmpFunc[func], ref, mask));
+								GL_CHECK(glStencilFuncSeparate(face, s_cmpFunc[func], ref, mask) );
 							}
 
 							if ( (BGFX_STENCIL_OP_FAIL_S_MASK|BGFX_STENCIL_OP_FAIL_Z_MASK|BGFX_STENCIL_OP_PASS_Z_MASK) & changed)
@@ -5337,7 +5351,7 @@ namespace bgfx { namespace gl
 							const uint32_t srcA   = (blend>> 8)&0xf;
 							const uint32_t dstA   = (blend>>12)&0xf;
 
-							const uint32_t equ    = uint32_t((newFlags&BGFX_STATE_BLEND_EQUATION_MASK)>>BGFX_STATE_BLEND_EQUATION_SHIFT);
+							const uint32_t equ    = uint32_t( (newFlags&BGFX_STATE_BLEND_EQUATION_MASK)>>BGFX_STATE_BLEND_EQUATION_SHIFT);
 							const uint32_t equRGB = (equ   )&0x7;
 							const uint32_t equA   = (equ>>3)&0x7;
 
@@ -5707,6 +5721,7 @@ namespace bgfx { namespace gl
 							{
 								const IndexBufferGL& ib = m_indexBuffers[draw.m_indexBuffer.idx];
 								const bool hasIndex16 = 0 == (ib.m_flags & BGFX_BUFFER_INDEX32);
+								const uint32_t indexSize = hasIndex16 ? 2 : 4;
 								const GLenum indexFormat = hasIndex16
 									? GL_UNSIGNED_SHORT
 									: GL_UNSIGNED_INT
@@ -5714,7 +5729,6 @@ namespace bgfx { namespace gl
 
 								if (UINT32_MAX == draw.m_numIndices)
 								{
-									const uint32_t indexSize = hasIndex16 ? 2 : 4;
 									numIndices        = ib.m_size/indexSize;
 									numPrimsSubmitted = numIndices/prim.m_div - prim.m_sub;
 									numInstances      = draw.m_numInstances;
@@ -5737,7 +5751,7 @@ namespace bgfx { namespace gl
 									GL_CHECK(glDrawElementsInstanced(prim.m_type
 										, numIndices
 										, indexFormat
-										, (void*)(uintptr_t)(draw.m_startIndex*2)
+										, (void*)(uintptr_t)(draw.m_startIndex*indexSize)
 										, draw.m_numInstances
 										) );
 								}
@@ -5792,26 +5806,33 @@ namespace bgfx { namespace gl
 		min = min > frameTime ? frameTime : min;
 		max = max < frameTime ? frameTime : max;
 
+		double elapsedGpuMs = 0.0;
+		uint64_t elapsedGl  = 0;
+		if (m_timerQuerySupport)
+		{
+			m_queries.end(GL_TIME_ELAPSED);
+			elapsedGl    = m_queries.getResult(0);
+			elapsedGpuMs = double(elapsedGl)/1e6;
+		}
+
+		const int64_t timerFreq = bx::getHPFrequency();
+
+		Stats& perfStats   = _render->m_perfStats;
+		perfStats.cpuTime      = frameTime;
+		perfStats.cpuTimerFreq = timerFreq;
+		perfStats.gpuTime      = elapsedGl;
+		perfStats.gpuTimerFreq = 100000000;
+
 		if (_render->m_debug & (BGFX_DEBUG_IFH|BGFX_DEBUG_STATS) )
 		{
-			double elapsedGpuMs = 0.0;
-			uint64_t elapsedGl  = 0;
-			if (BX_ENABLED(BGFX_CONFIG_RENDERER_OPENGL)
-			&&  m_timerQuerySupport)
-			{
-				m_queries.end(GL_TIME_ELAPSED);
-				elapsedGl    = m_queries.getResult(0);
-				elapsedGpuMs = double(elapsedGl)/1e6;
-			}
-
 			TextVideoMem& tvm = m_textVideoMem;
 
 			static int64_t next = now;
 
 			if (now >= next)
 			{
-				next = now + bx::getHPFrequency();
-				double freq = double(bx::getHPFrequency() );
+				next = now + timerFreq;
+				double freq = double(timerFreq);
 				double toMs = 1000.0/freq;
 
 				tvm.clear();
