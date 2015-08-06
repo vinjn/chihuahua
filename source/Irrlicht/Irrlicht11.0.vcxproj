@@ -1021,8 +1021,12 @@
     <ClInclude Include="..\..\include\SParticle.h" />
     <ClInclude Include="..\..\include\SSkinMeshBuffer.h" />
     <ClInclude Include="..\..\include\SViewFrustum.h" />
+    <ClInclude Include="..\3rdparty\stb\stb_image.h" />
     <ClInclude Include="..\assimp\AssimpMobileConfig.h" />
     <ClInclude Include="..\assimp\code\BaseProcess.h" />
+    <ClInclude Include="..\assimp\code\ColladaHelper.h" />
+    <ClInclude Include="..\assimp\code\ColladaLoader.h" />
+    <ClInclude Include="..\assimp\code\ColladaParser.h" />
     <ClInclude Include="..\assimp\code\ConvertToLHProcess.h" />
     <ClInclude Include="..\assimp\code\FBXCompileConfig.h" />
     <ClInclude Include="..\assimp\code\FBXConverter.h" />
@@ -1068,6 +1072,8 @@
     <ClInclude Include="..\bgfx\src\vertexdecl.h" />
     <ClInclude Include="..\bgfx\src\vs_clear.bin.h" />
     <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h" />
+    <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
+    <ClCompile Include="..\assimp\code\ColladaParser.cpp" />
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>

@@ -384,7 +384,7 @@ int main()
         "../../media/Belgium_block_pxr128.jpg",
         "../../media/Slag_stone_pxr128.jpg",
         "../../media/dwarf.jpg",
-        "../../media/Cockatoo/Cockatoo_D.png",
+        //"../../media/Cockatoo/Cockatoo_D.png",
     };
 
     const float kCamDistZ = 40;
@@ -394,9 +394,9 @@ int main()
         for (int y = 0; y < NODE_SIZE_Y; y++)
     {
         auto& node = gNodes[y * NODE_SIZE_X + x];
-        auto emptyNode = smgr->addEmptySceneNode();
+        auto emptyNode = smgr->addDummyTransformationSceneNode();
 
-        emptyNode->setPosition({
+        emptyNode->getRelativeTransformationMatrix().setTranslation({
             core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)x / NODE_SIZE_X),
             core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)y / NODE_SIZE_Y),
             0

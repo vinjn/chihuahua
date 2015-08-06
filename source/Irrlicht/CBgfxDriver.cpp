@@ -66,7 +66,7 @@ namespace irr
                     , 1.0f
                     , 0
                     );
-                bgfx::submit(0);
+                bgfx::touch(0);
 
                 // Use debug font to print information about this example.
                 bgfx::dbgTextClear();

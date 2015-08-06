@@ -103,6 +103,9 @@
     <Filter Include="Irrlicht\video\d3d9">
       <UniqueIdentifier>{41c7fd78-758b-4678-a94d-63b2dd9e023d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assimp\importer\collada">
+      <UniqueIdentifier>{09b3fb76-9e99-40a3-a2c3-b79484c8d827}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1269,6 +1272,16 @@
     <ClInclude Include="CD3D9Texture.h">
       <Filter>Irrlicht\video\d3d9</Filter>
     </ClInclude>
+    <ClInclude Include="..\3rdparty\stb\stb_image.h" />
+    <ClInclude Include="..\assimp\code\ColladaHelper.h">
+      <Filter>assimp\importer\collada</Filter>
+    </ClInclude>
+    <ClInclude Include="..\assimp\code\ColladaLoader.h">
+      <Filter>assimp\importer\collada</Filter>
+    </ClInclude>
+    <ClInclude Include="..\assimp\code\ColladaParser.h">
+      <Filter>assimp\importer\collada</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -1932,6 +1945,12 @@
     </ClCompile>
     <ClCompile Include="ISceneNode.cpp">
       <Filter>Irrlicht</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\ColladaLoader.cpp">
+      <Filter>assimp\importer\collada</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\ColladaParser.cpp">
+      <Filter>assimp\importer\collada</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

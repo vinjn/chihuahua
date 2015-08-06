@@ -18,6 +18,7 @@
 
 #ifdef _IRR_COMPILE_WITH_STB_LOADER_
 #define STB_IMAGE_IMPLEMENTATION
+#define STBI_FAILURE_USERMSG
 #include "../3rdparty/stb/stb_image.h"
 #endif
 
@@ -116,10 +117,14 @@ public:
     //! returns true if the file maybe is able to be loaded by this class
     virtual bool isALoadableFileFormat(io::IReadFile* file) const _IRR_OVERRIDE_
     {
+#if 1
+        return false;
+#else
         core::array<u8> data(file->getSize());
         file->seek(0);
         file->read(data.pointer(), file->getSize());
         return stbi_info_from_memory((u8*)data.pointer(), file->getSize(), NULL, NULL, NULL) != 0;
+#endif
     }
 
     //! creates a surface from the file
@@ -133,6 +138,12 @@ public:
         file->seek(0);
         file->read(data.pointer(), file->getSize());
         u8* imgRaw = stbi_load_from_memory((u8*)data.pointer(), file->getSize(), &width, &height, &comp, 4);
+
+        if (imgRaw == NULL)
+        {
+            os::Printer::log("Could not load texture", stbi_failure_reason(), ELL_ERROR);
+            return NULL;
+        }
 
         // rgb -> bgr
         {
