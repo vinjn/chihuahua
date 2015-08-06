@@ -20,6 +20,8 @@ namespace Scene3D
 
     long getTexture(const char* textureName);
 
+    void setNodeLighting(long nodePtr, bool enabled);
+
     void setNodeTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
 
     void setNodeAnimationFps(long nodePtr, float fps);
