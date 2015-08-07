@@ -387,6 +387,8 @@ int main()
         //"../../media/Cockatoo/Cockatoo_D.png",
     };
 
+    auto mani = driver->getMeshManipulator();
+
     const float kCamDistZ = 40;
     int idx = 0;
     int sNodeId = 0;
@@ -404,7 +406,12 @@ int main()
 
 #if 1
         IAnimatedMesh* mesh = getMeshFromAssimp(smgr, meshFiles[rand() % _countof(meshFiles)]);
-        node = smgr->addAnimatedMeshSceneNode(mesh, emptyNode);
+        auto staticMesh = mesh->getMesh(0);
+        auto meshTwoTex = mani->createMeshWith2TCoords(staticMesh);
+        auto aniMesh = smgr->getMeshManipulator()->createAnimatedMesh(meshTwoTex);
+        node = smgr->addAnimatedMeshSceneNode(aniMesh, emptyNode);
+        meshTwoTex->drop();
+        aniMesh->drop();
         node->setFrameLoop(0, 0);
 #else
         auto mesh = smgr->getGeometryCreator()->createCubeMesh(core::vector3df(1.0f));
