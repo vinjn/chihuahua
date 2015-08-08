@@ -43,9 +43,9 @@ void android_main(struct android_app* app)
 	char i;
 	printf("Please press 'y' if you want to use realtime shadows.\n");
 
-	std::cin >> i;
+//	std::cin >> i;
 
-	const bool shadows = (i == 'y');
+    const bool shadows = true;//(i == 'y');
 
 	// ask user for driver
 	video::E_DRIVER_TYPE driverType=driverChoiceConsole();
@@ -330,7 +330,7 @@ void android_main(struct android_app* app)
 #ifdef _IRR_ANDROID_PLATFORM_
 	mesh = smgr->getMesh("media/dwarf.x");
 #else
-	mesh = smgr->getMesh("../../media/dwarf.x");
+	mesh = smgr->getMesh("../../media/metaioman.md2");
 #endif
 	scene::IAnimatedMeshSceneNode* anode = 0;
 
