@@ -622,6 +622,10 @@ typedef uint64_t GLuint64;
 #	define GL_LOCATION 0x930E
 #endif // GL_LOCATION
 
+#ifndef GL_UNSIGNED_INT_10_10_10_2
+#	define GL_UNSIGNED_INT_10_10_10_2 0x8DF6
+#endif // GL_UNSIGNED_INT_10_10_10_2
+
 // _KHR or _ARB...
 #define GL_DEBUG_OUTPUT_SYNCHRONOUS         0x8242
 #define GL_DEBUG_NEXT_LOGGED_MESSAGE_LENGTH 0x8243
@@ -1061,7 +1065,7 @@ namespace bgfx { namespace gl
 
 		uint8_t m_used[Attrib::Count+1]; // dense
 		GLint m_attributes[Attrib::Count]; // sparse
-		GLint m_instanceData[BGFX_CONFIG_MAX_INSTANCE_DATA_COUNT];
+		GLint m_instanceData[BGFX_CONFIG_MAX_INSTANCE_DATA_COUNT+1];
 
  		GLint m_sampler[BGFX_CONFIG_MAX_TEXTURE_SAMPLERS];
  		uint8_t m_numSamplers;

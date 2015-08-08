@@ -214,7 +214,7 @@ int main()
         //node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
         //node->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
         node->setDebugDataVisible(scene::EDS_SKELETON);
-        node->setMaterialTexture(0, driver->getTexture("../../media/Cockatoo/Textures/Cockatoo_d.png"));
+        //node->setMaterialTexture(0, driver->getTexture("../../media/Cockatoo/Textures/Cockatoo_d.png"));
     }
     //video::ITexture* texture = driver->getTexture("../../media/duck.png");
     //texture->lock();

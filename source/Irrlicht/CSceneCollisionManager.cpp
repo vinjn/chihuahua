@@ -227,7 +227,8 @@ ISceneNode* CSceneCollisionManager::getSceneNodeAndCollisionPointFromRay(
 						core::triangle3df & outTriangle,
 						s32 idBitMask,
 						ISceneNode * collisionRootNode,
-						bool noDebugObjects)
+						bool noDebugObjects,
+                        s32* outTriangleId)
 {
 	ISceneNode* bestNode = 0;
 	f32 bestDistanceSquared = FLT_MAX;
@@ -261,7 +262,7 @@ ISceneNode* CSceneCollisionManager::getSceneNodeAndCollisionPointFromRay(
 	core::line3df rayRest(ray);
 	getPickedNodeFromBBAndSelector(collisionRootNode, rayRest, idBitMask,
 					noDebugObjects, bestDistanceSquared, bestNode,
-					outCollisionPoint, outTriangle);
+                    outCollisionPoint, outTriangle, outTriangleId);
 	return bestNode;
 }
 
@@ -274,7 +275,8 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 				f32 & outBestDistanceSquared,
 				ISceneNode * & outBestNode,
 				core::vector3df & outBestCollisionPoint,
-				core::triangle3df & outBestTriangle)
+				core::triangle3df & outBestTriangle,
+                s32* outTriangleId)
 {
 	const ISceneNodeList& children = root->getChildren();
 
@@ -304,9 +306,11 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 			core::triangle3df candidateTriangle;
 
 			// do intersection test in object space
+            s32 candidateTriangleId;
 			ISceneNode * hitNode = 0;
 			if (box.intersectsWithLine(line) &&
-				getCollisionPoint(ray, selector, candidateCollisionPoint, candidateTriangle, hitNode))
+                getCollisionPoint(ray, selector, candidateCollisionPoint, candidateTriangle, 
+                hitNode, &candidateTriangleId))
 			{
 				const f32 distanceSquared = (candidateCollisionPoint - ray.start).getLengthSQ();
 
@@ -318,13 +322,15 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 					outBestTriangle = candidateTriangle;
 					const core::vector3df rayVector = ray.getVector().normalize();
 					ray.end = ray.start + (rayVector * sqrtf(distanceSquared));
+                    
+                    if (outTriangleId)  *outTriangleId = candidateTriangleId;
 				}
 			}
 		}
 
 		getPickedNodeFromBBAndSelector(current, ray, bits, noDebugObjects,
 						outBestDistanceSquared, outBestNode,
-						outBestCollisionPoint, outBestTriangle);
+                        outBestCollisionPoint, outBestTriangle, outTriangleId);
 	}
 }
 
@@ -350,7 +356,8 @@ ISceneNode* CSceneCollisionManager::getSceneNodeFromCameraBB(
 bool CSceneCollisionManager::getCollisionPoint(const core::line3d<f32>& ray,
 		ITriangleSelector* selector, core::vector3df& outIntersection,
 		core::triangle3df& outTriangle,
-		ISceneNode*& outNode)
+		ISceneNode*& outNode,
+        s32* outTriangleId)
 {
 	if (!selector)
 	{
@@ -408,6 +415,10 @@ bool CSceneCollisionManager::getCollisionPoint(const core::line3d<f32>& ray,
 				outTriangle = triangle;
 				outIntersection = intersection;
 				outNode = selector->getSceneNodeForTriangle(i);
+                if (outTriangleId)
+                {
+                    *outTriangleId = i;
+                }
 				found = true;
 			}
 		}

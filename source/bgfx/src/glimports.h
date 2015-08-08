@@ -320,7 +320,9 @@ GL_IMPORT______(false, PFNGLGETSHADERIVPROC,                       glGetShaderiv
 GL_IMPORT______(false, PFNGLGETSHADERINFOLOGPROC,                  glGetShaderInfoLog);
 GL_IMPORT______(false, PFNGLGETSTRINGPROC,                         glGetString);
 GL_IMPORT______(false, PFNGLGETUNIFORMLOCATIONPROC,                glGetUniformLocation);
+#if BGFX_CONFIG_RENDERER_OPENGL || !(BGFX_CONFIG_RENDERER_OPENGLES < 30)
 GL_IMPORT______(true,  PFNGLINVALIDATEFRAMEBUFFERPROC,             glInvalidateFramebuffer);
+#endif // !(BGFX_CONFIG_RENDERER_OPENGLES < 30)
 GL_IMPORT______(false, PFNGLLINKPROGRAMPROC,                       glLinkProgram);
 GL_IMPORT______(true,  PFNGLMEMORYBARRIERPROC,                     glMemoryBarrier);
 GL_IMPORT______(true,  PFNGLMULTIDRAWARRAYSINDIRECTPROC,           glMultiDrawArraysIndirect);
@@ -505,11 +507,7 @@ GL_IMPORT_NV___(true,  PFNGLBEGINQUERYPROC,                        glBeginQuery)
 GL_IMPORT_NV___(true,  PFNGLENDQUERYPROC,                          glEndQuery);
 GL_IMPORT_NV___(true,  PFNGLGETQUERYOBJECTUI64VPROC,               glGetQueryObjectui64v);
 
-#if 0 // TODO:
-GL_IMPORT(true, PFNGLINVALIDATEFRAMEBUFFERPROC, glInvalidateFramebuffer, glDiscardFramebufferEXT);
-#else
-GL_IMPORT_EXT__(true, PFNGLINVALIDATEFRAMEBUFFERPROC, glInvalidateFramebuffer);
-#endif
+GL_IMPORT      (true,  PFNGLINVALIDATEFRAMEBUFFERPROC,             glInvalidateFramebuffer, glDiscardFramebufferEXT);
 
 #	elif !BGFX_USE_GL_DYNAMIC_LIB
 GL_IMPORT______(true,  PFNGLTEXIMAGE3DPROC,                        glTexImage3D);
