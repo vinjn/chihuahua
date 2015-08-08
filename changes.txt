@@ -4745,7 +4745,7 @@ Changes in version 0.4.1: (18 Sep 2003)
 
 - Non default MD2 animations are now supported. Which means simply that you can
   enumerate the names of all md2 animations and the AnimatedMeshSceneNode now supports
-  a setMD2Animation() with a character string as parameter instead of a constant.
+  a setAnimation() with a character string as parameter instead of a constant.
 
 - You do not need an event receiver anymore for sending user events to the active
   camera, this is now done autmaticly. In addition, it is now possible to
@@ -4846,7 +4846,7 @@ Changes in version 0.4: (04 Sep 2003)
 
 - The new IAnimatedMeshMD2 interface now returns start, begin time and
   fps of every MD2 animation type. In this context, IAnimatedMeshSceneNode
-  got a new method called setMD2Animation(), which accepts a single constant
+  got a new method called setAnimation(), which accepts a single constant
   like EMAT_ATTACK, which starts and plays the fitting animation (attack
   animation in this case), simplifying the interface a lot.
 
@@ -4958,7 +4958,7 @@ Changes in version 0.4: (04 Sep 2003)
   * getSceneNodeFromSceenCoordinates() renamed to getSceneNodeFromScreenCoordinates()
   * getMeshType() in IAnimatedMesh
   * getInterpolated() in aabbox
-  * setMD2Animation() in IAnimatedMeshSceneNode
+  * setAnimation() in IAnimatedMeshSceneNode
   * getFullFileName() in IFileList
   * addShadowVolumeSceneNode() in IAnimatedMeshSceneNode extended with zfail parameter
   * drawStencilShadowVolume() in IVideoDriver extended with zfail parameter

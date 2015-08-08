@@ -96,6 +96,24 @@ extern "C"
         Scene3D::render();
     }
 
+    JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_getNodeFromName(JNIEnv * env, jclass cls, jstring jNodeName)
+    {
+        const char *nodeName = env->GetStringUTFChars(jNodeName, JNI_FALSE);
+        jlong node = Scene3D::getNodeFromName(nodeName);
+        env->ReleaseStringUTFChars(jNodeName, nodeName);
+
+        return node;
+    }
+
+    JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_loadScene(JNIEnv * env, jclass cls, jstring jSceneFileName)
+    {
+        const char *sceneFileName = env->GetStringUTFChars(jSceneFileName, JNI_FALSE);
+        jlong node = Scene3D::loadScene(sceneFileName);
+        env->ReleaseStringUTFChars(jSceneFileName, sceneFileName);
+
+        return node;
+    }
+
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addCubeNode(JNIEnv * env, jclass cls, jfloat size)
     {
         return Scene3D::addCubeNode(size);
@@ -151,11 +169,6 @@ extern "C"
     {
         Scene3D::setNodeAnimationIndex(nodePtr, index);
     }    
-
-    JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addDummyNode(JNIEnv * env, jclass cls)
-    {
-        return Scene3D::addDummyNode();
-    }
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_addMeshNode(JNIEnv * env, jclass cls, jstring jMeshName)
     {
@@ -218,10 +231,10 @@ extern "C"
         env->ReleaseFloatArrayElements(jMatrix, matrix, JNI_FALSE);
     }
 
-    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setViewMatrix(JNIEnv * env, jclass cls, jlong nodePtr, jfloatArray jMatrix)
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setViewMatrix(JNIEnv * env, jclass cls, jfloatArray jMatrix)
     {
         jfloat *matrix = env->GetFloatArrayElements(jMatrix, JNI_FALSE);
-        Scene3D::setViewMatrix(nodePtr, matrix);
+        Scene3D::setViewMatrix(matrix);
         env->ReleaseFloatArrayElements(jMatrix, matrix, JNI_FALSE);
     }
 

@@ -28,6 +28,9 @@ LOCAL_SRC_FILES := \
     				$(ASSIMP_PATH)/AssimpWrapper.cpp \
     				$(ASSIMP_PATH)/code/Assimp.cpp \
     				$(ASSIMP_PATH)/code/BaseImporter.cpp \
+    				$(ASSIMP_PATH)/code/ColladaLoader.cpp \
+    				$(ASSIMP_PATH)/code/ColladaParser.cpp \
+    				$(ASSIMP_PATH)/code/DXFLoader.cpp \
     				$(ASSIMP_PATH)/code/BaseProcess.cpp \
 					$(ASSIMP_PATH)/code/FBXAnimation.cpp \
 					$(ASSIMP_PATH)/code/FBXBinaryTokenizer.cpp \

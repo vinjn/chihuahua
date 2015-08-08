@@ -223,6 +223,22 @@ namespace Scene3D
         }
     }
 
+    long loadScene(const char* sceneFileName)
+    {
+        scene::ISceneNode* dummy = addDummySceneNode();
+        smgr->loadScene(sceneFileName, NULL, dummy);
+
+        return (long)dummy;
+    }
+
+    long getNodeFromName(const char* nodeName)
+    {
+        scene::ISceneNode* startNode = 0;
+        scene::ISceneNode* node = smgr->getSceneNodeFromName(nodeName, startNode);
+
+        return (long)node;
+    }
+
     long addCubeNode(float size)
     {
         scene::ISceneNode* node = smgr->addCubeSceneNode(size, addDummySceneNode());
@@ -397,7 +413,7 @@ namespace Scene3D
         transformNode->getRelativeTransformationMatrix().setM(matrix);
     }
 
-    void setViewMatrix(long nodePtr, const float* matrix)
+    void setViewMatrix(const float* matrix)
     {
         printf("setViewMatrix unimplemented.");
 
@@ -535,5 +551,3 @@ namespace Scene3D
         return (long)hitNode;
     }    
 }
-
-
