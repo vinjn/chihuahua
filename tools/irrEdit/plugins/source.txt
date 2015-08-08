@@ -1,0 +1,1 @@
+You can find the source of the example plugins in source/exampleplugins.

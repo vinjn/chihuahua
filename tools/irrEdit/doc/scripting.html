@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>irrEdit - A free realtime 3D graphics editor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<!-- (c) 2005 by N.Gebhardt -->
+</head>
+<body>
+<div align="center"><br/>
+  <table bgcolor="#FFFFFF" class="newsbox" >
+    <tr> 
+      <td class="newscontent"><h1>Scripting irrEdit</h1>
+        <p>Scripting in irrEdit is simple. You can write your code directly into 
+          the script editor window and press 'execute'. The language used for 
+          this is <a href="http://www.squirrel-lang.org/" target="_blank">Squirrel</a>, 
+          it looks like C, C++ or Java. Error messages and texts written via the 
+          'print' command will be visible in the '3D Engine Log' window. If you 
+          want to add a menu or toolbar item which should call a script function 
+          when clicked by the user, simply create a autostart script and register 
+          your function as menu or tool icon there, as described in <a href="#editorRegisterMenuEntry">editorRegisterMenuEntry</a> 
+          or <a href="#editorRegisterToolbarEntry">editorRegisterToolbarEntry</a>.</p>
+        <p>The following routines are available in irrEdit:</p>
+        <p>Editor related:</p>
+        <p><a href="#editorAddSceneNode">editorAddSceneNode</a><br />
+          <a href="#editorFocusPosition">editorFocusPosition</a> <br />
+          <a href="#editorGetFileNameFromDialog">editorGetFileNameFromDialog</a> 
+          <br />
+          <a href="#editorGetSelectedSceneNode">editorGetSelectedSceneNode</a><br />
+          <a href="#editorGetSelectedTexture">editorGetSelectedTexture</a> <br />
+          <a href="#editorUpdateAllWindows">editorUpdateAllWindows </a><br />
+          <a href="#editorRegisterMenuEntry">editorRegisterMenuEntry</a> <br />
+          <a href="#editorRegisterToolbarEntry">editorRegisterToolbarEntry</a> 
+          <br />
+          <a href="#editorSetSelectedSceneNode">editorSetSelectedSceneNode</a> 
+        </p>
+        <p>Irrlicht related:</p>
+        <p><a href="#irrAddSceneNode">irrAddSceneNode</a><br />
+          <a href="#irrGetChildSceneNode">irrGetChildSceneNode</a> <br />
+          <a href="#irrGetRootSceneNode">irrGetRootSceneNode</a> <br />
+          <a href="#irrGetSceneNodeChildCount">irrGetSceneNodeChildCount</a> <br />
+          <a href="#irrGetSceneNodeFromName">irrGetSceneNodeFromName</a><br />
+          <a href="#irrGetSceneNodeMaterialCount">irrGetSceneNodeMaterialCount</a> 
+          <br />
+          <a href="#irrGetSceneNodeMaterialProperty">irrGetSceneNodeMaterialProperty</a> 
+          <br />
+          <a href="#irrGetSceneNodeProperty">irrGetSceneNodeProperty</a> <br />
+          <a href="#irrLoadTexture">irrLoadTexture</a> <br />
+          <a href="#irrRemoveSceneNode">irrRemoveSceneNode</a><br />
+          <a href="#irrSetSceneNodeMaterialProperty">irrSetSceneNodeMaterialProperty</a> 
+          <br />
+          <a href="#irrSetSceneNodeProperty">irrSetSceneNodeProperty</a> </p>
+        <p>Other:</p>
+        <p><a href="#vector3d">vector3d</a> - a vector class<a href="#stdLib"><br />
+          Standard Library</a> (basic functions for math, I/O, etc)</p>
+        <hr /> <p><strong><a name="editorAddSceneNode" id="editorAddSceneNode"></a>editorAddSceneNode</strong>(type)<br />
+          <strong>editorAddSceneNode</strong>(type, x, y, z)</p>
+        <blockquote> 
+          <p>Creates a new scene node of type (must be a string) at position x, 
+            y, z, applies the default editor settings to it, selects it and updates 
+            all editor views. This is just like if the user used the 'edit-&gt;insert' 
+            command from the editor menu. If you simply want to create a scene 
+            node in the scene graph just use <a href="#irrAddSceneNode">irrAddSceneNode</a> 
+            instead. </p>
+          <p>The parameter 'type' must be one of these strings:</p>
+          <p>&quot;cube&quot;, &quot;sphere&quot;, &quot;text&quot;, &quot;waterSurface&quot;, 
+            &quot;terrain&quot;, &quot;skyBox&quot;, &quot;shadowVolume&quot;, 
+            &quot;octTree&quot;, &quot;mesh&quot;, &quot;light&quot;, &quot;empty&quot;, 
+            &quot;dummyTransformation&quot;, &quot;camera&quot;, &quot;cameraMaya&quot;, 
+            &quot;cameraFPS&quot;, &quot;billBoard&quot;, &quot;animatedMesh&quot;, 
+            &quot;particleSystem&quot;.</p>
+          <p>x,y,z is the position where the scene node will be created. If not 
+            used, the position will be the default editor position.</p>
+          <p>Returns: The new scene node.</p>
+          <p>Examples:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local count = 3;
+local size = 12;<br/>
+for (local x=0; x&lt;count; ++x) 
+   for (local y=0; y&lt;count; ++y) 
+      for (local z=0; z&lt;count; ++z) 
+         editorAddSceneNode(&quot;cube&quot;, x*size, y*size, z*size);</pre></td>
+            </tr>
+            <tr> 
+              <td>This example will create 27 cubes placed in a hypercube.</td>
+            </tr>
+          </table>
+          <br />
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>editorAddSceneNode(&quot;billBoard&quot;);</pre></td>
+            </tr>
+            <tr> 
+              <td>This example will create a billBoard placed directly on front 
+                of the 3d camera in the main view. </td>
+            </tr>
+          </table>
+        </blockquote>
+        <blockquote> 
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> 
+        <p><strong><a name="editorFocusPosition" id="editorFocusPosition"></a>editorFocusPosition</strong>(position)</p>
+        <blockquote> 
+          <p>Lets the cameras of all view ports focus the given position.<br />
+            <br />
+            Example:</p>
+        </blockquote>
+        <blockquote>
+<table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>editorFocusPosition(vector3d(0,10,20));</pre></td>
+            </tr>
+            <tr> 
+              <td>Lets all cameras focus the position (0,10,20)</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> 
+        <p><strong><a name="editorGetSelectedSceneNode" id="editorGetSelectedSceneNode"></a>editorGetSelectedSceneNode</strong>()</p>
+        <blockquote> 
+          <p>Returns the currently selected scene node or 0 if nothing selected.</p>
+        </blockquote>
+        <blockquote> 
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = editorGetSelectedSceneNode();
+<br />if (s)
+   print(&quot;Name of the selected node is: '&quot; + irrGetSceneNodeProperty(s, &quot;Name&quot;) + &quot;'&quot;);
+else
+   print(&quot;nothing selected&quot;);</pre></td>
+            </tr>
+            <tr> 
+              <td>This example prints the name of the currently selected scene 
+                node. </td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> 
+        <p><strong><a name="editorGetSelectedTexture" id="editorGetSelectedTexture"></a>editorGetSelectedTexture</strong>()</p>
+        <blockquote> 
+          <p>Returns the currently selected texture from the texture manager window.</p>
+        </blockquote>
+        <blockquote> 
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local t = editorGetSelectedTexture();<br />local s = irrAddSceneNode(&quot;cube&quot;);<br /><br />irrSetSceneNodeMaterialProperty(s, 0, &quot;Texture1&quot;, t);
+<br />if (t == &quot;&quot;)
+  print(&quot;added no texture&quot;);
+else
+  print(&quot;set texture to: &quot; + t );<br />
+editorUpdateAllWindows();  </pre></td>
+            </tr>
+            <tr> 
+              <td>Creates a new cube and applies the currently selected texture 
+                to it.</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="editorGetFileNameFromDialog" id="editorGetFileNameFromDialog"></a>editorGetFileNameFromDialog</strong>()<br />
+          <strong>editorGetFileNameFromDialog</strong>(message)<br />
+          <strong>editorGetFileNameFromDialog</strong>(message, fileExtensions)<br />
+          <strong>editorGetFileNameFromDialog</strong>(message, fileExtensions, 
+          isOpenDialog)</p>
+        <blockquote> 
+          <p>Shows a file selection dialog prompting the user to select a file 
+            and returns the selected filename or an empty string if the user cancelled.<br />
+            <br />
+            Parameters:</p>
+        </blockquote>
+        <ul>
+          <li> <strong>message</strong>: Message text displayed in the window 
+            caption area.</li>
+          <li> <strong>fileExtensions</strong>: Possible file extension list, 
+            &quot;*.*&quot; by default if not used. The file extension string 
+            must be in the wxWidgets used format, like &quot;BMP files (*.bmp)|*.bmp|GIF 
+            files (*.gif)|*.gif&quot; or &quot;*.mesh;*.xml&quot;</li>
+          <li><strong>isOpenDialog</strong>: If true, the dialog presents itself 
+            as open file dialog, otherwise as save file dialog. This is true by 
+            default.</li>
+        </ul>
+        <blockquote> 
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = editorGetFileNameFromDialog(&quot;please select something&quot;);<br /><br />if (s != &quot;&quot;)<br />   print (&quot;user selected &quot; + s);<br />else<br />   print(&quot;user cancelled selection&quot;);</pre></td>
+            </tr>
+            <tr> 
+              <td>This example prompts the user to select a filename and prints 
+                which file was selected when finished.</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="editorUpdateAllWindows" id="editorUpdateAllWindows"></a>editorUpdateAllWindows</strong>()</p>
+        <blockquote> 
+          <p>Updates all windows of the editor. Same as selecting the command 
+            Edit-&gt;UpdateAllWindows or pressing F5 in the editor.</p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>irrAddSceneNode(&quot;cube&quot;);
+editorUpdateAllWindows();</pre></td>
+            </tr>
+            <tr> 
+              <td>This example creates a new cube without default settings and 
+                updates the editor windows to show the new scene node in all windows.</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="editorRegisterMenuEntry" id="editorRegisterMenuEntry"></a>editorRegisterMenuEntry</strong>(function, 
+          text)</p>
+        <blockquote> 
+          <p>Registers a new entry in the menu under 'Tools' using the text provided 
+            in the 'text' parameter. When the menu command is selected by the 
+            user, the global function provided in the 'function' parameter will 
+            be executed.<br />
+            Please note that editorRegisterMenuEntry only works when executed 
+            by a script run in the autostart mode, which means a script placed 
+            in the \scripts directory and with a file name starting with 'autostart' 
+            and with the extension '.nut'. </p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>
+function printHello()<br />{<br />  print(&quot;Hello\n&quot;);<br />}<br /><br />editorRegisterMenuEntry(&quot;printHello&quot;, &quot;Print Hello into the log&quot;);</pre></td>
+            </tr>
+            <tr> 
+              <td>Putting this script in a file named for example 'scripts\autostart_printhello.nut' 
+                and starting the editor will add a new menu entry into the Tool 
+                menu which will print 'Hello'</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="editorRegisterToolbarEntry" id="editorRegisterToolbarEntry"></a>editorRegisterToolbarEntry</strong>(function, 
+          toolTipText)<br />
+          <strong>editorRegisterToolbarEntry</strong>(function, toolTipText, iconBitmap)</p>
+        <blockquote> 
+          <p>Registers a new entry in the tool bar using the tooltip text provided 
+            in the 'toolTipText' parameter and an optional icon file. When the 
+            toolbar command is clicked by the user, the global function provided 
+            in the 'function' parameter will be executed.<br />
+            Please note that editorRegisterToolbarEntry only works when executed 
+            by a script run in the autostart mode, which means a script placed 
+            in the \scripts directory and with a file name starting with 'autostart' 
+            and with the extension '.nut'. </p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>
+function printHello()<br />{<br />  print(&quot;Hello\n&quot;);<br />}<br /><br />editorRegisterToolbarEntry(&quot;printHello&quot;, <br />   &quot;Print Hello into the log&quot;, &quot;resources\\move.bmp&quot;);</pre></td>
+            </tr>
+            <tr> 
+              <td>Putting this script in a file named for example 'scripts\autostart_printhello.nut' 
+                and starting the editor will add a new toolbar icon which will 
+                print 'Hello' when clicked</td>
+            </tr>
+          </table>
+        </blockquote>
+        <p>&nbsp;</p>
+        <hr /> 
+        <p><strong><a name="editorSetSelectedSceneNode" id="editorSetSelectedSceneNode"></a>editorSetSelectedSceneNode</strong>(node)</p>
+        <blockquote> 
+          <p>Sets a selected scene node. Set node to 0 to select nothing.<br />
+            <br />
+            Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = irrAddSceneNode(&quot;sphere&quot;);<br />editorSetSelectedSceneNode(s);</pre></td>
+            </tr>
+            <tr> 
+              <td>Adds a scene node and selects it in the editor.</td>
+            </tr>
+          </table>
+        </blockquote>
+        <p>&nbsp;</p>
+        <hr /> <p><strong><a name="irrGetChildSceneNode" id="irrGetChildSceneNode"></a>irrGetChildSceneNode</strong>(parentSceneNode, 
+          childIndex)</p>
+        <blockquote> 
+          <p>Returns the child scene node of a parent scene node. ChildIndex must 
+            be &gt;= 0 and &lt; <a href="#irrGetSceneNodeChildCount">irrGetSceneNodeChildCount</a>. 
+          </p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local root = irrGetRootSceneNode();<br />local count = irrGetSceneNodeChildCount(root);<br /><br />for(local i=0; i&lt;count; ++i)<br />{<br />   local child = irrGetChildSceneNode(root, i);<br />   print(&quot;node:&quot; + irrGetSceneNodeProperty(child, &quot;Name&quot;) + &quot;\n\n&quot;);<br />}</pre></td>
+            </tr>
+            <tr> 
+              <td>This example prints the name of all child scene nodes of the 
+                root. If you are using this in the editor, please note that more 
+                scene nodes will be printed out than visible in the scene graph 
+                explorer, because the editor adds invisible scene nodes to the 
+                scene graph, for example cameras or arrows and others. You can 
+                distinguish these nodes from the editor nodes if it has the property 
+                &quot;IsDebugObject&quot; set to true.</td>
+            </tr>
+          </table>
+          <p>&nbsp; </p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrGetRootSceneNode" id="irrGetRootSceneNode"></a>irrGetRootSceneNode</strong>()</p>
+        <blockquote> 
+          <p>Returns the root scene node. You cannot remove it and it does not 
+            make a lot of sense to change its attributes, but you can use it as 
+            starting point to iterate the whole scene graph. Take a look at <a href="#irrGetSceneNodeChildCount">irrGetSceneNodeChildCount</a> 
+            for an example.</p>
+          <p>Returns: The root scene node.<br />
+            <br />
+          </p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrGetSceneNodeChildCount" id="irrGetSceneNodeChildCount"></a>irrGetSceneNodeChildCount</strong>(sceneNode)</p>
+        <blockquote> 
+          <p>Returns the amount of children of a scene node. Please note that 
+            if you call this in the editor, the amount of children can be higher 
+            than shown in the scene graph explorer, because the editor adds invisible 
+            scene nodes to the scene graph, for example cameras or arrows and 
+            others. You can distinguish these nodes from the editor nodes if it 
+            has the property &quot;IsDebugObject&quot; set to true.</p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local root = irrGetRootSceneNode();<br />local count = irrGetSceneNodeChildCount(root);<br /><br />print(&quot;Scene nodes in the top level of the scene graph:&quot; + count);</pre></td>
+            </tr>
+            <tr> 
+              <td>This example will return '6' in the standard scene of the editor 
+                altough there are only 2 children of the root (skybox and cube): 
+                The editor also added a camera and 3 nodes for the movement arrows.</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrAddSceneNode" id="irrAddSceneNode"></a>irrAddSceneNode</strong>(type)<br />
+          <strong>irrAddSceneNode</strong>(type, x, y, z)</p>
+        <blockquote> 
+          <p>Creates a new scene node of type (must be a string) at position x, 
+            y, z. Note that this function will create the scene node directly 
+            in the engine. The editor won't update automaticly to refelect the 
+            changes after this and no default materials will be applied to the 
+            scene node. If you want to do so, use <a href="#editorAddSceneNode">editorAddSceneNode</a> 
+            instead. Alternatively, you also could call <a href="#editorUpdateAllWindows">editorUpdateAllWindows</a> 
+            after using this method to let the editor show the new scene node 
+            at least. The parameter 'type' must be one of these strings:</p>
+          <p>&quot;cube&quot;, &quot;sphere&quot;, &quot;text&quot;, &quot;waterSurface&quot;, 
+            &quot;terrain&quot;, &quot;skyBox&quot;, &quot;shadowVolume&quot;, 
+            &quot;octTree&quot;, &quot;mesh&quot;, &quot;light&quot;, &quot;empty&quot;, 
+            &quot;dummyTransformation&quot;, &quot;camera&quot;, &quot;cameraMaya&quot;, 
+            &quot;cameraFPS&quot;, &quot;billBoard&quot;, &quot;animatedMesh&quot;, 
+            &quot;particleSystem&quot;.</p>
+          <p>x,y,z is the position where the scene node will be created. If not 
+            used, the position will be the default editor position.</p>
+          <p>Returns: The new scene node.</p>
+          <p>Examples:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>irrAddSceneNode(&quot;billBoard&quot;);</pre></td>
+            </tr>
+            <tr> 
+              <td>This example will create a billBoard placed at (0,0,0)</td>
+            </tr>
+          </table>
+          <br />
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>irrAddSceneNode(&quot;cube&quot;, 10, 10, 10);</pre></td>
+            </tr>
+            <tr> 
+              <td>This example will create a billBoard placed at (10,10,10)</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrGetSceneNodeFromName" id="irrGetSceneNodeFromName"></a>irrGetSceneNodeFromName</strong>(name)</p>
+        <blockquote> 
+          <p>Searches the whole scene graph for a scene node with this name. Please 
+            note that the name is case sensitive. If it is found, it is returned, 
+            otherwise null is returned.</p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = irrGetSceneNodeFromName(&quot;testCube&quot;);
+
+if (s) print(&quot;found node.\n&quot;); 
+   else
+     print(&quot;not found the node.\n&quot;)</pre></td>
+            </tr>
+            <tr> 
+              <td>Searches for a scene node with name 'testCube' and prints some 
+                text.</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrGetSceneNodeMaterialCount" id="irrGetSceneNodeMaterialCount"></a>irrGetSceneNodeMaterialCount</strong>(sceneNode)</p>
+        <blockquote> 
+          <p>Returns the amount of materials of the scene node.</p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = irrAddSceneNode(&quot;cube&quot;);<br />local n = irrGetSceneNodeMaterialCount(s);
+
+print(&quot;the scene node has &quot; + n + &quot; materials&quot;); <br />
+irrRemoveSceneNode(s);</pre></td>
+            </tr>
+            <tr> 
+              <td>Prints the amount of materials in a newly added cube scene node 
+                and deletes the scene node afterwards.</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrGetSceneNodeMaterialProperty" id="irrGetSceneNodeMaterialProperty"></a>irrGetSceneNodeMaterialProperty</strong>(sceneNode, 
+          materialIndex, propertyName)</p>
+        <blockquote> 
+          <p>Returns the property of the material of a scene node.<br />
+            Parameters:</p>
+        </blockquote>
+        <ul>
+          <li>sceneNode: A scene node.</li>
+          <li>materialIndex: The index of the material. Must be a value greater 
+            or equal 0 and smaller than <a href="#irrGetSceneNodeMaterialCount">irrGetSceneNodeMaterialCount()</a>.</li>
+          <li>propertyName: The propertyName in a material. This is also the name 
+            displayed in the editor in the left column. Possible values are: &quot;Type&quot;, 
+            &quot;Ambient&quot;, &quot;Diffuse&quot;, &quot;Emissive&quot;, &quot;Specular&quot;, 
+            &quot;Shininess&quot;, &quot;Param1&quot;, &quot;Param2&quot;, &quot;Texture1&quot;, 
+            &quot;Texture2&quot;, &quot;Texture3&quot;, &quot;Texture4&quot;, 
+            &quot;Wireframe&quot;, &quot;GouraudShading&quot;, &quot;Lightning&quot;, 
+            &quot;ZBuffer&quot;, &quot;ZWriteEnable&quot;, &quot;BackfaceCulling&quot;, 
+            &quot;BilinearFilter&quot;, &quot;TrilinearFilter&quot;, &quot;AnisotropicFilter&quot;, 
+            &quot;FogEnable&quot;, &quot;NormalizeNormals&quot;.</li>
+        </ul>
+        <blockquote> 
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = editorAddSceneNode(&quot;cube&quot;);<br />local t = irrGetSceneNodeMaterialProperty(s, 0, &quot;Texture1&quot;);<br /><br />print(&quot;texture of the new cube is: &quot; + t);</pre></td>
+            </tr>
+            <tr> 
+              <td>Prints the name of the texture set by the editor in new cube 
+                scene nodes. Prints something like 'texture of the new cube is: 
+                textures/editor_defaults/default_texture.png'</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrGetSceneNodeProperty" id="irrGetSceneNodeProperty"></a>irrGetSceneNodeProperty</strong>(sceneNode, 
+          propertyName)</p>
+        <blockquote> 
+          <p>Gets the property value of a scene node. The propertyName is also 
+            the name displayed in the editor in the left column. Possible names 
+            depend on the scene node type, but usually names like 'Type', 'Name', 
+            'Id', 'Position', 'Rotation', 'Scale', 'Visible', 'AutomaticCulling', 
+            'DebugDataVisible' and 'IsDebugObject' are available at least. Please 
+            note that the name is case sensitive.</p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = editorAddSceneNode(&quot;cube&quot;);
+<br />local size = irrGetSceneNodeProperty(s, &quot;Size&quot;);<br />local position = irrGetSceneNodeProperty(s, &quot;Position&quot;);
+<br />print(&quot;Created cube of size &quot; + size + &quot; at &quot; + position);</pre></td>
+            </tr>
+            <tr> 
+              <td>Prints something like &quot;Created cube of size 10 at (-2.15537, 
+                -0.751433, -15.6934)&quot;</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrLoadTexture" id="irrLoadTexture"></a>irrLoadTexture</strong>(filename)</p>
+        <blockquote> 
+          <p>Loads a texture into the texture cache. Returns true if sucessful 
+            and false if not. </p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>if (irrLoadTexture(&quot;textures/walls/smallmetalpipe_1-1.jpg&quot;))<br />   print(&quot;yipee, it worked.&quot;);<br /><br />editorUpdateAllWindows(); // show changes in texture manager window</pre></td>
+            </tr>
+            <tr> 
+              <td>Loads a texture and ensures the texture window shows the texture.</td>
+            </tr>
+          </table>
+          <br />
+        </blockquote>
+        <hr /> <p><strong><a name="irrRemoveSceneNode" id="irrRemoveSceneNode"></a>irrRemoveSceneNode</strong>(sceneNode)</p>
+        <blockquote> 
+          <p>Removes the scene node from the scene, deleting it. Doesn't work 
+            for the root scene node.</p>
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>irrRemoveSceneNode( irrGetSceneNodeFromName(&quot;testCube&quot;) );</pre></td>
+            </tr>
+            <tr> 
+              <td>Deletes a scene node with the name 'testCube' if it exists. 
+                Call <a href="#editorUpdateAllWindows">editorUpdateAllWindows();</a> 
+                after this if you are in the editor to reflect the changes.</td>
+            </tr>
+          </table>
+          <br />
+        </blockquote>
+        <hr /> 
+        <p><strong><a name="irrSetSceneNodeMaterialProperty" id="irrSetSceneNodeMaterialProperty"></a>irrSetSceneNodeMaterialProperty</strong>(sceneNode, 
+          materialIndex, propertyName, value)</p>
+        <blockquote> 
+          <p>Returns the property of the material of a scene node.<br />
+            Parameters:</p>
+        </blockquote>
+        <ul>
+          <li>sceneNode: A scene node.</li>
+          <li>materialIndex: The index of the material. Must be a value greater 
+            or equal 0 and smaller than <a href="#irrGetSceneNodeMaterialCount">irrGetSceneNodeMaterialCount()</a>.</li>
+          <li>propertyName: The propertyName in a material. This is also the name 
+            displayed in the editor in the left column. Possible values are: &quot;Type&quot;, 
+            &quot;Ambient&quot;, &quot;Diffuse&quot;, &quot;Emissive&quot;, &quot;Specular&quot;, 
+            &quot;Shininess&quot;, &quot;Param1&quot;, &quot;Param2&quot;, &quot;Texture1&quot;, 
+            &quot;Texture2&quot;, &quot;Texture3&quot;, &quot;Texture4&quot;, 
+            &quot;Wireframe&quot;, &quot;GouraudShading&quot;, &quot;Lightning&quot;, 
+            &quot;ZBuffer&quot;, &quot;ZWriteEnable&quot;, &quot;BackfaceCulling&quot;, 
+            &quot;BilinearFilter&quot;, &quot;TrilinearFilter&quot;, &quot;AnisotropicFilter&quot;, 
+            &quot;FogEnable&quot;, &quot;NormalizeNormals&quot;.</li>
+          <li>value: New value of the material property</li>
+        </ul>
+        <blockquote> 
+          <p>Example:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = irrAddSceneNode(&quot;cube&quot;);<br />local t = irrSetSceneNodeMaterialProperty(s, 0, &quot;Wireframe&quot;, &quot;true&quot;);
+<br />editorUpdateAllWindows();</pre></td>
+            </tr>
+            <tr> 
+              <td>Creates a new scene cube node and makes it be displayed in wireframe 
+                mode.</td>
+            </tr>
+          </table>
+          <p>&nbsp;</p>
+        </blockquote>
+        <hr /> <p><strong><a name="irrSetSceneNodeProperty" id="irrSetSceneNodeProperty"></a>irrSetSceneNodeProperty</strong>(sceneNode, 
+          propertyName, value)<br />
+          <strong>irrSetSceneNodeProperty</strong>(sceneNode, propertyName, x, 
+          y, z)</p>
+        <blockquote> 
+          <p>Sets the property value of a scene node. The propertyName is also 
+            the name displayed in the editor in the left column. Possible names 
+            depend on the scene node type, but usually names like 'Name', 'Id', 
+            'Position', 'Rotation', 'Scale', 'Visible', 'AutomaticCulling', 'DebugDataVisible' 
+            and 'IsDebugObject' are available at least. Please note that the name 
+            is case sensitive.</p>
+          <p>Examples:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = irrAddSceneNode(&quot;cube&quot;);
+irrSetSceneNodeProperty(s, &quot;Size&quot;, 20);<br />
+editorUpdateAllWindows();</pre></td>
+            </tr>
+            <tr> 
+              <td>Creates a cube scene node and changes its size to 20.</td>
+            </tr>
+          </table>
+          <br />
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local s = editorAddSceneNode(&quot;cube&quot;);<br />irrSetSceneNodeProperty(s, &quot;Rotation&quot;, 20, 90, 0);
+<br />editorUpdateAllWindows();</pre></td>
+            </tr>
+            <tr> 
+              <td>Creates a cube scene node and changes its rotation to (20, 90, 
+                0)</td>
+            </tr>
+          </table>
+        </blockquote>
+        <hr /> <p><a name="vector3d" id="vector3d"></a><strong>vector3d()</strong><br />
+          <strong>vector3d(x,y,z)</strong></p>
+        <blockquote> 
+          <p>A class for holding 3 float coordinates - x, y, and z. Also provides 
+            helper methods:</p>
+        </blockquote>
+        <ul>
+          <li><strong>+</strong>, <strong>-</strong>: Addition and substraction 
+            of vectors</li>
+          <li><strong>getLength()</strong> for calculating the length</li>
+          <li><strong>normalize()</strong> for making the vector length of 1</li>
+          <li>string conversion</li>
+        </ul>
+        <blockquote> 
+          <p>Examples:</p>
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local v = vector3d();<br />print(v);</pre></td>
+            </tr>
+            <tr> 
+              <td>prints (0, 0, 0)</td>
+            </tr>
+          </table>
+          <br />
+          <table width="0%" border="0" cellspacing="5" cellpadding="5">
+            <tr> 
+              <td bgcolor="#E2E2E2"><pre>local v1 = vector3d(10,0,0);<br />local v2 = vector3d(0,20,0);<br />local v3 = v1 + v2;<br /><br />v3.normalize();<br />print(v3 + &quot; Lenght:&quot; + v3.getLength())</pre></td>
+            </tr>
+            <tr> 
+              <td>prints (0.447214, 0.894427, 0) Lenght:1</td>
+            </tr>
+          </table>
+        </blockquote>
+        <hr /> <p>&nbsp;</p>
+        <p><a name="stdLib" id="stdLib"></a><strong>Other routines available</strong> 
+          (for details please see the Squirrel Standard Library):</p>
+        <p> <strong>Math</strong>: abs(x); acos(x); asin(x); atan(x); atan2(x, 
+          y); ceil(x); cos(x); exp(x); fabs(x); floor(x); log(x); log10(x); pow(x, 
+          y); rand(); sin(x); sqrt(x); srand(seed); tan(x); PI RAND_MAX</p>
+        <p><strong>System</strong>: clock(); date([time], [format]); getenv(varaname); 
+          remove(path); rename(oldname, newname); system(cmd); time();</p>
+        <p><strong>Strings</strong>: format(formatstr, ...); lstrip(str); regexp(pattern); 
+          rstrip(str); split(str, separators); strip(str); capture(str, [start]); 
+          match(str); search(str, [start]);</p>
+        <p><strong>Blob</strong>: dofile(path, [raiseerror]); loadfile(path, [raiseerror]); 
+          writeclosuretofile(destpath, closure); eos(); flush(); len(); readblob(size); 
+          readn(type); seek(seek, [origin]); tell(); writeblob(blob); writen(n, 
+          type);</p>
+        <p><strong>I/O</strong>: dofile(path, [raiseerror]); loadfile(path, [raiseerror]); 
+          writeclosuretofile(destpath, closure);</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p>&nbsp; </p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p>&nbsp; </p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p>&nbsp; </p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p></td>
+    </tr>
+  </table>
+  <div align="right"></div>
+</div>
+</body>
+</html>

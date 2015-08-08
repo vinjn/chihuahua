@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>irrEdit - A free realtime 3D graphics editor</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<!-- (c) 2005 by N.Gebhardt -->
+</head>
+<body>
+<div align="center"><br/>
+  <table bgcolor="#FFFFFF" class="newsbox" >
+    <tr> 
+      <td class="newscontent"><h1>irrEdit light mapping tutorial</h1>
+        <p>This short tutorial will explain how to calculate light maps using 
+          irrEdit. </p>
+        <p>Start up irrEdit and add a static mesh to the scene. Using the toolbar 
+          item or the Menu &quot;Edit-&gt;Insert-&gt;Static Mesh&quot;:</p>
+        <p align="center"><img src="imgtut/add_static_mesh.jpg" width="261" height="60" /></p>
+        <p>Select any mesh of the supported file types. If you don't have a mesh 
+          available, you can use the one in the irrEdit directory under \meshes. 
+          Once you added the mesh, you might want to modify its properties and 
+          materials, because maybe it looks like on the picture below and is very 
+          dark because there is no light in the scene yet. </p>
+        <p align="center"><img src="imgtut/dark_mesh.jpg" width="256" height="192" /></p>
+        <p>But this doesn't matter at all, you can just leave it as it is.<br />
+          <br />
+          Now add a light to the scene. You can do this using the toolbar or the 
+          menu command &quot;Edit -&gt; Insert -&gt; Light&quot;.</p>
+        <p align="center"><img src="imgtut/add_light.jpg" width="291" height="62" /></p>
+        <p> The inserted light is a point light. The white circle drawn around 
+          it marks its light radius. Maybe your scene will instantly get a bit 
+          lighter, depending on the type of mesh you added before. But this doesn't 
+          matter either.</p>
+        <p align="center"><img src="imgtut/added_light.jpg" width="256" height="192" /></p>
+        <p align="center">&nbsp;</p>
+        <p>Using the arrows displayed next to the selected light, move it somewhere 
+          into the room. To make this process a bit more simple, you can use F1, 
+          F2, F3 and F4 to change the perspective and view where you are moving 
+          the light exactly, if you like. The perspective can also be changed 
+          by the 4 corresponding buttons on the tool bar.</p>
+        <p align="center"><img src="imgtut/move_light_top.jpg" width="256" height="171" /></p>
+        <p>When the light is still selected, the property window will show its 
+          properties. Take a closer look at the properties 'Diffuse Color' and 
+          'Radius' (they are a bit below, in the section 'node specific'). Change 
+          'radius' to a big bigger value and select another diffuse color. Notice 
+          that the radius and the color of the light will change in the 3D view.</p>
+        <p>&nbsp;</p>
+        <p align="center"><img src="imgtut/light_properties.jpg" width="580" height="268" /></p>
+        <p>Now change to the perspective view again (Press F1) and select the 
+          static mesh. Open the lightmapper window if not visible yet, using the 
+          tool bar or the menu under 'View -&gt; Show Lightmapper Window'.</p>
+        <p align="center"><img src="imgtut/show_lightmapper_window.jpg" width="287" height="47" /></p>
+        <p>If it wasn't visible yet, a new window 'Light mapping' will pop up 
+          on the right with several options. Just hit the button 'Selection', 
+          which will calculate lightmaps for the selected mesh scene node only. 
+          If you have more than one mesh in your scene, 'All' will calculate lightmaps 
+          for all scene nodes if they are set to receive static light. But just 
+          hit 'Selection' now in that window.</p>
+        <p align="center"><img src="imgtut/lightmapping_selection.jpg" width="258" height="254" /></p>
+        <p>A message box will pop up with the text &quot;<em>The selected mesh 
+          scene node is not set to receive lightning and/or shadows, do you want 
+          this to be done now? (You can do this manually at the 'user data' tab 
+          of the properties window of that scene node)</em>&quot;. Just hit 'OK' 
+          and the light maps will be calculated. The result may look like this: 
+        </p>
+        <p align="center"><img src="imgtut/lightmap_result.jpg" width="512" height="374" /> 
+        </p>
+        <p>Nice, you created your first light mapped mesh. If you don't like the 
+          result, add some more lights, move them, change some of the parameters 
+          and hit 'Select' or 'All' again. Here is a short overview over the adjustable 
+          values in the light mapper window:</p>
+        <ul>
+          <li><strong>Mode</strong>: Selects if you want shadows or only diffuse 
+            or even global illumination. This will highly influence the calculation 
+            speed of the lightmaps, but also its quality.</li>
+          <li><strong>Texture size</strong>: If you select higher texture resolutions, 
+            the lightmaps will also get a higher resolution on the geometry, resulting 
+            in nicer images. But please note, higher resolution will also mean 
+            more time to calculate the light maps.</li>
+          <li> <strong>Mapping resolution</strong>: Specifies the mapping ratio 
+            between world coordinates and lightmap texture coordinates. Be careful 
+            when adjusting that value: Higher values will increase the mapping 
+            resolution, but also the amount of lightmap textures needed.</li>
+          <li><strong>Shadow opacity</strong>: This option is only used when selected 
+            the 'Shadows' mode. It specifies how transparent the shadows should 
+            appear. Setting this value to 1.0 makes a shadow 100% dark, and 0.0 
+            makes the shadow disappear. </li>
+          <li><strong>Subsampling</strong>: Increases the precision by calculating 
+            not only one but more samples per texel. Causes for example more soft 
+            and exact shadow borders. 4 times subsampling will also take 4 times 
+            more time to calculate the result.</li>
+          <li><strong>Color bleeding: </strong>Only used in mode 'global illumination'. 
+            Specifies if also the colors of the diffuse textures should be taken 
+            into account for lighting. Enable this for more realistic results, 
+            disable it if you want to exchange the diffuse textures of the scene 
+            later.</li>
+          <li><strong>Use ambient light</strong>: If checked, the ambient light 
+            set in the root scene node is taken into account when calculating 
+            the light.</li>
+        </ul>
+        <p>When saving your calculated scenes, please note that irrEdit will write 
+          a new mesh for each calculated mesh, usually in COLLADA file format, 
+          replacing the extension of the original mesh with '.dae'. In addition, 
+          the calculated light map textures will be stored in a folder where the 
+          mesh resides, named +&quot;.lightmaps&quot;. For example if you imported 
+          a mesh 'meshes/room.3ds', irrEdit will save the modified mesh as 'meshes/room.dae' 
+          and its lightmaps in the folder 'meshes/room.dae.lightmaps' with the 
+          names 1.png, 2.png and so on.</p>
+        <p>There is also the option to change the texture format the lightmaps 
+          are stored as:</p>
+        <p align="center"><img src="imgtut/lightmapping_options.jpg" width="455" height="299" /></p>
+        <p>You can reach that options dialog via the menu command 'Tools-&gt;Options'. 
+          Happy lightmapping!</p>
+        </td>
+    </tr>
+  </table>
+  <div align="right"></div>
+</div>
+</body>
+</html>
