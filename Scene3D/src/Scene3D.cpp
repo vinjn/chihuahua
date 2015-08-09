@@ -216,7 +216,7 @@ namespace Scene3D
         {
             node->setID(getNewNodeId(NODE_VISIBLE_CATEGORY));
 //            node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
-            node->setMaterialFlag(video::EMF_LIGHTING, true);
+            node->setMaterialFlag(video::EMF_LIGHTING, false);
             node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
             node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
             node->setName(name);

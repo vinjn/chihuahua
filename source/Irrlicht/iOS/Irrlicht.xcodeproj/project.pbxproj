@@ -211,6 +211,9 @@
 		5ED2488817317FFC00A13B86 /* Interface_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488617317FFC00A13B86 /* Interface_iPad.xib */; };
 		5ED2488917317FFC00A13B86 /* Interface_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5ED2488717317FFC00A13B86 /* Interface_iPhone.xib */; };
 		5EEAE050171DF3C700C7BC68 /* leakHunter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */; };
+		7408B9281B772440003723F3 /* ColladaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7408B9261B772440003723F3 /* ColladaLoader.cpp */; };
+		7408B9291B772440003723F3 /* ColladaParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7408B9271B772440003723F3 /* ColladaParser.cpp */; };
+		7408B92B1B77244A003723F3 /* DXFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7408B92A1B77244A003723F3 /* DXFLoader.cpp */; };
 		7495CED61B402E690083A25C /* IrrAssimpImport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CED41B402E690083A25C /* IrrAssimpImport.cpp */; };
 		7495CF8F1B4038270083A25C /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8D1B4038270083A25C /* ConvertUTF.c */; };
 		7495CF901B4038270083A25C /* ConvertUTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 7495CF8E1B4038270083A25C /* ConvertUTF.h */; };
@@ -908,6 +911,9 @@
 		5EEAE04A171DF38900C7BC68 /* irrunpack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = irrunpack.h; path = ../../../include/irrunpack.h; sourceTree = "<group>"; };
 		5EEAE04B171DF38900C7BC68 /* leakHunter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = leakHunter.h; path = ../../../include/leakHunter.h; sourceTree = "<group>"; };
 		5EEAE04F171DF3C700C7BC68 /* leakHunter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = leakHunter.cpp; path = ../leakHunter.cpp; sourceTree = "<group>"; };
+		7408B9261B772440003723F3 /* ColladaLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColladaLoader.cpp; path = ../../assimp/code/ColladaLoader.cpp; sourceTree = "<group>"; };
+		7408B9271B772440003723F3 /* ColladaParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ColladaParser.cpp; path = ../../assimp/code/ColladaParser.cpp; sourceTree = "<group>"; };
+		7408B92A1B77244A003723F3 /* DXFLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DXFLoader.cpp; path = ../../assimp/code/DXFLoader.cpp; sourceTree = "<group>"; };
 		74676E9F1B57FBFD00FB0B91 /* CIrrDeviceiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIrrDeviceiOS.h; sourceTree = "<group>"; };
 		74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CIrrDeviceiOS.mm; sourceTree = "<group>"; };
 		7495CED41B402E690083A25C /* IrrAssimpImport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IrrAssimpImport.cpp; path = ../../assimp/IrrAssimpImport.cpp; sourceTree = "<group>"; };
@@ -1976,6 +1982,9 @@
 				7495CF6C1B40380D0083A25C /* SkeletonMeshBuilder.cpp */,
 				7495CF6D1B40380D0083A25C /* SkeletonMeshBuilder.h */,
 				7495CF6E1B40380D0083A25C /* SpatialSort.cpp */,
+				7408B9261B772440003723F3 /* ColladaLoader.cpp */,
+				7408B92A1B77244A003723F3 /* DXFLoader.cpp */,
+				7408B9271B772440003723F3 /* ColladaParser.cpp */,
 				7495CF6F1B40380D0083A25C /* SpatialSort.h */,
 				7495CF701B40380D0083A25C /* TriangulateProcess.cpp */,
 				7495CF711B40380D0083A25C /* TriangulateProcess.h */,
@@ -2346,6 +2355,7 @@
 				5E3EA5D81586A27D00C17C1D /* CParticleAttractionAffector.cpp in Sources */,
 				5E3EA5DA1586A27D00C17C1D /* CParticleBoxEmitter.cpp in Sources */,
 				74D4AE1E1B6D1BF60097A1AC /* rdjpgcom.c in Sources */,
+				7408B9291B772440003723F3 /* ColladaParser.cpp in Sources */,
 				5E3EA5DC1586A27D00C17C1D /* CParticleCylinderEmitter.cpp in Sources */,
 				74D4AE251B6D1BF60097A1AC /* wrgif.c in Sources */,
 				74D4AE001B6D1BF60097A1AC /* jdinput.c in Sources */,
@@ -2371,12 +2381,14 @@
 				5E3EA6021586A27D00C17C1D /* CSceneNodeAnimatorCameraMaya.cpp in Sources */,
 				5E3EA6041586A27D00C17C1D /* CSceneNodeAnimatorCollisionResponse.cpp in Sources */,
 				74D4AE261B6D1BF60097A1AC /* wrjpgcom.c in Sources */,
+				7408B9281B772440003723F3 /* ColladaLoader.cpp in Sources */,
 				74D4ADEA1B6D1BF60097A1AC /* jccoefct.c in Sources */,
 				5E3EA6061586A27D00C17C1D /* CSceneNodeAnimatorDelete.cpp in Sources */,
 				74D4ADEE1B6D1BF60097A1AC /* jcinit.c in Sources */,
 				5E3EA6081586A27D00C17C1D /* CSceneNodeAnimatorFlyCircle.cpp in Sources */,
 				5E3EA60A1586A27D00C17C1D /* CSceneNodeAnimatorFlyStraight.cpp in Sources */,
 				74D4ADED1B6D1BF60097A1AC /* jchuff.c in Sources */,
+				7408B92B1B77244A003723F3 /* DXFLoader.cpp in Sources */,
 				74D4AE0C1B6D1BF60097A1AC /* jfdctint.c in Sources */,
 				5E3EA60C1586A27D00C17C1D /* CSceneNodeAnimatorFollowSpline.cpp in Sources */,
 				5E3EA60E1586A27D00C17C1D /* CSceneNodeAnimatorRotation.cpp in Sources */,

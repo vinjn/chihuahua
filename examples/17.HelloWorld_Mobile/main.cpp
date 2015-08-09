@@ -243,6 +243,8 @@ IrrlichtDevice *startup()
 		base = base.subString ( 0, base.findLast ( '\\' ) + 1 );
 		device->getFileSystem()->addFileArchive ( base );
 	}
+#else
+//    device->getFileSystem()->addFileArchive(device->getFileSystem()->getWorkingDirectory() + "media/");
 #endif
 
     if (guienv)
@@ -344,7 +346,7 @@ int example_customscenenode()
 
 	myNode->drop();
 	myNode = 0; // As I shouldn't refer to it again, ensure that I can't
-
+    
 	return run ( device );
 }
 
@@ -517,19 +519,8 @@ int example_helloworld()
 #else
     	stringc mediaPath = "../../media/";
 #endif
-
     
-	IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "Cockatoo/Cockatoo.FBX");
-
-	if (!mesh)
-	{
-		device->drop();
-#ifdef _IRR_IPHONE_PLATFORM_
-        	return 0;
-#else
-        	return 1;
-#endif
-	}
+	IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "____Cockatoo/Cockatoo.FBX");
 
 	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode( mesh );
 
@@ -548,6 +539,9 @@ int example_helloworld()
 		node->setAnimation(scene::EMAT_STAND);
 		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "Cockatoo/Cockatoo_D.png") );
 	}
+    
+    // irr loading
+    smgr->loadScene(mediaPath+"example.ios.irr");
 
 	/*
 	To look at the mesh, we place a camera into 3d space at the position

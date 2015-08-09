@@ -343,7 +343,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
         {
             aiBone* bone = paiMesh->mBones[j];
 
-            std::cout << "Name=" << bone->mName.C_Str() << std::endl;
+            // std::cout << "Name=" << bone->mName.C_Str() << std::endl;
             scene::ISkinnedMesh::SJoint* joint = findJoint(mesh, core::stringc(bone->mName.C_Str()));
             if (joint == 0)
                 std::cout << "Error, no joint" << std::endl;
@@ -374,6 +374,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
             joint->GlobalMatrix = globalBoneMatrix;
             joint->LocalMatrix = globalBoneMatrix;
 
+#if 0
             //if (j == 0)
             {
                 printf("#%d\n", j);
@@ -384,6 +385,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 }
                 printf("\n");
             }
+#endif
 
             for (unsigned int h = 0; h < bone->mNumWeights; ++h)
             {
