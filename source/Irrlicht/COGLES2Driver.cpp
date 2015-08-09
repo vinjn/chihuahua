@@ -2965,8 +2965,8 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setBlendFunc(GLenum source, GLenum destination)
 	{
-		if (BlendSourceRGB != source || BlendDestinationRGB != destination ||
-		    BlendSourceAlpha != source || BlendDestinationAlpha != destination)
+		// if (BlendSourceRGB != source || BlendDestinationRGB != destination ||
+		//     BlendSourceAlpha != source || BlendDestinationAlpha != destination)
 		{
 			glBlendFunc(source, destination);
 
@@ -2981,8 +2981,8 @@ bool COGLES2Driver::endScene()
 	{
 		if (sourceRGB != sourceAlpha || destinationRGB != destinationAlpha)
 		{
-		    if (BlendSourceRGB != sourceRGB || BlendDestinationRGB != destinationRGB ||
-		        BlendSourceAlpha != sourceAlpha || BlendDestinationAlpha != destinationAlpha)
+		    // if (BlendSourceRGB != sourceRGB || BlendDestinationRGB != destinationRGB ||
+		    //     BlendSourceAlpha != sourceAlpha || BlendDestinationAlpha != destinationAlpha)
 		    {
 		        glBlendFuncSeparate(sourceRGB, destinationRGB, sourceAlpha, destinationAlpha);
 
@@ -3013,7 +3013,7 @@ bool COGLES2Driver::endScene()
 
 	void COGLES2CallBridge::setColorMask(bool red, bool green, bool blue, bool alpha)
 	{
-		if (ColorMask[0] != red || ColorMask[1] != green || ColorMask[2] != blue || ColorMask[3] != alpha)
+		// if (ColorMask[0] != red || ColorMask[1] != green || ColorMask[2] != blue || ColorMask[3] != alpha)
 		{
 			glColorMask(red, green, blue, alpha);
 
