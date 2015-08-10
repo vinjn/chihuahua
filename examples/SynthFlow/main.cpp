@@ -25,9 +25,9 @@ using namespace gui;
 #define WINDOW_W 800
 #define WINDOW_H 800
 
-#define WORLD_SIZE 100
-#define NODE_SIZE_X 5
-#define NODE_SIZE_Y 5
+#define WORLD_SIZE 70
+#define NODE_SIZE_X 1
+#define NODE_SIZE_Y 1
 #define NODE_COUNT NODE_SIZE_X * NODE_SIZE_Y
 
 IVideoDriver* driver;
@@ -125,7 +125,7 @@ struct Frame
         {
             {
 #else
-#define SPACING 10
+#define SPACING 1
         //#pragma omp parallel for
         for (int x = 0; x < WINDOW_W - SPACING + 1; x += SPACING)
         {
@@ -373,7 +373,8 @@ int main()
 
     c8* meshFiles[] =
     {
-        "../../media/stone.obj",
+        "c:\\Users\\vincentz\\Documents\\untitled.obj",
+        //"../../media/plane.obj",
         //"../../media/duck.fbx",
         //"../../media/Cockatoo/Cockatoo.FBX",
     };
@@ -392,6 +393,7 @@ int main()
     const float kCamDistZ = 40;
     int idx = 0;
     int sNodeId = 0;
+
     for (int x = 0; x < NODE_SIZE_X; x++)
         for (int y = 0; y < NODE_SIZE_Y; y++)
     {
@@ -404,7 +406,7 @@ int main()
             0
         });
 
-#if 1
+#if 0
         IAnimatedMesh* mesh = getMeshFromAssimp(smgr, meshFiles[rand() % _countof(meshFiles)]);
         auto staticMesh = mesh->getMesh(0);
         auto meshTwoTex = mani->createMeshWith2TCoords(staticMesh);
@@ -414,9 +416,10 @@ int main()
         aniMesh->drop();
         node->setFrameLoop(0, 0);
 #else
-        auto mesh = smgr->getGeometryCreator()->createCubeMesh(core::vector3df(1.0f));
+        auto mesh = smgr->getGeometryCreator()->createHillPlaneMesh({ 1.0f, 1.0f }, { 30, 30 }, NULL, 1.0f, { 1.0f, 1.0f }, { 1, 1 });
         auto aniMesh = smgr->getMeshManipulator()->createAnimatedMesh(mesh);
         node = smgr->addAnimatedMeshSceneNode(aniMesh, emptyNode);
+        node->setMaterialFlag(EMF_BACK_FACE_CULLING, false);
         mesh->drop();
         aniMesh->drop();
 #endif
@@ -426,17 +429,16 @@ int main()
         selector->drop();
 
         aabbox3df bbox = node->getBoundingBox();
-        float newScale = kCamDistZ * 0.5f / bbox.getRadius();
-        node->setScale({ newScale, newScale, newScale });
+        node->setScale({ 2.0f, 2.0f, 2.0f });
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMaterialTexture(0, driver->getTexture(texFiles[rand() % _countof(texFiles)]));
 
         // animator
-        float kRotation = 0.5f;
+        vector3df kRotation = { 0.01f, 0.1f, 0.01f };
         auto rotAnimator = smgr->createRotationAnimator({
-            random(0.1f, kRotation),
-            random(0.1f, kRotation),
-            random(0.1f, kRotation),
+            random(0.0f, kRotation.X),
+            random(0.0f, kRotation.Y),
+            random(0.0f, kRotation.Z),
         });
         node->addAnimator(rotAnimator);
         rotAnimator->drop();
@@ -540,15 +542,18 @@ EPST_PS_3_0);
 #endif
 
         currFrame.update();
-        currFrame.debugDraw();
 
-        Frame::drawDiff(prevFrame, currFrame);
+        if (false)
+        {
+            currFrame.debugDraw();
+            Frame::drawDiff(prevFrame, currFrame);
+        }
 
         driver->endScene();
 
         swap(currFrameIdx, prevFrameIdx);
 
-        device->sleep(100);
+        //device->sleep(100);
     }
 
     device->drop();
