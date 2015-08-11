@@ -22,10 +22,10 @@ using namespace gui;
 #endif
 #pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 
-#define WINDOW_W 800
-#define WINDOW_H 800
+#define WINDOW_W 400
+#define WINDOW_H 400
 
-#define WORLD_SIZE 70
+#define WORLD_SIZE 60
 #define NODE_SIZE_X 1
 #define NODE_SIZE_Y 1
 #define NODE_COUNT NODE_SIZE_X * NODE_SIZE_Y
@@ -41,6 +41,86 @@ f32 random(float min, float max)
     static IRandomizer* randomizer = device->getRandomizer();
     f32 v = randomizer->frand();
     return min + v * (max - min);
+}
+
+struct FlowImage
+{
+    vector<vector2df> data;
+    int width, height;
+
+    void setup(int w, int h)
+    {
+        width = w;
+        height = h;
+        data.resize(w * h);
+        //std::fill_n(data.begin(), data.size(), vector2df(0.1f, 0.1f));
+    }
+
+    vector2df& at(int x, int y)
+    {
+        return data[y * width+ x];
+    }
+};
+
+/*
+Please refer data format and flow data/image naming of MPI Sintel, summarized as the below.
+Data is binary file (referred in flow_code/C/flowIO.cpp),
+Bytes   contents
+0-3         tag that indicates storage type, i.e. little endian or big endian, a sample float value
+4-7         width as an integer
+8-11       height as an integer
+12-end  data (width * height* 2* 4 bytes total)
+
+Data naming,
+Data flow files have a root directory as ‘flow’
+Each scene has a directory containing this scene sequence images, i.e. scene_a
+Data file naming as prefix_04d.flo, prefix is ‘frame’, 04d is frame idx
+Image naming,
+Image files have a root directory as ‘images’
+Each scene has also a directory as the same as Data naming
+Image file naming as prefix_04d.png, prefix is ‘frame’, 04d is frame idx
+*/
+
+// write a 2-band image into flow file 
+void WriteFlowFile(FlowImage& img, const char* filename)
+{
+#define TAG_FLOAT 202021.25  // check for this when READING the file
+#define TAG_STRING "PIEH"    // use this when WRITING the file 
+
+    if (filename == NULL)
+        printf("WriteFlowFile: empty filename");
+
+    const char *dot = strrchr(filename, '.');
+    if (dot == NULL)
+        printf("WriteFlowFile: extension required in filename '%s'", filename);
+
+    if (strcmp(dot, ".flo") != 0)
+        printf("WriteFlowFile: filename '%s' should have extension '.flo'", filename);
+
+    int width = img.width, height = img.height, nBands = 2;
+
+    if (nBands != 2)
+        printf("WriteFlowFile(%s): image must have 2 bands", filename);
+
+    FILE *stream = fopen(filename, "wb");
+    if (stream == 0)
+        printf("WriteFlowFile: could not open %s", filename);
+
+    // write the header
+    fprintf(stream, TAG_STRING);
+    if ((int)fwrite(&width, sizeof(int), 1, stream) != 1 ||
+        (int)fwrite(&height, sizeof(int), 1, stream) != 1)
+        printf("WriteFlowFile(%s): problem writing header", filename);
+
+    // write the rows
+    int n = nBands * width;
+    for (int y = 0; y < height; y++) {
+        float* ptr = &img.data[y * width].X;
+        if ((int)fwrite(ptr, sizeof(float), n, stream) != n)
+            printf("WriteFlowFile(%s): problem writing data", filename);
+    }
+
+    fclose(stream);
 }
 
 class MyEventReceiver : public IEventReceiver
@@ -103,7 +183,7 @@ struct Feature
     vector2df centroidUv;
 
     // Value?
-    vector2di triangleScreen[3];
+    vector2df triangleScreen[3];
     triangle3df triangleWorld;
 };
 
@@ -141,7 +221,7 @@ struct Frame
 
                 if (hitNode)
                 {
-                    auto scrHit = coll->getScreenCoordinatesFrom3DPosition(hitPt);
+                    auto scrHit = coll->getScreenCoordinatesFrom3DPositionF32(hitPt);
 
                     Feature feature =
                     {
@@ -149,9 +229,9 @@ struct Frame
                         hitTriId,
                         vector2df(),
                         {
-                            coll->getScreenCoordinatesFrom3DPosition(hitTri.pointA),
-                            coll->getScreenCoordinatesFrom3DPosition(hitTri.pointB),
-                            coll->getScreenCoordinatesFrom3DPosition(hitTri.pointC)
+                            coll->getScreenCoordinatesFrom3DPositionF32(hitTri.pointA),
+                            coll->getScreenCoordinatesFrom3DPositionF32(hitTri.pointB),
+                            coll->getScreenCoordinatesFrom3DPositionF32(hitTri.pointC)
                         },
                         hitTri
                     };
@@ -175,6 +255,49 @@ struct Frame
             auto triangle = kv.second.triangleWorld;
             driver->draw3DTriangle(triangle, video::SColor(100, 255, 0, 0));
         }
+    }
+
+    static void writeFlowImage(Frame& prevFrame, Frame& currFrame, const c8* filename)
+    {
+        FlowImage flowImage;
+        flowImage.setup(WINDOW_W, WINDOW_H);
+
+        printf("\n");
+        int counter = 0;
+        for (auto& kv : prevFrame.features)
+        {
+            s32 key = kv.first;
+            if (currFrame.features.count(key))
+            {
+                const auto& prevValue = prevFrame.features.at(key);
+                const auto& currValue = currFrame.features.at(key);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    auto& prev = prevValue.triangleScreen[i];
+                    auto& curr = currValue.triangleScreen[i];
+                    flowImage.at(prev.X, prev.Y) = curr - prev;
+
+                    //driver->draw2DLine(vector2di(prev.X, prev.Y), vector2di(curr.X, curr.Y), SColor(255, 0, 255, 255));
+                }
+            }
+        }
+        WriteFlowFile(flowImage, filename);
+
+        char info[256];
+        sprintf(info, "%s.txt", filename);
+        FILE* fp = fopen(info, "w");
+        for (int y = 0; y < WINDOW_H; y++)
+            for (int x = 0; x < WINDOW_W; x++)
+        {
+            auto& flow = flowImage.at(x, y);
+            if (flow.X != 0 && flow.Y != 0)
+            {
+                fprintf(fp, "(%d,%d) -> %.1f, %.1f\n", x, y,flow.X, flow.Y);
+            }
+        }
+
+        fclose(fp);
     }
 
     static void drawDiff(Frame& prevFrame, Frame& currFrame)
@@ -217,12 +340,12 @@ struct Frame
                 assert(prevValue.nodeId == currValue.nodeId);
                 assert(prevValue.triangleId == currValue.triangleId);
 
-                driver->draw2DLine(prevValue.triangleScreen[0], currValue.triangleScreen[0],
-                    SColor(255, 0, 255, 255));
-                driver->draw2DLine(prevValue.triangleScreen[1], currValue.triangleScreen[1],
-                    SColor(255, 0, 255, 255));
-                driver->draw2DLine(prevValue.triangleScreen[2], currValue.triangleScreen[2],
-                    SColor(255, 0, 255, 255));
+                //driver->draw2DLine(prevValue.triangleScreen[0], currValue.triangleScreen[0],
+                //    SColor(255, 0, 255, 255));
+                //driver->draw2DLine(prevValue.triangleScreen[1], currValue.triangleScreen[1],
+                //    SColor(255, 0, 255, 255));
+                //driver->draw2DLine(prevValue.triangleScreen[2], currValue.triangleScreen[2],
+                //    SColor(255, 0, 255, 255));
             }
         }
     }
@@ -362,6 +485,11 @@ int main()
     if (!device)
         return 1;
 
+    system("mkdir flow");
+    system("mkdir images");
+    system("mkdir flow\\dummy");
+    system("mkdir images\\dummy");
+
     device->setWindowCaption(L"SynthFlow");
 
     driver = device->getVideoDriver();
@@ -401,8 +529,8 @@ int main()
         auto emptyNode = smgr->addDummyTransformationSceneNode();
 
         emptyNode->getRelativeTransformationMatrix().setTranslation({
-            core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)x / NODE_SIZE_X),
-            core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)y / NODE_SIZE_Y),
+            core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)x / (core::max_<int>(1, NODE_SIZE_X - 1))),
+            core::lerp<f32>(-WORLD_SIZE, WORLD_SIZE, (float)y / (core::max_<int>(1, NODE_SIZE_Y - 1))),
             0
         });
 
@@ -416,10 +544,11 @@ int main()
         aniMesh->drop();
         node->setFrameLoop(0, 0);
 #else
-        auto mesh = smgr->getGeometryCreator()->createHillPlaneMesh({ 1.0f, 1.0f }, { 30, 30 }, NULL, 1.0f, { 1.0f, 1.0f }, { 1, 1 });
+        auto mesh = smgr->getGeometryCreator()->createHillPlaneMesh({ 1.0f, 1.0f }, { 40, 40 }, NULL, 1.0f, { 1.0f, 1.0f }, { 1, 1 });
         auto aniMesh = smgr->getMeshManipulator()->createAnimatedMesh(mesh);
         node = smgr->addAnimatedMeshSceneNode(aniMesh, emptyNode);
         node->setMaterialFlag(EMF_BACK_FACE_CULLING, false);
+        node->setRotation({ 90.0f, 20.0f, 20.0f });
         mesh->drop();
         aniMesh->drop();
 #endif
@@ -434,7 +563,7 @@ int main()
         node->setMaterialTexture(0, driver->getTexture(texFiles[rand() % _countof(texFiles)]));
 
         // animator
-        vector3df kRotation = { 0.01f, 0.1f, 0.01f };
+        vector3df kRotation = { 0.0f, 0.0f, 0.01f };
         auto rotAnimator = smgr->createRotationAnimator({
             random(0.0f, kRotation.X),
             random(0.0f, kRotation.Y),
@@ -447,13 +576,13 @@ int main()
             printf("%d\n", node->getID());
         });
 
-        auto flyAnimator = smgr->createFlyCircleAnimator({}, random(0, 20));
-        //node->addAnimator(flyAnimator);
+        auto flyAnimator = smgr->createFlyCircleAnimator({}, 1);
+        node->addAnimator(flyAnimator);
         flyAnimator->drop();
     }
 
 #if 1
-    smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 4), vector3df(0, 0, 0));
+    smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 5), vector3df(0, 0, 0));
 #else
     auto camera = smgr->addCameraSceneNodeFPS(0);
     camera->setPosition({ 0.0f, 0.0f, -kCamDistZ * 3 });
@@ -522,7 +651,8 @@ EPST_PS_3_0);
     }
 #endif
 
-    while (device->run())
+    int frameCount = 0;
+    while (frameCount < 1000 && device->run())
     {
         driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
@@ -549,9 +679,24 @@ EPST_PS_3_0);
             Frame::drawDiff(prevFrame, currFrame);
         }
 
+        c8 filename[256];
+
+        snprintf(filename, 256, "flow\\dummy\\%s_%04d.flo", "frame", frameCount);
+        Frame::writeFlowImage(prevFrame, currFrame, filename);
+
         driver->endScene();
 
+        video::IImage* backBuffer = driver->createScreenShot();
+        if (backBuffer)
+        {
+            snprintf(filename, 256, "images\\dummy\\%s_%04d.bmp", "frame", frameCount);
+            driver->writeImageToFile(backBuffer, filename, 85);
+            backBuffer->drop();
+        }
+
         swap(currFrameIdx, prevFrameIdx);
+
+        frameCount++;
 
         //device->sleep(100);
     }

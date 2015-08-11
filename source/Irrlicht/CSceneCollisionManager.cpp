@@ -927,6 +927,44 @@ core::position2d<s32> CSceneCollisionManager::getScreenCoordinatesFrom3DPosition
 			dim.Height - core::round32(dim.Height * (transformedPos[1] * zDiv)));
 }
 
+core::position2d<f32> CSceneCollisionManager::getScreenCoordinatesFrom3DPositionF32(
+    const core::vector3df & pos3d, ICameraSceneNode* camera, bool useViewPort)
+{
+    if (!SceneManager || !Driver)
+        return core::position2d<f32>(-1000, -1000);
+
+    if (!camera)
+        camera = SceneManager->getActiveCamera();
+
+    if (!camera)
+        return core::position2d<f32>(-1000, -1000);
+
+    core::dimension2d<u32> dim;
+    if (useViewPort)
+        dim.set(Driver->getViewPort().getWidth(), Driver->getViewPort().getHeight());
+    else
+        dim = (Driver->getCurrentRenderTargetSize());
+
+    dim.Width /= 2;
+    dim.Height /= 2;
+
+    core::matrix4 trans = camera->getProjectionMatrix();
+    trans *= camera->getViewMatrix();
+
+    f32 transformedPos[4] = { pos3d.X, pos3d.Y, pos3d.Z, 1.0f };
+
+    trans.multiplyWith1x4Matrix(transformedPos);
+
+    if (transformedPos[3] < 0)
+        return core::position2d<f32>(-10000, -10000);
+
+    const f32 zDiv = transformedPos[3] == 0.0f ? 1.0f :
+        core::reciprocal(transformedPos[3]);
+
+    return core::position2d<f32>(
+        dim.Width + dim.Width * (transformedPos[0] * zDiv),
+        dim.Height - dim.Height * (transformedPos[1] * zDiv));
+}
 
 inline bool CSceneCollisionManager::getLowestRoot(f32 a, f32 b, f32 c, f32 maxR, f32* root)
 {

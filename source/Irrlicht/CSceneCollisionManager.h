@@ -69,6 +69,8 @@ namespace scene
 		//! Calculates 2d screen position from a 3d position.
 		virtual core::position2d<s32> getScreenCoordinatesFrom3DPosition(
 			const core::vector3df & pos, ICameraSceneNode* camera=0, bool useViewPort=false) _IRR_OVERRIDE_;
+        virtual core::position2d<f32> getScreenCoordinatesFrom3DPositionF32(
+            const core::vector3df& pos, ICameraSceneNode* camera = 0, bool useViewPort = false) _IRR_OVERRIDE_;
 
 		//! Gets the scene node and nearest collision point for a ray based on
 		//! the nodes' id bitmasks, bounding boxes and triangle selectors.

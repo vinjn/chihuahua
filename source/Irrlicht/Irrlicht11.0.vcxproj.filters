@@ -1282,6 +1282,7 @@
     <ClInclude Include="..\assimp\code\ColladaParser.h">
       <Filter>assimp\importer\collada</Filter>
     </ClInclude>
+    <ClInclude Include="..\3rdparty\stb\stb_image_write.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">

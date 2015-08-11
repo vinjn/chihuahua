@@ -106,6 +106,9 @@ namespace scene
 		virtual core::position2d<s32> getScreenCoordinatesFrom3DPosition(
 			const core::vector3df& pos, ICameraSceneNode* camera=0, bool useViewPort=false) = 0;
 
+        virtual core::position2d<f32> getScreenCoordinatesFrom3DPositionF32(
+            const core::vector3df& pos, ICameraSceneNode* camera = 0, bool useViewPort = false) = 0;
+
 		//! Gets the scene node, which is currently visible under the given screencoordinates, viewed from the currently active camera.
 		/** The collision tests are done using a bounding box for each
 		scene node. You can limit the recursive search so just all children of the specified root are tested.
