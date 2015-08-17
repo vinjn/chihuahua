@@ -99,7 +99,7 @@ void COGLES2MaterialBaseCB::OnSetConstants(IMaterialRendererServices* services, 
 	s32 LightCount = LightEnable ? driver->getDynamicLightCount() : 0;
 	services->setPixelShaderConstant(LightCountID, &LightCount, 1);
 
-	if (LightCount > 0)
+	// if (LightCount > 0)
 	{
 		video::SColorf globalAmbient(driver->getAmbientLight());
 		services->setVertexShaderConstant(GlobalAmbientID, reinterpret_cast<f32*>(&globalAmbient), 4);

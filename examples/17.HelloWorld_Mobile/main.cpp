@@ -520,7 +520,7 @@ int example_helloworld()
     	stringc mediaPath = "../../media/";
 #endif
     
-	IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "____Cockatoo/Cockatoo.FBX");
+	IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "chair.fbx");
 
 	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode( mesh );
 
@@ -537,7 +537,7 @@ int example_helloworld()
 		node->setMaterialFlag(EMF_LIGHTING, false);
 //        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 		node->setAnimation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "Cockatoo/Cockatoo_D.png") );
+//		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "Cockatoo/Cockatoo_D.png") );
 	}
     
     // irr loading

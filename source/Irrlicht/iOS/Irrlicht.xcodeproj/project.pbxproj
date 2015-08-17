@@ -214,6 +214,7 @@
 		7408B9281B772440003723F3 /* ColladaLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7408B9261B772440003723F3 /* ColladaLoader.cpp */; };
 		7408B9291B772440003723F3 /* ColladaParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7408B9271B772440003723F3 /* ColladaParser.cpp */; };
 		7408B92B1B77244A003723F3 /* DXFLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7408B92A1B77244A003723F3 /* DXFLoader.cpp */; };
+		7471F5A61B82146500501691 /* COGLES2TransparentAlphaChannel.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 7471F5A51B82146500501691 /* COGLES2TransparentAlphaChannel.fsh */; };
 		7495CED61B402E690083A25C /* IrrAssimpImport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7495CED41B402E690083A25C /* IrrAssimpImport.cpp */; };
 		7495CF8F1B4038270083A25C /* ConvertUTF.c in Sources */ = {isa = PBXBuildFile; fileRef = 7495CF8D1B4038270083A25C /* ConvertUTF.c */; };
 		7495CF901B4038270083A25C /* ConvertUTF.h in Headers */ = {isa = PBXBuildFile; fileRef = 7495CF8E1B4038270083A25C /* ConvertUTF.h */; };
@@ -916,6 +917,7 @@
 		7408B92A1B77244A003723F3 /* DXFLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DXFLoader.cpp; path = ../../assimp/code/DXFLoader.cpp; sourceTree = "<group>"; };
 		74676E9F1B57FBFD00FB0B91 /* CIrrDeviceiOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIrrDeviceiOS.h; sourceTree = "<group>"; };
 		74676EA01B57FBFD00FB0B91 /* CIrrDeviceiOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CIrrDeviceiOS.mm; sourceTree = "<group>"; };
+		7471F5A51B82146500501691 /* COGLES2TransparentAlphaChannel.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = COGLES2TransparentAlphaChannel.fsh; sourceTree = "<group>"; };
 		7495CED41B402E690083A25C /* IrrAssimpImport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IrrAssimpImport.cpp; path = ../../assimp/IrrAssimpImport.cpp; sourceTree = "<group>"; };
 		7495CED51B402E690083A25C /* IrrAssimpImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IrrAssimpImport.h; path = ../../assimp/IrrAssimpImport.h; sourceTree = "<group>"; };
 		7495CEDA1B402E7A0083A25C /* ai_assert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ai_assert.h; sourceTree = "<group>"; };
@@ -1839,6 +1841,7 @@
 				5E52893119C20FB20028DEC8 /* COGLES2Solid.fsh */,
 				5E52893219C20FB20028DEC8 /* COGLES2Solid.vsh */,
 				5E52893319C20FB20028DEC8 /* COGLES2Solid2.vsh */,
+				7471F5A51B82146500501691 /* COGLES2TransparentAlphaChannel.fsh */,
 				5E52893419C20FB20028DEC8 /* COGLES2Solid2Layer.fsh */,
 				5E52893519C20FB20028DEC8 /* COGLES2SphereMap.fsh */,
 				5E52893619C20FB20028DEC8 /* COGLES2SphereMap.vsh */,
@@ -2116,6 +2119,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7471F5A61B82146500501691 /* COGLES2TransparentAlphaChannel.fsh in Resources */,
 				5E52893919C20FD90028DEC8 /* COGLES2DetailMap.fsh in Resources */,
 				5E52893A19C20FD90028DEC8 /* COGLES2LightmapAdd.fsh in Resources */,
 				5E52893B19C20FD90028DEC8 /* COGLES2LightmapModulate.fsh in Resources */,
