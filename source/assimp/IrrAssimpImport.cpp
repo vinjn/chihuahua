@@ -408,11 +408,13 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
     }
 
     s32 frameNumber = 0;
+    const f32 DEFAULT_FPS = 24;
     for (unsigned int i = 0; i < pScene->mNumAnimations; ++i)
     {
         aiAnimation* anim = pScene->mAnimations[i];
         float totalFrames = anim->mDuration;
-
+        bool fpsIncluded = anim->mTicksPerSecond > 1;
+        
         //std::cout << "numChannels : " << anim->mNumChannels << std::endl;
         for (unsigned int j = 0; j < anim->mNumChannels; ++j)
         {
@@ -426,6 +428,9 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 scene::ISkinnedMesh::SPositionKey* irrKey = mesh->addPositionKey(joint);
 
                 irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumPositionKeys;
+                if (!fpsIncluded)
+                    irrKey->frame *= DEFAULT_FPS;
+
                 irrKey->position = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
             }
             for (unsigned int k = 0; k < nodeAnim->mNumRotationKeys; ++k)
@@ -439,6 +444,9 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 scene::ISkinnedMesh::SRotationKey* irrKey = mesh->addRotationKey(joint);
 
                 irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
+                if (!fpsIncluded)
+                    irrKey->frame *= DEFAULT_FPS;
+
                 irrKey->rotation = quat;
             }
             for (unsigned int k = 0; k < nodeAnim->mNumScalingKeys; ++k)
@@ -448,10 +456,14 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 scene::ISkinnedMesh::SScaleKey* irrKey = mesh->addScaleKey(joint);
 
                 irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
+                if (!fpsIncluded)
+                    irrKey->frame *= DEFAULT_FPS;
+
                 irrKey->scale = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
             }
         }
-
+        
+        printf("mTicksPerSecond = %.1f\n", anim->mTicksPerSecond);
         s32 deltaFrameNumber = anim->mChannels[0]->mNumPositionKeys;
         scene::CSkinnedMesh::SAnimationData animationData =
         {
@@ -460,7 +472,13 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
             frameNumber + totalFrames,
             static_cast<s32>(deltaFrameNumber / anim->mDuration)
         };
-        animationData.fps = 24; // WTF?
+        if (fpsIncluded)
+        {
+            animationData.begin *= DEFAULT_FPS;
+            animationData.end *= DEFAULT_FPS;
+            animationData.fps = DEFAULT_FPS;
+        }
+
         mesh->AnimationData.insert(animationData);
 
         frameNumber += totalFrames;
