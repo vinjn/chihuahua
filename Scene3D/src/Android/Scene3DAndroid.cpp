@@ -224,6 +224,11 @@ extern "C"
         Scene3D::setNodeParent(nodePtr, parentPtr);
     }
 
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeMaterialType(JNIEnv * env, jclass cls, jlong nodePtr, jlong materialType)
+    {
+        Scene3D::setNodeMaterialType(nodePtr, (Scene3D::MaterialType)materialType);
+    }
+
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeModelMatrix(JNIEnv * env, jclass cls, jlong nodePtr, jfloatArray jMatrix)
     {
         jfloat *matrix = env->GetFloatArrayElements(jMatrix, JNI_FALSE);

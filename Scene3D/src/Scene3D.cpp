@@ -549,5 +549,21 @@ namespace Scene3D
         }
 
         return (long)hitNode;
-    }    
+    }
+
+    void setNodeMaterialType(long nodePtr, MaterialType materialType)
+    {
+        video::E_MATERIAL_TYPE type = video::EMT_SOLID;
+        switch (materialType)
+        {
+            case Solid: type = video::EMT_SOLID; break;
+            case ColorAdd: type = video::EMT_TRANSPARENT_ADD_COLOR; break;
+            case AlphaBlend: type = video::EMT_TRANSPARENT_ALPHA_CHANNEL; break;
+            case NormalMap: type = video::EMT_NORMAL_MAP_SOLID; break;
+            case LightMap: type = video::EMT_LIGHTMAP; break;
+            default: break;
+        }
+        scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+        node->setMaterialType(type);
+    }
 }

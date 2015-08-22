@@ -35,6 +35,16 @@ namespace Scene3D
     void setNodeLighting(long nodePtr, bool enabled);
     void setNodeTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
 
+    enum MaterialType
+    {
+        Solid,
+        ColorAdd,
+        AlphaBlend,
+        NormalMap,
+        LightMap,
+    };
+    void setNodeMaterialType(long nodePtr, MaterialType materialType);
+
     void setNodeAnimationFps(long nodePtr, float fps);
     void setNodeAnimation(long nodePtr, const char* animationName);
     void setNodeAnimationLoop(long nodePtr, bool isLoop);
