@@ -234,7 +234,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
             material.Shininess = shininess;
         }
 
-
+#if 0
         if (mat->GetTextureCount(aiTextureType_DIFFUSE) > 0)
         {
             aiString path;
@@ -255,6 +255,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 material.MaterialType = video::EMT_PARALLAX_MAP_SOLID;
             }
         }
+#endif
 
         Mats.push_back(material);
     }
