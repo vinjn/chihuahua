@@ -35,6 +35,14 @@
 #define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "Irrlicht", __VA_ARGS__);
 #endif
 
+#define STRINGIZE(x) #x
+#define STRINGIZE2(x) STRINGIZE(x)
+#define SHADER_STRING(text) @ STRINGIZE2(text)
+
+#define GPUImageHashIdentifier #
+#define GPUImageWrappedLabel(x) x
+#define GPUImageEscapedHashIdentifier(a) GPUImageWrappedLabel(GPUImageHashIdentifier)a
+
 namespace irr
 {
 namespace video
