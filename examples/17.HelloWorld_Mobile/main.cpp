@@ -520,7 +520,7 @@ int example_helloworld()
     	stringc mediaPath = "../../media/";
 #endif
     
-	IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "chair.fbx");
+    IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "yinhe.FBX");
 
 	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode( mesh );
 
@@ -535,13 +535,16 @@ int example_helloworld()
 	if (node)
 	{
 		node->setMaterialFlag(EMF_LIGHTING, false);
-//        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
+        f32 k = 0.4;
+        node->setScale(vector3df(k, k, k));
+//        node->setAnimationSpeed(100);
+        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 		node->setAnimation(scene::EMAT_STAND);
-//		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "Cockatoo/Cockatoo_D.png") );
+		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "yinhe.png") );
 	}
     
     // irr loading
-    smgr->loadScene(mediaPath+"example.ios.irr");
+//    smgr->loadScene(mediaPath+"example.ios.irr");
 
 	/*
 	To look at the mesh, we place a camera into 3d space at the position

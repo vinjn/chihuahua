@@ -424,10 +424,10 @@ bool CAnimatedMeshMD2::getFrameLoop(const c8* name,
 	{
 		if (AnimationData[i].name == name)
 		{
-			outBegin = AnimationData[i].begin << MD2_FRAME_SHIFT;
-			outEnd = AnimationData[i].end << MD2_FRAME_SHIFT;
+			outBegin = (s32)AnimationData[i].begin << MD2_FRAME_SHIFT;
+			outEnd = (s32)AnimationData[i].end << MD2_FRAME_SHIFT;
 			outEnd += MD2_FRAME_SHIFT == 0 ? 1 : (1 << MD2_FRAME_SHIFT) - 1;
-			outFPS = AnimationData[i].fps << MD2_FRAME_SHIFT;
+			outFPS = (s32)AnimationData[i].fps << MD2_FRAME_SHIFT;
 			return true;
 		}
 	}

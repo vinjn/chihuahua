@@ -147,9 +147,9 @@ namespace scene
         struct SAnimationData
         {
             core::stringc name;
-            s32 begin;
-            s32 end;
-            s32 fps;
+            f32 begin;
+            f32 end;
+            f32 fps;
         };
 	};
 

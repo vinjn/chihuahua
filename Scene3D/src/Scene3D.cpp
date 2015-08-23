@@ -6,6 +6,7 @@
 #include "FullScreenSceneNode.h"
 #include "../source/irrlicht/os.h"
 #include "../source/irrlicht/CLogger.h"
+#include "../source/irrlicht/COGLES2Texture.h"
 
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
@@ -274,6 +275,9 @@ namespace Scene3D
         if (textureName)
         {
             texture = driver->getTexture(textureName);
+            video::COGLES2Texture* es2tex = (video::COGLES2Texture*)texture;
+            GLuint id = es2tex->getOpenGLTextureName();
+            printf("tex#%d = %s\n", id, textureName);
         }
 
         return (long)texture;

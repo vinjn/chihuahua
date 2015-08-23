@@ -409,7 +409,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
     }
 
     s32 frameNumber = 0;
-    const f32 DEFAULT_FPS = 24;
+    const f32 DEFAULT_FPS = 25;
     for (unsigned int i = 0; i < pScene->mNumAnimations; ++i)
     {
         aiAnimation* anim = pScene->mAnimations[i];
@@ -427,12 +427,11 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 aiVectorKey key = nodeAnim->mPositionKeys[k];
 
                 scene::ISkinnedMesh::SPositionKey* irrKey = mesh->addPositionKey(joint);
-
+                irrKey->position = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
+                
                 irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumPositionKeys;
                 if (!fpsIncluded)
                     irrKey->frame *= DEFAULT_FPS;
-
-                irrKey->position = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
             }
             for (unsigned int k = 0; k < nodeAnim->mNumRotationKeys; ++k)
             {
@@ -443,24 +442,22 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
                 quat.normalize();
                 
                 scene::ISkinnedMesh::SRotationKey* irrKey = mesh->addRotationKey(joint);
-
+                irrKey->rotation = quat;
+                
                 irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
                 if (!fpsIncluded)
                     irrKey->frame *= DEFAULT_FPS;
-
-                irrKey->rotation = quat;
             }
             for (unsigned int k = 0; k < nodeAnim->mNumScalingKeys; ++k)
             {
                 aiVectorKey key = nodeAnim->mScalingKeys[k];
 
                 scene::ISkinnedMesh::SScaleKey* irrKey = mesh->addScaleKey(joint);
-
+                irrKey->scale = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
+                
                 irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
                 if (!fpsIncluded)
                     irrKey->frame *= DEFAULT_FPS;
-
-                irrKey->scale = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
             }
         }
         
@@ -471,9 +468,10 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
             anim->mName.C_Str(),
             frameNumber,
             frameNumber + totalFrames,
-            static_cast<s32>(deltaFrameNumber / anim->mDuration)
+            anim->mTicksPerSecond
+//            deltaFrameNumber / anim->mDuration
         };
-        if (fpsIncluded)
+        if (!fpsIncluded)
         {
             animationData.begin *= DEFAULT_FPS;
             animationData.end *= DEFAULT_FPS;
