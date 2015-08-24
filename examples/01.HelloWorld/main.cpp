@@ -79,7 +79,11 @@ is done by the second pragma. We could also use the WinMain method, though
 losing platform independence then.
 */
 #ifdef _IRR_WINDOWS_
+#ifdef _DEBUG
+#pragma comment(lib, "Irrlicht_d.lib")
+#else
 #pragma comment(lib, "Irrlicht.lib")
+#endif
 #pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 #endif
 
@@ -123,7 +127,7 @@ int main()
 	dimensions, etc.
 	*/
 	IrrlichtDevice *device =
-        createDevice(video::EDT_OGLES2, dimension2d<u32>(640, 480), 16,
+        createDevice(video::EDT_DIRECT3D9, dimension2d<u32>(640, 480), 16,
 			false, false, false, 0);
 
 	if (!device)
@@ -168,16 +172,14 @@ int main()
 
     c8* files[] =
     {
-#if 1
-        "../../media/Cockatoo/Cockatoo.FBX"
-#else
-        "../../media/test_directX.X",
-        "../../media/test_Milkshape.ms3d",
-        "../../media/test_Collada_DAE.DAE",
-        "../../media/test_autodesk_DAE.DAE",
-#endif
+        "../../media/LOGO-11.fbx",
+        "../../media/LOGO ring-11.fbx",
     };
-
+    c8* textures[] =
+    {
+        "../../media/polySurface60VRayCompleteMap.jpg",
+        "../../media/polySurface60VRayCompleteMap.jpg",
+    };
     const float kCamDistZ = 40;
     int idx = 0;
     for (auto file : files)
@@ -201,20 +203,25 @@ int main()
 191 - 211 cockatoo_death
 213 - 230 cockatoo_jumping
 */
-        node->setFrameLoop(85, 130);
+        node->setFrameLoop(400, 500);
         node->setLoopMode(true);
         node->setAnimationSpeed(30);
 
-        node->setPosition({ idx++ * 20.0f, idx * 5.0f, 0.0f });
+        node->setPosition({ idx * 20.0f, idx * 5.0f, 0.0f });
         core::aabbox3df bbox = node->getBoundingBox();
-        float newScale = kCamDistZ * 0.5f / bbox.getRadius();
-        node->setScale(core::vector3df(newScale));
+        f32 rad = bbox.getRadius();
+        float newScale = kCamDistZ * 0.5f / rad;
+        //node->setScale(core::vector3df(newScale));
+        f32 k = 1000;
+        node->setScale({ k, k, k });
 
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         //node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
         //node->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
         node->setDebugDataVisible(scene::EDS_SKELETON);
-        //node->setMaterialTexture(0, driver->getTexture("../../media/Cockatoo/Textures/Cockatoo_d.png"));
+        node->setMaterialTexture(0, driver->getTexture(textures[idx]));
+
+        idx++;
     }
     //video::ITexture* texture = driver->getTexture("../../media/duck.png");
     //texture->lock();

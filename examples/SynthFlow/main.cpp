@@ -544,7 +544,7 @@ int main()
         aniMesh->drop();
         node->setFrameLoop(0, 0);
 #else
-        auto mesh = smgr->getGeometryCreator()->createHillPlaneMesh({ 1.0f, 1.0f }, { 40, 40 }, NULL, 1.0f, { 1.0f, 1.0f }, { 1, 1 });
+        auto mesh = smgr->getGeometryCreator()->createHillPlaneMesh({ 1.0f, 1.0f }, { 10, 10 }, NULL, 1.0f, { 1.0f, 1.0f }, { 1, 1 });
         auto aniMesh = smgr->getMeshManipulator()->createAnimatedMesh(mesh);
         node = smgr->addAnimatedMeshSceneNode(aniMesh, emptyNode);
         node->setMaterialFlag(EMF_BACK_FACE_CULLING, false);
@@ -563,7 +563,8 @@ int main()
         node->setMaterialTexture(0, driver->getTexture(texFiles[rand() % _countof(texFiles)]));
 
         // animator
-        vector3df kRotation = { 0.0f, 0.0f, 0.01f };
+        vector3df kRotation = { 0.0f, 0.0f, 0.1f };
+#if 0
         auto rotAnimator = smgr->createRotationAnimator({
             random(0.0f, kRotation.X),
             random(0.0f, kRotation.Y),
@@ -571,14 +572,32 @@ int main()
         });
         node->addAnimator(rotAnimator);
         rotAnimator->drop();
-
-        ActionAnimator::addActionToNode(node, [](ISceneNode* node, u32 timeMs){
-            printf("%d\n", node->getID());
-        });
-
         auto flyAnimator = smgr->createFlyCircleAnimator({}, 1);
         node->addAnimator(flyAnimator);
         flyAnimator->drop();
+#else
+        u32 StartTime = device->getTimer()->getTime();
+
+        ActionAnimator::addActionToNode(node, [&StartTime, &kRotation](ISceneNode* node, u32 timeMs){
+            printf("%d\n", node->getID());
+            const u32 diffTime = timeMs - StartTime;
+
+            if (diffTime != 0)
+            {
+                // clip the rotation to small values, to avoid
+                // precision problems with huge floats.
+                core::vector3df rot = node->getRotation() + kRotation*(diffTime*0.1f);
+                if (rot.X>360.f)
+                    rot.X = fmodf(rot.X, 360.f);
+                if (rot.Y>360.f)
+                    rot.Y = fmodf(rot.Y, 360.f);
+                if (rot.Z>360.f)
+                    rot.Z = fmodf(rot.Z, 360.f);
+                node->setRotation(rot);
+                StartTime = timeMs;
+            }
+        });
+#endif
     }
 
 #if 1

@@ -1057,7 +1057,7 @@ void CSkinnedMesh::finalize()
 
 	checkForAnimation();
 
-	if (HasAnimation)
+	if (HasAnimation && false)
 	{
 		irr::u32 redundantPosKeys = 0;
 		irr::u32 unorderedPosKeys = 0;
