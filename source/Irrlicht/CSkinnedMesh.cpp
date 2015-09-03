@@ -1057,7 +1057,10 @@ void CSkinnedMesh::finalize()
 
 	checkForAnimation();
 
-	if (HasAnimation)
+	// TODO:
+	bool doesVinjnWantThis = false;
+
+	if (HasAnimation && doesVinjnWantThis)
 	{
 		irr::u32 redundantPosKeys = 0;
 		irr::u32 unorderedPosKeys = 0;

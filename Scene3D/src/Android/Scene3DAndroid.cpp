@@ -204,6 +204,11 @@ extern "C"
         Scene3D::setNodeVisible(nodePtr, visible);
     }
 
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodeBillboard(JNIEnv *env, jclass cls, jlong nodePtr, jboolean isBillboard)
+    {
+        Scene3D::setNodeBillboard(nodePtr, isBillboard);
+    }
+
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_setNodePosition(JNIEnv * env, jclass cls, jlong nodePtr, jfloat x, jfloat y, jfloat z)
     {
         Scene3D::setNodePosition(nodePtr, x, y, z);

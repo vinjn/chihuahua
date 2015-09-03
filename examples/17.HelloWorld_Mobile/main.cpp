@@ -520,7 +520,7 @@ int example_helloworld()
     	stringc mediaPath = "../../media/";
 #endif
     
-    IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "yinhe.FBX");
+    IAnimatedMesh* mesh = getMeshFromAssimp(smgr, mediaPath + "hiar1.FBX");
 
 	IAnimatedMeshSceneNode* node = smgr->addAnimatedMeshSceneNode( mesh );
 
@@ -535,12 +535,12 @@ int example_helloworld()
 	if (node)
 	{
 		node->setMaterialFlag(EMF_LIGHTING, false);
-        f32 k = 0.4;
+        f32 k = 10;
         node->setScale(vector3df(k, k, k));
 //        node->setAnimationSpeed(100);
-        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
+//        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
 		node->setAnimation(scene::EMAT_STAND);
-		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "yinhe.png") );
+		node->setMaterialTexture( 0, driver->getTexture(mediaPath + "polySurface60VRayCompleteMap.jpg") );
 	}
     
     // irr loading
