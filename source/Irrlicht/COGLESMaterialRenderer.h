@@ -11,11 +11,6 @@
 #include "COGLESDriver.h"
 #include "IMaterialRenderer.h"
 
-#if defined (_IRR_ANDROID_PLATFORM_)
-#include <android/log.h>
-#define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "Scene3D", __VA_ARGS__);
-#endif
-
 namespace irr
 {
 namespace video

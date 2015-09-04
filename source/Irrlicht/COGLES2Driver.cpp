@@ -30,11 +30,6 @@
 #include "PVR-SDK/GLES2/gl2ext.h"
 #endif
 
-#if defined (_IRR_ANDROID_PLATFORM_)
-#include <android/log.h>
-#define printf(...) __android_log_print(ANDROID_LOG_DEBUG, "Scene3D", __VA_ARGS__);
-#endif
-
 #define STRINGIZE(x) #x
 #define STRINGIZE2(x) STRINGIZE(x)
 #define SHADER_STRING(text) @ STRINGIZE2(text)

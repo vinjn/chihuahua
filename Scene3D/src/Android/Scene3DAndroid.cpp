@@ -301,17 +301,17 @@ extern "C"
         return Scene_pickNodeFromScreen(x, y);
     }
 
-    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_LightNode_1setType(long nodePtr, LightType lightType)
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_LightNode_1setType(JNIEnv *env, jclass cls, jlong nodePtr, LightType lightType)
     {
         LightNode_setType(nodePtr, lightType);
     }
 
-    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_LightNode_1setRadius(long nodePtr, float radius)
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_LightNode_1setRadius(JNIEnv *env, jclass cls, jlong nodePtr, float radius)
     {
         LightNode_setRadius(nodePtr, radius);
     }
 
-    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_LightNode_1setDiffuseColor(long nodePtr, float r, float g, float b, float a)
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_LightNode_1setDiffuseColor(JNIEnv *env, jclass cls, jlong nodePtr, float r, float g, float b, float a)
     {
         LightNode_setDiffuseColor(nodePtr, r, g, b, a);
     }

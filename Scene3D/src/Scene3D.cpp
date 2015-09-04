@@ -11,8 +11,6 @@
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
 #else
-#include <android/log.h>
-#define printf(...) __android_log_print(ANDROID_LOG_INFO, "Irrlicht", __VA_ARGS__);
 #include <GLES2/gl2.h>
 #endif
 
@@ -151,7 +149,7 @@ template <typename T>
 T* getTypedNode(long nodePtr)
 {
     T* node = (T*)nodePtr;
-    // TODO: checl
+    // TODO: check
     return node;
 }
 
@@ -317,49 +315,49 @@ void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr)
 
 void MeshNode_setAnimationFps(long nodePtr, float fps)
 {
-    scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
+    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
-        node->setAnimationSpeed(fps);
+        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationSpeed(fps);
     }
 }
 
 void Node_setBillboard(long nodePtr, bool isBillboard)
 {
-    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     {
-        node->setBillboard(isBillboard);
+        getTypedNode<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
     }
 }
 
 void MeshNode_setAnimationByName(long nodePtr, const char* animationName)
 {
-    scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
+    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
-        node->setAnimation(animationName);
+        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(animationName);
     }
 }
 
 void MeshNode_setAnimationLoop(long nodePtr, bool isLoop)
 {
-    scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
+    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
-        node->setLoopMode(isLoop);
+        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setLoopMode(isLoop);
     }
 }
 
 void MeshNode_setAnimationByIndex(long nodePtr, int index)
 {
-    scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
+    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
-        node->setAnimation(index);
+        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(index);
     }
 }
 
 void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
 {
-    scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
+    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
-        node->setFrameLoop(start, end);
+        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
     }
 }
 
@@ -397,26 +395,26 @@ long Scene_getRootNode()
 
 void Node_setVisible(long nodePtr, bool visible)
 {
-    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    node->setVisible(visible);
+    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    getTypedNode<scene::ISceneNode>(nodePtr)->setVisible(visible);
 }
 
 void Node_setPosition(long nodePtr, float x, float y, float z)
 {
-    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    node->setPosition(vector3df(x, y, z));
+    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    getTypedNode<scene::ISceneNode>(nodePtr)->setPosition(vector3df(x, y, z));
 }
 
 void Node_setRotation(long nodePtr, float x, float y, float z)
 {
-    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    node->setRotation(vector3df(x, y, z));
+    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    getTypedNode<scene::ISceneNode>(nodePtr)->setRotation(vector3df(x, y, z));
 }
 
 void Node_setScale(long nodePtr, float x, float y, float z)
 {
-    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    node->setScale(vector3df(x, y, z));
+    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    getTypedNode<scene::ISceneNode>(nodePtr)->setScale(vector3df(x, y, z));
 }
 
 void Node_setParent(long nodePtr, long parentPtr)
