@@ -2,11 +2,16 @@
 
 // Scene methods
 long Scene_addLightNode();
+long Scene_loadScene(const char* sceneFileName);
+
 long Scene_addMeshNode(const char* meshName);
 long Scene_addCubeNode(float size);
 long Scene_addPlaneNode(float width, float height);
 long Scene_addSphereNode(float radius);
-long Scene_loadScene(const char* sceneFileName);
+long Scene_addFullScreenTextureNode(long texturePtr, int rotationType);
+
+long Scene_addTexture(const char* textureName);
+long Scene_addEmptyTexture(int width, int height);
 
 void Scene_resize(int width, int height);
 void Scene_destroy();
@@ -16,44 +21,43 @@ long Scene_getNodeFromName(const char* nodeName);
 void Scene_removeNode(long nodePtr);
 long Scene_getRootNode();
 long Scene_pickNodeFromScreen(int x, int y);
-
-long Scene_addTexture(const char* textureName);
-long Scene_addEmptyTexture(int width, int height);
-long Scene_addFullScreenTextureNode(long texturePtr, int rotationType);
+// TODO: implement it
+long Scene_pickNodeFromScreenPrecisely(int x, int y);
+void Scene_setVisible(bool visible);
 
 // Camera
 void Camera_setViewMatrix(const float* matrix);
 void Camera_setProjectionMatrix(const float* matrix);
 
 // Node methods
-void Node_setVisible(long nodePtr, bool visible);
-void Node_setPosition(long nodePtr, float x, float y, float z);
-void Node_setRotation(long nodePtr, float x, float y, float z);
-void Node_setScale(long nodePtr, float x, float y, float z);
-void Node_setParent(long nodePtr, long parentPtr);
-void Node_setModelMatrix(long nodePtr, const float* matrix);
-
-// MeshNode methods
 enum MaterialType
 {
-    // for MeshNode_setMaterialType()
+    // for Node_setMaterialType()
     Solid,
     ColorAdd,
     AlphaBlend,
     NormalMap,
     LightMap,
 };    
-
-void MeshNode_setLighting(long nodePtr, bool enabled);
-void MeshNode_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
-void MeshNode_setMaterialType(long nodePtr, MaterialType materialType);
-void MeshNode_setAnimationFps(long nodePtr, float fps);
-void MeshNode_setAnimation(long nodePtr, const char* animationName);
-void MeshNode_setAnimationLoop(long nodePtr, bool isLoop);
-void MeshNode_setAnimationIndex(long nodePtr, int index);
-void MeshNode_setAnimationStartEnd(long nodePtr, int start, int end);
+void Node_setVisible(long nodePtr, bool visible);
+void Node_setPosition(long nodePtr, float x, float y, float z);
+void Node_setRotation(long nodePtr, float x, float y, float z);
+void Node_setScale(long nodePtr, float x, float y, float z);
+void Node_setParent(long nodePtr, long parentPtr);
+void Node_setModelMatrix(long nodePtr, const float* matrix);
 // TODO: implement it
-void MeshNode_setBillboard(long nodePtr, bool isBillboard);
+void Node_setBillboard(long nodePtr, bool isBillboard);
+void Node_setLighting(long nodePtr, bool enabled);
+void Node_setTexture(long nodePtr, long texturePtr);
+void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
+void Node_setMaterialType(long nodePtr, MaterialType materialType);
+
+// MeshNode methods
+void MeshNode_setAnimationFps(long nodePtr, float fps);
+void MeshNode_setAnimationLoop(long nodePtr, bool isLoop);
+void MeshNode_setAnimationByName(long nodePtr, const char* animationName);
+void MeshNode_setAnimationByIndex(long nodePtr, int index);
+void MeshNode_setAnimationByRange(long nodePtr, int start, int end);
 
 // LightNode methods
 enum LightType
@@ -64,10 +68,10 @@ enum LightType
 };
 void LightNode_setType(long nodePtr, LightType lightType);
 void LightNode_setRadius(long nodePtr, float radius);
-void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float b);
+void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a);
 
 // Texture methods
 void Texture_update(long texturePtr, const char* srcARGB8);
-void Texture_renderFullscreen(long texturePtr, int rotationType);
+void Texture_renderFullScreen(long texturePtr, int rotationType);
 void Texture_write(long texturePtr, const char* filename);
 

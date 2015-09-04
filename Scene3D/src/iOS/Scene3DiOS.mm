@@ -23,31 +23,20 @@ namespace irr
     }
 }
 
-namespace Scene3D
+void Scene_initializeFileSystem()
 {
-    void initializeFileSystem()
-    {
-        os::Printer::Logger = new CLogger(NULL);
-        
-        printf("initializeFileSystem()");
-        
-        fs = io::createFileSystem();
-        
-        NSBundle* Bundle = [NSBundle mainBundle];
-        NSString* BundlePath = [Bundle bundlePath];
-        
-        core::stringc NewPath = [BundlePath cStringUsingEncoding:NSASCIIStringEncoding];
-        
-        fs->changeWorkingDirectoryTo(NewPath);
-    }
+    os::Printer::Logger = new CLogger(NULL);
     
-    void setNodeTexture(long nodePtr, long texturePtr)
-    {
-        setNodeTextureAtLayer(nodePtr, 0, texturePtr);
-    }
+    printf("initializeFileSystem()");
     
-    void setRootNodeVisible(bool visible)
-    {
-        setNodeVisible(getRootNode(), visible);
-    }
+    fs = io::createFileSystem();
+    
+    NSBundle* Bundle = [NSBundle mainBundle];
+    NSString* BundlePath = [Bundle bundlePath];
+    
+    core::stringc NewPath = [BundlePath cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    fs->changeWorkingDirectoryTo(NewPath);
 }
+
+

@@ -173,7 +173,7 @@ namespace os
 			break;
 		}
 
-		__android_log_print(LogLevel, "Irrlicht", "%s\n", message);
+		__android_log_print(LogLevel, "Scene3D", "%s\n", message);
 	}
 
 	void Timer::initTimer(bool usePerformanceTimer)

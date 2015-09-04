@@ -147,7 +147,8 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
     camera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
 }
 
-static template <typename T> getTypedNode(long nodePtr)
+template <typename T> 
+T* getTypedNode(long nodePtr)
 {
     T* node = (T*)nodePtr;
     // TODO: checl
@@ -163,14 +164,13 @@ static scene::ISceneNode* addDummyNode()
     return node;
 }
 
-long scene_addPointNode()
+long Scene_addLightNode()
 {
     // driver->setAmbientLight(video::SColorf(0.2f, 0.2f, 0.2f));
     scene::ILightSceneNode* light = smgr->addLightSceneNode(addDummyNode());
 
     return (long)light;
 }
-
 
 void LightNode_setType(long nodePtr, LightType lightType)
 {
@@ -179,17 +179,18 @@ void LightNode_setType(long nodePtr, LightType lightType)
     {
         type = video::ELT_DIRECTIONAL;
     }
-    getTypedNode<scene::ILightSceneNode*>(nodePtr)->setLightType(type);
+    getTypedNode<scene::ILightSceneNode>(nodePtr)->setLightType(type);
 }
 
 void LightNode_setRadius(long nodePtr, float radius)
 {
-    getTypedNode<scene::ILightSceneNode*>(nodePtr)->setRadius(radius);    
+    getTypedNode<scene::ILightSceneNode>(nodePtr)->setRadius(radius);    
 }
 
-void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float b)
+void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a)
 {
-    getTypedNode<scene::ILightSceneNode*>(nodePtr)->getLightData().DiffuseColor.set(r, g, b, a);
+    video::SLight& data = getTypedNode<scene::ILightSceneNode>(nodePtr)->getLightData();
+    data.DiffuseColor.set(r, g, b, a);
 }
 
 void Scene_resize(int width, int height)
@@ -216,7 +217,7 @@ void Scene_clear()
     // driver->draw2DRectangleOutline(recti(10, 10, 100, 100));
 }
 
-void render()
+void Scene_render()
 {
     // printf("render()");
     os::Timer::tick();
@@ -240,7 +241,7 @@ static void postProcessNode(scene::ISceneNode* node, const char* name)
     }
 }
 
-long loadScene(const char* sceneFileName)
+long Scene_loadScene(const char* sceneFileName)
 {
     scene::ISceneNode* dummy = addDummyNode();
     smgr->loadScene(sceneFileName, NULL, dummy);
@@ -248,7 +249,7 @@ long loadScene(const char* sceneFileName)
     return (long)dummy;
 }
 
-long getNodeFromName(const char* nodeName)
+long Scene_getNodeFromName(const char* nodeName)
 {
     scene::ISceneNode* startNode = 0;
     scene::ISceneNode* node = smgr->getSceneNodeFromName(nodeName, startNode);
@@ -256,7 +257,7 @@ long getNodeFromName(const char* nodeName)
     return (long)node;
 }
 
-long addCubeNode(float size)
+long Scene_addCubeNode(float size)
 {
     scene::ISceneNode* node = smgr->addCubeSceneNode(size, addDummyNode());
     postProcessNode(node, "cube");
@@ -264,7 +265,7 @@ long addCubeNode(float size)
     return (long)node;
 }
 
-long addPlaneNode(float width, float height)
+long Scene_addPlaneNode(float width, float height)
 {
     scene::IMesh* planeMesh = smgr->getGeometryCreator()->
                                 createPlaneMesh(core::dimension2d<f32>(width, height));
@@ -277,7 +278,7 @@ long addPlaneNode(float width, float height)
     return (long)node;
 }
 
-long addSphereNode(float radius)
+long Scene_addSphereNode(float radius)
 {
     scene::ISceneNode* node = smgr->addSphereSceneNode(radius, 16, addDummyNode());
     postProcessNode(node, "sphere");
@@ -285,7 +286,7 @@ long addSphereNode(float radius)
     return (long)node;
 }
 
-long getTexture(const char* textureName)
+long Scene_addTexture(const char* textureName)
 {
     video::ITexture* texture = NULL;
     if (textureName)
@@ -299,13 +300,13 @@ long getTexture(const char* textureName)
     return (long)texture;
 }
 
-void MeshNode_setLighting(long nodePtr, bool enabled)
+void Node_setLighting(long nodePtr, bool enabled)
 {
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     node->setMaterialFlag(video::EMF_LIGHTING, enabled);
 }
 
-void MeshNode_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr)
+void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr)
 {
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     video::ITexture* texture = (video::ITexture*)texturePtr;
@@ -322,7 +323,7 @@ void MeshNode_setAnimationFps(long nodePtr, float fps)
     }
 }
 
-void MeshNode_setBillboard(long nodePtr, bool isBillboard)
+void Node_setBillboard(long nodePtr, bool isBillboard)
 {
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     {
@@ -330,7 +331,7 @@ void MeshNode_setBillboard(long nodePtr, bool isBillboard)
     }
 }
 
-void MeshNode_setAnimation(long nodePtr, const char* animationName)
+void MeshNode_setAnimationByName(long nodePtr, const char* animationName)
 {
     scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
@@ -346,7 +347,7 @@ void MeshNode_setAnimationLoop(long nodePtr, bool isLoop)
     }
 }
 
-void MeshNode_setAnimationIndex(long nodePtr, int index)
+void MeshNode_setAnimationByIndex(long nodePtr, int index)
 {
     scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
@@ -354,7 +355,7 @@ void MeshNode_setAnimationIndex(long nodePtr, int index)
     }
 }
 
-void MeshNode_setAnimationStartEnd(long nodePtr, int start, int end)
+void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
 {
     scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
@@ -362,19 +363,19 @@ void MeshNode_setAnimationStartEnd(long nodePtr, int start, int end)
     }
 }
 
-void destroyScene()
+void Scene_destroy()
 {
     arRootNode->removeAll();
 }
 
-void removeNode(long nodePtr)
+void Scene_removeNode(long nodePtr)
 {
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     scene::IDummyTransformationSceneNode* transformNode = (scene::IDummyTransformationSceneNode*)(node->getParent());
     delete transformNode;
 }
 
-long addMeshNode(const char* meshName)
+long Scene_addMeshNode(const char* meshName)
 {
     scene::IAnimatedMeshSceneNode* node = NULL;
     {
@@ -389,7 +390,7 @@ long addMeshNode(const char* meshName)
     return (long)node;
 }
 
-long getRootNode()
+long Scene_getRootNode()
 {
     return (long)arRootNode;
 }
@@ -441,7 +442,7 @@ void Node_setModelMatrix(long nodePtr, const float* matrix)
     transformNode->getRelativeTransformationMatrix().setM(matrix);
 }
 
-void setViewMatrix(const float* matrix)
+void Camera_setViewMatrix(const float* matrix)
 {
     printf("setViewMatrix unimplemented.");
 
@@ -450,39 +451,39 @@ void setViewMatrix(const float* matrix)
     // camera->setProjectionMatrix(matrix);
 }
 
-void setProjectionMatrix(const float* matrix)
+void Camera_setProjectionMatrix(const float* matrix)
 {
     matrix4 mat;
     mat.setM(matrix);
     camera->setProjectionMatrix(mat);
 }
 
-long addTexture(int width, int height)
+long Scene_addEmptyTexture(int width, int height)
 {
     dimension2du dim(width, height);
     video::ITexture* texture =  driver->addTexture(dim, "texture#", video::ECF_A8R8G8B8);
     return (long)texture;
 }
 
-void updateTexture(long texturePtr, const char* srcData)
+void Texture_update(long texturePtr, const char* srcARGB8)
 {
     video::ITexture* texture = (video::ITexture*)texturePtr;
 
     u8* dstData;
     dstData = (u8*)(texture->lock());
-    if (dstData && srcData)
+    if (dstData && srcARGB8)
     {
         int pixelCount = texture->getSize().Width * texture->getSize().Height;
 
         // TODO: optimize
         for (int i = 0; i < pixelCount; i++)
         {
-            dstData[0] = srcData[2];
-            dstData[1] = srcData[1];
-            dstData[2] = srcData[0];
-            dstData[3] = srcData[3];
+            dstData[0] = srcARGB8[2];
+            dstData[1] = srcARGB8[1];
+            dstData[2] = srcARGB8[0];
+            dstData[3] = srcARGB8[3];
             dstData += 4;
-            srcData += 4;
+            srcARGB8 += 4;
         }
         texture->unlock();
     }
@@ -492,7 +493,7 @@ void updateTexture(long texturePtr, const char* srcData)
     }
 }
 
-long addFullScreenTextureNode(long texturePtr, int rotationType)
+long Scene_addFullScreenTextureNode(long texturePtr, int rotationType)
 {
     // full screen node is not dependent on arRootNode
 #if 0
@@ -508,7 +509,7 @@ long addFullScreenTextureNode(long texturePtr, int rotationType)
     return (long)node;
 }
 
-void drawFullScreenTexture(long texturePtr, int rotationType)
+void Texture_renderFullScreen(long texturePtr, int rotationType)
 {
     dimension2du screenSize = driver->getScreenSize();
     video::ITexture* texture = (video::ITexture*)texturePtr;
@@ -551,7 +552,7 @@ void drawFullScreenTexture(long texturePtr, int rotationType)
     // driver->draw2DRectangle(video::SColor(255, 255, 0, 0), recti(0, 0, 10, 10));
 }
 
-void writeTexture(long texturePtr, const char* filename)
+void Texture_write(long texturePtr, const char* filename)
 {
     video::ITexture* texture = (video::ITexture*)texturePtr;
     video::IImage* image = driver->createImage(texture, position2d<s32>(0, 0), texture->getSize());
@@ -564,7 +565,22 @@ void writeTexture(long texturePtr, const char* filename)
     image->drop();
 }
 
-long pickNodeFromScreen(int x, int y)
+long Scene_pickNodeFromScreen(int x, int y)
+{
+    s32 idBitMask = NODE_VISIBLE_CATEGORY;
+    bool bNoDebugObjects = false;
+    scene::ISceneNode* hitNode = smgr->getSceneCollisionManager()->getSceneNodeFromScreenCoordinatesBB(
+                                     position2di(x, y), idBitMask, bNoDebugObjects, arRootNode);
+
+    if (hitNode)
+    {
+        printf("hit %s\n", hitNode->getName());
+    }
+
+    return (long)hitNode;
+}
+
+long Scene_pickNodeFromScreenPrecisely(int x, int y)
 {
     s32 idBitMask = NODE_VISIBLE_CATEGORY;
     bool bNoDebugObjects = false;
@@ -594,3 +610,14 @@ void Node_setMaterialType(long nodePtr, MaterialType materialType)
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     node->setMaterialType(type);
 }
+
+void Node_setTexture(long nodePtr, long texturePtr)
+{
+    Node_setTextureAtLayer(nodePtr, 0, texturePtr);
+}
+
+void Scene_setVisible(bool visible)
+{
+    Node_setVisible(Scene_getRootNode(), visible);
+}
+
