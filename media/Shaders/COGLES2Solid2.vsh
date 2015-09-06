@@ -1,3 +1,4 @@
+const char* COGLES2Solid2_vsh = R"(
 #define MAX_LIGHTS 8
 
 /* Attributes */
@@ -149,3 +150,4 @@ void main()
 
 	vFogCoord = length(Position);
 }
+)";

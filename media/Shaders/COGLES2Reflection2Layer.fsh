@@ -1,3 +1,4 @@
+const char* COGLES2Reflection2Layer_fsh = R"(
 precision mediump float;
 
 /* Uniforms */
@@ -68,3 +69,4 @@ void main()
 
 	gl_FragColor = FinalColor;
 }
+)";

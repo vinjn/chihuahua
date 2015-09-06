@@ -1,3 +1,4 @@
+const char* COGLES2Solid_fsh = R"(
 precision mediump float;
 
 /* Uniforms */
@@ -60,3 +61,4 @@ void main()
 
 	gl_FragColor = Color;
 }
+)";

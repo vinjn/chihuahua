@@ -1,3 +1,4 @@
+const char* COGLES2TransparentAlphaChannelRef_fsh = R"(
 precision mediump float;
 
 /* Uniforms */
@@ -65,3 +66,4 @@ void main()
 
 	gl_FragColor = Color;
 }
+)";
