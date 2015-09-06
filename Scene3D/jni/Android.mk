@@ -6,7 +6,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := Irrlicht
 
-LOCAL_CFLAGS := -D_IRR_ANDROID_PLATFORM_ -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
+LOCAL_CFLAGS := -D_IRR_ANDROID_PLATFORM_ -DASSIMP_BUILD_NO_OWN_ZLIB -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
 
 #define NDEBUG
 

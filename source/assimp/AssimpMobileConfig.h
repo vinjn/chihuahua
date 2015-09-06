@@ -3,8 +3,6 @@
 
 #define _HAS_EXCEPTIONS 0
 
-#define ASSIMP_BUILD_NO_OWN_ZLIB
-
 // ImporterRegistry.cpp
 #define ASSIMP_BUILD_NO_X_IMPORTER
 #define ASSIMP_BUILD_NO_3DS_IMPORTER

@@ -127,7 +127,7 @@ int main()
 	dimensions, etc.
 	*/
 	IrrlichtDevice *device =
-        createDevice(video::EDT_DIRECT3D9, dimension2d<u32>(640, 480), 16,
+        createDevice(video::EDT_OGLES2, dimension2d<u32>(640, 480), 16,
 			false, false, false, 0);
 
 	if (!device)
@@ -172,14 +172,13 @@ int main()
 
     c8* files[] =
     {
-        "../../media/LOGO-11.fbx",
-        "../../media/LOGO ring-11.fbx",
+        "../../media/hi-2.DAE",
     };
     c8* textures[] =
     {
-        "../../media/polySurface60VRayCompleteMap.jpg",
-        "../../media/polySurface60VRayCompleteMap.jpg",
+        "../../media/3/fire.png",
     };
+    IAnimatedMeshSceneNode* head = 0;
     const float kCamDistZ = 40;
     int idx = 0;
     for (auto file : files)
@@ -192,7 +191,11 @@ int main()
             int test = 0;
         }
         auto node = smgr->addAnimatedMeshSceneNode(mesh);
-        node->setAnimation(0U);
+        //node->setAnimation(0U);
+
+        if (idx == 0){
+            head = node;
+        }
 /*
 0 - 24 cockatoo_takeoff
 24 - 40 cockatoo_flying
@@ -203,23 +206,23 @@ int main()
 191 - 211 cockatoo_death
 213 - 230 cockatoo_jumping
 */
-        node->setFrameLoop(400, 500);
+        //node->setFrameLoop(400, 500);
         node->setLoopMode(true);
         node->setAnimationSpeed(30);
 
-        node->setPosition({ idx * 20.0f, idx * 5.0f, 0.0f });
+        //node->setPosition({ idx * 20.0f, idx * 5.0f, 0.0f });
         core::aabbox3df bbox = node->getBoundingBox();
         f32 rad = bbox.getRadius();
         float newScale = kCamDistZ * 0.5f / rad;
         //node->setScale(core::vector3df(newScale));
-        f32 k = 1000;
+        f32 k = 10000;
         node->setScale({ k, k, k });
 
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         //node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
         //node->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
         node->setDebugDataVisible(scene::EDS_SKELETON);
-        node->setMaterialTexture(0, driver->getTexture(textures[idx]));
+        node->setMaterialTexture(0, driver->getTexture(textures[0]));
 
         idx++;
     }
@@ -265,6 +268,12 @@ int main()
 
 		smgr->drawAll();
 		//guienv->drawAll();
+
+        static int frame = head->getFrameNr();
+        if (frame != (int)head->getFrameNr()) {
+            printf("%d\n", frame);
+            frame = head->getFrameNr();
+        }
 
 		driver->endScene();
 	}
