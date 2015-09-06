@@ -466,9 +466,9 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::loadMesh(irr::core::stringc path)
         scene::CSkinnedMesh::SAnimationData animationData =
         {
             anim->mName.C_Str(),
-            frameNumber,
+            (f32)frameNumber,
             frameNumber + totalFrames,
-            anim->mTicksPerSecond
+            (f32)anim->mTicksPerSecond
 //            deltaFrameNumber / anim->mDuration
         };
         if (!fpsIncluded)

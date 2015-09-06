@@ -1,3 +1,4 @@
+const char* COGLES2SphereMap_vsh = R"(
 #define MAX_LIGHTS 8
 
 /* Attributes */
@@ -146,3 +147,4 @@ void main()
 
 	vFogCoord = length(Position);
 }
+)";

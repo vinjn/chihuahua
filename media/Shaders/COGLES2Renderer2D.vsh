@@ -1,3 +1,4 @@
+const char* COGLES2Renderer2D_vsh= R"(
 /* Attributes */
 
 attribute vec4 inVertexPosition;
@@ -20,3 +21,4 @@ void main()
 	vTextureCoord = inTexCoord0;
 	vVertexColor = inVertexColor.bgra;
 }
+)";

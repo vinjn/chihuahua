@@ -1,3 +1,4 @@
+const char* COGLES2Solid_vsh = R"(
 #define MAX_LIGHTS 8
 
 /* Attributes */
@@ -135,16 +136,12 @@ void main()
 
 		vVertexColor *= LightColor;
 		vVertexColor += uMaterialEmissive;
+		vVertexColor += uGlobalAmbient * uMaterialAmbient;
+		vVertexColor = clamp(vVertexColor, 0.0, 1.0);
 		
 		vSpecularColor *= uMaterialSpecular;
 	}
-    else {
-        // TODO: hack
-        vVertexColor = uMaterialAmbient;
-    }
-    
-    vVertexColor += uGlobalAmbient * uMaterialAmbient;
-    vVertexColor = clamp(vVertexColor, 0.0, 1.0);
 
 	vFogCoord = length(Position);
 }
+)";

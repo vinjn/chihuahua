@@ -1,3 +1,4 @@
+const char* COGLES2ParallaxMap_vsh = R"(
 #define MAX_LIGHTS 2
 
 /* Attributes */
@@ -59,3 +60,4 @@ void main()
 
 	vFogCoord = length((uWVMatrix * vec4(inVertexPosition, 1.0)).xyz);
 }
+)";

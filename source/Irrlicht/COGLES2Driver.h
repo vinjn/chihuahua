@@ -376,8 +376,6 @@ namespace video
 
 		void createMaterialRenderers();
 
-		void loadShaderData(const io::path& vertexShaderName, const io::path& fragmentShaderName, c8** vertexShaderData, c8** fragmentShaderData);
-
 		core::stringw Name;
 		core::matrix4 Matrices[ETS_COUNT];
 

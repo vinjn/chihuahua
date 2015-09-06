@@ -1,3 +1,4 @@
+const char* COGLES2NormalMap_fsh = R"(
 #define MAX_LIGHTS 2
 
 precision mediump float;
@@ -72,3 +73,4 @@ void main()
 	
 	gl_FragColor = FinalColor;
 }
+)";
