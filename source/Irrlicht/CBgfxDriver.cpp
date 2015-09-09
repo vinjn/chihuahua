@@ -60,9 +60,22 @@ namespace irr
                 core::rect<s32>* sourceRect = 0)
             {
                 // Set view 0 clear state.
+                union
+                {
+                    u32 clr;
+                    struct
+                    {
+                        u8 a, b, g, r;
+                    }abgr;
+                }bgfxColor;
+                bgfxColor.abgr.r = (u8)color.getRed();
+                bgfxColor.abgr.g = (u8)color.getGreen();
+                bgfxColor.abgr.b = (u8)color.getBlue();
+                bgfxColor.abgr.a = (u8)color.getAlpha();
+
                 bgfx::setViewClear(0
                     , (backBuffer ? BGFX_CLEAR_COLOR : 0) | (zBuffer ? BGFX_CLEAR_DEPTH : 0) | 0
-                    , color.color
+                    , bgfxColor.clr
                     , 1.0f
                     , 0
                     );
