@@ -7,7 +7,11 @@
 #define BX_STRING_H_HEADER_GUARD
 
 #include "bx.h"
+#ifdef BX_COMPILER_MSVC
+#include "compat/msvc/alloca.h"
+#else
 #include <alloca.h>
+#endif
 #include <ctype.h>  // tolower
 #include <stdarg.h> // va_list
 #include <stdio.h>  // vsnprintf, vsnwprintf
