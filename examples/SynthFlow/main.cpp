@@ -513,7 +513,7 @@ int main()
         "../../media/Belgium_block_pxr128.jpg",
         "../../media/Slag_stone_pxr128.jpg",
         "../../media/dwarf.jpg",
-        //"../../media/Cockatoo/Cockatoo_D.png",
+        "../../media/Cockatoo/Cockatoo_D.png",
     };
 
     auto mani = driver->getMeshManipulator();

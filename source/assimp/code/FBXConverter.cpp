@@ -2100,7 +2100,7 @@ private:
             if(!target) {
                 target = node->Target();
             }
-            ai_assert(node->Target() == target);
+            // ai_assert(node->Target() == target);
         }}
 #endif
 

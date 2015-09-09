@@ -172,11 +172,13 @@ int main()
 
     c8* files[] =
     {
-        "../../media/hi-2.DAE",
+        "../../media/Cockatoo/Cockatoo.FBX",
     };
     c8* textures[] =
     {
-        "../../media/3/fire.png",
+        //"../../media/metaioman.png",
+        "../../media/Cockatoo/Cockatoo_D.png",
+
     };
     IAnimatedMeshSceneNode* head = 0;
     const float kCamDistZ = 40;
@@ -216,11 +218,11 @@ int main()
         float newScale = kCamDistZ * 0.5f / rad;
         //node->setScale(core::vector3df(newScale));
         f32 k = 10000;
-        node->setScale({ k, k, k });
+        //node->setScale({ k, k, k });
 
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         //node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
-        //node->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
+        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
         node->setDebugDataVisible(scene::EDS_SKELETON);
         node->setMaterialTexture(0, driver->getTexture(textures[0]));
 
