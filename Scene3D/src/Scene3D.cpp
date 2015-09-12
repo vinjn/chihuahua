@@ -333,7 +333,7 @@ void MeshNode_setAnimationByName(long nodePtr, const char* animationName)
 {
     // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
     {
-        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(animationName);
+        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationByName(animationName);
     }
 }
 
@@ -377,12 +377,15 @@ long Scene_addMeshNode(const char* meshName)
 {
     scene::IAnimatedMeshSceneNode* node = NULL;
     {
-        scene::IAnimatedMesh* mesh = getMeshFromAssimp(smgr, meshName);
-        node = smgr->addAnimatedMeshSceneNode(mesh, addDummyNode());
-        if (node)
+        scene::IAnimatedMesh* mesh = smgr->getMesh(meshName);
+        if (mesh)
         {
-            postProcessNode(node, meshName);
-            node->setAnimation(0U);
+            node = smgr->addAnimatedMeshSceneNode(mesh, addDummyNode());
+            if (node)
+            {
+                postProcessNode(node, meshName);
+                node->setAnimation(0U);
+            }
         }
     }
     return (long)node;

@@ -696,7 +696,7 @@ bool CAnimatedMeshSceneNode::setAnimation(u32 anim)
 
 
 //! Starts a special animation.
-bool CAnimatedMeshSceneNode::setAnimation(const c8* animationName)
+bool CAnimatedMeshSceneNode::setAnimationByName(const c8* animationName)
 {
 	if (!Mesh)
 		return false;

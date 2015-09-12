@@ -155,7 +155,7 @@ namespace scene
 		\return Returns true if successful, and false if not, for
 		example if the mesh in the scene node is not an md2 mesh, or no
 		animation with this name could be found. */
-		virtual bool setAnimation(const c8* animationName) = 0;
+		virtual bool setAnimationByName(const c8* animationName) = 0;
 
 		//! Returns the currently displayed frame number.
 		virtual f32 getFrameNr() const = 0;

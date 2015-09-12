@@ -100,7 +100,7 @@ namespace scene
 		virtual bool setAnimation(u32 anim) _IRR_OVERRIDE_;
 
 		//! Starts a special animation.
-		virtual bool setAnimation(const c8* animationName) _IRR_OVERRIDE_;
+        virtual bool setAnimationByName(const c8* animationName) _IRR_OVERRIDE_;
 
 		//! Returns the current displayed frame number.
 		virtual f32 getFrameNr() const _IRR_OVERRIDE_;

@@ -17,6 +17,7 @@
 #include "ISceneLoader.h"
 #include "EProfileIDs.h"
 #include "IProfiler.h"
+#include "../assimp/IrrAssimpImport.h"
 
 #include "os.h"
 
@@ -297,6 +298,10 @@ CSceneManager::CSceneManager(video::IVideoDriver* driver, io::IFileSystem* fs,
 	MeshLoaderList.push_back(new CB3DMeshFileLoader(this));
 	#endif
 
+    // assimp-powered mesh loader
+    // Note: the last item in <MeshLoaderList> has the first priority
+    MeshLoaderList.push_back(new IrrAssimpImport(this));
+
 	// scene loaders
 	#ifdef _IRR_COMPILE_WITH_IRR_SCENE_LOADER_
 	SceneLoaderList.push_back(new CSceneLoaderIrr(this, FileSystem));
@@ -430,8 +435,19 @@ IAnimatedMesh* CSceneManager::getMesh(const io::path& filename)
 
 	if (!msh)
 		os::Printer::log("Could not load mesh, file format seems to be unsupported", filename, ELL_ERROR);
-	else
-		os::Printer::log("Loaded mesh", filename, ELL_INFORMATION);
+    else
+    {
+        os::Printer::log("Loaded mesh", filename, ELL_INFORMATION);
+        char info[256];
+        s32 animCount = msh->getAnimationCount();
+        for (s32 i = 0; i < animCount; i++)
+        {
+            s32 begin, end, fps;
+            msh->getFrameLoop(i, begin, end, fps);
+            sprintf(info, "\"%s\" frames: %d - %d fps: %d", msh->getAnimationName(i), begin, end, fps);
+            os::Printer::log("----animation", info, ELL_INFORMATION);
+        }
+    }
 
 	return msh;
 }

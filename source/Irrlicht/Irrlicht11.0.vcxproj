@@ -1044,7 +1044,9 @@
     <ClInclude Include="..\assimp\code\ScenePreprocessor.h" />
     <ClInclude Include="..\assimp\code\TriangulateProcess.h" />
     <ClInclude Include="..\assimp\contrib\ConvertUTF\ConvertUTF.h" />
+    <ClInclude Include="..\assimp\IrrAssimp.h" />
     <ClInclude Include="..\assimp\IrrAssimpImport.h" />
+    <ClInclude Include="..\assimp\IrrAssimpUtils.h" />
     <ClInclude Include="..\bgfx\include\bgfx.h" />
     <ClInclude Include="..\bgfx\include\bgfxdefines.h" />
     <ClInclude Include="..\bgfx\include\bgfxplatform.h" />
@@ -1076,6 +1078,9 @@
     <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
     <ClCompile Include="..\assimp\code\ColladaParser.cpp" />
     <ClCompile Include="..\assimp\code\DXFLoader.cpp" />
+    <ClCompile Include="..\assimp\IrrAssimp.cpp" />
+    <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
+    <ClCompile Include="..\assimp\IrrAssimpUtils.cpp" />
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
@@ -1259,7 +1264,6 @@
     <None Include="..\..\readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\assimp\AssimpWrapper.cpp" />
     <ClCompile Include="..\assimp\code\Assimp.cpp" />
     <ClCompile Include="..\assimp\code\BaseImporter.cpp" />
     <ClCompile Include="..\assimp\code\BaseProcess.cpp" />
@@ -1297,7 +1301,6 @@
     <ClCompile Include="..\assimp\code\Version.cpp" />
     <ClCompile Include="..\assimp\code\VertexTriangleAdjacency.cpp" />
     <ClCompile Include="..\assimp\contrib\ConvertUTF\ConvertUTF.c" />
-    <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
     <ClCompile Include="..\bgfx\src\bgfx.cpp" />
     <ClCompile Include="..\bgfx\src\glcontext_egl.cpp" />
     <ClCompile Include="..\bgfx\src\image.cpp" />

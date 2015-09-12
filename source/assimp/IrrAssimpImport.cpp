@@ -1,5 +1,9 @@
 #include "IrrAssimpImport.h"
 #include <iostream>
+#include "../Irrlicht/CSkinnedMesh.h"
+#include "../Irrlicht/os.h"
+#include "code/DefaultIOSystem.h"
+#include "code/MemoryIOWrapper.h"
 
 using namespace irr;
 
@@ -15,7 +19,7 @@ IrrAssimpImport::~IrrAssimpImport()
 
 void Log(core::vector3df vect)
 {
-    std::cout << "Vector = " << vect.X << ", " << vect.Y << ", " << vect.Z << std::endl;
+    printf("Vector = %.1f, %.1f, %.1f\n", vect.X, vect.Y, vect.Z);
 }
 
 irr::core::matrix4 AssimpToIrrMatrix(aiMatrix4x4 assimpMatrix)
@@ -53,7 +57,7 @@ scene::ISkinnedMesh::SJoint* IrrAssimpImport::findJoint (scene::ISkinnedMesh* me
         if (core::stringc(mesh->getJointName(i)) == jointName)
             return mesh->getAllJoints()[i];
     }
-    std::cout << "Error, no joint" << std::endl;
+    printf("Error, no joint\n");
     return 0;
 }
 
@@ -90,6 +94,7 @@ void IrrAssimpImport::createNode(scene::ISkinnedMesh* mesh, aiNode* node, bool i
 
     for (unsigned int i = 0; i < node->mNumMeshes; ++i)
     {
+        // WTF
         joint->AttachedMeshes.push_back(node->mMeshes[i]);
     }
 
@@ -130,11 +135,45 @@ bool IrrAssimpImport::isALoadableFileExtension(const io::path& filename) const
     return importer.IsExtensionSupported (to_char_string(extension).c_str());
 }
 
+struct IrrlichtIOSystem : public Assimp::DefaultIOSystem
+{
+    IrrlichtIOSystem(io::IFileSystem* fs) : mFileSystem(fs)
+    {
+
+    }
+
+    bool Exists(const char* pFile) const
+    {
+        return mFileSystem->existFile(pFile);
+    }
+
+    Assimp::IOStream* Open(const char* strFile, const char* strMode)
+    {
+        io::IReadFile* file = mFileSystem->createAndOpenFile(strFile);
+        if (!file)
+        {
+            return NULL;
+        }
+
+        size_t len = file->getSize();
+        uint8_t* buff = new uint8_t[len];
+        file->read(buff, len);
+        file->drop();
+
+        const bool deleteBuffInIOStream = true;
+        return new Assimp::MemoryIOStream(buff, len, deleteBuffInIOStream);
+    }
+
+    io::IFileSystem* mFileSystem;
+};
+
 irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
 {
     irr::io::path path = file->getFileName();
 
     Assimp::Importer Importer;
+    Importer.SetIOHandler(new IrrlichtIOSystem(FileSystem));
+
     const aiScene* pScene = Importer.ReadFile(to_char_string(path).c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 
     if (!pScene)
@@ -150,7 +189,8 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
     Mats.clear();
 
     // Create mesh
-    scene::ISkinnedMesh* mesh = Smgr->createSkinnedMesh();
+    // Directly cast to CSkinnedMesh to make C++ coding life easier
+    scene::CSkinnedMesh* mesh = (scene::CSkinnedMesh*)Smgr->createSkinnedMesh();
 
     // Basic material support
     for (unsigned int i = 0; i < pScene->mNumMaterials; ++i)
@@ -291,11 +331,9 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
             scene::ISkinnedMesh::SJoint* joint = findJoint(mesh, core::stringc(bone->mName.C_Str()));
             if (joint == 0)
             {
-                std::cout << "Error, no joint" << std::endl;
+                printf("Error, no joint\n");
                 continue;
             }
-
-
 
             for (unsigned int h = 0; h < bone->mNumWeights; ++h)
             {
@@ -311,18 +349,14 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
         applySkinnedVertexArray(buffer);
     }
 
-    int frameOffset = 0;
+
+    s32 frameNumber = 0;
+    const f32 DEFAULT_FPS = 25;
     for (unsigned int i = 0; i < pScene->mNumAnimations; ++i)
     {
         aiAnimation* anim = pScene->mAnimations[i];
-
-        if (anim->mTicksPerSecond != 0.f)
-        {
-            mesh->setAnimationSpeed(anim->mTicksPerSecond);
-        }
-		// Some loader of assimp give time in second for keyframe instead of frame number, which cause bug when casted to int
-        if (anim->mTicksPerSecond == 1)
-            mesh->setAnimationSpeed(mesh->getAnimationSpeed() * 60.f);
+        float totalFrames = anim->mDuration;
+        bool fpsIncluded = anim->mTicksPerSecond > 1;
 
         //std::cout << "numChannels : " << anim->mNumChannels << std::endl;
         for (unsigned int j = 0; j < anim->mNumChannels; ++j)
@@ -335,42 +369,59 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
                 aiVectorKey key = nodeAnim->mPositionKeys[k];
 
                 scene::ISkinnedMesh::SPositionKey* irrKey = mesh->addPositionKey(joint);
-
-                irrKey->frame = key.mTime + frameOffset;
-                if (anim->mTicksPerSecond == 1)
-                    irrKey->frame *= 60.f;
                 irrKey->position = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
+
+                irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumPositionKeys;
+                if (!fpsIncluded)
+                    irrKey->frame *= DEFAULT_FPS;
             }
             for (unsigned int k = 0; k < nodeAnim->mNumRotationKeys; ++k)
             {
                 aiQuatKey key = nodeAnim->mRotationKeys[k];
                 aiQuaternion assimpQuat = key.mValue;
 
-                core::quaternion quat (-assimpQuat.x, -assimpQuat.y, -assimpQuat.z, assimpQuat.w);
-				quat.normalize();
+                core::quaternion quat(-assimpQuat.x, -assimpQuat.y, -assimpQuat.z, assimpQuat.w);
+                quat.normalize();
 
                 scene::ISkinnedMesh::SRotationKey* irrKey = mesh->addRotationKey(joint);
-
-                irrKey->frame = key.mTime + frameOffset;
-                if (anim->mTicksPerSecond == 1)
-                    irrKey->frame *= 60.f;
                 irrKey->rotation = quat;
+
+                irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
+                if (!fpsIncluded)
+                    irrKey->frame *= DEFAULT_FPS;
             }
             for (unsigned int k = 0; k < nodeAnim->mNumScalingKeys; ++k)
             {
                 aiVectorKey key = nodeAnim->mScalingKeys[k];
 
                 scene::ISkinnedMesh::SScaleKey* irrKey = mesh->addScaleKey(joint);
-
-                irrKey->frame = key.mTime + frameOffset;
-                if (anim->mTicksPerSecond == 1)
-                    irrKey->frame *= 60.f;
                 irrKey->scale = core::vector3df(key.mValue.x, key.mValue.y, key.mValue.z);
-            }
 
+                irrKey->frame = frameNumber + k * totalFrames / nodeAnim->mNumRotationKeys;
+                if (!fpsIncluded)
+                    irrKey->frame *= DEFAULT_FPS;
+            }
         }
 
-        frameOffset += anim->mDuration;
+        printf("mTicksPerSecond = %.1f\n", anim->mTicksPerSecond);
+        s32 deltaFrameNumber = anim->mChannels[0]->mNumPositionKeys;
+        scene::CSkinnedMesh::SAnimationData animationData =
+        {
+            anim->mName.C_Str(),
+            (f32)frameNumber,
+            frameNumber + totalFrames,
+            (f32)anim->mTicksPerSecond
+        };
+        if (!fpsIncluded)
+        {
+            animationData.begin *= DEFAULT_FPS;
+            animationData.end *= DEFAULT_FPS;
+            animationData.fps = DEFAULT_FPS;
+        }
+
+        mesh->AnimationData.insert(animationData);
+
+        frameNumber += totalFrames;
     }
 
     mesh->setDirty();

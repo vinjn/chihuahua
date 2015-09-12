@@ -1017,9 +1017,6 @@
     <ClInclude Include="..\assimp\AssimpMobileConfig.h">
       <Filter>assimp</Filter>
     </ClInclude>
-    <ClInclude Include="..\assimp\IrrAssimpImport.h">
-      <Filter>assimp</Filter>
-    </ClInclude>
     <ClInclude Include="..\assimp\code\FBXCompileConfig.h">
       <Filter>assimp\importer\fbx</Filter>
     </ClInclude>
@@ -1283,6 +1280,15 @@
       <Filter>assimp\importer\collada</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdparty\stb\stb_image_write.h" />
+    <ClInclude Include="..\assimp\IrrAssimp.h">
+      <Filter>assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\assimp\IrrAssimpImport.h">
+      <Filter>assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\assimp\IrrAssimpUtils.h">
+      <Filter>assimp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -1809,9 +1815,6 @@
     <ClCompile Include="..\assimp\code\MaterialSystem.cpp">
       <Filter>assimp\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\assimp\AssimpWrapper.cpp">
-      <Filter>assimp</Filter>
-    </ClCompile>
     <ClCompile Include="..\assimp\code\BaseImporter.cpp">
       <Filter>assimp\importer</Filter>
     </ClCompile>
@@ -1832,9 +1835,6 @@
     </ClCompile>
     <ClCompile Include="..\assimp\code\PostStepRegistry.cpp">
       <Filter>assimp\process</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assimp\IrrAssimpImport.cpp">
-      <Filter>assimp</Filter>
     </ClCompile>
     <ClCompile Include="..\assimp\code\SkeletonMeshBuilder.cpp">
       <Filter>assimp\importer</Filter>
@@ -1955,6 +1955,15 @@
     </ClCompile>
     <ClCompile Include="..\assimp\code\DXFLoader.cpp">
       <Filter>assimp\importer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\IrrAssimp.cpp">
+      <Filter>assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\IrrAssimpImport.cpp">
+      <Filter>assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\IrrAssimpUtils.cpp">
+      <Filter>assimp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
