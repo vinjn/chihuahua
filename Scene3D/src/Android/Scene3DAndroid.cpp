@@ -180,6 +180,11 @@ extern "C"
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_MeshNode_1setAnimationByIndex(JNIEnv * env, jclass cls, jlong nodePtr, jlong index)
     {
         MeshNode_setAnimationByIndex(nodePtr, index);
+    }
+
+    JNIEXPORT bool JNICALL Java_com_hiscene_Scene3D_MeshNode_1isAnimationCompleted(JNIEnv * env, jclass cls, jlong nodePtr)
+    {
+        return MeshNode_isAnimationCompleted(nodePtr);
     }    
 
     JNIEXPORT jlong JNICALL Java_com_hiscene_Scene3D_Scene_1addMeshNode(JNIEnv * env, jclass cls, jstring jMeshName)

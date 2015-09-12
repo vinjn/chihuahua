@@ -7,6 +7,7 @@
 #include "../source/irrlicht/os.h"
 #include "../source/irrlicht/CLogger.h"
 #include "../source/irrlicht/COGLES2Texture.h"
+#include "../source/irrlicht/CSceneManager.h"
 
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
@@ -16,22 +17,6 @@
 
 using namespace irr;
 using namespace core;
-
-namespace irr
-{
-    namespace gui
-    {
-        class IGUIEnvironment;
-        IGUIEnvironment* createGUIEnvironment(io::IFileSystem* fs,
-                                              video::IVideoDriver* Driver, IOSOperator* op);
-    }
-    
-    namespace scene
-    {
-        ISceneManager* createSceneManager(video::IVideoDriver* driver,
-                                          io::IFileSystem* fs, gui::ICursorControl* cc, gui::IGUIEnvironment *gui);
-    }
-}
 
 namespace irr
 {
@@ -129,7 +114,7 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
 
     testGLError("video::createDriver()");
 
-    smgr = scene::createSceneManager(driver, fs, NULL, NULL);
+    smgr = new scene::CSceneManager(driver, fs, NULL, 0, NULL );
     scene::IDummyTransformationSceneNode* transformNode = smgr->addDummyTransformationSceneNode();
     arRootNode = smgr->addEmptySceneNode(transformNode);
 
@@ -298,7 +283,7 @@ long Scene_addTexture(const char* textureName)
     return (long)texture;
 }
 
-void Node_setLighting(long nodePtr, bool enabled)
+void Node_setLighting(long nodePtr, s3dBool enabled)
 {
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     node->setMaterialFlag(video::EMF_LIGHTING, enabled);
@@ -315,50 +300,37 @@ void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr)
 
 void MeshNode_setAnimationFps(long nodePtr, float fps)
 {
-    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
-    {
-        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationSpeed(fps);
-    }
+    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationSpeed(fps);
 }
 
-void Node_setBillboard(long nodePtr, bool isBillboard)
+void Node_setBillboard(long nodePtr, s3dBool isBillboard)
 {
-    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    {
-        getTypedNode<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
-    }
+    getTypedNode<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
 }
 
 void MeshNode_setAnimationByName(long nodePtr, const char* animationName)
 {
-    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
-    {
-        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationByName(animationName);
-    }
+    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationByName(animationName);
 }
 
-void MeshNode_setAnimationLoop(long nodePtr, bool isLoop)
+void MeshNode_setAnimationLoop(long nodePtr, s3dBool isLoop)
 {
-    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
-    {
-        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setLoopMode(isLoop);
-    }
+    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setLoopMode(isLoop);
 }
 
 void MeshNode_setAnimationByIndex(long nodePtr, int index)
 {
-    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
-    {
-        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(index);
-    }
+    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(index);
 }
 
 void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
 {
-    // scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
-    {
-        getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
-    }
+    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
+}
+
+s3dBool MeshNode_isAnimationCompleted(long nodePtr)
+{
+    return getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->isAnimationCompleted();
 }
 
 void Scene_destroy()
@@ -396,7 +368,7 @@ long Scene_getRootNode()
     return (long)arRootNode;
 }
 
-void Node_setVisible(long nodePtr, bool visible)
+void Node_setVisible(long nodePtr, s3dBool visible)
 {
     // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     getTypedNode<scene::ISceneNode>(nodePtr)->setVisible(visible);
@@ -617,7 +589,7 @@ void Node_setTexture(long nodePtr, long texturePtr)
     Node_setTextureAtLayer(nodePtr, 0, texturePtr);
 }
 
-void Scene_setVisible(bool visible)
+void Scene_setVisible(s3dBool visible)
 {
     Node_setVisible(Scene_getRootNode(), visible);
 }

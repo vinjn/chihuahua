@@ -59,6 +59,7 @@ namespace scene
 		//! Sets a callback interface which will be called if an animation
 		//! playback has ended. Set this to 0 to disable the callback again.
 		virtual void setAnimationEndCallback(IAnimationEndCallBack* callback=0) _IRR_OVERRIDE_;
+		virtual bool isAnimationCompleted() const _IRR_OVERRIDE_ {return IsAnimationCompleted;};
 
 		//! sets the speed with which the animation is played
 		virtual void setAnimationSpeed(f32 framesPerSecond) _IRR_OVERRIDE_;
@@ -139,7 +140,6 @@ namespace scene
 		//! updates the absolute position based on the relative and the parents position
 		virtual void updateAbsolutePosition() _IRR_OVERRIDE_;
 
-
 		//! Set the joint update mode (0-unused, 1-get joints only, 2-set joints only, 3-move and set)
 		virtual void setJointMode(E_JOINT_UPDATE_ON_RENDER mode) _IRR_OVERRIDE_;
 
@@ -191,6 +191,7 @@ namespace scene
 		bool RenderFromIdentity;
 
 		IAnimationEndCallBack* LoopCallBack;
+		bool IsAnimationCompleted;
 		s32 PassCount;
 
 		IShadowVolumeSceneNode* Shadow;

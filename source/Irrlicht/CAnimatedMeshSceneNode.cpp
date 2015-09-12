@@ -36,7 +36,7 @@ CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(IAnimatedMesh* mesh,
 	TransitionTime(0), Transiting(0.f), TransitingBlend(0.f),
 	JointMode(EJUOR_NONE), JointsUsed(false),
 	Looping(true), ReadOnlyMaterials(false), RenderFromIdentity(false),
-	LoopCallBack(0), PassCount(0), Shadow(0), MD3Special(0)
+	LoopCallBack(0), IsAnimationCompleted(false), PassCount(0), Shadow(0), MD3Special(0)
 {
 	#ifdef _DEBUG
 	setDebugName("CAnimatedMeshSceneNode");
@@ -125,6 +125,7 @@ void CAnimatedMeshSceneNode::buildFrameNr(u32 timeMs)
 			if (CurrentFrameNr > (f32)EndFrame)
 			{
 				CurrentFrameNr = (f32)EndFrame;
+				IsAnimationCompleted = true;
 				if (LoopCallBack)
 					LoopCallBack->OnAnimationEnd(this);
 			}
@@ -134,6 +135,7 @@ void CAnimatedMeshSceneNode::buildFrameNr(u32 timeMs)
 			if (CurrentFrameNr < (f32)StartFrame)
 			{
 				CurrentFrameNr = (f32)StartFrame;
+				IsAnimationCompleted = true;
 				if (LoopCallBack)
 					LoopCallBack->OnAnimationEnd(this);
 			}
@@ -485,6 +487,8 @@ s32 CAnimatedMeshSceneNode::getEndFrame() const
 //! the default is 0 - MaximalFrameCount of the mesh.
 bool CAnimatedMeshSceneNode::setFrameLoop(s32 begin, s32 end)
 {
+	IsAnimationCompleted = false;
+
 	const s32 maxFrameCount = Mesh->getFrameCount() - 1;
 	if (end < begin)
 	{
