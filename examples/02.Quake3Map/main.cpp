@@ -32,9 +32,6 @@ Again, to be able to use the Irrlicht.DLL file, we need to link with the
 Irrlicht.lib. We could set this option in the project settings, but to make it
 easy, we use a pragma comment lib:
 */
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 /*
 Ok, lets start. Again, we use the main() method as start, not the WinMain().

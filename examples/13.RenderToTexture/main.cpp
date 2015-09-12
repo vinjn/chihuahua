@@ -57,7 +57,7 @@ int main()
 		fairy->setMaterialFlag(video::EMF_LIGHTING, true); // enable dynamic lighting
 		fairy->getMaterial(0).Shininess = 20.0f; // set size of specular highlights
 		fairy->setPosition(core::vector3df(-10,0,-100));
-		fairy->setMD2Animation ( scene::EMAT_STAND );
+		fairy->setAnimation ( scene::EMAT_STAND );
 	}
 	
 	/*

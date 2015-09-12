@@ -1953,6 +1953,9 @@
     <ClCompile Include="..\assimp\code\ColladaParser.cpp">
       <Filter>assimp\importer\collada</Filter>
     </ClCompile>
+    <ClCompile Include="..\assimp\code\DXFLoader.cpp">
+      <Filter>assimp\importer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Irrlicht.rc" />

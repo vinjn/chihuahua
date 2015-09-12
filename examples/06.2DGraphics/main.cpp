@@ -14,9 +14,6 @@ and tell the linker to link with the .lib file.
 
 using namespace irr;
 
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 /*
 At first, we let the user select the driver type, then start up the engine, set

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -19,9 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>02.Quake3Map</ProjectName>
-    <ProjectGuid>{D1A464A2-D479-458C-98A2-60965D823CD1}</ProjectGuid>
-    <RootNamespace>Quake3Map</RootNamespace>
+    <ProjectName>MeshTemplate</ProjectName>
+    <ProjectGuid>{C6F21550-FC45-4435-A0E1-33642DB21D26}</ProjectGuid>
+    <RootNamespace>MeshTemplate</RootNamespace>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -75,7 +76,7 @@
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\bin\Win32-VisualStudio\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\bin\Win64-VisualStudio\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\bin\Win32-VisualStudio\</OutDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
@@ -94,9 +95,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetName>$(ProjectName)_d</TargetName>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
-      <TypeLibraryName>.\Debug/Quake3Map.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MeshTemplate.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -116,7 +123,7 @@
       <Culture>0x0c07</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\bin\Win32-VisualStudio\02.Quake3Map.exe</OutputFile>
+      <OutputFile>..\..\bin\Win32-VisualStudio\MeshTemplate_d.exe</OutputFile>
       <AdditionalLibraryDirectories>..\..\lib\Win32-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -126,7 +133,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
-      <TypeLibraryName>.\Debug/Quake3Map.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Debug/MeshTemplate.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -146,7 +153,7 @@
       <Culture>0x0c07</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\bin\Win64-VisualStudio\02.Quake3Map.exe</OutputFile>
+      <OutputFile>..\..\bin\Win64-VisualStudio\MeshTemplate.exe</OutputFile>
       <AdditionalLibraryDirectories>..\..\lib\Win64-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -156,7 +163,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
-      <TypeLibraryName>.\Release/Quake3Map.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Release/MeshTemplate.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -177,7 +184,7 @@
       <Culture>0x0c07</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\bin\Win32-VisualStudio\02.Quake3Map.exe</OutputFile>
+      <OutputFile>..\..\bin\Win32-VisualStudio\MeshTemplate.exe</OutputFile>
       <AdditionalLibraryDirectories>..\..\lib\Win32-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <DataExecutionPrevention>
@@ -186,7 +193,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
-      <TypeLibraryName>.\Release/Quake3Map.tlb</TypeLibraryName>
+      <TypeLibraryName>.\Release/MeshTemplate.tlb</TypeLibraryName>
       <HeaderFileName>
       </HeaderFileName>
     </Midl>
@@ -207,7 +214,7 @@
       <Culture>0x0c07</Culture>
     </ResourceCompile>
     <Link>
-      <OutputFile>..\..\bin\Win64-VisualStudio\02.Quake3Map.exe</OutputFile>
+      <OutputFile>..\..\bin\Win64-VisualStudio\MeshTemplate.exe</OutputFile>
       <AdditionalLibraryDirectories>..\..\lib\Win64-visualstudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <SubSystem>Console</SubSystem>
       <DataExecutionPrevention>

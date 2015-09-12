@@ -119,7 +119,7 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 		modelNode->setMaterialFlag(video::EMF_LIGHTING, true);
 		modelNode->getMaterial(0).Shininess = 50.f;
 		modelNode->getMaterial(0).NormalizeNormals = true;
-		modelNode->setMD2Animation(scene::EMAT_STAND);
+		modelNode->setAnimation(scene::EMAT_STAND);
 	}
 
 	// set ambient light (no sun light in the catacombs)

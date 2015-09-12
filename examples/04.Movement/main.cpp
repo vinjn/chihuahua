@@ -11,11 +11,6 @@ Example 19.MouseAndJoystick shows how to handle those kinds of input.
 As always, I include the header files, use the irr namespace,
 and tell the linker to link with the .lib file.
 */
-#ifdef _MSC_VER
-// We'll also define this to stop MSVC complaining about sprintf().
-#define _CRT_SECURE_NO_WARNINGS
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 #include <irrlicht.h>
 #include "driverChoice.h"
@@ -150,7 +145,7 @@ int main()
 		model around 180 degrees, and adjust the animation speed and
 		the texture. To set the right animation (frames and speed), we
 		would also be able to just call
-		"anms->setMD2Animation(scene::EMAT_RUN)" for the 'run'
+		"anms->setAnimation(scene::EMAT_RUN)" for the 'run'
 		animation instead of "setFrameLoop" and "setAnimationSpeed",
 		but this only works with MD2 animations, and so you know how to
 		start other animations. But a good advice is to not use
@@ -160,7 +155,7 @@ int main()
 
 		anms->setFrameLoop(0, 13);
 		anms->setAnimationSpeed(15);
-//		anms->setMD2Animation(scene::EMAT_RUN);
+//		anms->setAnimation(scene::EMAT_RUN);
 
 		anms->setScale(core::vector3df(2.f,2.f,2.f));
 		anms->setRotation(core::vector3df(0,-90,0));

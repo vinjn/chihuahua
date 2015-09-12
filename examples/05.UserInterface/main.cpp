@@ -21,9 +21,6 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 // Declare a structure to hold some context for the event receiver so that it
 // has it available inside its OnEvent() method.

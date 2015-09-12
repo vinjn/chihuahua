@@ -171,7 +171,7 @@ int main()
 						0, IDFlag_IsPickable | IDFlag_IsHighlightable);
 	node->setPosition(core::vector3df(-90,-15,-140)); // Put its feet on the floor.
 	node->setScale(core::vector3df(1.6f)); // Make it appear realistically scaled
-	node->setMD2Animation(scene::EMAT_POINT);
+	node->setAnimation(scene::EMAT_POINT);
 	node->setAnimationSpeed(20.f);
 	material.setTexture(0, driver->getTexture("../../media/faerie2.bmp"));
 	material.Lighting = true;

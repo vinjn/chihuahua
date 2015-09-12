@@ -16,7 +16,7 @@ namespace irr
             : RelativeTranslation(position), RelativeRotation(rotation), RelativeScale(scale),
             Parent(0), SceneManager(mgr), TriangleSelector(0), ID(id),
             AutomaticCullingState(EAC_BOX), DebugDataVisible(EDS_OFF),
-            IsVisible(true), IsDebugObject(false)
+            IsVisible(true), IsDebugObject(false), IsBillboard(false)
         {
             if (parent)
                 parent->addChild(this);

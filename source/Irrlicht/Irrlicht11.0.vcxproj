@@ -1075,6 +1075,7 @@
     <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h" />
     <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
     <ClCompile Include="..\assimp\code\ColladaParser.cpp" />
+    <ClCompile Include="..\assimp\code\DXFLoader.cpp" />
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>

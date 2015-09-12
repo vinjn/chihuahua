@@ -417,7 +417,7 @@ void CDemo::loadSceneData()
 			model1->setMaterialTexture(0, driver->getTexture("../../media/spheremap.jpg"));
 			model1->setPosition(core::vector3df(100,40,-80));
 			model1->setScale(core::vector3df(2,2,2));
-			model1->setMD2Animation(scene::EMAT_STAND);
+			model1->setAnimation(scene::EMAT_STAND);
 			model1->setMaterialFlag(video::EMF_LIGHTING, false);
 			model1->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);
 			model1->setMaterialType(video::EMT_SPHERE_MAP);
@@ -429,7 +429,7 @@ void CDemo::loadSceneData()
 		{
 			model2->setPosition(core::vector3df(180,15,-60));
 			model2->setScale(core::vector3df(2,2,2));
-			model2->setMD2Animation(scene::EMAT_RUN);
+			model2->setAnimation(scene::EMAT_RUN);
 			model2->setMaterialTexture(0, device->getVideoDriver()->getTexture("../../media/sydney.bmp"));
 			model2->setMaterialFlag(video::EMF_LIGHTING, true);
 			model2->setMaterialFlag(video::EMF_NORMALIZE_NORMALS, true);

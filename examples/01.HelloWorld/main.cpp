@@ -79,11 +79,6 @@ is done by the second pragma. We could also use the WinMain method, though
 losing platform independence then.
 */
 #ifdef _IRR_WINDOWS_
-#ifdef _DEBUG
-#pragma comment(lib, "Irrlicht_d.lib")
-#else
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 #pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 #endif
 

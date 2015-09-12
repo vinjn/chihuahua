@@ -157,6 +157,11 @@ namespace scene
 		\param isVisible If the node shall be visible. */
         virtual void setVisible(bool isVisible);
 
+        virtual void setBillboard(bool isBillboard)
+        {
+        	IsBillboard = isBillboard;
+        }
+
 		//! Get the id of the scene node.
 		/** This id can be used to identify the node.
 		\return The id. */
@@ -514,6 +519,8 @@ namespace scene
 
 		//! Is debug object?
 		bool IsDebugObject;
+
+		bool IsBillboard;
 	};
 
 

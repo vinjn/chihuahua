@@ -103,7 +103,7 @@ int main()
 	{
 		ITexture *texture = driver->getTexture("../../media/sydney.bmp");
 		model_node->setMaterialTexture(0,texture);
-		model_node->setMD2Animation(scene::EMAT_RUN);
+		model_node->setAnimation(scene::EMAT_RUN);
 		//Disable lighting (we've got no light)
 		model_node->setMaterialFlag(EMF_LIGHTING,false);
 	}

@@ -82,6 +82,7 @@ LOCAL_SRC_FILES := \
 					CColladaMeshWriter.cpp \
 					CColorConverter.cpp \
 					CCSMLoader.cpp \
+					ISceneNode.cpp \
 					CCubeSceneNode.cpp \
 					CDefaultSceneNodeAnimatorFactory.cpp \
 					CDefaultSceneNodeFactory.cpp \
@@ -234,8 +235,7 @@ LOCAL_SRC_FILES := \
 					jpeglib/jcdctmgr.c \
 					jpeglib/jchuff.c \
 					jpeglib/jcinit.c \
-					jpeglib/jcmainct.c \
-					jpeglib/jcmarker.c \
+					jpeglib/jcmainct.c \					jpeglib/jcmarker.c \
 					jpeglib/jcmaster.c \
 					jpeglib/jcomapi.c \
 					jpeglib/jcparam.c \

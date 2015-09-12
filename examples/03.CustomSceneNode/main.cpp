@@ -24,10 +24,6 @@ and tell the linker to link with the .lib file.
 
 using namespace irr;
 
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 /*
 Here comes the more sophisticated part of this tutorial:
 The class of our very own custom scene node. To keep it simple,
