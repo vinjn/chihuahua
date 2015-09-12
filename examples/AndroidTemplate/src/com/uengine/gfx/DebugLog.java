@@ -1,9 +1,9 @@
-package com.uengine;
+package com.uengine.gfx;
 
 import android.util.Log;
 
 public class DebugLog {
-	private static final String LOGTAG = "DebugLog";
+	private static final String LOGTAG = "UGraphics";
 
 	public static final void e(String nMessage) {
 		Log.e(LOGTAG, nMessage);

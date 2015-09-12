@@ -1,4 +1,4 @@
-package com.uengine;
+package com.uengine.gfx;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -6,7 +6,7 @@ import android.content.res.AssetManager;
 public class UGraphics {
 
 	static {
-		System.loadLibrary("Scene3D");
+		System.loadLibrary("UGraphics");
 	}
 	private final Context context;
 
@@ -107,6 +107,8 @@ public class UGraphics {
 
 	public static native void MeshNode_setAnimationByRange(long nodePtr, int start, int end);
 
+	public static native boolean MeshNode_isAnimationComplete(long nodePtr);
+
 	// LightNode methods
 	// for LightNode_setType()
 	public static final int PointLight = 0;
@@ -119,9 +121,9 @@ public class UGraphics {
 	public static native void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a);
 
 	// Texture methods
-	public static native void Texture_update(long texturePtr, String srcARGB8);
+	public static native void Texture_update(long texturePtr, byte[] srcARGB8);
 
-	public static native void Texture_renderFullscreen(long texturePtr, int rotationType);
+	public static native void Texture_renderFullScreen(long texturePtr, int rotationType);
 
 	public static native void Texture_write(long texturePtr, String filename);
 
