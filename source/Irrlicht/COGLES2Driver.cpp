@@ -30,14 +30,6 @@
 #include "PVR-SDK/GLES2/gl2ext.h"
 #endif
 
-#define STRINGIZE(x) #x
-#define STRINGIZE2(x) STRINGIZE(x)
-#define SHADER_STRING(text) @ STRINGIZE2(text)
-
-#define GPUImageHashIdentifier #
-#define GPUImageWrappedLabel(x) x
-#define GPUImageEscapedHashIdentifier(a) GPUImageWrappedLabel(GPUImageHashIdentifier)a
-
 namespace irr
 {
 namespace video

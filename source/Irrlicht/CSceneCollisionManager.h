@@ -45,7 +45,8 @@ namespace scene
 		virtual bool getCollisionPoint(const core::line3d<f32>& ray,
 			ITriangleSelector* selector, core::vector3df& outCollisionPoint,
 			core::triangle3df& outTriangle,
-			ISceneNode* & outNode) _IRR_OVERRIDE_;
+			ISceneNode* & outNode,
+            s32* outTriangleId = 0) _IRR_OVERRIDE_;
 
 		//! Collides a moving ellipsoid with a 3d world with gravity and returns
 		//! the resulting new position of the ellipsoid.
@@ -68,6 +69,8 @@ namespace scene
 		//! Calculates 2d screen position from a 3d position.
 		virtual core::position2d<s32> getScreenCoordinatesFrom3DPosition(
 			const core::vector3df & pos, ICameraSceneNode* camera=0, bool useViewPort=false) _IRR_OVERRIDE_;
+        virtual core::position2d<f32> getScreenCoordinatesFrom3DPositionF32(
+            const core::vector3df& pos, ICameraSceneNode* camera = 0, bool useViewPort = false) _IRR_OVERRIDE_;
 
 		//! Gets the scene node and nearest collision point for a ray based on
 		//! the nodes' id bitmasks, bounding boxes and triangle selectors.
@@ -77,7 +80,8 @@ namespace scene
 								core::triangle3df& outTriangle,
 								s32 idBitMask = 0,
 								ISceneNode * collisionRootNode = 0,
-								bool noDebugObjects = false) _IRR_OVERRIDE_;
+								bool noDebugObjects = false,
+                                s32* outTriangleId = 0) _IRR_OVERRIDE_;
 
 
 	private:
@@ -95,7 +99,8 @@ namespace scene
 						f32 & outBestDistanceSquared,
 						ISceneNode * & outBestNode,
 						core::vector3df & outBestCollisionPoint,
-						core::triangle3df & outBestTriangle);
+						core::triangle3df & outBestTriangle,
+                        s32* outTriangleId = 0);
 
 
 		struct SCollisionData

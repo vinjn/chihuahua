@@ -1,0 +1,4 @@
+https://github.com/vinjn/OpenGL/tree/master/Example32/shader
+https://github.com/simongeilfus/Cinder-Experiments
+https://github.com/mrdoob/three.js/issues/5847
+https://github.com/bkaradzic/bgfx/tree/master/examples/18-ibl

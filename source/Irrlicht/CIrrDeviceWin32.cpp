@@ -77,6 +77,17 @@ namespace irr
 #endif
 		);
         #endif
+
+        #ifdef _IRR_COMPILE_WITH_BGFX_
+        IVideoDriver* createBgfxDriver(const SIrrlichtCreationParameters& params, io::IFileSystem* io
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+            , IContextManager* contextManager
+#elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
+            , CIrrDeviceIPhone* device
+#endif
+            );
+        #endif
+
 	}
 } // end namespace irr
 
@@ -1202,6 +1213,24 @@ void CIrrDeviceWin32::createDriver()
 		os::Printer::log("OpenGL-ES2 driver was not compiled in.", ELL_ERROR);
 		#endif
 		break;
+
+    case video::EDT_BGFX:
+        #ifdef _IRR_COMPILE_WITH_BGFX_
+        {
+            switchToFullScreen();
+            ContextManager = new video::CEGLManager();
+            ContextManager->initialize(CreationParams, video::SExposedVideoData(HWnd));
+
+            VideoDriver = video::createBgfxDriver(CreationParams, FileSystem, ContextManager);
+            if (!VideoDriver)
+            {
+                os::Printer::log("Could not create bgfx driver.", ELL_ERROR);
+            }
+        }
+        #else
+        os::Printer::log("bgfx driver was not compiled in.", ELL_ERROR);
+        #endif
+        break;
 
 	case video::EDT_SOFTWARE:
 

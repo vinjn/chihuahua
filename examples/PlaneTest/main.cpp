@@ -1,5 +1,7 @@
 #include <irrlicht.h>
 #include "AssimpWrapper.h"
+#include "bx/commandline.h"
+#include "bx/float4x4_t.h"
 
 using namespace irr;
 
@@ -16,9 +18,11 @@ using namespace gui;
 
 IrrlichtDevice *device;
 
-int main()
+int main(int argc, char const* const* argv)
 {
-	device = createDevice(video::EDT_OGLES2, dimension2d<u32>(800, 600), 16,
+    bx::CommandLine cmdLine(argc, argv);
+
+	device = createDevice(video::EDT_BGFX, dimension2d<u32>(800, 600), 16,
 			false, false, false, 0);
 
 	if (!device)
@@ -39,7 +43,7 @@ int main()
     node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
     planeMesh->drop();
 
-#if 0
+#if 1
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
 #else
 	auto camera = smgr->addCameraSceneNodeFPS(0);

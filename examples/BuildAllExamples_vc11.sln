@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Irrlicht", "..\source\Irrlicht\Irrlicht11.0.vcxproj", "{E08E042A-6C45-411B-92BE-3CC31331019F}"
 EndProject
@@ -154,8 +154,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SynthFlow", "SynthFlow\SynthFlow_vc11.vcxproj", "{7408F0AA-6DBC-4D0A-A7F4-4C2EA495B859}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FbxTest", "FbxTest\FbxTest_vc11.vcxproj", "{CB2AE636-7126-46AB-A56F-4AAD804C745B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E08E042A-6C45-411B-92BE-3CC31331019F} = {E08E042A-6C45-411B-92BE-3CC31331019F}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlaneTest", "PlaneTest\PlaneTest.vcxproj", "{3112FD12-1FDA-426F-87FF-2FB0DD55912B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E08E042A-6C45-411B-92BE-3CC31331019F} = {E08E042A-6C45-411B-92BE-3CC31331019F}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshTemplate", "MeshTemplate\MeshTemplate.vcxproj", "{C6F21550-FC45-4435-A0E1-33642DB21D26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -445,6 +453,14 @@ Global
 		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Release|Win32.Build.0 = Release|Win32
 		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Release|x64.ActiveCfg = Release|x64
 		{3112FD12-1FDA-426F-87FF-2FB0DD55912B}.Release|x64.Build.0 = Release|x64
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Debug|Win32.Build.0 = Debug|Win32
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Debug|x64.ActiveCfg = Debug|x64
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Debug|x64.Build.0 = Debug|x64
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Release|Win32.ActiveCfg = Release|Win32
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Release|Win32.Build.0 = Release|Win32
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Release|x64.ActiveCfg = Release|x64
+		{C6F21550-FC45-4435-A0E1-33642DB21D26}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -79,7 +79,11 @@ is done by the second pragma. We could also use the WinMain method, though
 losing platform independence then.
 */
 #ifdef _IRR_WINDOWS_
+#ifdef _DEBUG
+#pragma comment(lib, "Irrlicht_d.lib")
+#else
 #pragma comment(lib, "Irrlicht.lib")
+#endif
 #pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 #endif
 
@@ -168,16 +172,15 @@ int main()
 
     c8* files[] =
     {
-#if 1
-        "../../media/Cockatoo/Cockatoo.FBX"
-#else
-        "../../media/test_directX.X",
-        "../../media/test_Milkshape.ms3d",
-        "../../media/test_Collada_DAE.DAE",
-        "../../media/test_autodesk_DAE.DAE",
-#endif
+        "../../media/Cockatoo/Cockatoo.FBX",
     };
+    c8* textures[] =
+    {
+        //"../../media/metaioman.png",
+        "../../media/Cockatoo/Cockatoo_D.png",
 
+    };
+    IAnimatedMeshSceneNode* head = 0;
     const float kCamDistZ = 40;
     int idx = 0;
     for (auto file : files)
@@ -190,7 +193,11 @@ int main()
             int test = 0;
         }
         auto node = smgr->addAnimatedMeshSceneNode(mesh);
-        node->setAnimation(0U);
+        //node->setAnimation(0U);
+
+        if (idx == 0){
+            head = node;
+        }
 /*
 0 - 24 cockatoo_takeoff
 24 - 40 cockatoo_flying
@@ -201,20 +208,25 @@ int main()
 191 - 211 cockatoo_death
 213 - 230 cockatoo_jumping
 */
-        node->setFrameLoop(85, 130);
+        //node->setFrameLoop(400, 500);
         node->setLoopMode(true);
         node->setAnimationSpeed(30);
 
-        node->setPosition({ idx++ * 20.0f, idx * 5.0f, 0.0f });
+        //node->setPosition({ idx * 20.0f, idx * 5.0f, 0.0f });
         core::aabbox3df bbox = node->getBoundingBox();
-        float newScale = kCamDistZ * 0.5f / bbox.getRadius();
-        node->setScale(core::vector3df(newScale));
+        f32 rad = bbox.getRadius();
+        float newScale = kCamDistZ * 0.5f / rad;
+        //node->setScale(core::vector3df(newScale));
+        f32 k = 10000;
+        //node->setScale({ k, k, k });
 
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         //node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
-        //node->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
+        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
         node->setDebugDataVisible(scene::EDS_SKELETON);
-        node->setMaterialTexture(0, driver->getTexture("../../media/Cockatoo/Textures/Cockatoo_d.png"));
+        node->setMaterialTexture(0, driver->getTexture(textures[0]));
+
+        idx++;
     }
     //video::ITexture* texture = driver->getTexture("../../media/duck.png");
     //texture->lock();
@@ -258,6 +270,12 @@ int main()
 
 		smgr->drawAll();
 		//guienv->drawAll();
+
+        static int frame = head->getFrameNr();
+        if (frame != (int)head->getFrameNr()) {
+            printf("%d\n", frame);
+            frame = head->getFrameNr();
+        }
 
 		driver->endScene();
 	}
