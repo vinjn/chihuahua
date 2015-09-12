@@ -1,4 +1,4 @@
-package com.hiscene;
+package com.uengine;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 
 public final class MainActivity extends Activity implements Renderer {
 
-	private Scene3D mScene;
+	private UGraphics mScene;
 	float[] modelMatrix = new float[16];
 	float[] projMatrix = new float[16];
 
@@ -23,11 +23,6 @@ public final class MainActivity extends Activity implements Renderer {
 	 * Defines whether the activity is currently paused
 	 */
 	private boolean mActivityIsPaused;
-
-	/**
-	 * Whether the metaio SDK null renderer is initialized
-	 */
-	private boolean mRendererInitialized;
 
 	/**
 	 * Main GLSufaceView in which everything is rendered
@@ -43,7 +38,6 @@ public final class MainActivity extends Activity implements Renderer {
 		super.onCreate(savedInstanceState);
 
 		mSurfaceView = null;
-		mRendererInitialized = false;
 	}
 
 	@Override
@@ -85,7 +79,7 @@ public final class MainActivity extends Activity implements Renderer {
 		super.onStart();
 
 		if (mScene == null) {
-			mScene = new Scene3D(this);
+			mScene = new UGraphics(this);
 
 			// Set empty content view
 			setContentView(new FrameLayout(this));
@@ -130,10 +124,10 @@ public final class MainActivity extends Activity implements Renderer {
 	public boolean onTouchEvent(MotionEvent event) {
 		// DebugLog.w(event.toString());
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			long hitNodePtr = Scene3D.pickNodeFromScreen(event.getX(),
+			long hitNodePtr = UGraphics.Scene_pickNodeFromScreen(event.getX(),
 					event.getY());
 			if (hitNodePtr != 0 && hitNodePtr != mCubeNode) {
-				Scene3D.setNodeAnimation(hitNodePtr, "shock_down");
+				UGraphics.MeshNode_setAnimationByName(hitNodePtr, "shock_down");
 			}
 		}
 
@@ -152,11 +146,11 @@ public final class MainActivity extends Activity implements Renderer {
 	@Override
 	public void onDrawFrame(GL10 gl) {
 
-		Scene3D.clear();
+		UGraphics.Scene_clear();
 
 		// mCameraImageRenderer.draw(gl, mScreenRotation);
 
-		Scene3D.render();
+		UGraphics.Scene_render();
 	}
 
 	@Override
@@ -167,42 +161,31 @@ public final class MainActivity extends Activity implements Renderer {
 		DebugLog.w("onSurfaceChanged: " + width + ", " + height);
 		// if (mScene == null) {
 
-		Scene3D.resize(width, height);
-		mCubeNode = Scene3D.addCubeNode(200);
-		Scene3D.setNodeTexture(mCubeNode, Scene3D.getTexture("wall.jpg"));
-		Scene3D.setNodePosition(mCubeNode, 0, 0, 1000);
+		UGraphics.Scene_resize(width, height);
+		mCubeNode = UGraphics.Scene_addCubeNode(200);
+		UGraphics.Node_setTexture(mCubeNode, UGraphics.Scene_addTexture("wall.jpg"));
+		UGraphics.Node_setPosition(mCubeNode, 0, 0, 1000);
 		final float kSize = 1000;
 		for (int i = 0; i < 9; i++) {
 			float x = (i / 3 - 1.0f) * kSize / 3;
 			float y = (i % 3 - 1.0f) * kSize / 3;
 			float z = (float) (Math.random() * kSize) - kSize / 2;
 			float k = (float) (Math.random() * 0 + 3);
-			long nodePtr = Scene3D.addMeshNode("metaioman.md2");
-			Scene3D.setNodeTexture(nodePtr, Scene3D.getTexture("metaioman.png"));
-			Scene3D.setNodeAnimation(nodePtr, "idle");
-			Scene3D.setNodePosition(nodePtr, x, y, 0);
-			Scene3D.setNodeRotation(nodePtr, 0, 0, z);
-			Scene3D.setNodeScale(nodePtr, k, k, k);
+			long nodePtr = UGraphics.Scene_addMeshNode("metaioman.md2");
+			UGraphics.Node_setTexture(nodePtr,
+					UGraphics.Scene_addTexture("metaioman.png"));
+			UGraphics.MeshNode_setAnimationByName(nodePtr, "idle");
+			UGraphics.Node_setPosition(nodePtr, x, y, 0);
+			UGraphics.Node_setRotation(nodePtr, 0, 0, z);
+			UGraphics.Node_setScale(nodePtr, k, k, k);
 		}
 
-		Scene3D.addPointLight(kSize);
-		// }
+		long light = UGraphics.Scene_addLightNode();
+		UGraphics.LightNode_setRadius(light, kSize);
 	}
 
 	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		DebugLog.w("onSurfaceCreated");
-
-		// if (!mRendererInitialized) {
-		// mScreenRotation = Screen.getRotation(this);
-		//
-		// // Set up custom rendering (metaio SDK will only do tracking and not
-		// // render any objects
-		// // itself)
-		// metaioSDK.wnitializeRenderer(0, 0, mScreenRotation,
-		// ERENDER_SYSTEM.ERENDER_SYSTEM_NULL);
-		//
-		// mRendererInitialized = true;
-		// }
 	}
 }

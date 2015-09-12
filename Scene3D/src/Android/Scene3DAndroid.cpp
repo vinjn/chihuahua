@@ -43,7 +43,10 @@ extern "C"
         // delete smgr;
         // delete fs;
     }
+}
 
+extern "C"
+{
     // http://stackoverflow.com/questions/16069209/invoking-jni-functions-in-android-package-name-containing-underscore
     // http://homepage.cs.uiowa.edu/~slonnegr/wpj/JNI.pdf
     JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_Scene_1initializeFileSystem(JNIEnv * env, jclass cls, jstring jInternalDataPath, jobject assetManager)
