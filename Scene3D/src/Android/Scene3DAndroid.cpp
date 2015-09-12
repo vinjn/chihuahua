@@ -214,7 +214,7 @@ extern "C"
         return Scene_getRootNode();
     }
 
-    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_Node_1setLight(JNIEnv *env, jclass cls, jlong nodePtr, jboolean enabled)
+    JNIEXPORT void JNICALL Java_com_hiscene_Scene3D_Node_1setLighting(JNIEnv *env, jclass cls, jlong nodePtr, jboolean enabled)
     {
         Node_setLighting(nodePtr, enabled);
     }

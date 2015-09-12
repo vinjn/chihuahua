@@ -122,13 +122,11 @@ int main()
 
     c8* files[] =
     {
-        "../../media/hiar1.FBX",
+        "../../media/metaioman.md2",
     };
     c8* textures[] =
     {
-        //"../../media/metaioman.png",
-        "../../media/Cockatoo/Cockatoo_D.png",
-
+        "../../media/metaioman.png",
     };
     IAnimatedMeshSceneNode* head = 0;
     const float kCamDistZ = 40;
@@ -164,11 +162,11 @@ int main()
         f32 k = 10000;
         //node->setScale({ k, k, k });
 
-        node->setMaterialFlag(video::EMF_LIGHTING, false);
+        node->setMaterialFlag(video::EMF_LIGHTING, true);
         //node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
-        node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
+        //node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
         node->setDebugDataVisible(scene::EDS_SKELETON);
-        //node->setMaterialTexture(0, driver->getTexture(textures[0]));
+        node->setMaterialTexture(0, driver->getTexture(textures[0]));
 
         idx++;
     }
