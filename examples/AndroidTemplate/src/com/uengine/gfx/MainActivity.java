@@ -256,7 +256,7 @@ public final class MainActivity extends Activity implements Renderer {
 					event.getY());
 			if (hitNode != 0 && hitNode != mCubeNode) {
 				UGraphics.MeshNode_setAnimationByName(hitNode, "shock_down");
-				UGraphics.MeshNode_setAnimationLoop(hitNode, true);
+				UGraphics.MeshNode_setAnimationLoop(hitNode, false);
 			}
 		}
 
@@ -353,14 +353,16 @@ public final class MainActivity extends Activity implements Renderer {
 			UGraphics.Node_setTexture(mMeshNode,
 					UGraphics.Scene_addTexture("monster/monster.jpg"));
 		}
+		UGraphics.Node_setLighting(mMeshNode, true);
 		UGraphics.MeshNode_setAnimationByName(mMeshNode, "idle");
-		UGraphics.MeshNode_setAnimationLoop(mMeshNode, true);
+		UGraphics.MeshNode_setAnimationLoop(mMeshNode, false);
 		UGraphics.Node_setPosition(mMeshNode, 0, 0, 0);
 		UGraphics.Node_setRotation(mMeshNode, 0, 0, z);
 		UGraphics.Node_setScale(mMeshNode, k, k, k);
 
 		long lightNode = UGraphics.Scene_addLightNode();
 		UGraphics.LightNode_setRadius(lightNode, kSize);
+
 		// }
 
 		mCameraImageRenderer = new CameraImageRenderer();

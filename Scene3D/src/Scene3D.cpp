@@ -124,7 +124,7 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
     for (u32 i = 0; i < loaderCount; ++i)
     {
         scene::IMeshLoader* loader = smgr->getMeshLoader(i);
-        printf("%s\n", loader->getDebugName());
+        printf("----%s\n", loader->getDebugName());
     }
 
     // ref: https://github.com/Yikun/Design-On-Fingertips/blob/master/magicbookshow/irrAR/irrAR.cpp
