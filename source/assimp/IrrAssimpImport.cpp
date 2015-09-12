@@ -10,6 +10,9 @@ using namespace irr;
 IrrAssimpImport::IrrAssimpImport(irr::scene::ISceneManager* smgr) : Smgr(smgr), FileSystem(smgr->getFileSystem())
 {
     //ctor
+    #ifdef _DEBUG
+    setDebugName("IrrAssimpImport");
+    #endif
 }
 
 IrrAssimpImport::~IrrAssimpImport()

@@ -336,20 +336,22 @@ public final class MainActivity extends Activity implements Renderer {
 
 		UGraphics.Scene_resize(width, height);
 		mCubeNode = UGraphics.Scene_addCubeNode(200);
-		UGraphics.Node_setTexture(mCubeNode, UGraphics.Scene_addTexture("wall.jpg"));
+		UGraphics.Node_setTexture(mCubeNode,
+				UGraphics.Scene_addTexture("wall.jpg"));
 		UGraphics.Node_setPosition(mCubeNode, 0, 0, 1000);
 		final float kSize = 1000;
 
 		float z = (float) (Math.random() * kSize) - kSize / 2;
 		float k = (float) (Math.random() * 0 + 3);
-		if (false) {
+		if (true) {
 			mMeshNode = UGraphics.Scene_addMeshNode("metaioman.md2");
-			UGraphics.Node_setTexture(mMeshNode, UGraphics.Scene_addTexture("metaioman.png"));
-		}
-		else{
-//			mMeshNode = UGraphics.Scene_addMeshNode("astroboy_walk.dae");
+			UGraphics.Node_setTexture(mMeshNode,
+					UGraphics.Scene_addTexture("metaioman.png"));
+		} else {
+			// mMeshNode = UGraphics.Scene_addMeshNode("astroboy_walk.dae");
 			mMeshNode = UGraphics.Scene_addMeshNode("monster/monster.dae");
-			UGraphics.Node_setTexture(mMeshNode, UGraphics.Scene_addTexture("monster/monster.jpg"));
+			UGraphics.Node_setTexture(mMeshNode,
+					UGraphics.Scene_addTexture("monster/monster.jpg"));
 		}
 		UGraphics.MeshNode_setAnimationByName(mMeshNode, "idle");
 		UGraphics.MeshNode_setAnimationLoop(mMeshNode, true);

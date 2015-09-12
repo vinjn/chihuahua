@@ -1,6 +1,7 @@
 LOCAL_PATH := $(call my-dir)/../../source/Irrlicht
 # oops, why should you do that
-UGraphics_PATH := ../../Scene3D/src
+Scene3D_PATH := ../../Scene3D/src
+UGraphics_PATH := ../../UGraphics/src
 ASSIMP_PATH := ../assimp/
 
 include $(CLEAR_VARS)
@@ -23,10 +24,10 @@ LOCAL_C_INCLUDES := ../include \
                     ../source/assimp/code/BoostWorkaround
 
 LOCAL_SRC_FILES := \
-                    $(UGraphics_PATH)/Scene3D.cpp \
-                    $(UGraphics_PATH)/Android/Scene3DAndroid.cpp \
-                    $(UGraphics_PATH)/Android/CAndroidAssetFileArchive.cpp \
-                    $(UGraphics_PATH)/Android/CAndroidAssetReader.cpp \
+                    $(Scene3D_PATH)/Scene3D.cpp \
+                    $(UGraphics_PATH)/Android/UGraphicsAndroid.cpp \
+                    $(Scene3D_PATH)/Android/CAndroidAssetFileArchive.cpp \
+                    $(Scene3D_PATH)/Android/CAndroidAssetReader.cpp \
                     $(ASSIMP_PATH)/IrrAssimp.cpp \
                     $(ASSIMP_PATH)/IrrAssimpImport.cpp \
                     $(ASSIMP_PATH)/IrrAssimpUtils.cpp \

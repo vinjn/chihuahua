@@ -17,7 +17,8 @@ public class UGraphics {
 		Scene_initializeFileSystem(internalDataPath, amgr);
 	}
 
-	private native void Scene_initializeFileSystem(String jInternalDataPath, AssetManager amgr);
+	private native void Scene_initializeFileSystem(String jInternalDataPath,
+			AssetManager amgr);
 
 	// Scene methods
 	public static native long Scene_addLightNode();
@@ -58,7 +59,8 @@ public class UGraphics {
 
 	public static native void Scene_setVisible(boolean visible);
 
-	public static native long Scene_addFullScreenTextureNode(long texturePtr, int rotationType);
+	public static native long Scene_addFullScreenTextureNode(long texturePtr,
+			int rotationType);
 
 	// Camera
 	public static native void Camera_setViewMatrix(float[] matrix);
@@ -75,37 +77,47 @@ public class UGraphics {
 
 	public static native void Node_setVisible(long nodePtr, boolean visible);
 
-	public static native void Node_setPosition(long nodePtr, float x, float y, float z);
+	public static native void Node_setPosition(long nodePtr, float x, float y,
+			float z);
 
-	public static native void Node_setRotation(long nodePtr, float x, float y, float z);
+	public static native void Node_setRotation(long nodePtr, float x, float y,
+			float z);
 
-	public static native void Node_setScale(long nodePtr, float x, float y, float z);
+	public static native void Node_setScale(long nodePtr, float x, float y,
+			float z);
 
 	public static native void Node_setParent(long nodePtr, long parentPtr);
 
 	public static native void Node_setModelMatrix(long nodePtr, float[] matrix);
 
 	// TODO: implement it
-	public static native void Node_setBillboard(long nodePtr, boolean isBillboard);
+	public static native void Node_setBillboard(long nodePtr,
+			boolean isBillboard);
 
 	public static native void Node_setLighting(long nodePtr, boolean enabled);
 
 	public static native void Node_setTexture(long nodePtr, long texturePtr);
 
-	public static native void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
+	public static native void Node_setTextureAtLayer(long nodePtr,
+			int textureLayer, long texturePtr);
 
-	public static native void Node_setMaterialType(long nodePtr, int materialType);
+	public static native void Node_setMaterialType(long nodePtr,
+			int materialType);
 
 	// MeshNode methods
 	public static native void MeshNode_setAnimationFps(long nodePtr, float fps);
 
-	public static native void MeshNode_setAnimationLoop(long nodePtr, boolean isLoop);
+	public static native void MeshNode_setAnimationLoop(long nodePtr,
+			boolean isLoop);
 
-	public static native void MeshNode_setAnimationByName(long nodePtr, String animationName);
+	public static native void MeshNode_setAnimationByName(long nodePtr,
+			String animationName);
 
-	public static native void MeshNode_setAnimationByIndex(long nodePtr, int index);
+	public static native void MeshNode_setAnimationByIndex(long nodePtr,
+			int index);
 
-	public static native void MeshNode_setAnimationByRange(long nodePtr, int start, int end);
+	public static native void MeshNode_setAnimationByRange(long nodePtr,
+			int start, int end);
 
 	public static native boolean MeshNode_isAnimationComplete(long nodePtr);
 
@@ -118,12 +130,14 @@ public class UGraphics {
 
 	public static native void LightNode_setRadius(long nodePtr, float radius);
 
-	public static native void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a);
+	public static native void LightNode_setDiffuseColor(long nodePtr, float r,
+			float g, float b, float a);
 
 	// Texture methods
 	public static native void Texture_update(long texturePtr, byte[] srcARGB8);
 
-	public static native void Texture_renderFullScreen(long texturePtr, int rotationType);
+	public static native void Texture_renderFullScreen(long texturePtr,
+			int rotationType);
 
 	public static native void Texture_write(long texturePtr, String filename);
 

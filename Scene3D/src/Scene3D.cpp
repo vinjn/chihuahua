@@ -71,6 +71,7 @@ enum NodeIdCategory
     NODE_VISIBLE_CATEGORY = 1 << 20,
 };
 
+char nameBuffer[256];
 s32 getNewNodeId(NodeIdCategory category)
 {
     // TODO:
@@ -140,8 +141,10 @@ T* getTypedNode(long nodePtr)
 
 static scene::ISceneNode* addDummyNode()
 {
+    static int counter = 0;
+    sprintf(nameBuffer, "dummy#%d", counter++);
     scene::IDummyTransformationSceneNode* node = smgr->addDummyTransformationSceneNode(arRootNode);
-    node->setName("dummy#");
+    node->setName(nameBuffer);
     node->setID(getNewNodeId(NODE_INVISIBLE_CATEGORY));
 
     return node;
@@ -149,10 +152,14 @@ static scene::ISceneNode* addDummyNode()
 
 long Scene_addLightNode()
 {
+    static int counter = 0;
+    sprintf(nameBuffer, "light#%d", counter++);
     // driver->setAmbientLight(video::SColorf(0.2f, 0.2f, 0.2f));
-    scene::ILightSceneNode* light = smgr->addLightSceneNode(addDummyNode());
+    scene::ILightSceneNode* node = smgr->addLightSceneNode(addDummyNode());
+    node->setID(getNewNodeId(NODE_INVISIBLE_CATEGORY));
+    node->setName(nameBuffer);
 
-    return (long)light;
+    return (long)node;
 }
 
 void LightNode_setType(long nodePtr, LightType lightType)
@@ -211,7 +218,7 @@ void Scene_render()
     driver->endScene();
 }
 
-static void postProcessNode(scene::ISceneNode* node, const char* name)
+static void postProcessNode(scene::ISceneNode* node, const stringc name)
 {
     if (node)
     {
@@ -242,29 +249,38 @@ long Scene_getNodeFromName(const char* nodeName)
 
 long Scene_addCubeNode(float size)
 {
+    static int counter = 0;
+    sprintf(nameBuffer, "cube#%d", counter++);
+
     scene::ISceneNode* node = smgr->addCubeSceneNode(size, addDummyNode());
-    postProcessNode(node, "cube");
+    postProcessNode(node, nameBuffer);
 
     return (long)node;
 }
 
 long Scene_addPlaneNode(float width, float height)
 {
+    static int counter = 0;
+    sprintf(nameBuffer, "plane#%d", counter++);
+
     scene::IMesh* planeMesh = smgr->getGeometryCreator()->
                                 createPlaneMesh(core::dimension2d<f32>(width, height));
     scene::ISceneNode* node = smgr->addMeshSceneNode(planeMesh, addDummyNode());
     node->setRotation(core::vector3df(-90, 0, 0));
     planeMesh->drop();
 
-    postProcessNode(node, "plane");
+    postProcessNode(node, nameBuffer);
 
     return (long)node;
 }
 
 long Scene_addSphereNode(float radius)
 {
+    static int counter = 0;
+    sprintf(nameBuffer, "sphere#%d", counter++);
+
     scene::ISceneNode* node = smgr->addSphereSceneNode(radius, 16, addDummyNode());
-    postProcessNode(node, "sphere");
+    postProcessNode(node, nameBuffer);
 
     return (long)node;
 }

@@ -22,6 +22,9 @@
 #*.a
 #*.lib
 
+Scene3D/obj
+UGraphics/obj
+
 # Executables
 *.exe
 *.out
