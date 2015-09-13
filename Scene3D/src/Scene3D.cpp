@@ -20,18 +20,18 @@ using namespace core;
 
 namespace irr
 {
-    class CIrrDeviceIPhone;
+class CIrrDeviceIPhone;
 namespace video
 {
 
 IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
-        io::IFileSystem* io
+                                 io::IFileSystem* io
 #if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
-        , IContextManager* contextManager
+                                 , IContextManager* contextManager
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
-        , CIrrDeviceIPhone* device
+                                 , CIrrDeviceIPhone* device
 #endif
-    );
+                                );
 
 IVideoDriver* createNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& screenSize);
 
@@ -47,7 +47,7 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
         break;
     case video::EDT_NULL:
         videoDriver = video::createNullDriver(filesystem, params.WindowSize);
-        break;        
+        break;
     default:
         printf("This driver is not available. Try OpenGL ES 2.0.");
         break;
@@ -131,7 +131,7 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
     camera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
 }
 
-template <typename T> 
+template <typename T>
 T* getTypedNode(long nodePtr)
 {
     T* node = (T*)nodePtr;
@@ -174,7 +174,7 @@ void LightNode_setType(long nodePtr, LightType lightType)
 
 void LightNode_setRadius(long nodePtr, float radius)
 {
-    getTypedNode<scene::ILightSceneNode>(nodePtr)->setRadius(radius);    
+    getTypedNode<scene::ILightSceneNode>(nodePtr)->setRadius(radius);
 }
 
 void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a)
@@ -264,7 +264,7 @@ long Scene_addPlaneNode(float width, float height)
     sprintf(nameBuffer, "plane#%d", counter++);
 
     scene::IMesh* planeMesh = smgr->getGeometryCreator()->
-                                createPlaneMesh(core::dimension2d<f32>(width, height));
+                              createPlaneMesh(core::dimension2d<f32>(width, height));
     scene::ISceneNode* node = smgr->addMeshSceneNode(planeMesh, addDummyNode());
     node->setRotation(core::vector3df(-90, 0, 0));
     planeMesh->drop();
@@ -314,38 +314,54 @@ void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr)
     node->setMaterialTexture(textureLayer, texture);
 }
 
-void MeshNode_setAnimationFps(long nodePtr, float fps)
-{
-    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationSpeed(fps);
-}
-
 void Node_setBillboard(long nodePtr, s3dBool isBillboard)
 {
     getTypedNode<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
 }
 
+#define CHECK_ANIMATED_MESH_RETURN(nodePtr) \
+    auto node = getTypedNode<scene::ISceneNode>(nodePtr);\
+    if (!node->isAnimatedMeshNode())\
+    {\
+        printf("%s is not an animated mesh\n", node->getName());\
+        return;\
+    }
+
+void MeshNode_setAnimationFps(long nodePtr, float fps)
+{
+    CHECK_ANIMATED_MESH_RETURN(nodePtr);
+    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationSpeed(fps);
+}
+
 void MeshNode_setAnimationByName(long nodePtr, const char* animationName)
 {
+    CHECK_ANIMATED_MESH_RETURN(nodePtr);
     getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationByName(animationName);
 }
 
 void MeshNode_setAnimationLoop(long nodePtr, s3dBool isLoop)
 {
+    CHECK_ANIMATED_MESH_RETURN(nodePtr);
     getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setLoopMode(isLoop);
 }
 
 void MeshNode_setAnimationByIndex(long nodePtr, int index)
 {
+    CHECK_ANIMATED_MESH_RETURN(nodePtr);
     getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(index);
 }
 
 void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
 {
+    CHECK_ANIMATED_MESH_RETURN(nodePtr);
     getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
 }
 
 s3dBool MeshNode_isAnimationCompleted(long nodePtr)
 {
+    auto node = getTypedNode<scene::ISceneNode>(nodePtr);
+    if (!node->isAnimatedMeshNode()) return false;
+
     return getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->isAnimationCompleted();
 }
 
@@ -589,12 +605,12 @@ void Node_setMaterialType(long nodePtr, MaterialType materialType)
     video::E_MATERIAL_TYPE type = video::EMT_SOLID;
     switch (materialType)
     {
-        case Solid: type = video::EMT_SOLID; break;
-        case ColorAdd: type = video::EMT_TRANSPARENT_ADD_COLOR; break;
-        case AlphaBlend: type = video::EMT_TRANSPARENT_ALPHA_CHANNEL; break;
-        case NormalMap: type = video::EMT_NORMAL_MAP_SOLID; break;
-        case LightMap: type = video::EMT_LIGHTMAP; break;
-        default: break;
+    case Solid: type = video::EMT_SOLID; break;
+    case ColorAdd: type = video::EMT_TRANSPARENT_ADD_COLOR; break;
+    case AlphaBlend: type = video::EMT_TRANSPARENT_ALPHA_CHANNEL; break;
+    case NormalMap: type = video::EMT_NORMAL_MAP_SOLID; break;
+    case LightMap: type = video::EMT_LIGHTMAP; break;
+    default: break;
     }
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     node->setMaterialType(type);

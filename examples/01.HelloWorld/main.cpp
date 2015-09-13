@@ -126,7 +126,7 @@ int main()
     };
     c8* textures[] =
     {
-        "../../media/metaioman.png",
+        "../../media/seymour.jpg",
     };
     IAnimatedMeshSceneNode* head = 0;
     const float kCamDistZ = 40;
@@ -185,6 +185,9 @@ int main()
         light1->setLightType(video::ELT_POINT);
         light1->setRadius(200.f);
         light1->getLightData().DiffuseColor.set(1,1,1);
+        auto flyAnimator = smgr->createFlyCircleAnimator({}, 1000);
+        light1->addAnimator(flyAnimator);
+        flyAnimator->drop();
     }
     //smgr->addCubeSceneNode();
 #if 0

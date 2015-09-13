@@ -135,7 +135,7 @@ bool IrrAssimpImport::isALoadableFileExtension(const io::path& filename) const
 
     io::path extension;
     irr::core::getFileNameExtension(extension, filename);
-    return importer.IsExtensionSupported (to_char_string(extension).c_str());
+    return importer.IsExtensionSupported(extension.c_str());
 }
 
 struct IrrlichtIOSystem : public Assimp::DefaultIOSystem
@@ -177,7 +177,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
     Assimp::Importer Importer;
     Importer.SetIOHandler(new IrrlichtIOSystem(FileSystem));
 
-    const aiScene* pScene = Importer.ReadFile(to_char_string(path).c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+    const aiScene* pScene = Importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 
     if (!pScene)
     {
@@ -407,7 +407,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
         }
 
         printf("mTicksPerSecond = %.1f\n", anim->mTicksPerSecond);
-        s32 deltaFrameNumber = anim->mChannels[0]->mNumPositionKeys;
+        // s32 deltaFrameNumber = anim->mChannels[0]->mNumPositionKeys;
         scene::CSkinnedMesh::SAnimationData animationData =
         {
             anim->mName.C_Str(),

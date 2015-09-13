@@ -162,7 +162,6 @@ namespace scene
 		u32 StartTime;		//! Used by animators which are time-based, ignored otherwise.
 	};
 
-
 } // end namespace scene
 } // end namespace irr
 

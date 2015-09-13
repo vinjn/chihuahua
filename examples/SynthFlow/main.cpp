@@ -445,38 +445,6 @@ private:
     bool FirstUpdate;
 };
 
-struct ActionAnimator : public ISceneNodeAnimator
-{
-    typedef std::function<void(ISceneNode*, u32)> Action;
-
-    static void addActionToNode(ISceneNode* node, Action action)
-    {
-        ActionAnimator* actionAnimator = new ActionAnimator(action);
-        node->addAnimator(actionAnimator);
-        actionAnimator->drop();
-    }
-
-    ActionAnimator(Action action)
-    {
-        this->action = action;
-    }
-
-    virtual void animateNode(ISceneNode* node, u32 timeMs)
-    {
-        action(node, timeMs);
-    }
-
-    virtual ISceneNodeAnimator* createClone(ISceneNode* node,
-        ISceneManager* newManager)
-    {
-        ActionAnimator * newAnimator = new ActionAnimator(action);
-        newAnimator->cloneMembers(this);
-        return newAnimator;
-    }
-
-    Action action;
-};
-
 int main()
 {
     device = createDevice(video::EDT_DIRECT3D9, dimension2d<u32>(WINDOW_W, WINDOW_H), 16,
@@ -578,7 +546,7 @@ int main()
 #else
         u32 StartTime = device->getTimer()->getTime();
 
-        ActionAnimator::addActionToNode(node, [&StartTime, &kRotation](ISceneNode* node, u32 timeMs){
+        FunctionalAnimator::addFunctionToNode(node, [&StartTime, &kRotation](ISceneNode* node, u32 timeMs){
             printf("%d\n", node->getID());
             const u32 diffTime = timeMs - StartTime;
 

@@ -7,7 +7,6 @@
 
 #include "ISceneNode.h"
 #include "IBoneSceneNode.h"
-#include "IAnimatedMeshMD2.h"
 #include "IAnimatedMeshMD3.h"
 
 namespace irr
@@ -220,6 +219,7 @@ namespace scene
 		\return The newly created clone of this node. */
 		virtual ISceneNode* clone(ISceneNode* newParent=0, ISceneManager* newManager=0) = 0;
 
+        virtual bool isAnimatedMeshNode() const { return true; }
 	};
 
 } // end namespace scene

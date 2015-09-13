@@ -25,9 +25,7 @@ LOCAL_SRC_FILES := \
 					$(SCENE3D_PATH)/Android/Scene3DAndroid.cpp \
 					$(SCENE3D_PATH)/Android/CAndroidAssetFileArchive.cpp \
 					$(SCENE3D_PATH)/Android/CAndroidAssetReader.cpp \
-    				$(ASSIMP_PATH)/IrrAssimp.cpp \
     				$(ASSIMP_PATH)/IrrAssimpImport.cpp \
-    				$(ASSIMP_PATH)/IrrAssimpUtils.cpp \
     				$(ASSIMP_PATH)/code/Assimp.cpp \
     				$(ASSIMP_PATH)/code/BaseImporter.cpp \
     				$(ASSIMP_PATH)/code/ColladaLoader.cpp \

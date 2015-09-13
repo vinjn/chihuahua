@@ -1280,13 +1280,7 @@
       <Filter>assimp\importer\collada</Filter>
     </ClInclude>
     <ClInclude Include="..\3rdparty\stb\stb_image_write.h" />
-    <ClInclude Include="..\assimp\IrrAssimp.h">
-      <Filter>assimp</Filter>
-    </ClInclude>
     <ClInclude Include="..\assimp\IrrAssimpImport.h">
-      <Filter>assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\assimp\IrrAssimpUtils.h">
       <Filter>assimp</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1956,13 +1950,7 @@
     <ClCompile Include="..\assimp\code\DXFLoader.cpp">
       <Filter>assimp\importer</Filter>
     </ClCompile>
-    <ClCompile Include="..\assimp\IrrAssimp.cpp">
-      <Filter>assimp</Filter>
-    </ClCompile>
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp">
-      <Filter>assimp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\assimp\IrrAssimpUtils.cpp">
       <Filter>assimp</Filter>
     </ClCompile>
   </ItemGroup>

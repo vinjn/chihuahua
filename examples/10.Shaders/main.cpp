@@ -18,9 +18,6 @@ nearly all other tutorials:
 
 using namespace irr;
 
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 /*
 Because we want to use some interesting shaders in this tutorials, we need to
@@ -368,9 +365,9 @@ int main()
 	node->setMaterialFlag(video::EMF_LIGHTING, false);
 	node->setMaterialType((video::E_MATERIAL_TYPE)newMaterialType1);
 
-	smgr->addTextSceneNode(gui->getBuiltInFont(),
-			L"PS & VS & EMT_SOLID",
-			video::SColor(255,255,255,255),	node);
+	//smgr->addTextSceneNode(gui->getBuiltInFont(),
+	//		L"PS & VS & EMT_SOLID",
+	//		video::SColor(255,255,255,255),	node);
 
 	scene::ISceneNodeAnimator* anim = smgr->createRotationAnimator(
 			core::vector3df(0,0.3f,0));
@@ -390,9 +387,9 @@ int main()
 	node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
 	node->setMaterialType((video::E_MATERIAL_TYPE)newMaterialType2);
 
-	smgr->addTextSceneNode(gui->getBuiltInFont(),
-			L"PS & VS & EMT_TRANSPARENT",
-			video::SColor(255,255,255,255),	node);
+	//smgr->addTextSceneNode(gui->getBuiltInFont(),
+	//		L"PS & VS & EMT_TRANSPARENT",
+	//		video::SColor(255,255,255,255),	node);
 
 	anim = smgr->createRotationAnimator(core::vector3df(0,0.3f,0));
 	node->addAnimator(anim);
@@ -409,8 +406,8 @@ int main()
 	node->setPosition(core::vector3df(0,50,25));
 	node->setMaterialTexture(0, driver->getTexture("../../media/wall.bmp"));
 	node->setMaterialFlag(video::EMF_LIGHTING, false);
-	smgr->addTextSceneNode(gui->getBuiltInFont(), L"NO SHADER",
-		video::SColor(255,255,255,255), node);
+	//smgr->addTextSceneNode(gui->getBuiltInFont(), L"NO SHADER",
+		//video::SColor(255,255,255,255), node);
 
 	/*
 	And last, we add a skybox and a user controlled camera to the scene.
