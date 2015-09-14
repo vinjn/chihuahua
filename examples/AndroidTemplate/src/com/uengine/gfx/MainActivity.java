@@ -254,9 +254,11 @@ public final class MainActivity extends Activity implements Renderer {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			long hitNode = UGraphics.Scene_pickNodeFromScreen(event.getX(),
 					event.getY());
-			if (hitNode != 0 && hitNode != mCubeNode) {
-				UGraphics.MeshNode_setAnimationByName(hitNode, "shock_down");
-				UGraphics.MeshNode_setAnimationLoop(hitNode, false);
+			if (hitNode == mMeshNode) {
+				if (UGraphics.MeshNode_isAnimationCompleted(hitNode)) {
+					UGraphics.MeshNode_setAnimationByName(hitNode, "shock_down");
+					UGraphics.MeshNode_setAnimationLoop(hitNode, false);
+				}
 			}
 		}
 
@@ -322,6 +324,7 @@ public final class MainActivity extends Activity implements Renderer {
 		} else {
 			UGraphics.Scene_setVisible(false);
 		}
+		
 		UGraphics.Scene_render();
 	}
 
@@ -353,7 +356,7 @@ public final class MainActivity extends Activity implements Renderer {
 			UGraphics.Node_setTexture(mMeshNode,
 					UGraphics.Scene_addTexture("monster/monster.jpg"));
 		}
-		UGraphics.Node_setLighting(mMeshNode, true);
+		UGraphics.Node_setLighting(mMeshNode, false);
 		UGraphics.MeshNode_setAnimationByName(mMeshNode, "idle");
 		UGraphics.MeshNode_setAnimationLoop(mMeshNode, false);
 		UGraphics.Node_setPosition(mMeshNode, 0, 0, 0);

@@ -119,7 +119,7 @@ public class UGraphics {
 	public static native void MeshNode_setAnimationByRange(long nodePtr,
 			int start, int end);
 
-	public static native boolean MeshNode_isAnimationComplete(long nodePtr);
+	public static native boolean MeshNode_isAnimationCompleted(long nodePtr);
 
 	// LightNode methods
 	// for LightNode_setType()
