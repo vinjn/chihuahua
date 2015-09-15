@@ -37,7 +37,7 @@ import com.metaio.tools.Screen;
 import com.metaio.tools.SystemInfo;
 import com.metaio.tools.io.AssetsManager;
 
-public final class MainActivity extends Activity implements Renderer {
+public final class MainActivity extends Activity implements Renderer{
 
 	private UGraphics mGraphics;
 	private long mCubeNode;
@@ -249,13 +249,17 @@ public final class MainActivity extends Activity implements Renderer {
 		}
 	}
 
+	int animIdx = 0;
+	boolean isAnimationCompleted = false;
+
 	public boolean onTouchEvent(MotionEvent event) {
 		// MetaioDebug.log(Log.INFO, event.toString());
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			long hitNode = UGraphics.Scene_pickNodeFromScreen(event.getX(),
 					event.getY());
 			if (hitNode == mMeshNode) {
-				if (UGraphics.MeshNode_isAnimationCompleted(hitNode)) {
+				if (isAnimationCompleted) {
+					isAnimationCompleted = false;
 					UGraphics.MeshNode_setAnimationByName(hitNode, "shock_down");
 					UGraphics.MeshNode_setAnimationLoop(hitNode, false);
 				}
@@ -312,7 +316,7 @@ public final class MainActivity extends Activity implements Renderer {
 		final TrackingValues trackingValues = metaioSDK.getTrackingValues(1);
 
 		if (trackingValues.isTrackingState()) {
-			MetaioDebug.log(Log.DEBUG, "onTracked");
+//			MetaioDebug.log(Log.DEBUG, "onTracked");
 			metaioSDK.getTrackingValues(1, modelMatrix, false, true);
 			metaioSDK.getProjectionMatrix(projMatrix, true,
 					ECAMERA_TYPE.ECT_RENDERING_MONO);
@@ -324,7 +328,7 @@ public final class MainActivity extends Activity implements Renderer {
 		} else {
 			UGraphics.Scene_setVisible(false);
 		}
-		
+
 		UGraphics.Scene_render();
 	}
 
@@ -356,6 +360,14 @@ public final class MainActivity extends Activity implements Renderer {
 			UGraphics.Node_setTexture(mMeshNode,
 					UGraphics.Scene_addTexture("monster/monster.jpg"));
 		}
+		
+		UGraphics.MeshNode_registerCallback(mMeshNode, new UGraphics.MeshNodeCallback() {
+			public void onAnimationCompleted(long nodePtr) {
+				DebugLog.w("Animation completed");
+				animIdx = (animIdx + 1) % 6;
+				UGraphics.MeshNode_setAnimationByIndex(mMeshNode, animIdx);
+			}
+		});
 		UGraphics.Node_setLighting(mMeshNode, false);
 		UGraphics.MeshNode_setAnimationByName(mMeshNode, "idle");
 		UGraphics.MeshNode_setAnimationLoop(mMeshNode, false);

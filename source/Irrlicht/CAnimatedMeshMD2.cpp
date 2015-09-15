@@ -405,12 +405,12 @@ bool CAnimatedMeshMD2::getFrameLoop(int l,
 	if (l < 0 || l >= EMAT_COUNT)
 		return false;
 
-	outBegin = MD2AnimationTypeList[l].begin << MD2_FRAME_SHIFT;
-	outEnd = MD2AnimationTypeList[l].end << MD2_FRAME_SHIFT;
+	outBegin = (s32)AnimationData[l].begin << MD2_FRAME_SHIFT;
+	outEnd = (s32)AnimationData[l].end << MD2_FRAME_SHIFT;
 
 	// correct to anim between last->first frame
 	outEnd += MD2_FRAME_SHIFT == 0 ? 1 : (1 << MD2_FRAME_SHIFT) - 1;
-	outFPS = MD2AnimationTypeList[l].fps << MD2_FRAME_SHIFT;
+	outFPS = (s32)AnimationData[l].fps << MD2_FRAME_SHIFT;
 
 	return true;
 }
