@@ -70,10 +70,10 @@
 // vinjn: add gles2 support to windows desktop simulator
 // #define NO_IRR_COMPILE_WITH_OGLES1_
 // #define NO_IRR_COMPILE_WITH_OGLES2_
-//#undef NO_IRR_COMPILE_WITH_GUI_
+#undef NO_IRR_COMPILE_WITH_GUI_
 // Experimental
 #undef NO_IRR_COMPILE_WITH_STB_LOADER_
-#define NO_IRR_COMPILE_WITH_BMP_LOADER_
+//#define NO_IRR_COMPILE_WITH_BMP_LOADER_
 #define NO_IRR_COMPILE_WITH_JPG_LOADER_
 #define NO_IRR_COMPILE_WITH_PNG_LOADER_
 #define NO_IRR_COMPILE_WITH_DDS_LOADER_

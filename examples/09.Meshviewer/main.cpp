@@ -14,14 +14,9 @@ statements, so we do not need to write the whole names of all classes. In this
 tutorial, we use a lot stuff from the gui namespace.
 */
 #include <irrlicht.h>
-#include "driverChoice.h"
 
 using namespace irr;
 using namespace gui;
-
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 
 /*
@@ -729,9 +724,7 @@ is quite useful for a mesh viewer.
 int main(int argc, char* argv[])
 {
 	// ask user for driver
-	video::E_DRIVER_TYPE driverType=driverChoiceConsole();
-	if (driverType==video::EDT_COUNT)
-		return 1;
+    video::E_DRIVER_TYPE driverType = video::EDT_DIRECT3D9;
 
 	// create device and exit if creation failed
 	MyEventReceiver receiver;
