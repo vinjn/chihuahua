@@ -68,7 +68,9 @@ void MeshNode_setAnimationLoop(long nodePtr, s3dBool isLoop);
 void MeshNode_setAnimationByName(long nodePtr, const char* animationName);
 void MeshNode_setAnimationByIndex(long nodePtr, int index);
 void MeshNode_setAnimationByRange(long nodePtr, int start, int end);
-s3dBool MeshNode_isAnimationCompleted(long nodePtr);
+
+typedef void (*AnimationEndCallBack)(long nodePtr);
+void MeshNode_registerCallback(long nodePtr, AnimationEndCallBack cb);
 
 // LightNode methods
 typedef enum

@@ -321,7 +321,7 @@ void Node_setBillboard(long nodePtr, s3dBool isBillboard)
 
 #define CHECK_ANIMATED_MESH_RETURN(nodePtr) \
     auto node = getTypedNode<scene::ISceneNode>(nodePtr);\
-    if (!node->isAnimatedMeshNode())\
+    if (!node || !node->isAnimatedMeshNode())\
     {\
         printf("%s is not an animated mesh\n", node->getName());\
         return;\
@@ -357,12 +357,24 @@ void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
     getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
 }
 
-s3dBool MeshNode_isAnimationCompleted(long nodePtr)
+void MeshNode_registerCallback(long nodePtr, AnimationEndCallBack cb)
 {
-    auto node = getTypedNode<scene::ISceneNode>(nodePtr);
-    if (!node->isAnimatedMeshNode()) return false;
+    struct MyAnimationEndCallBack : public scene::IAnimationEndCallBack
+    {
+        MyAnimationEndCallBack(AnimationEndCallBack cb)
+        {
+            mCallback = cb;
+        }
 
-    return getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->isAnimationCompleted();
+        virtual void OnAnimationEnd(scene::IAnimatedMeshSceneNode* node)
+        {
+            mCallback((long)node);    
+        }
+        AnimationEndCallBack mCallback;
+    };
+
+    CHECK_ANIMATED_MESH_RETURN(nodePtr);
+    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationEndCallback(new MyAnimationEndCallBack(cb));
 }
 
 void Scene_destroy()
