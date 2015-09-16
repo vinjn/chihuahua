@@ -68,6 +68,9 @@ LOCAL_SRC_FILES := \
                     $(ASSIMP_PATH)/code/ValidateDataStructure.cpp \
                     $(ASSIMP_PATH)/code/Version.cpp \
                     $(ASSIMP_PATH)/code/VertexTriangleAdjacency.cpp \
+                    $(ASSIMP_PATH)/code/ObjFileImporter.cpp \
+                    $(ASSIMP_PATH)/code/ObjFileMtlImporter.cpp \
+                    $(ASSIMP_PATH)/code/ObjFileParser.cpp \
                     $(ASSIMP_PATH)/contrib/ConvertUTF/ConvertUTF.c \
                     C3DSMeshFileLoader.cpp \
                     CAnimatedMeshHalfLife.cpp \
@@ -122,8 +125,6 @@ LOCAL_SRC_FILES := \
                     CIrrDeviceStub.cpp \
                     CIrrDeviceWin32.cpp \
                     CIrrDeviceWinCE.cpp \
-                    CIrrMeshFileLoader.cpp \
-                    CIrrMeshWriter.cpp \
                     CLightSceneNode.cpp \
                     CLimitReadFile.cpp \
                     CLMTSMeshFileLoader.cpp \
@@ -138,13 +139,7 @@ LOCAL_SRC_FILES := \
                     CMeshTextureLoader.cpp \
                     CMetaTriangleSelector.cpp \
                     CMountPointReader.cpp \
-                    CMS3DMeshFileLoader.cpp \
-                    CMY3DMeshFileLoader.cpp \
-                    CNPKReader.cpp \
                     CNullDriver.cpp \
-                    COBJMeshFileLoader.cpp \
-                    COBJMeshWriter.cpp \
-                    COCTLoader.cpp \
                     COctreeSceneNode.cpp \
                     COctreeTriangleSelector.cpp \
                     CEGLManager.cpp \
@@ -156,19 +151,7 @@ LOCAL_SRC_FILES := \
                     COGLES2ParallaxMapRenderer.cpp \
                     COGLES2Renderer2D.cpp \
                     COGLES2Texture.cpp \
-                    COGLESDriver.cpp \
-                    COGLESExtensionHandler.cpp \
-                    COGLESTexture.cpp \
-                    COgreMeshFileLoader.cpp \
-                    COpenGLDriver.cpp \
-                    COpenGLExtensionHandler.cpp \
-                    COpenGLNormalMapRenderer.cpp \
-                    COpenGLParallaxMapRenderer.cpp \
-                    COpenGLShaderMaterialRenderer.cpp \
-                    COpenGLSLMaterialRenderer.cpp \
-                    COpenGLTexture.cpp \
                     COSOperator.cpp \
-                    CPakReader.cpp \
                     CParticleAnimatedMeshSceneNodeEmitter.cpp \
                     CParticleAttractionAffector.cpp \
                     CParticleBoxEmitter.cpp \
@@ -185,8 +168,6 @@ LOCAL_SRC_FILES := \
                     CPLYMeshFileLoader.cpp \
                     CPLYMeshWriter.cpp \
                     CProfiler.cpp \
-                    CQ3LevelMesh.cpp \
-                    CQuake3ShaderSceneNode.cpp \
                     CReadFile.cpp \
                     CSceneCollisionManager.cpp \
                     CSceneLoaderIrr.cpp \

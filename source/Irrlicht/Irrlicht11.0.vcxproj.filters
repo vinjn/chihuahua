@@ -106,6 +106,9 @@
     <Filter Include="assimp\importer\collada">
       <UniqueIdentifier>{09b3fb76-9e99-40a3-a2c3-b79484c8d827}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assimp\importer\obj">
+      <UniqueIdentifier>{917d8a50-b92b-4560-862e-2b330d5d0171}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1952,6 +1955,15 @@
     </ClCompile>
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp">
       <Filter>assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\ObjFileImporter.cpp">
+      <Filter>assimp\importer\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\ObjFileMtlImporter.cpp">
+      <Filter>assimp\importer\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\ObjFileParser.cpp">
+      <Filter>assimp\importer\obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

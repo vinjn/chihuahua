@@ -1076,6 +1076,9 @@
     <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
     <ClCompile Include="..\assimp\code\ColladaParser.cpp" />
     <ClCompile Include="..\assimp\code\DXFLoader.cpp" />
+    <ClCompile Include="..\assimp\code\ObjFileImporter.cpp" />
+    <ClCompile Include="..\assimp\code\ObjFileMtlImporter.cpp" />
+    <ClCompile Include="..\assimp\code\ObjFileParser.cpp" />
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
