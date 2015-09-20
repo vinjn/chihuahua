@@ -11,12 +11,6 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-#ifdef _DEBUG
-#pragma comment(lib, "Irrlicht_d.lib")
-#else
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 IrrlichtDevice *device;
 
 int main(int argc, char const* const* argv)
@@ -36,8 +30,10 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    auto mesh = smgr->getMesh("../../media/_meshes/vg-remix-skyrim/mesh.obj");
+    auto mesh = smgr->getMesh("../../media/dog_color3.ply");
     auto node = smgr->addMeshSceneNode(mesh);
+    f32 k = 100;
+    node->setScale({ k, k, k });
     //node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);

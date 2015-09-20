@@ -132,7 +132,7 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
 }
 
 template <typename T>
-T* getTypedNode(long nodePtr)
+T* getTypedPointer(long nodePtr)
 {
     T* node = (T*)nodePtr;
     // TODO: check
@@ -169,23 +169,23 @@ void LightNode_setType(long nodePtr, LightType lightType)
     {
         type = video::ELT_DIRECTIONAL;
     }
-    getTypedNode<scene::ILightSceneNode>(nodePtr)->setLightType(type);
+    getTypedPointer<scene::ILightSceneNode>(nodePtr)->setLightType(type);
 }
 
 void LightNode_setRadius(long nodePtr, float radius)
 {
-    getTypedNode<scene::ILightSceneNode>(nodePtr)->setRadius(radius);
+    getTypedPointer<scene::ILightSceneNode>(nodePtr)->setRadius(radius);
 }
 
 void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a)
 {
-    video::SLight& data = getTypedNode<scene::ILightSceneNode>(nodePtr)->getLightData();
+    video::SLight& data = getTypedPointer<scene::ILightSceneNode>(nodePtr)->getLightData();
     data.DiffuseColor.set(r, g, b, a);
 }
 
-void Scene_resize(int width, int height)
+void Scene_initializeRenderer(int width, int height)
 {
-    printf("resize()");
+    printf("initializeRenderer()");
 
     // TODO: memory leak
     // if (driver == NULL)
@@ -316,11 +316,11 @@ void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr)
 
 void Node_setBillboard(long nodePtr, s3dBool isBillboard)
 {
-    getTypedNode<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
+    getTypedPointer<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
 }
 
 #define CHECK_ANIMATED_MESH_RETURN(nodePtr) \
-    auto node = getTypedNode<scene::ISceneNode>(nodePtr);\
+    auto node = getTypedPointer<scene::ISceneNode>(nodePtr);\
     if (!node || !node->isAnimatedMeshNode())\
     {\
         printf("%s is not an animated mesh\n", node->getName());\
@@ -330,31 +330,31 @@ void Node_setBillboard(long nodePtr, s3dBool isBillboard)
 void MeshNode_setAnimationFps(long nodePtr, float fps)
 {
     CHECK_ANIMATED_MESH_RETURN(nodePtr);
-    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationSpeed(fps);
+    getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationSpeed(fps);
 }
 
 void MeshNode_setAnimationByName(long nodePtr, const char* animationName)
 {
     CHECK_ANIMATED_MESH_RETURN(nodePtr);
-    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationByName(animationName);
+    getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationByName(animationName);
 }
 
 void MeshNode_setAnimationLoop(long nodePtr, s3dBool isLoop)
 {
     CHECK_ANIMATED_MESH_RETURN(nodePtr);
-    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setLoopMode(isLoop);
+    getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setLoopMode(isLoop);
 }
 
 void MeshNode_setAnimationByIndex(long nodePtr, int index)
 {
     CHECK_ANIMATED_MESH_RETURN(nodePtr);
-    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(index);
+    getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimation(index);
 }
 
 void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
 {
     CHECK_ANIMATED_MESH_RETURN(nodePtr);
-    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
+    getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
 }
 
 void MeshNode_registerCallback(long nodePtr, AnimationEndCallBack cb)
@@ -374,7 +374,7 @@ void MeshNode_registerCallback(long nodePtr, AnimationEndCallBack cb)
     };
 
     CHECK_ANIMATED_MESH_RETURN(nodePtr);
-    getTypedNode<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationEndCallback(new MyAnimationEndCallBack(cb));
+    getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationEndCallback(new MyAnimationEndCallBack(cb));
 }
 
 void Scene_destroy()
@@ -389,22 +389,38 @@ void Scene_removeNode(long nodePtr)
     delete transformNode;
 }
 
-long Scene_addMeshNode(const char* meshName)
+long Scene_addMeshNode(const char* meshFileName)
 {
     scene::IAnimatedMeshSceneNode* node = NULL;
     {
-        scene::IAnimatedMesh* mesh = smgr->getMesh(meshName);
+        scene::IAnimatedMesh* mesh = smgr->getMesh(meshFileName);
         if (mesh)
         {
             node = smgr->addAnimatedMeshSceneNode(mesh, addDummyNode());
             if (node)
             {
-                postProcessNode(node, meshName);
+                postProcessNode(node, meshFileName);
                 node->setAnimation(0U);
             }
         }
     }
     return (long)node;
+}
+
+long Scene_addImageFromFile(const char* imageFileName)
+{
+    video::IImage* img = driver->createImageFromFile(imageFileName);
+
+    return (long)img;
+}
+
+long Scene_addTextureFromImage(long imagePtr)
+{
+    auto image = getTypedPointer<video::IImage>(imagePtr);
+    auto texture = driver->addTexture("TextureFromImage", image);
+    image->drop();
+
+    return (long)texture;
 }
 
 long Scene_getRootNode()
@@ -415,25 +431,25 @@ long Scene_getRootNode()
 void Node_setVisible(long nodePtr, s3dBool visible)
 {
     // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    getTypedNode<scene::ISceneNode>(nodePtr)->setVisible(visible);
+    getTypedPointer<scene::ISceneNode>(nodePtr)->setVisible(visible);
 }
 
 void Node_setPosition(long nodePtr, float x, float y, float z)
 {
     // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    getTypedNode<scene::ISceneNode>(nodePtr)->setPosition(vector3df(x, y, z));
+    getTypedPointer<scene::ISceneNode>(nodePtr)->setPosition(vector3df(x, y, z));
 }
 
 void Node_setRotation(long nodePtr, float x, float y, float z)
 {
     // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    getTypedNode<scene::ISceneNode>(nodePtr)->setRotation(vector3df(x, y, z));
+    getTypedPointer<scene::ISceneNode>(nodePtr)->setRotation(vector3df(x, y, z));
 }
 
 void Node_setScale(long nodePtr, float x, float y, float z)
 {
     // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    getTypedNode<scene::ISceneNode>(nodePtr)->setScale(vector3df(x, y, z));
+    getTypedPointer<scene::ISceneNode>(nodePtr)->setScale(vector3df(x, y, z));
 }
 
 void Node_setParent(long nodePtr, long parentPtr)

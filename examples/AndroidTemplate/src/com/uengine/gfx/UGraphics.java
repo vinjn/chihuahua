@@ -35,9 +35,13 @@ public class UGraphics {
 
 	public static native long Scene_addTexture(String textureName);
 
+	public static native long Scene_addImageFromFile(String imageFileName);
+
+	public static native long Scene_addTextureFromImage(long imagePtr);
+
 	public static native long Scene_addEmptyTexture(int width, int height);
 
-	public static native void Scene_resize(int width, int height);
+	public static native void Scene_initializeRenderer(int width, int height);
 
 	public static native void Scene_destroy();
 

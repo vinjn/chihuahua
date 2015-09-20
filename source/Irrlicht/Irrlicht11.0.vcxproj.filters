@@ -112,6 +112,9 @@
     <Filter Include="Irrlicht\gui">
       <UniqueIdentifier>{6a9eb343-c190-4284-8eef-7b15669123b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assimp\importer\ply">
+      <UniqueIdentifier>{e6dc62c0-afb3-4906-8ec9-3eb7327292a6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1376,6 +1379,12 @@
     <ClInclude Include="CGUIWindow.h">
       <Filter>Irrlicht\gui</Filter>
     </ClInclude>
+    <ClInclude Include="..\assimp\code\PlyParser.h">
+      <Filter>assimp\importer\ply</Filter>
+    </ClInclude>
+    <ClInclude Include="..\assimp\code\PlyLoader.h">
+      <Filter>assimp\importer\ply</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -2141,6 +2150,12 @@
     </ClCompile>
     <ClCompile Include="CGUIWindow.cpp">
       <Filter>Irrlicht\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\PlyParser.cpp">
+      <Filter>assimp\importer\ply</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\PlyLoader.cpp">
+      <Filter>assimp\importer\ply</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

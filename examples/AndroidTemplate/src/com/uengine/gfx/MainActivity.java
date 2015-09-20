@@ -37,7 +37,7 @@ import com.metaio.tools.Screen;
 import com.metaio.tools.SystemInfo;
 import com.metaio.tools.io.AssetsManager;
 
-public final class MainActivity extends Activity implements Renderer{
+public final class MainActivity extends Activity implements Renderer {
 
 	private UGraphics mGraphics;
 	private long mCubeNode;
@@ -260,7 +260,8 @@ public final class MainActivity extends Activity implements Renderer{
 			if (hitNode == mMeshNode) {
 				if (isAnimationCompleted) {
 					isAnimationCompleted = false;
-					UGraphics.MeshNode_setAnimationByName(hitNode, "shock_down");
+					UGraphics
+							.MeshNode_setAnimationByName(hitNode, "shock_down");
 					UGraphics.MeshNode_setAnimationLoop(hitNode, false);
 				}
 			}
@@ -316,7 +317,7 @@ public final class MainActivity extends Activity implements Renderer{
 		final TrackingValues trackingValues = metaioSDK.getTrackingValues(1);
 
 		if (trackingValues.isTrackingState()) {
-//			MetaioDebug.log(Log.DEBUG, "onTracked");
+			// MetaioDebug.log(Log.DEBUG, "onTracked");
 			metaioSDK.getTrackingValues(1, modelMatrix, false, true);
 			metaioSDK.getProjectionMatrix(projMatrix, true,
 					ECAMERA_TYPE.ECT_RENDERING_MONO);
@@ -341,33 +342,34 @@ public final class MainActivity extends Activity implements Renderer{
 		// if (mScene == null) {
 		mGraphics = new UGraphics(this);
 
-		UGraphics.Scene_resize(width, height);
+		UGraphics.Scene_initializeRenderer(width, height);
 		mCubeNode = UGraphics.Scene_addCubeNode(200);
-		UGraphics.Node_setTexture(mCubeNode,
-				UGraphics.Scene_addTexture("wall.jpg"));
+		UGraphics.Node_setTexture(mCubeNode, UGraphics
+				.Scene_addTextureFromImage(UGraphics
+						.Scene_addImageFromFile("wall.jpg")));
 		UGraphics.Node_setPosition(mCubeNode, 0, 0, 1000);
 		final float kSize = 1000;
 
 		float z = (float) (Math.random() * kSize) - kSize / 2;
 		float k = (float) (Math.random() * 0 + 3);
-		if (true) {
+		if (false) {
 			mMeshNode = UGraphics.Scene_addMeshNode("metaioman.md2");
-			UGraphics.Node_setTexture(mMeshNode,
-					UGraphics.Scene_addTexture("metaioman.png"));
+			UGraphics.Node_setTexture(mMeshNode, UGraphics
+					.Scene_addTextureFromImage(UGraphics
+							.Scene_addImageFromFile("metaioman.png")));
 		} else {
-			// mMeshNode = UGraphics.Scene_addMeshNode("astroboy_walk.dae");
-			mMeshNode = UGraphics.Scene_addMeshNode("monster/monster.dae");
-			UGraphics.Node_setTexture(mMeshNode,
-					UGraphics.Scene_addTexture("monster/monster.jpg"));
+			mMeshNode = UGraphics.Scene_addMeshNode("dog_color3.ply");
 		}
-		
-		UGraphics.MeshNode_registerCallback(mMeshNode, new UGraphics.MeshNodeCallback() {
-			public void onAnimationCompleted(long nodePtr) {
-				DebugLog.w("Animation completed");
-				animIdx = (animIdx + 1) % 6;
-				UGraphics.MeshNode_setAnimationByIndex(mMeshNode, animIdx);
-			}
-		});
+
+		UGraphics.MeshNode_registerCallback(mMeshNode,
+				new UGraphics.MeshNodeCallback() {
+					public void onAnimationCompleted(long nodePtr) {
+						DebugLog.w("Animation completed");
+						animIdx = (animIdx + 1) % 6;
+						UGraphics.MeshNode_setAnimationByIndex(mMeshNode,
+								animIdx);
+					}
+				});
 		UGraphics.Node_setLighting(mMeshNode, false);
 		UGraphics.MeshNode_setAnimationByName(mMeshNode, "idle");
 		UGraphics.MeshNode_setAnimationLoop(mMeshNode, false);

@@ -14,16 +14,18 @@ typedef char s3dBool;   ///< Boolean type
 long Scene_addLightNode();
 long Scene_loadScene(const char* sceneFileName);
 
-long Scene_addMeshNode(const char* meshName);
+long Scene_addMeshNode(const char* meshFileName);
 long Scene_addCubeNode(float size);
 long Scene_addPlaneNode(float width, float height);
 long Scene_addSphereNode(float radius);
 long Scene_addFullScreenTextureNode(long texturePtr, int rotationType);
+long Scene_addImageFromFile(const char* imageFileName);
+long Scene_addTextureFromImage(long imagePtr);
 
 long Scene_addTexture(const char* textureName);
 long Scene_addEmptyTexture(int width, int height);
 
-void Scene_resize(int width, int height);
+void Scene_initializeRenderer(int width, int height);
 void Scene_destroy();
 void Scene_clear();
 void Scene_render();

@@ -1040,6 +1040,8 @@
     <ClInclude Include="..\assimp\code\FBXTokenizer.h" />
     <ClInclude Include="..\assimp\code\FBXUtil.h" />
     <ClInclude Include="..\assimp\code\GenVertexNormalsProcess.h" />
+    <ClInclude Include="..\assimp\code\PlyLoader.h" />
+    <ClInclude Include="..\assimp\code\PlyParser.h" />
     <ClInclude Include="..\assimp\code\ProcessHelper.h" />
     <ClInclude Include="..\assimp\code\ScenePreprocessor.h" />
     <ClInclude Include="..\assimp\code\TriangulateProcess.h" />
@@ -1079,6 +1081,8 @@
     <ClCompile Include="..\assimp\code\ObjFileImporter.cpp" />
     <ClCompile Include="..\assimp\code\ObjFileMtlImporter.cpp" />
     <ClCompile Include="..\assimp\code\ObjFileParser.cpp" />
+    <ClCompile Include="..\assimp\code\PlyLoader.cpp" />
+    <ClCompile Include="..\assimp\code\PlyParser.cpp" />
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>

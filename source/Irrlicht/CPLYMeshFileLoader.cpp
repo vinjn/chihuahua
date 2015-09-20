@@ -26,6 +26,9 @@ namespace scene
 CPLYMeshFileLoader::CPLYMeshFileLoader(scene::ISceneManager* smgr)
 : SceneManager(smgr), File(0), Buffer(0)
 {
+	#ifdef _DEBUG
+	setDebugName("CPLYMeshFileLoader");
+	#endif
 }
 
 

@@ -87,9 +87,9 @@ extern "C"
         return Scene_addLightNode();
     }
 
-    JNIEXPORT void JNICALL Java_com_uengine_gfx_UGraphics_Scene_1resize(JNIEnv * env, jclass cls, jint width, jint height)
+    JNIEXPORT void JNICALL Java_com_uengine_gfx_UGraphics_Scene_1initializeRenderer(JNIEnv * env, jclass cls, jint width, jint height)
     {
-        Scene_resize(width, height);
+        Scene_initializeRenderer(width, height);
     }
 
     JNIEXPORT void JNICALL Java_com_uengine_gfx_UGraphics_Scene_1setVisible(JNIEnv * env, jclass cls, jboolean visible)
@@ -247,6 +247,20 @@ extern "C"
         env->ReleaseStringUTFChars(jMeshName, meshName);
 
         return node;
+    }
+
+    JNIEXPORT jlong JNICALL Java_com_uengine_gfx_UGraphics_Scene_1addImageFromFile(JNIEnv * env, jclass cls, jstring jImageName)
+    {
+        const char *imageFileName = env->GetStringUTFChars(jImageName, JNI_FALSE);
+        jlong img = Scene_addImageFromFile(imageFileName);
+        env->ReleaseStringUTFChars(jImageName, imageFileName);
+
+        return img;
+    }
+
+    JNIEXPORT jlong JNICALL Java_com_uengine_gfx_UGraphics_Scene_1addTextureFromImage(JNIEnv * env, jclass cls, jlong imagePtr)
+    {
+        return Scene_addTextureFromImage(imagePtr);
     }
 
     JNIEXPORT void JNICALL Java_com_uengine_gfx_UGraphics_Scene_1removeNode(JNIEnv * env, jclass cls, jlong nodePtr)
