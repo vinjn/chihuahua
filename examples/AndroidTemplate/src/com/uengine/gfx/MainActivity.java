@@ -352,13 +352,14 @@ public final class MainActivity extends Activity implements Renderer {
 
 		float z = (float) (Math.random() * kSize) - kSize / 2;
 		float k = (float) (Math.random() * 0 + 3);
-		if (false) {
+		if (true) {
 			mMeshNode = UGraphics.Scene_addMeshNode("metaioman.md2");
 			UGraphics.Node_setTexture(mMeshNode, UGraphics
 					.Scene_addTextureFromImage(UGraphics
 							.Scene_addImageFromFile("metaioman.png")));
 		} else {
 			mMeshNode = UGraphics.Scene_addMeshNode("dog_color3.ply");
+			UGraphics.Node_setScale(mMeshNode, 100, 100, 100);
 		}
 
 		UGraphics.MeshNode_registerCallback(mMeshNode,
