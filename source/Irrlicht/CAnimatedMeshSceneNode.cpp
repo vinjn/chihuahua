@@ -23,6 +23,26 @@ namespace irr
 namespace scene
 {
 
+IAnimationEndCallBack* globalAnimationEndCB;
+
+void setGlobalAnimationEndCallback(IAnimationEndCallBack* callback)
+{
+	if (callback == globalAnimationEndCB)
+		return;
+
+	if (globalAnimationEndCB)
+		globalAnimationEndCB->drop();
+
+	globalAnimationEndCB = callback;
+
+	if (globalAnimationEndCB)
+		globalAnimationEndCB->grab();
+}
+
+IAnimationEndCallBack* getGlobalAnimationEndCallback()
+{
+	return globalAnimationEndCB;
+}
 
 //! constructor
 CAnimatedMeshSceneNode::CAnimatedMeshSceneNode(IAnimatedMesh* mesh,
@@ -128,6 +148,8 @@ void CAnimatedMeshSceneNode::buildFrameNr(u32 timeMs)
 				IsAnimationCompleted = true;
 				if (LoopCallBack)
 					LoopCallBack->OnAnimationEnd(this);
+				if (globalAnimationEndCB)
+					globalAnimationEndCB->OnAnimationEnd(this);
 			}
 		}
 		else //backwards...
@@ -138,6 +160,8 @@ void CAnimatedMeshSceneNode::buildFrameNr(u32 timeMs)
 				IsAnimationCompleted = true;
 				if (LoopCallBack)
 					LoopCallBack->OnAnimationEnd(this);
+				if (globalAnimationEndCB)
+					globalAnimationEndCB->OnAnimationEnd(this);				
 			}
 		}
 	}

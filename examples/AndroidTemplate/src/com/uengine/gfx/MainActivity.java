@@ -362,10 +362,10 @@ public final class MainActivity extends Activity implements Renderer {
 			UGraphics.Node_setScale(mMeshNode, 100, 100, 100);
 		}
 
-		UGraphics.MeshNode_registerCallback(mMeshNode,
-				new UGraphics.MeshNodeCallback() {
-					public void onAnimationCompleted(long nodePtr) {
-						DebugLog.w("Animation completed");
+		UGraphics
+				.Scene_setAnimationCallback(new UGraphics.AnimationCallback() {
+					public void onAnimationEnded(int nodePtr) {
+						DebugLog.w("Animation completed: " + nodePtr);
 						animIdx = (animIdx + 1) % 6;
 						UGraphics.MeshNode_setAnimationByIndex(mMeshNode,
 								animIdx);

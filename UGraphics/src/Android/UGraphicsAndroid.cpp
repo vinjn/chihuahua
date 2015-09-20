@@ -201,7 +201,7 @@ extern "C"
         printf("In C, depth = %d, back from Java\n", depth);
     }
     */
-    JNIEXPORT void JNICALL Java_com_uengine_gfx_UGraphics_MeshNode_1registerCallback(JNIEnv * env, jclass cls, jlong nodePtr, jobject jCallbackInterface)
+    JNIEXPORT void JNICALL Java_com_uengine_gfx_UGraphics_Scene_1setAnimationCallback(JNIEnv * env, jclass cls, jobject jCallbackInterface)
     {
         jclass objclass = env->GetObjectClass(jCallbackInterface);
         jCallbackInterface = env->NewGlobalRef(jCallbackInterface);
@@ -209,10 +209,10 @@ extern "C"
         // TODO: when shall we call DeleteGlobalRef()?
         objclass = static_cast<jclass>(env->NewGlobalRef(objclass));
 
-        jmethodID method = env->GetMethodID(objclass, "onAnimationCompleted", "(J)V");
+        jmethodID method = env->GetMethodID(objclass, "onAnimationEnded", "(I)V");
         if (method == 0)
         {
-            printf("MeshNode_registerCallback: could not get method id!\n");
+            printf("Scene_setAniamtionCallback: could not get method id!\n");
             return;
         }
 
@@ -227,8 +227,8 @@ extern "C"
 
             virtual void OnAnimationEnd(scene::IAnimatedMeshSceneNode* node)
             {
-                // printf("calling %s\n", node->getName());
-                mEnv->CallVoidMethod(mInterface, mMethod, (long)node);
+                // printf("JNI calling %d\n", (jlong)node);
+                mEnv->CallVoidMethod(mInterface, mMethod, (int)node);
             }
 
             JNIEnv* mEnv;
@@ -236,8 +236,7 @@ extern "C"
             jmethodID mMethod;
         };
 
-        scene::IAnimatedMeshSceneNode* node = (scene::IAnimatedMeshSceneNode*)nodePtr;
-        node->setAnimationEndCallback(new MyAnimationEndCallBack(env, jCallbackInterface, method));
+        setGlobalAnimationEndCallback(new MyAnimationEndCallBack(env, jCallbackInterface, method));
     }
 
     JNIEXPORT jlong JNICALL Java_com_uengine_gfx_UGraphics_Scene_1addMeshNode(JNIEnv * env, jclass cls, jstring jMeshName)

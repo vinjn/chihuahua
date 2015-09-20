@@ -357,11 +357,11 @@ void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
     getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
 }
 
-void MeshNode_registerCallback(long nodePtr, AnimationEndCallBack cb)
+void Scene_setAniamtionCallback(NodePtrFunctor cb)
 {
     struct MyAnimationEndCallBack : public scene::IAnimationEndCallBack
     {
-        MyAnimationEndCallBack(AnimationEndCallBack cb)
+        MyAnimationEndCallBack(NodePtrFunctor cb)
         {
             mCallback = cb;
         }
@@ -370,11 +370,10 @@ void MeshNode_registerCallback(long nodePtr, AnimationEndCallBack cb)
         {
             mCallback((long)node);    
         }
-        AnimationEndCallBack mCallback;
+        NodePtrFunctor mCallback;
     };
 
-    CHECK_ANIMATED_MESH_RETURN(nodePtr);
-    getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationEndCallback(new MyAnimationEndCallBack(cb));
+    setGlobalAnimationEndCallback(new MyAnimationEndCallBack(cb));
 }
 
 void Scene_destroy()

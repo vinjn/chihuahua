@@ -37,6 +37,9 @@ long Scene_pickNodeFromScreen(int x, int y);
 // long Scene_pickNodeFromScreenPrecisely(int x, int y);
 void Scene_setVisible(s3dBool visible);
 
+typedef void (*NodePtrFunctor)(long nodePtr);
+void Scene_setAniamtionCallback(NodePtrFunctor cb);
+
 // Camera
 void Camera_setViewMatrix(const float* matrix);
 void Camera_setProjectionMatrix(const float* matrix);
@@ -70,9 +73,6 @@ void MeshNode_setAnimationLoop(long nodePtr, s3dBool isLoop);
 void MeshNode_setAnimationByName(long nodePtr, const char* animationName);
 void MeshNode_setAnimationByIndex(long nodePtr, int index);
 void MeshNode_setAnimationByRange(long nodePtr, int start, int end);
-
-typedef void (*AnimationEndCallBack)(long nodePtr);
-void MeshNode_registerCallback(long nodePtr, AnimationEndCallBack cb);
 
 // LightNode methods
 typedef enum

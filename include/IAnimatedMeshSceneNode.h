@@ -46,6 +46,9 @@ namespace scene
 		virtual void OnAnimationEnd(IAnimatedMeshSceneNode* node) = 0;
 	};
 
+	void setGlobalAnimationEndCallback(IAnimationEndCallBack* callback=0);
+	IAnimationEndCallBack* getGlobalAnimationEndCallback();
+
 	//! Scene node capable of displaying an animated mesh and its shadow.
 	/** The shadow is optional: If a shadow should be displayed too, just
 	invoke the IAnimatedMeshSceneNode::createShadowVolumeSceneNode().*/

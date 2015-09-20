@@ -43,6 +43,12 @@ public class UGraphics {
 
 	public static native void Scene_initializeRenderer(int width, int height);
 
+	public interface AnimationCallback {
+		public void onAnimationEnded(int nodePtr);
+	}
+
+	public static native void Scene_setAnimationCallback(AnimationCallback callback);
+
 	public static native void Scene_destroy();
 
 	public static native void Scene_clear();
@@ -122,13 +128,6 @@ public class UGraphics {
 
 	public static native void MeshNode_setAnimationByRange(long nodePtr,
 			int start, int end);
-
-	public interface MeshNodeCallback {
-		public void onAnimationCompleted(long nodePtr);
-	}
-
-	public static native void MeshNode_registerCallback(long nodePtr,
-			MeshNodeCallback callback);
 
 	// LightNode methods
 	// for LightNode_setType()
