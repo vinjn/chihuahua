@@ -3,14 +3,14 @@ package com.uengine.gfx;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-public class UGraphics {
+public class jni {
 
 	static {
-		System.loadLibrary("UGraphics");
+		System.loadLibrary("uengine.gfx");
 	}
 	private final Context context;
 
-	public UGraphics(Context context) {
+	public jni(Context context) {
 		this.context = context;
 		AssetManager amgr = context.getAssets();
 		String internalDataPath = context.getFilesDir().getAbsolutePath();
@@ -47,7 +47,8 @@ public class UGraphics {
 		public void onAnimationEnded(int nodePtr);
 	}
 
-	public static native void Scene_setAnimationCallback(AnimationCallback callback);
+	public static native void Scene_setAnimationCallback(
+			AnimationCallback callback);
 
 	public static native void Scene_destroy();
 

@@ -114,7 +114,7 @@ namespace scene
 		\param outEnd The returned ending frame for the animation type specified.
 		\param outFPS The number of frames per second, this animation should be played at.
 		\return beginframe, endframe and frames per second for a default MD2 animation type. */
-		virtual bool getFrameLoop(int idx, s32& outBegin, s32& outEnd, s32& outFPS) const
+		virtual bool getFrameLoop(u32 idx, s32& outBegin, s32& outEnd, s32& outFPS) const
 		{
 			return false;
 		}
@@ -131,7 +131,7 @@ namespace scene
 		}
 
 		//! Get amount of animations in this file.
-		virtual s32 getAnimationCount() const
+		virtual u32 getAnimationCount() const
 		{
 			return 0;
 		}

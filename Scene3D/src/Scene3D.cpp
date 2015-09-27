@@ -406,17 +406,32 @@ long Scene_addMeshNode(const char* meshFileName)
     return (long)node;
 }
 
+static core::map<stringc, video::IImage*> imageFromFileMap;
 long Scene_addImageFromFile(const char* imageFileName)
 {
+    auto kv = imageFromFileMap.find(imageFileName);
+    if (kv)
+    {
+        return (long)kv->getValue();
+    }
     video::IImage* img = driver->createImageFromFile(imageFileName);
+    imageFromFileMap.insert(imageFileName, img);
 
     return (long)img;
 }
 
+static core::map<video::IImage*, video::ITexture*> textureFromImageMap;
 long Scene_addTextureFromImage(long imagePtr)
 {
     auto image = getTypedPointer<video::IImage>(imagePtr);
+    auto kv = textureFromImageMap.find(image);
+    if (kv)
+    {
+        return (long)kv->getValue();
+    }
+
     auto texture = driver->addTexture("TextureFromImage", image);
+    textureFromImageMap.insert(image, texture);
     image->drop();
 
     return (long)texture;

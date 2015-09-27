@@ -59,8 +59,7 @@ namespace scene
 		//! Sets a callback interface which will be called if an animation
 		//! playback has ended. Set this to 0 to disable the callback again.
 		virtual void setAnimationEndCallback(IAnimationEndCallBack* callback=0) _IRR_OVERRIDE_;
-		virtual bool isAnimationCompleted() const _IRR_OVERRIDE_ {return IsAnimationCompleted;};
-
+		
 		//! sets the speed with which the animation is played
 		virtual void setAnimationSpeed(f32 framesPerSecond) _IRR_OVERRIDE_;
 

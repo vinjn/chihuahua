@@ -80,7 +80,7 @@ namespace scene
 		virtual E_ANIMATED_MESH_TYPE getMeshType() const _IRR_OVERRIDE_;
 
 		//! Returns frame loop data for a special MD2 animation type.
-		virtual bool getFrameLoop(int,
+		virtual bool getFrameLoop(u32,
 			s32& outBegin, s32& outEnd, s32& outFps) const _IRR_OVERRIDE_;
 
 		//! Returns frame loop data for a special MD2 animation type.
@@ -88,7 +88,7 @@ namespace scene
 			s32& outBegin, s32& outEnd, s32& outFps) const _IRR_OVERRIDE_;
 
 		//! Returns amount of md2 animations in this file.
-		virtual s32 getAnimationCount() const _IRR_OVERRIDE_;
+		virtual u32 getAnimationCount() const _IRR_OVERRIDE_;
 
 		//! Returns name of md2 animation.
 		//! \param nr: Zero based index of animation.

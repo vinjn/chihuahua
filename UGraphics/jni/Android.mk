@@ -6,7 +6,7 @@ ASSIMP_PATH := ../assimp/
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := UGraphics
+LOCAL_MODULE := uengine.gfx
 
 LOCAL_CFLAGS := -D_IRR_ANDROID_PLATFORM_ -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
 

@@ -162,9 +162,9 @@ namespace scene
 
         //! vinjn:
         core::array<SAnimationData> AnimationData;
-		virtual bool getFrameLoop(int, s32& outBegin, s32& outEnd, s32& outFps) const _IRR_OVERRIDE_;
+		virtual bool getFrameLoop(u32, s32& outBegin, s32& outEnd, s32& outFps) const _IRR_OVERRIDE_;
         virtual bool getFrameLoop(const c8* name, s32& outBegin, s32& outEnd, s32& outFPS) const _IRR_OVERRIDE_;
-        virtual s32 getAnimationCount() const _IRR_OVERRIDE_;
+        virtual u32 getAnimationCount() const _IRR_OVERRIDE_;
         virtual const c8* getAnimationName(s32 nr) const _IRR_OVERRIDE_;
 
 private:

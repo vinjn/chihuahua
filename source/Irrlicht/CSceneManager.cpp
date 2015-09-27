@@ -439,8 +439,8 @@ IAnimatedMesh* CSceneManager::getMesh(const io::path& filename)
     {
         os::Printer::log("Loaded mesh", filename, ELL_INFORMATION);
         char info[256];
-        s32 animCount = msh->getAnimationCount();
-        for (s32 i = 0; i < animCount; i++)
+        u32 animCount = msh->getAnimationCount();
+        for (u32 i = 0; i < animCount; i++)
         {
             s32 begin, end, fps;
             msh->getFrameLoop(i, begin, end, fps);

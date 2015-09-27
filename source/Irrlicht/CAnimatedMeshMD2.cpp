@@ -399,7 +399,7 @@ E_ANIMATED_MESH_TYPE CAnimatedMeshMD2::getMeshType() const
 
 
 //! Returns frame loop data for a special MD2 animation type.
-bool CAnimatedMeshMD2::getFrameLoop(int l,
+bool CAnimatedMeshMD2::getFrameLoop(u32 l,
 				s32& outBegin, s32& outEnd, s32& outFPS) const
 {
 	if (l < 0 || l >= EMAT_COUNT)
@@ -437,7 +437,7 @@ bool CAnimatedMeshMD2::getFrameLoop(const c8* name,
 
 
 //! Returns amount of animations in this file.
-s32 CAnimatedMeshMD2::getAnimationCount() const
+u32 CAnimatedMeshMD2::getAnimationCount() const
 {
 	return AnimationData.size();
 }

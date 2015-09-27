@@ -179,7 +179,6 @@ namespace scene
 		Please note that this will only be called when in non looped
 		mode, see IAnimatedMeshSceneNode::setLoopMode(). */
 		virtual void setAnimationEndCallback(IAnimationEndCallBack* callback=0) = 0;
-		virtual bool isAnimationCompleted() const = 0;
 
 		//! Sets if the scene node should not copy the materials of the mesh but use them in a read only style.
 		/** In this way it is possible to change the materials a mesh

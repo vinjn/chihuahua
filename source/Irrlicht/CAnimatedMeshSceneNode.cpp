@@ -145,11 +145,14 @@ void CAnimatedMeshSceneNode::buildFrameNr(u32 timeMs)
 			if (CurrentFrameNr > (f32)EndFrame)
 			{
 				CurrentFrameNr = (f32)EndFrame;
-				IsAnimationCompleted = true;
-				if (LoopCallBack)
-					LoopCallBack->OnAnimationEnd(this);
-				if (globalAnimationEndCB)
-					globalAnimationEndCB->OnAnimationEnd(this);
+				if (!IsAnimationCompleted)
+				{
+					IsAnimationCompleted = true;
+					if (LoopCallBack)
+						LoopCallBack->OnAnimationEnd(this);
+					if (globalAnimationEndCB)
+						globalAnimationEndCB->OnAnimationEnd(this);
+				}
 			}
 		}
 		else //backwards...
@@ -157,11 +160,14 @@ void CAnimatedMeshSceneNode::buildFrameNr(u32 timeMs)
 			if (CurrentFrameNr < (f32)StartFrame)
 			{
 				CurrentFrameNr = (f32)StartFrame;
-				IsAnimationCompleted = true;
-				if (LoopCallBack)
-					LoopCallBack->OnAnimationEnd(this);
-				if (globalAnimationEndCB)
-					globalAnimationEndCB->OnAnimationEnd(this);				
+				if (!IsAnimationCompleted)
+				{
+					IsAnimationCompleted = true;
+					if (LoopCallBack)
+						LoopCallBack->OnAnimationEnd(this);
+					if (globalAnimationEndCB)
+						globalAnimationEndCB->OnAnimationEnd(this);
+				}		
 			}
 		}
 	}

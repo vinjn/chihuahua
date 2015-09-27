@@ -163,7 +163,7 @@ IMesh* CSkinnedMesh::getMesh(s32 frame, s32 detailLevel, s32 startFrameLoop, s32
 //--------------------------------------------------------------------------
 
 // TODO: merge these three methods with CAnimatedMeshMD2
-bool CSkinnedMesh::getFrameLoop(int i, s32& outBegin, s32& outEnd, s32& outFPS) const
+bool CSkinnedMesh::getFrameLoop(u32 i, s32& outBegin, s32& outEnd, s32& outFPS) const
 {
 	if (i >=0 && i < AnimationData.size())
     {
@@ -192,7 +192,7 @@ bool CSkinnedMesh::getFrameLoop(const c8* name, s32& outBegin, s32& outEnd, s32&
     return false;
 }
 
-s32 CSkinnedMesh::getAnimationCount() const
+u32 CSkinnedMesh::getAnimationCount() const
 {
     return AnimationData.size();
 }
