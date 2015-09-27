@@ -221,7 +221,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
             material.Shininess = shininess;
         }
 
-#if defined(_IRR_ANDROID_PLATFORM_)
+#if !defined(_IRR_ANDROID_PLATFORM_)
         if (mat->GetTextureCount(aiTextureType_DIFFUSE) > 0)
         {
             aiString path;

@@ -1,5 +1,4 @@
 #include "Scene3D.h"
-#include "AssimpWrapper.h"
 #include "FullScreenSceneNode.h"
 
 #include "irrlicht.h"
