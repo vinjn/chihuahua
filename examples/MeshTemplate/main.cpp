@@ -1,5 +1,4 @@
 #include <irrlicht.h>
-#include "AssimpWrapper.h"
 #include "bx/commandline.h"
 #include "bx/float4x4_t.h"
 
@@ -30,8 +29,9 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    auto mesh = smgr->getMesh("../../media/dog_color3.ply");
+    auto mesh = smgr->getMesh("../../media/astroboy_walk.dae");
     auto node = smgr->addMeshSceneNode(mesh);
+    //node->setAnimation(0);
     f32 k = 100;
     node->setScale({ k, k, k });
     //node->setRotation({ -90, 0, 0 });
