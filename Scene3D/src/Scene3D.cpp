@@ -398,7 +398,7 @@ long Scene_addMeshNode(const char* meshFileName)
             if (node)
             {
                 postProcessNode(node, meshFileName);
-                node->setAnimation(0);
+                // node->setAnimation(0);
             }
         }
     }
