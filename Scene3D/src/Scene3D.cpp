@@ -356,7 +356,7 @@ void MeshNode_setAnimationByRange(long nodePtr, int start, int end)
     getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setFrameLoop(start, end);
 }
 
-void Scene_setAniamtionCallback(NodePtrFunctor cb)
+void Scene_setAnimationCallback(NodePtrFunctor cb)
 {
     struct MyAnimationEndCallBack : public scene::IAnimationEndCallBack
     {

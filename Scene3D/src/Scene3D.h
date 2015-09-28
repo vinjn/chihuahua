@@ -38,7 +38,7 @@ long Scene_pickNodeFromScreen(int x, int y);
 void Scene_setVisible(s3dBool visible);
 
 typedef void (*NodePtrFunctor)(long nodePtr);
-void Scene_setAniamtionCallback(NodePtrFunctor cb);
+void Scene_setAnimationCallback(NodePtrFunctor cb);
 
 // Camera
 void Camera_setViewMatrix(const float* matrix);
