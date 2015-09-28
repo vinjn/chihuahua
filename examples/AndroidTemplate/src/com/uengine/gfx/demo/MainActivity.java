@@ -264,7 +264,7 @@ public final class MainActivity extends Activity implements Renderer {
 				if (isAnimationCompleted) {
 					isAnimationCompleted = false;
 					jni.MeshNode_setAnimationByIndex(hitNode, animIdx);
-//					jni.MeshNode_setAnimationByName(hitNode, "shock_down");
+					// jni.MeshNode_setAnimationByName(hitNode, "shock_down");
 					jni.MeshNode_setAnimationLoop(hitNode, false);
 				}
 			}
@@ -354,6 +354,19 @@ public final class MainActivity extends Activity implements Renderer {
 
 		float z = (float) (Math.random() * kSize) - kSize / 2;
 		float k = (float) (Math.random() * 0 + 3);
+		
+		// Unit test
+		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
+		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
+		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
+		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
+		long img = jni.Scene_addImageFromFile("metaioman.png");
+		
+		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
+		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
+		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
+		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
+
 		if (false) {
 			mMeshNode = jni.Scene_addMeshNode("metaioman.md2");
 			jni.Node_setTexture(mMeshNode, jni.Scene_addTextureFromImage(jni
@@ -361,7 +374,7 @@ public final class MainActivity extends Activity implements Renderer {
 		} else {
 			mMeshNode = jni.Scene_addMeshNode("astroboy_walk.dae");
 			jni.Node_setTexture(mMeshNode, jni.Scene_addTexture("seymour.jpg"));
-//			jni.Node_setScale(mMeshNode, 100, 100, 100);
+			jni.Node_setScale(mMeshNode, 10000, 10000, 10000);
 		}
 
 		jni.Scene_setAnimationCallback(new jni.AnimationCallback() {
