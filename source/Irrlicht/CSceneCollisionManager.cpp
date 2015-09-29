@@ -227,8 +227,7 @@ ISceneNode* CSceneCollisionManager::getSceneNodeAndCollisionPointFromRay(
 						core::triangle3df & outTriangle,
 						s32 idBitMask,
 						ISceneNode * collisionRootNode,
-						bool noDebugObjects,
-                        s32* outTriangleId)
+						bool noDebugObjects)
 {
 	ISceneNode* bestNode = 0;
 	f32 bestDistanceSquared = FLT_MAX;
@@ -262,7 +261,7 @@ ISceneNode* CSceneCollisionManager::getSceneNodeAndCollisionPointFromRay(
 	core::line3df rayRest(ray);
 	getPickedNodeFromBBAndSelector(collisionRootNode, rayRest, idBitMask,
 					noDebugObjects, bestDistanceSquared, bestNode,
-                    outCollisionPoint, outTriangle, outTriangleId);
+					outCollisionPoint, outTriangle);
 	return bestNode;
 }
 
@@ -275,8 +274,7 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 				f32 & outBestDistanceSquared,
 				ISceneNode * & outBestNode,
 				core::vector3df & outBestCollisionPoint,
-				core::triangle3df & outBestTriangle,
-                s32* outTriangleId)
+				core::triangle3df & outBestTriangle)
 {
 	const ISceneNodeList& children = root->getChildren();
 
@@ -306,11 +304,9 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 			core::triangle3df candidateTriangle;
 
 			// do intersection test in object space
-            s32 candidateTriangleId;
 			ISceneNode * hitNode = 0;
 			if (box.intersectsWithLine(line) &&
-                getCollisionPoint(ray, selector, candidateCollisionPoint, candidateTriangle, 
-                hitNode, &candidateTriangleId))
+				getCollisionPoint(ray, selector, candidateCollisionPoint, candidateTriangle, hitNode))
 			{
 				const f32 distanceSquared = (candidateCollisionPoint - ray.start).getLengthSQ();
 
@@ -322,15 +318,13 @@ void CSceneCollisionManager::getPickedNodeFromBBAndSelector(
 					outBestTriangle = candidateTriangle;
 					const core::vector3df rayVector = ray.getVector().normalize();
 					ray.end = ray.start + (rayVector * sqrtf(distanceSquared));
-                    
-                    if (outTriangleId)  *outTriangleId = candidateTriangleId;
 				}
 			}
 		}
 
 		getPickedNodeFromBBAndSelector(current, ray, bits, noDebugObjects,
 						outBestDistanceSquared, outBestNode,
-                        outBestCollisionPoint, outBestTriangle, outTriangleId);
+						outBestCollisionPoint, outBestTriangle);
 	}
 }
 
@@ -356,8 +350,7 @@ ISceneNode* CSceneCollisionManager::getSceneNodeFromCameraBB(
 bool CSceneCollisionManager::getCollisionPoint(const core::line3d<f32>& ray,
 		ITriangleSelector* selector, core::vector3df& outIntersection,
 		core::triangle3df& outTriangle,
-		ISceneNode*& outNode,
-        s32* outTriangleId)
+		ISceneNode*& outNode)
 {
 	if (!selector)
 	{
@@ -415,10 +408,6 @@ bool CSceneCollisionManager::getCollisionPoint(const core::line3d<f32>& ray,
 				outTriangle = triangle;
 				outIntersection = intersection;
 				outNode = selector->getSceneNodeForTriangle(i);
-                if (outTriangleId)
-                {
-                    *outTriangleId = i;
-                }
 				found = true;
 			}
 		}
@@ -927,44 +916,6 @@ core::position2d<s32> CSceneCollisionManager::getScreenCoordinatesFrom3DPosition
 			dim.Height - core::round32(dim.Height * (transformedPos[1] * zDiv)));
 }
 
-core::position2d<f32> CSceneCollisionManager::getScreenCoordinatesFrom3DPositionF32(
-    const core::vector3df & pos3d, ICameraSceneNode* camera, bool useViewPort)
-{
-    if (!SceneManager || !Driver)
-        return core::position2d<f32>(-1000, -1000);
-
-    if (!camera)
-        camera = SceneManager->getActiveCamera();
-
-    if (!camera)
-        return core::position2d<f32>(-1000, -1000);
-
-    core::dimension2d<u32> dim;
-    if (useViewPort)
-        dim.set(Driver->getViewPort().getWidth(), Driver->getViewPort().getHeight());
-    else
-        dim = (Driver->getCurrentRenderTargetSize());
-
-    dim.Width /= 2;
-    dim.Height /= 2;
-
-    core::matrix4 trans = camera->getProjectionMatrix();
-    trans *= camera->getViewMatrix();
-
-    f32 transformedPos[4] = { pos3d.X, pos3d.Y, pos3d.Z, 1.0f };
-
-    trans.multiplyWith1x4Matrix(transformedPos);
-
-    if (transformedPos[3] < 0)
-        return core::position2d<f32>(-10000, -10000);
-
-    const f32 zDiv = transformedPos[3] == 0.0f ? 1.0f :
-        core::reciprocal(transformedPos[3]);
-
-    return core::position2d<f32>(
-        dim.Width + dim.Width * (transformedPos[0] * zDiv),
-        dim.Height - dim.Height * (transformedPos[1] * zDiv));
-}
 
 inline bool CSceneCollisionManager::getLowestRoot(f32 a, f32 b, f32 c, f32 maxR, f32* root)
 {

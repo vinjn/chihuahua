@@ -325,9 +325,11 @@ public final class MainActivity extends Activity implements Renderer {
 			metaioSDK.getProjectionMatrix(projMatrix, true,
 					ECAMERA_TYPE.ECT_RENDERING_MONO);
 			jni.Node_setModelMatrix(mMeshNode, modelMatrix);
+			jni.Node_setModelMatrix(mBigPlane, modelMatrix);
+			jni.Node_setModelMatrix(mSmallPlane, modelMatrix);
+
 			jni.Camera_setProjectionMatrix(projMatrix);
 			float k = (float) (Math.random() * 360);
-			jni.Node_setRotation(mCubeNode, k, k, k);
 			jni.Scene_setVisible(true);
 		} else {
 			jni.Scene_setVisible(false);
@@ -335,6 +337,8 @@ public final class MainActivity extends Activity implements Renderer {
 
 		jni.Scene_render();
 	}
+
+	long mBigPlane, mSmallPlane;
 
 	@Override
 	public void onSurfaceChanged(GL10 gl, int width, int height) {
@@ -354,14 +358,14 @@ public final class MainActivity extends Activity implements Renderer {
 
 		float z = (float) (Math.random() * kSize) - kSize / 2;
 		float k = (float) (Math.random() * 0 + 3);
-		
+
 		// Unit test
 		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
 		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
 		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
 		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
 		long img = jni.Scene_addImageFromFile("metaioman.png");
-		
+
 		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
 		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
 		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
@@ -390,6 +394,19 @@ public final class MainActivity extends Activity implements Renderer {
 		jni.Node_setPosition(mMeshNode, 0, 0, 0);
 		jni.Node_setRotation(mMeshNode, 0, 0, z);
 		jni.Node_setScale(mMeshNode, k, k, k);
+
+		mBigPlane = jni.Scene_addPlaneNode(400, 400);
+		jni.Node_setTextureAtLayer(mBigPlane, 0,
+				jni.Scene_addTexture("seymour.jpg"));
+		mSmallPlane = jni.Scene_addPlaneNode(400, 400);
+		jni.Node_setTextureAtLayer(mSmallPlane, 0,
+				jni.Scene_addTexture("seymour.jpg"));
+
+		jni.Node_setPosition(mBigPlane, 0, 0, -10);
+		jni.Node_setPosition(mSmallPlane, 100, 20, -20);
+//
+		jni.Node_setRotation(mBigPlane, 45, 0, 0);
+		jni.Node_setRotation(mSmallPlane, 45, 0, 0);
 
 		long lightNode = jni.Scene_addLightNode();
 		jni.LightNode_setRadius(lightNode, kSize);

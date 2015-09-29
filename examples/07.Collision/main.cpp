@@ -15,10 +15,6 @@ following code starts up the engine and loads the level, as per tutorial 2.
 
 using namespace irr;
 
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 enum
 {
 	// I use this ISceneNode ID to indicate a scene node that is
@@ -38,9 +34,7 @@ enum
 int main()
 {
 	// ask user for driver
-	video::E_DRIVER_TYPE driverType=driverChoiceConsole();
-	if (driverType==video::EDT_COUNT)
-		return 1;
+    video::E_DRIVER_TYPE driverType = video::EDT_OGLES2;
 
 	// create device
 
@@ -184,6 +178,7 @@ int main()
 	node->setTriangleSelector(selector);
 	selector->drop(); // We're done with this selector, so drop it now.
 
+#if 0
 	// And this B3D file uses skinned skeletal animation.
 	node = smgr->addAnimatedMeshSceneNode(smgr->getMesh("../../media/ninja.b3d"),
 						0, IDFlag_IsPickable | IDFlag_IsHighlightable);
@@ -209,7 +204,6 @@ int main()
 	node->setTriangleSelector(selector);
 	selector->drop();
 
-
 	// And this mdl file uses skinned skeletal animation.
 	node = smgr->addAnimatedMeshSceneNode(smgr->getMesh("../../media/yodan.mdl"),
 						0, IDFlag_IsPickable | IDFlag_IsHighlightable);
@@ -222,6 +216,7 @@ int main()
 	selector = smgr->createTriangleSelector(node);
 	node->setTriangleSelector(selector);
 	selector->drop();
+#endif
 
 	material.setTexture(0, 0);
 	material.Lighting = false;
