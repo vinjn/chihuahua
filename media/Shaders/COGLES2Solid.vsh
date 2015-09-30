@@ -138,10 +138,16 @@ void main()
 		vVertexColor += uMaterialEmissive;
 		
 		vSpecularColor *= uMaterialSpecular;
+
+	    vVertexColor += uGlobalAmbient * uMaterialAmbient;
 	}
-    
-    vVertexColor += uGlobalAmbient * uMaterialAmbient;
-    vVertexColor = clamp(vVertexColor, 0.0, 1.0);
+    else {
+        // TODO: hack
+        vVertexColor *= (0.1 * uMaterialDiffuse);
+        vVertexColor += uMaterialDiffuse;
+    }
+
+    vVertexColor = clamp(vVertexColor, 0.0, 1.0);		
 
 	vFogCoord = length(Position);
 }

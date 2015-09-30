@@ -38,7 +38,16 @@ int main(int argc, char const* const* argv)
     //node->setMaterialFlag(video::EMF_WIREFRAME, true);
     node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
-    node->setMaterialTexture(0, driver->getTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+    node->getMaterial(0).setTexture(0, driver->getTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+    node->getMaterial(1).setTexture(0, driver->getTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+    node->getMaterial(2).setTexture(0, driver->getTexture("../../media/fire.bmp"));
+    node->getMaterial(3).setTexture(0, driver->getTexture("../../media/fire.bmp"));
+
+
+    mesh = smgr->getMesh("../../media/LOGO_new.dae");
+    node = smgr->addAnimatedMeshSceneNode(mesh);
+    node->setFrameLoop(450, 500);
+    node->setScale({ k, k, k });
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
