@@ -375,10 +375,12 @@ public final class MainActivity extends Activity implements Renderer {
 			mMeshNode = jni.Scene_addMeshNode("metaioman.md2");
 			jni.Node_setTexture(mMeshNode, jni.Scene_addTextureFromImage(jni
 					.Scene_addImageFromFile("metaioman.png")));
+			k = 5;
 		} else {
-			mMeshNode = jni.Scene_addMeshNode("astroboy_walk.dae");
-			jni.Node_setTexture(mMeshNode, jni.Scene_addTexture("seymour.jpg"));
-			jni.Node_setScale(mMeshNode, 10000, 10000, 10000);
+			mMeshNode = jni.Scene_addMeshNode("yinhe.FBX");
+			jni.Node_setTexture(mMeshNode, jni.Scene_addTexture("yinhe.png"));
+			jni.Node_setMaterialType(mMeshNode, jni.AlphaBlend);
+			k = 1;
 		}
 
 		jni.Scene_setAnimationCallback(new jni.AnimationCallback() {
@@ -389,22 +391,20 @@ public final class MainActivity extends Activity implements Renderer {
 			}
 		});
 		jni.Node_setLighting(mMeshNode, false);
-		jni.MeshNode_setAnimationByName(mMeshNode, "idle");
-		jni.MeshNode_setAnimationLoop(mMeshNode, false);
+		jni.MeshNode_setAnimationByIndex(mMeshNode, 0);
+		jni.MeshNode_setAnimationLoop(mMeshNode, true);
 		jni.Node_setPosition(mMeshNode, 0, 0, 0);
-		jni.Node_setRotation(mMeshNode, 0, 0, z);
+		// jni.Node_setRotation(mMeshNode, 0, 0, z);
 		jni.Node_setScale(mMeshNode, k, k, k);
 
 		mBigPlane = jni.Scene_addPlaneNode(400, 400);
-		jni.Node_setTextureAtLayer(mBigPlane, 0,
-				jni.Scene_addTexture("seymour.jpg"));
+		jni.Node_setTexture(mBigPlane, jni.Scene_addTexture("seymour.jpg"));
 		mSmallPlane = jni.Scene_addPlaneNode(400, 400);
-		jni.Node_setTextureAtLayer(mSmallPlane, 0,
-				jni.Scene_addTexture("seymour.jpg"));
+		jni.Node_setTexture(mSmallPlane, jni.Scene_addTexture("seymour.jpg"));
 
 		jni.Node_setPosition(mBigPlane, 0, 0, -10);
 		jni.Node_setPosition(mSmallPlane, 100, 20, -20);
-//
+		//
 		jni.Node_setRotation(mBigPlane, 45, 0, 0);
 		jni.Node_setRotation(mSmallPlane, 45, 0, 0);
 

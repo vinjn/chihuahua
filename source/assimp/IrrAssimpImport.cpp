@@ -177,7 +177,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
     Assimp::Importer Importer;
     Importer.SetIOHandler(new IrrlichtIOSystem(FileSystem));
 
-    const aiScene* pScene = Importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
+    const aiScene* pScene = Importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_MakeLeftHanded | aiProcess_GenSmoothNormals | aiProcess_FlipUVs);
 
     if (!pScene)
     {

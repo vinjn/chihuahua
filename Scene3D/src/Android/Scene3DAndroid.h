@@ -149,14 +149,19 @@ extern "C"
         return texture;
     }
 
+    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Node_1setTextureAt)(JNIEnv * env, jclass cls, jlong nodePtr, jint mtrl, jlong texturePtr)
+    {
+        Node_setTextureAt(nodePtr, mtrl, texturePtr);
+    }
+
     JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Node_1setTexture)(JNIEnv * env, jclass cls, jlong nodePtr, jlong texturePtr)
     {
         Node_setTexture(nodePtr, texturePtr);
     }
 
-    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Node_1setTextureAtLayer)(JNIEnv * env, jclass cls, jlong nodePtr, jint textureLayer, jlong texturePtr)
+    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Node_1setSecondTextureAt)(JNIEnv * env, jclass cls, jlong nodePtr, jint mtrl, jlong texturePtr)
     {
-        Node_setTextureAtLayer(nodePtr, textureLayer, texturePtr);
+        Node_setSecondTextureAt(nodePtr, mtrl, texturePtr);
     }
 
     JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(MeshNode_1setAnimationFps)(JNIEnv * env, jclass cls, jlong nodePtr, jfloat fps)
@@ -310,6 +315,11 @@ extern "C"
     JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Node_1setParent)(JNIEnv * env, jclass cls, jlong nodePtr, jlong parentPtr)
     {
         Node_setParent(nodePtr, parentPtr);
+    }
+
+    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Node_1setMaterialTypeAt)(JNIEnv * env, jclass cls, jlong nodePtr, jint mtrl, MaterialType materialType)
+    {
+        Node_setMaterialTypeAt(nodePtr, mtrl, materialType);
     }
 
     JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Node_1setMaterialType)(JNIEnv * env, jclass cls, jlong nodePtr, MaterialType materialType)

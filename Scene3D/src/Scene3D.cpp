@@ -264,7 +264,7 @@ long Scene_addPlaneNode(float width, float height)
     scene::IMesh* planeMesh = smgr->getGeometryCreator()->
                               createPlaneMesh(core::dimension2d<f32>(width, height));
     scene::ISceneNode* node = smgr->addMeshSceneNode(planeMesh, addDummyNode(nameBuffer));
-    node->setRotation(core::vector3df(-90, 0, 0));
+    node->setRotation(core::vector3df(90, 0, 0));
     planeMesh->drop();
 
     postProcessNode(node, nameBuffer);
@@ -303,13 +303,33 @@ void Node_setLighting(long nodePtr, s3dBool enabled)
     node->setMaterialFlag(video::EMF_LIGHTING, enabled);
 }
 
-void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr)
+void Node_setTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
 {
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     video::ITexture* texture = (video::ITexture*)texturePtr;
-    printf("getMaterialCount: %d\n", node->getMaterialCount());
+    // printf("getMaterialCount: %d\n", node->getMaterialCount());
 
-    node->setMaterialTexture(textureLayer, texture);
+    if (mtrl < node->getMaterialCount())
+        node->getMaterial(mtrl).setTexture(0, texture);
+}
+
+void Node_setTexture(long nodePtr, long texturePtr)
+{
+    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    video::ITexture* texture = (video::ITexture*)texturePtr;
+    // printf("getMaterialCount: %d\n", node->getMaterialCount());
+
+    node->setMaterialTexture(0, texture);
+}
+
+void Node_setSecondTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
+{
+    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    video::ITexture* texture = (video::ITexture*)texturePtr;
+    // printf("getMaterialCount: %d\n", node->getMaterialCount());
+
+    if (mtrl < node->getMaterialCount())
+        node->getMaterial(mtrl).setTexture(1, texture);
 }
 
 void Node_setBillboard(long nodePtr, s3dBool isBillboard)
@@ -398,6 +418,14 @@ long Scene_addMeshNode(const char* meshFileName)
             {
                 postProcessNode(node, meshFileName);
                 // node->setAnimation(0);
+            }
+            if (mesh->getMeshType() != scene::EAMT_MD2 &&
+             mesh->getMeshType() != scene::EAMT_3DS)
+            {
+                // assimp-loaded mesh has different front / back settings
+                // TODO: make it uniformed
+                node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, true);
+                node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
             }
         }
     }
@@ -642,6 +670,19 @@ long Scene_pickNodeFromScreenPrecisely(int x, int y)
 
 void Node_setMaterialType(long nodePtr, MaterialType materialType)
 {
+    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    u32 count = node->getMaterialCount();
+    for (u32 mtrl = 0; mtrl < count; ++mtrl)
+    {
+        Node_setMaterialTypeAt(nodePtr, mtrl, materialType);
+    }
+}
+
+void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType materialType)
+{
+    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    if (mtrl >= node->getMaterialCount()) return;
+
     video::E_MATERIAL_TYPE type = video::EMT_SOLID;
     switch (materialType)
     {
@@ -652,13 +693,7 @@ void Node_setMaterialType(long nodePtr, MaterialType materialType)
     case LightMap: type = video::EMT_LIGHTMAP; break;
     default: break;
     }
-    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
-    node->setMaterialType(type);
-}
-
-void Node_setTexture(long nodePtr, long texturePtr)
-{
-    Node_setTextureAtLayer(nodePtr, 0, texturePtr);
+    node->getMaterial(mtrl).MaterialType = type;
 }
 
 void Scene_setVisible(s3dBool visible)

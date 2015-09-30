@@ -63,9 +63,11 @@ void Node_setModelMatrix(long nodePtr, const float* matrix);
 // TODO: implement it in engine
 void Node_setBillboard(long nodePtr, s3dBool isBillboard);
 void Node_setLighting(long nodePtr, s3dBool enabled);
+void Node_setTextureAt(long nodePtr, unsigned int mtrl, long texturePtr);
 void Node_setTexture(long nodePtr, long texturePtr);
-void Node_setTextureAtLayer(long nodePtr, int textureLayer, long texturePtr);
-void Node_setMaterialType(long nodePtr, MaterialType materialType);
+void Node_setSecondTextureAt(long nodePtr, unsigned int mtrl, long texturePtr);
+void Node_setMaterialType(long nodePtr, MaterialType type);
+void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType type);
 
 // MeshNode methods
 void MeshNode_setAnimationFps(long nodePtr, float fps);
