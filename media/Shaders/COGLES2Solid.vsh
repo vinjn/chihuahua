@@ -139,10 +139,6 @@ void main()
 		
 		vSpecularColor *= uMaterialSpecular;
 	}
-    else {
-        // TODO: hack
-        vVertexColor = uMaterialAmbient;
-    }
     
     vVertexColor += uGlobalAmbient * uMaterialAmbient;
     vVertexColor = clamp(vVertexColor, 0.0, 1.0);
