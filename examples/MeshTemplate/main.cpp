@@ -29,15 +29,16 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    auto mesh = smgr->getMesh("../../media/astroboy_walk.dae");
-    auto node = smgr->addMeshSceneNode(mesh);
-    //node->setAnimation(0);
-    f32 k = 100;
+    auto mesh = smgr->getMesh("../../media/robot.dae");
+    auto node = smgr->addAnimatedMeshSceneNode(mesh);
+    node->setAnimation(0);
+    f32 k = 10000;
     node->setScale({ k, k, k });
     //node->setRotation({ -90, 0, 0 });
-    //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
-    //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
-    //node->setMaterialTexture(0, driver->getTexture("../../media/metaioman.png"));
+    //node->setMaterialFlag(video::EMF_WIREFRAME, true);
+    node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
+    node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
+    node->setMaterialTexture(0, driver->getTexture("../../media/polySurface60VRayCompleteMap.jpg"));
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));

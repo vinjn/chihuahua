@@ -208,7 +208,8 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
             material.DiffuseColor = AssimpToIrrColor(color);
         }
         if(AI_SUCCESS == aiGetMaterialColor(mat, AI_MATKEY_COLOR_AMBIENT, &color)) {
-            material.AmbientColor = AssimpToIrrColor(color);
+            // TODO: fix bug in shader
+            //material.AmbientColor = AssimpToIrrColor(color);
         }
         if(AI_SUCCESS == aiGetMaterialColor(mat, AI_MATKEY_COLOR_EMISSIVE, &color)) {
             material.EmissiveColor = AssimpToIrrColor(color);
@@ -321,6 +322,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
         }
 
         buffer->Material = Mats[paiMesh->mMaterialIndex];
+
         buffer->recalculateBoundingBox();
 
         if (!paiMesh->HasNormals())
