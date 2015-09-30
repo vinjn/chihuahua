@@ -208,8 +208,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
             material.DiffuseColor = AssimpToIrrColor(color);
         }
         if(AI_SUCCESS == aiGetMaterialColor(mat, AI_MATKEY_COLOR_AMBIENT, &color)) {
-            // TODO: fix bug in shader
-            //material.AmbientColor = AssimpToIrrColor(color);
+            material.AmbientColor = AssimpToIrrColor(color);
         }
         if(AI_SUCCESS == aiGetMaterialColor(mat, AI_MATKEY_COLOR_EMISSIVE, &color)) {
             material.EmissiveColor = AssimpToIrrColor(color);
@@ -248,6 +247,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
     }
 
     aiNode* root = pScene->mRootNode;
+    f32 scale = root->mTransformation.a1; // for COLLADA it might be 0.01
     createNode(mesh, root, true);
 
     for (unsigned int i = 0; i < pScene->mNumMeshes; ++i)

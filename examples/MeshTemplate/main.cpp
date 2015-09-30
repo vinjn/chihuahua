@@ -32,7 +32,7 @@ int main(int argc, char const* const* argv)
     auto mesh = smgr->getMesh("../../media/robot.dae");
     auto node = smgr->addAnimatedMeshSceneNode(mesh);
     node->setAnimation(0);
-    f32 k = 10000;
+    f32 k = 100;
     node->setScale({ k, k, k });
     //node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_WIREFRAME, true);
