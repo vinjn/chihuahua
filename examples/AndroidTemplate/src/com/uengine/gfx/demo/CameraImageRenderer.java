@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.metaio.sdk.jni.ESCREEN_ROTATION;
 import com.metaio.sdk.jni.ImageStruct;
-import com.uengine.gfx.jni;
+import com.uengine.gfx.Scene3D;
 
 public final class CameraImageRenderer {
 	private static final String TAG = "CameraImageRenderer";
@@ -38,11 +38,11 @@ public final class CameraImageRenderer {
 		if (mMustUpdateTexture) {
 			if (!mTextureInitialized) {
 				// Allocate camera image texture once with 2^n dimensions
-				mTexturePtr = jni.Scene_addEmptyTexture(mCameraW, mCameraH);
+				mTexturePtr = Scene3D.Scene_addEmptyTexture(mCameraW, mCameraH);
 				Log.e(TAG, "Init camera texture: " + mCameraW + ", " + mCameraH);
 
 				if (mIsNodeMode) {
-					long node = jni.Scene_addFullScreenTextureNode(mTexturePtr,
+					long node = Scene3D.Scene_addFullScreenTextureNode(mTexturePtr,
 							screenRotation.ordinal());
 					// UGraphics.Scene_setNodeTexture(node, mTexturePtr);
 					// UGraphics.Scene_setNodeRotation(node, 180, 180, 180);
@@ -51,12 +51,12 @@ public final class CameraImageRenderer {
 			}
 
 			byte[] jImageData = mCameraRgb.array();
-			jni.Texture_update(mTexturePtr, jImageData);
+			Scene3D.Texture_update(mTexturePtr, jImageData);
 			mMustUpdateTexture = false;
 		}
 
 		if (!mIsNodeMode) {
-			jni.Texture_renderFullScreen(mTexturePtr, screenRotation.ordinal());
+			Scene3D.Texture_renderFullScreen(mTexturePtr, screenRotation.ordinal());
 		}
 	}
 

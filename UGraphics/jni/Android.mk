@@ -6,7 +6,7 @@ ASSIMP_PATH := ../assimp/
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := uengine.gfx
+LOCAL_MODULE := Scene3D
 
 LOCAL_CFLAGS := -D_IRR_ANDROID_PLATFORM_ -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
 

@@ -59,8 +59,10 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
 
 video::IVideoDriver* driver;
 scene::ISceneManager* smgr;
+scene::ISceneCollisionManager* coll;
 scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
 scene::ICameraSceneNode* camera;
+scene::ICameraSceneNode* pickCamera;
 io::IFileSystem* fs;
 int screenWidth, sceenHeight;
 
@@ -115,6 +117,8 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
     testGLError("video::createDriver()");
 
     smgr = new scene::CSceneManager(driver, fs, NULL, 0, NULL );
+    coll = smgr->getSceneCollisionManager();
+
     scene::IDummyTransformationSceneNode* transformNode = smgr->addDummyTransformationSceneNode();
     arRootNode = smgr->addEmptySceneNode(transformNode);
 
@@ -128,6 +132,10 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
 
     // ref: https://github.com/Yikun/Design-On-Fingertips/blob/master/magicbookshow/irrAR/irrAR.cpp
     camera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
+    pickCamera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
+    pickCamera->setFarValue(FLT_MAX);
+
+    smgr->setActiveCamera(camera);
 }
 
 template <typename T>
@@ -211,6 +219,7 @@ void Scene_render()
     os::Timer::tick();
     // printf("fps: %d\n", driver->getFPS());
 
+    pickCamera->render();
     smgr->drawAll();
 
     driver->endScene();
@@ -529,6 +538,7 @@ void Camera_setProjectionMatrix(const float* matrix)
     matrix4 mat;
     mat.setM(matrix);
     camera->setProjectionMatrix(mat);
+    pickCamera->setProjectionMatrix(mat);
 }
 
 long Scene_addEmptyTexture(int width, int height)
@@ -642,8 +652,9 @@ long Scene_pickNodeFromScreen(int x, int y)
 {
     s32 idBitMask = NODE_VISIBLE_CATEGORY;
     bool bNoDebugObjects = false;
-    scene::ISceneNode* hitNode = smgr->getSceneCollisionManager()->getSceneNodeFromScreenCoordinatesBB(
-                                     position2di(x, y), idBitMask, bNoDebugObjects, arRootNode);
+
+    auto ray = coll->getRayFromScreenCoordinates(position2di(x, y), pickCamera);
+    auto hitNode = coll->getSceneNodeFromRayBB(ray, idBitMask, bNoDebugObjects, arRootNode);
 
     if (hitNode)
     {
@@ -657,7 +668,7 @@ long Scene_pickNodeFromScreenPrecisely(int x, int y)
 {
     s32 idBitMask = NODE_VISIBLE_CATEGORY;
     bool bNoDebugObjects = false;
-    scene::ISceneNode* hitNode = smgr->getSceneCollisionManager()->getSceneNodeFromScreenCoordinatesBB(
+    scene::ISceneNode* hitNode = coll->getSceneNodeFromScreenCoordinatesBB(
                                      position2di(x, y), idBitMask, bNoDebugObjects, arRootNode);
 
     if (hitNode)

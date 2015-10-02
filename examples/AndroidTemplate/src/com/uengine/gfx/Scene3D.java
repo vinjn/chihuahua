@@ -3,14 +3,14 @@ package com.uengine.gfx;
 import android.content.Context;
 import android.content.res.AssetManager;
 
-public class jni {
+public class Scene3D {
 
 	static {
-		System.loadLibrary("uengine.gfx");
+		System.loadLibrary("Scene3D");
 	}
 	private final Context context;
 
-	public jni(Context context) {
+	public Scene3D(Context context) {
 		this.context = context;
 		AssetManager amgr = context.getAssets();
 		String internalDataPath = context.getFilesDir().getAbsolutePath();

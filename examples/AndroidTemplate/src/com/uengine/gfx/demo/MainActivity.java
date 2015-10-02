@@ -38,12 +38,11 @@ import com.metaio.tools.Screen;
 import com.metaio.tools.SystemInfo;
 import com.metaio.tools.io.AssetsManager;
 import com.uengine.gfx.DebugLog;
-import com.uengine.gfx.jni;
+import com.uengine.gfx.Scene3D;
 
 public final class MainActivity extends Activity implements Renderer {
 
-	private jni mGraphics;
-	private long mCubeNode;
+	private Scene3D mGraphics;
 	private long mMeshNode;
 	float[] modelMatrix = new float[16];
 	float[] projMatrix = new float[16];
@@ -258,14 +257,14 @@ public final class MainActivity extends Activity implements Renderer {
 	public boolean onTouchEvent(MotionEvent event) {
 		// MetaioDebug.log(Log.INFO, event.toString());
 		if (event.getAction() == MotionEvent.ACTION_UP) {
-			long hitNode = jni.Scene_pickNodeFromScreen(event.getX(),
+			long hitNode = Scene3D.Scene_pickNodeFromScreen(event.getX(),
 					event.getY());
 			if (hitNode == mMeshNode) {
 				if (isAnimationCompleted) {
 					isAnimationCompleted = false;
-					jni.MeshNode_setAnimationByIndex(hitNode, animIdx);
+					Scene3D.MeshNode_setAnimationByIndex(hitNode, animIdx);
 					// jni.MeshNode_setAnimationByName(hitNode, "shock_down");
-					jni.MeshNode_setAnimationLoop(hitNode, false);
+					Scene3D.MeshNode_setAnimationLoop(hitNode, false);
 				}
 			}
 		}
@@ -313,7 +312,7 @@ public final class MainActivity extends Activity implements Renderer {
 		// update tracking.
 		metaioSDK.render();
 
-		jni.Scene_clear();
+		Scene3D.Scene_clear();
 
 		mCameraImageRenderer.draw(gl, mScreenRotation);
 
@@ -324,18 +323,20 @@ public final class MainActivity extends Activity implements Renderer {
 			metaioSDK.getTrackingValues(1, modelMatrix, false, true);
 			metaioSDK.getProjectionMatrix(projMatrix, true,
 					ECAMERA_TYPE.ECT_RENDERING_MONO);
-			jni.Node_setModelMatrix(mMeshNode, modelMatrix);
-			jni.Node_setModelMatrix(mBigPlane, modelMatrix);
-			jni.Node_setModelMatrix(mSmallPlane, modelMatrix);
+			Scene3D.Node_setModelMatrix(mMeshNode, modelMatrix);
+			Scene3D.Node_setModelMatrix(mBigPlane, modelMatrix);
+			Scene3D.Node_setModelMatrix(mSmallPlane, modelMatrix);
 
-			jni.Camera_setProjectionMatrix(projMatrix);
+//			DebugLog.w("offsetZ:" + modelMatrix[14]);
+
+			Scene3D.Camera_setProjectionMatrix(projMatrix);
 			float k = (float) (Math.random() * 360);
-			jni.Scene_setVisible(true);
+			Scene3D.Scene_setVisible(true);
 		} else {
-			jni.Scene_setVisible(false);
+			Scene3D.Scene_setVisible(false);
 		}
 
-		jni.Scene_render();
+		Scene3D.Scene_render();
 	}
 
 	long mBigPlane, mSmallPlane;
@@ -347,69 +348,68 @@ public final class MainActivity extends Activity implements Renderer {
 
 		MetaioDebug.log(Log.INFO, "onSurfaceChanged: " + width + ", " + height);
 		// if (mScene == null) {
-		mGraphics = new jni(this);
+		mGraphics = new Scene3D(this);
 
-		jni.Scene_initializeRenderer(width, height);
-		mCubeNode = jni.Scene_addCubeNode(200);
-		jni.Node_setTexture(mCubeNode, jni.Scene_addTextureFromImage(jni
-				.Scene_addImageFromFile("wall.jpg")));
-		jni.Node_setPosition(mCubeNode, 0, 0, 1000);
+		Scene3D.Scene_initializeRenderer(width, height);
 		final float kSize = 1000;
 
 		float z = (float) (Math.random() * kSize) - kSize / 2;
 		float k = (float) (Math.random() * 0 + 3);
 
 		// Unit test
-		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
-		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
-		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
-		DebugLog.i("image: " + jni.Scene_addImageFromFile("metaioman.png"));
-		long img = jni.Scene_addImageFromFile("metaioman.png");
+		DebugLog.i("image: " + Scene3D.Scene_addImageFromFile("metaioman.png"));
+		DebugLog.i("image: " + Scene3D.Scene_addImageFromFile("metaioman.png"));
+		DebugLog.i("image: " + Scene3D.Scene_addImageFromFile("metaioman.png"));
+		DebugLog.i("image: " + Scene3D.Scene_addImageFromFile("metaioman.png"));
+		long img = Scene3D.Scene_addImageFromFile("metaioman.png");
 
-		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
-		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
-		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
-		DebugLog.i("tex: " + jni.Scene_addTextureFromImage(img));
+		DebugLog.i("tex: " + Scene3D.Scene_addTextureFromImage(img));
+		DebugLog.i("tex: " + Scene3D.Scene_addTextureFromImage(img));
+		DebugLog.i("tex: " + Scene3D.Scene_addTextureFromImage(img));
+		DebugLog.i("tex: " + Scene3D.Scene_addTextureFromImage(img));
 
-		if (false) {
-			mMeshNode = jni.Scene_addMeshNode("metaioman.md2");
-			jni.Node_setTexture(mMeshNode, jni.Scene_addTextureFromImage(jni
-					.Scene_addImageFromFile("metaioman.png")));
+		if (true) {
+			mMeshNode = Scene3D.Scene_addMeshNode("metaioman.md2");
+			Scene3D.Node_setTexture(mMeshNode,
+					Scene3D.Scene_addTexture("metaioman.png"));
 			k = 5;
 		} else {
-			mMeshNode = jni.Scene_addMeshNode("yinhe.FBX");
-			jni.Node_setTexture(mMeshNode, jni.Scene_addTexture("yinhe.png"));
-			jni.Node_setMaterialType(mMeshNode, jni.AlphaBlend);
+			mMeshNode = Scene3D.Scene_addMeshNode("yinhe.FBX");
+			Scene3D.Node_setTexture(mMeshNode,
+					Scene3D.Scene_addTexture("yinhe.png"));
+			Scene3D.Node_setMaterialType(mMeshNode, Scene3D.AlphaBlend);
 			k = 1;
 		}
 
-		jni.Scene_setAnimationCallback(new jni.AnimationCallback() {
+		Scene3D.Scene_setAnimationCallback(new Scene3D.AnimationCallback() {
 			public void onAnimationEnded(int nodePtr) {
 				DebugLog.w("Animation completed: " + nodePtr);
 				isAnimationCompleted = true;
 				animIdx = (animIdx + 1) % 6;
 			}
 		});
-		jni.Node_setLighting(mMeshNode, false);
-		jni.MeshNode_setAnimationByIndex(mMeshNode, 0);
-		jni.MeshNode_setAnimationLoop(mMeshNode, true);
-		jni.Node_setPosition(mMeshNode, 0, 0, 0);
+		Scene3D.Node_setLighting(mMeshNode, false);
+		Scene3D.MeshNode_setAnimationByIndex(mMeshNode, 0);
+		Scene3D.MeshNode_setAnimationLoop(mMeshNode, true);
+		Scene3D.Node_setPosition(mMeshNode, 0, 0, 0);
 		// jni.Node_setRotation(mMeshNode, 0, 0, z);
-		jni.Node_setScale(mMeshNode, k, k, k);
+		Scene3D.Node_setScale(mMeshNode, k, k, k);
 
-		mBigPlane = jni.Scene_addPlaneNode(400, 400);
-		jni.Node_setTexture(mBigPlane, jni.Scene_addTexture("seymour.jpg"));
-		mSmallPlane = jni.Scene_addPlaneNode(400, 400);
-		jni.Node_setTexture(mSmallPlane, jni.Scene_addTexture("seymour.jpg"));
+		mBigPlane = Scene3D.Scene_addPlaneNode(400, 400);
+		Scene3D.Node_setTexture(mBigPlane,
+				Scene3D.Scene_addTexture("seymour.jpg"));
+		mSmallPlane = Scene3D.Scene_addPlaneNode(400, 400);
+		Scene3D.Node_setTexture(mSmallPlane,
+				Scene3D.Scene_addTexture("seymour.jpg"));
 
-		jni.Node_setPosition(mBigPlane, 0, 0, -10);
-		jni.Node_setPosition(mSmallPlane, 100, 20, -20);
+		Scene3D.Node_setPosition(mBigPlane, 0, 0, -10);
+		Scene3D.Node_setPosition(mSmallPlane, 100, 20, -20);
 		//
-		jni.Node_setRotation(mBigPlane, 45, 0, 0);
-		jni.Node_setRotation(mSmallPlane, 45, 0, 0);
+		Scene3D.Node_setRotation(mBigPlane, 45, 0, 0);
+		Scene3D.Node_setRotation(mSmallPlane, 45, 0, 0);
 
-		long lightNode = jni.Scene_addLightNode();
-		jni.LightNode_setRadius(lightNode, kSize);
+		long lightNode = Scene3D.Scene_addLightNode();
+		Scene3D.LightNode_setRadius(lightNode, kSize);
 
 		// }
 

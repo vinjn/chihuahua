@@ -3,7 +3,7 @@ package com.uengine.gfx;
 import android.util.Log;
 
 public class DebugLog {
-	private static final String LOGTAG = "UGraphics";
+	private static final String LOGTAG = "Scene3D-java";
 
 	public static final void wtf(String nMessage) {
 		Log.wtf(LOGTAG, nMessage);
