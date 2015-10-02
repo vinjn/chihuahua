@@ -59,7 +59,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>Irrlicht</ProjectName>
+    <ProjectName>Scene3D</ProjectName>
     <ProjectGuid>{E08E042A-6C45-411B-92BE-3CC31331019F}</ProjectGuid>
     <RootNamespace>Irrlicht</RootNamespace>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
@@ -331,7 +331,7 @@
     </Midl>
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;ANGLE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
+      <PreprocessorDefinitions>S3D_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
       <ExceptionHandling>
       </ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -352,13 +352,13 @@
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\bin\Win32-visualstudio\Irrlicht_d.dll</OutputFile>
+      <OutputFile>..\..\bin\Win32-visualstudio\Scene3D_d.dll</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\lib\Win32-visualstudio</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libci.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>..\..\lib\Win32-visualstudio\Irrlicht_d.lib</ImportLibrary>
+      <ImportLibrary>..\..\lib\Win32-visualstudio\Scene3D_d.lib</ImportLibrary>
       <Version>1.9</Version>
     </Link>
   </ItemDefinitionGroup>
@@ -412,7 +412,7 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;ANGLE;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>S3D_EXPORTS;WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
       </ExceptionHandling>
@@ -431,12 +431,12 @@
     <Link>
       <AdditionalOptions>/MACHINE:I386 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>..\..\bin\Win32-visualstudio\Irrlicht.dll</OutputFile>
+      <OutputFile>..\..\bin\Win32-visualstudio\Scene3D.dll</OutputFile>
       <IgnoreSpecificDefaultLibraries>libci.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>..\..\lib\Win32-visualstudio\Irrlicht.lib</ImportLibrary>
+      <ImportLibrary>..\..\lib\Win32-visualstudio\Scene3D.lib</ImportLibrary>
       <Version>1.9</Version>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);..\..\lib\Win32-visualstudio</AdditionalLibraryDirectories>
     </Link>
@@ -1021,6 +1021,7 @@
     <ClInclude Include="..\..\include\SParticle.h" />
     <ClInclude Include="..\..\include\SSkinMeshBuffer.h" />
     <ClInclude Include="..\..\include\SViewFrustum.h" />
+    <ClInclude Include="..\..\Scene3D\src\Scene3D.h" />
     <ClInclude Include="..\3rdparty\stb\stb_image.h" />
     <ClInclude Include="..\3rdparty\stb\stb_image_write.h" />
     <ClInclude Include="..\assimp\AssimpMobileConfig.h" />
@@ -1075,6 +1076,7 @@
     <ClInclude Include="..\bgfx\src\vertexdecl.h" />
     <ClInclude Include="..\bgfx\src\vs_clear.bin.h" />
     <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h" />
+    <ClCompile Include="..\..\Scene3D\src\Scene3D.cpp" />
     <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
     <ClCompile Include="..\assimp\code\ColladaParser.cpp" />
     <ClCompile Include="..\assimp\code\DXFLoader.cpp" />

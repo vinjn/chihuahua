@@ -391,7 +391,7 @@ void Scene_setAnimationCallback(NodePtrFunctor cb)
         NodePtrFunctor mCallback;
     };
 
-    setGlobalAnimationEndCallback(new MyAnimationEndCallBack(cb));
+    scene::setGlobalAnimationEndCallback(new MyAnimationEndCallBack(cb));
 }
 
 void Scene_destroy()
@@ -588,14 +588,14 @@ void Texture_renderFullScreen(long texturePtr, int rotationType)
     video::ITexture* texture = (video::ITexture*)texturePtr;
     dimension2du imgSize = texture->getSize();
 
-    f32 dstW = screenSize.Width;
-    f32 dstH = screenSize.Height;
+    f32 dstW = (f32)screenSize.Width;
+    f32 dstH = (f32)screenSize.Height;
     f32 dstRatio = dstW / dstH;
 
     f32 srcX = 0;
     f32 srcY = 0;
-    f32 srcW = imgSize.Width;
-    f32 srcH = imgSize.Height;
+    f32 srcW = (f32)imgSize.Width;
+    f32 srcH = (f32)imgSize.Height;
     if (rotationType == 1 || rotationType == 3)
     {
         swap(srcW, srcH);

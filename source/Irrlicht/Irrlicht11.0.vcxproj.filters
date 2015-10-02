@@ -115,6 +115,9 @@
     <Filter Include="assimp\importer\ply">
       <UniqueIdentifier>{e6dc62c0-afb3-4906-8ec9-3eb7327292a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene3D">
+      <UniqueIdentifier>{b68da60b-edda-42a8-9960-09f3ad3b6667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1385,6 +1388,9 @@
     <ClInclude Include="..\assimp\code\PlyLoader.h">
       <Filter>assimp\importer\ply</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Scene3D\src\Scene3D.h">
+      <Filter>Scene3D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -1889,7 +1895,6 @@
     <ClCompile Include="..\assimp\code\TriangulateProcess.cpp">
       <Filter>assimp\process</Filter>
     </ClCompile>
-    <ClCompile Include="..\assimp\code\VertexTriangleAdjacency.cpp" />
     <ClCompile Include="..\assimp\code\Version.cpp">
       <Filter>assimp\src</Filter>
     </ClCompile>
@@ -2156,6 +2161,12 @@
     </ClCompile>
     <ClCompile Include="..\assimp\code\PlyLoader.cpp">
       <Filter>assimp\importer\ply</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\VertexTriangleAdjacency.cpp">
+      <Filter>assimp\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Scene3D\src\Scene3D.cpp">
+      <Filter>Scene3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

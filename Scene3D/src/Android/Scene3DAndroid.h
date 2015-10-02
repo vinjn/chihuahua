@@ -12,12 +12,12 @@
 using namespace irr;
 using namespace core;
 
-extern video::IVideoDriver* driver;
-extern scene::ISceneManager* smgr;
-extern scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
-extern scene::ICameraSceneNode* camera;
+// extern video::IVideoDriver* driver;
+// extern scene::ISceneManager* smgr;
+// extern scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
+// extern scene::ICameraSceneNode* camera;
 extern io::IFileSystem* fs;
-extern int screenWidth, sceenHeight;
+// extern int screenWidth, sceenHeight;
 
 namespace irr
 {
