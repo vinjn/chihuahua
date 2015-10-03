@@ -7,6 +7,7 @@
 #include "../source/irrlicht/CLogger.h"
 #include "../source/irrlicht/COGLES2Texture.h"
 #include "../source/irrlicht/CSceneManager.h"
+#include "../source/irrlicht/CCameraSceneNode.h"
 
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
@@ -64,8 +65,7 @@ scene::ISceneManager* smgr;
 scene::ISceneCollisionManager* coll;
 
 scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
-scene::ICameraSceneNode* camera;
-scene::ICameraSceneNode* pickCamera;
+scene::CCameraSceneNode* camera;
 
 enum NodeIdCategory
 {
@@ -121,10 +121,7 @@ static void setupSceneAndCamera()
     }
 
     // ref: https://github.com/Yikun/Design-On-Fingertips/blob/master/magicbookshow/irrAR/irrAR.cpp
-    camera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
-    pickCamera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
-    pickCamera->setFarValue(FLT_MAX);
-
+    camera =(scene::CCameraSceneNode*)smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
     smgr->setActiveCamera(camera);
 }
 
@@ -224,7 +221,6 @@ void Scene_render()
     os::Timer::tick();
     // printf("fps: %d\n", driver->getFPS());
 
-    pickCamera->render();
     smgr->drawAll();
 
     driver->endScene();
@@ -531,11 +527,9 @@ void Node_setModelMatrix(long nodePtr, const float* matrix)
 
 void Camera_setViewMatrix(const float* matrix)
 {
-    printf("setViewMatrix unimplemented.");
-
-    // matrix4 mat;
-    // mat.setM(matrix);
-    // camera->setProjectionMatrix(matrix);
+    matrix4 mat;
+    mat.setM(matrix);
+    camera->setViewMatrix(mat);
 }
 
 void Camera_setProjectionMatrix(const float* matrix)
@@ -543,7 +537,6 @@ void Camera_setProjectionMatrix(const float* matrix)
     matrix4 mat;
     mat.setM(matrix);
     camera->setProjectionMatrix(mat);
-    pickCamera->setProjectionMatrix(mat);
 }
 
 long Scene_addEmptyTexture(int width, int height)

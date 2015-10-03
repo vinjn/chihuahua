@@ -18,7 +18,8 @@ CCameraSceneNode::CCameraSceneNode(ISceneNode* parent, ISceneManager* mgr, s32 i
 	const core::vector3df& position, const core::vector3df& lookat)
 	: ICameraSceneNode(parent, mgr, id, position),
 	Target(lookat), UpVector(0.0f, 1.0f, 0.0f), ZNear(1.0f), ZFar(3000.0f),
-	InputReceiverEnabled(true), TargetAndRotationAreBound(false)
+	InputReceiverEnabled(true), TargetAndRotationAreBound(false),
+    ManualViewMatrix(false)
 {
 	#ifdef _DEBUG
 	setDebugName("CCameraSceneNode");
@@ -65,6 +66,10 @@ void CCameraSceneNode::setProjectionMatrix(const core::matrix4& projection, bool
 	ViewArea.getTransform ( video::ETS_PROJECTION ) = projection;
 }
 
+void CCameraSceneNode::setViewMatrix(const core::matrix4& view)
+{
+    ViewArea.getTransform(video::ETS_VIEW) = view;
+}
 
 //! Gets the current projection matrix of the camera
 //! \return Returns the current projection matrix of the camera.
@@ -260,23 +265,26 @@ void CCameraSceneNode::render()
 //! update
 void CCameraSceneNode::updateMatrices()
 {
-	core::vector3df pos = getAbsolutePosition();
-	core::vector3df tgtv = Target - pos;
-	tgtv.normalize();
+    if (!ManualViewMatrix)
+    {
+        core::vector3df pos = getAbsolutePosition();
+        core::vector3df tgtv = Target - pos;
+        tgtv.normalize();
 
-	// if upvector and vector to the target are the same, we have a
-	// problem. so solve this problem:
-	core::vector3df up = UpVector;
-	up.normalize();
+        // if upvector and vector to the target are the same, we have a
+        // problem. so solve this problem:
+        core::vector3df up = UpVector;
+        up.normalize();
 
-	f32 dp = tgtv.dotProduct(up);
+        f32 dp = tgtv.dotProduct(up);
 
-	if ( core::equals(core::abs_<f32>(dp), 1.f) )
-	{
-		up.X += 0.5f;
-	}
+        if (core::equals(core::abs_<f32>(dp), 1.f))
+        {
+            up.X += 0.5f;
+        }
 
-	ViewArea.getTransform(video::ETS_VIEW).buildCameraLookAtMatrixLH(pos, Target, up);
+        ViewArea.getTransform(video::ETS_VIEW).buildCameraLookAtMatrixLH(pos, Target, up);
+    }
 	ViewArea.getTransform(video::ETS_VIEW) *= Affector;
 	recalculateViewArea();
 }

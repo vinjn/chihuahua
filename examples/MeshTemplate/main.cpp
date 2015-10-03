@@ -58,7 +58,7 @@ int main(int argc, char const* const* argv)
     bx::CommandLine cmdLine(argc, argv);
 
     device = createDevice(video::EDT_OGLES2, dimension2d<u32>(600, 800), 16,
-        false, false, false, 0);
+                          false, false, false, 0);
 
     if (!device)
         return 1;
@@ -97,11 +97,11 @@ int main(int argc, char const* const* argv)
 
     long mBigPlane = Scene_addPlaneNode(400, 400);
     Node_setTexture(mBigPlane,
-        Scene_addTexture("../../media/seymour.jpg"));
+                    Scene_addTexture("../../media/seymour.jpg"));
 
     long mSmallPlane = Scene_addPlaneNode(400, 400);
     Node_setTexture(mSmallPlane,
-        Scene_addTexture("../../media/seymour.jpg"));
+                    Scene_addTexture("../../media/seymour.jpg"));
 
     Node_setPosition(mBigPlane, 0, 0, -100);
     Node_setPosition(mSmallPlane, 100, 20, -50);
@@ -121,16 +121,17 @@ int main(int argc, char const* const* argv)
         //
         // Update matrices
         //
-#if 0
+#if 1
         // from Metaio SDK
         float modelMatrix[] =
         {
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, -1000, 1
+            0.99942285, 0.020722449, -0.026918545, 0.0,
+            -0.02240616, 0.9977092, -0.06383123, 0.0,
+            0.025534146, 0.06439753, 0.9975976, 0.0,
+            -38.078552, -193.14294, -1045.8368, 1.0
         };
-        f32 proj[] = {
+        f32 proj[] =
+        {
             3.4011114, 0.0, 0.0, 0.0,
             0.0, 1.9131252, 0.0, 0.0,
             -9.2589855E-4, 5.208254E-4, -1.0033389, -1.0,
@@ -145,7 +146,8 @@ int main(int argc, char const* const* argv)
             0, 0, -1, 0,
             0, 0, 1000, 1
         };
-        f32 proj[] = {
+        f32 proj[] =
+        {
             0, -1.9131252, 0.0, 0.0,
             -3.4011114, 0, 0.0, 0.0,
             -9.2589855E-4, 5.208254E-4, 1.0033389, 1.0,

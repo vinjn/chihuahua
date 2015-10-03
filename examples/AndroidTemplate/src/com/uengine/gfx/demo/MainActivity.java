@@ -326,7 +326,7 @@ public final class MainActivity extends Activity implements Renderer {
 			Scene3D.Node_setModelMatrix(mBigPlane, modelMatrix);
 			Scene3D.Node_setModelMatrix(mSmallPlane, modelMatrix);
 
-//			DebugLog.w("offsetZ:" + modelMatrix[14]);
+			// DebugLog.w("offsetZ:" + modelMatrix[14]);
 
 			Scene3D.Camera_setProjectionMatrix(projMatrix);
 			float k = (float) (Math.random() * 360);
@@ -400,11 +400,11 @@ public final class MainActivity extends Activity implements Renderer {
 		Scene3D.Node_setTexture(mSmallPlane,
 				Scene3D.Scene_addTexture("seymour.jpg"));
 
-		Scene3D.Node_setPosition(mBigPlane, 0, 0, -10);
+		Scene3D.Node_setPosition(mBigPlane, 0, 0, -100);
 		Scene3D.Node_setPosition(mSmallPlane, 100, 20, -20);
 		//
-		Scene3D.Node_setRotation(mBigPlane, 45, 0, 0);
-		Scene3D.Node_setRotation(mSmallPlane, 45, 0, 0);
+//		Scene3D.Node_setRotation(mBigPlane, 45, 0, 0);
+//		Scene3D.Node_setRotation(mSmallPlane, 45, 0, 0);
 
 		long lightNode = Scene3D.Scene_addLightNode();
 		Scene3D.LightNode_setRadius(lightNode, kSize);

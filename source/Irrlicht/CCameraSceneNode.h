@@ -30,7 +30,13 @@ namespace scene
 		\param projection The new projection matrix of the camera.
 		\param isOrthogonal Set this to true if the matrix is an orthogonal one (e.g.
 		from matrix4::buildProjectionMatrixOrthoLH(). */
-		virtual void setProjectionMatrix(const core::matrix4& projection, bool isOrthogonal = false) _IRR_OVERRIDE_;
+        virtual void setProjectionMatrix(const core::matrix4& projection, bool isOrthogonal = false) _IRR_OVERRIDE_;
+
+        void setManualViewMatrix(bool mode)
+        {
+            ManualViewMatrix = mode;
+        }
+        void setViewMatrix(const core::matrix4& view);
 
 		//! Gets the current projection matrix of the camera
 		//! \return Returns the current projection matrix of the camera.
@@ -166,6 +172,8 @@ namespace scene
 
 		bool InputReceiverEnabled;
 		bool TargetAndRotationAreBound;
+
+        bool ManualViewMatrix;
 	};
 
 } // end namespace
