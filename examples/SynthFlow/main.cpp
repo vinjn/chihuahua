@@ -15,11 +15,6 @@ using namespace video;
 using namespace io;
 using namespace gui;
 
-#ifdef _DEBUG
-#pragma comment(lib, "Irrlicht_d.lib")
-#else
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 #pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
 
 #define WINDOW_W 400

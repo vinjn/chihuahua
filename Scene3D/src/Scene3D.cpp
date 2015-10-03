@@ -433,13 +433,13 @@ long Scene_addMeshNode(const char* meshFileName)
                 postProcessNode(node, meshFileName);
                 // node->setAnimation(0);
             }
-            if (mesh->getMeshType() != scene::EAMT_MD2 &&
-             mesh->getMeshType() != scene::EAMT_3DS)
+            if (mesh->getMeshType() == scene::EAMT_MD2 ||
+                mesh->getMeshType() == scene::EAMT_3DS)
             {
                 // assimp-loaded mesh has different front / back settings
                 // TODO: make it uniformed
-                //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, true);
-                //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
+                // node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, true);
+                // node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
             }
         }
     }
@@ -658,7 +658,7 @@ long Scene_pickNodeFromScreen(int x, int y)
     s32 idBitMask = NODE_VISIBLE_CATEGORY;
     bool bNoDebugObjects = false;
 
-    auto ray = coll->getRayFromScreenCoordinates(position2di(x, y), pickCamera);
+    auto ray = coll->getRayFromScreenCoordinates(position2di(x, y), camera);
     auto hitNode = coll->getSceneNodeFromRayBB(ray, idBitMask, bNoDebugObjects, arRootNode);
 
     if (hitNode)

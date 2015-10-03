@@ -89,8 +89,11 @@ void CSceneCollisionManager::getPickedNodeBB(ISceneNode* root,
 			{
 				// get world to object space transform
 				core::matrix4 worldToObject;
-				if (!current->getAbsoluteTransformation().getInverse(worldToObject))
+                auto transform = current->getAbsoluteTransformation();
+				if (!transform.getInverse(worldToObject))
 					continue;
+
+                //printf("current %s\n", current->getName());
 
 				// transform vector from world space to object space
 				core::line3df objectRay(ray);
@@ -193,6 +196,7 @@ void CSceneCollisionManager::getPickedNodeBB(ISceneNode* root,
                                 {
                                     bestDistToBoxBorder = distToBorder;
                                     bestToIntersectionSq = toIntersectionSq;
+                                    //printf("distToBorder %.1f\n", distToBorder);
                                 }
 							}
 						}
@@ -210,6 +214,8 @@ void CSceneCollisionManager::getPickedNodeBB(ISceneNode* root,
 
                         // If we got a hit, we can now truncate the ray to stop us hitting further nodes.
                         ray.end = ray.start + (rayVector * sqrtf(outbestdistance));
+
+                        //printf("outbestdistance %.1f\n", outbestdistance);
 					}
 				}
 			}

@@ -18,7 +18,9 @@ public class Scene3D {
 	private static native void Scene_initializeFileSystem(
 			String jInternalDataPath, AssetManager amgr);
 
+	//
 	// Scene methods
+	//
 	public static native long Scene_addLightNode();
 
 	public static native long Scene_loadScene(String sceneFileName);
@@ -71,12 +73,16 @@ public class Scene3D {
 	public static native long Scene_addFullScreenTextureNode(long texturePtr,
 			int rotationType);
 
+	//
 	// Camera
+	//
 	public static native void Camera_setViewMatrix(float[] matrix);
 
 	public static native void Camera_setProjectionMatrix(float[] matrix);
 
+	//
 	// Node methods
+	//
 	// for Node_setMaterialType()
 	public static final int Solid = 0;
 	public static final int ColorAdd = 1;
@@ -119,7 +125,9 @@ public class Scene3D {
 	public static native void Node_setMaterialType(long nodePtr,
 			int materialType);
 
+	//
 	// MeshNode methods
+	//
 	public static native void MeshNode_setAnimationFps(long nodePtr, float fps);
 
 	public static native void MeshNode_setAnimationLoop(long nodePtr,
@@ -134,7 +142,9 @@ public class Scene3D {
 	public static native void MeshNode_setAnimationByRange(long nodePtr,
 			int start, int end);
 
+	//
 	// LightNode methods
+	//
 	// for LightNode_setType()
 	public static final int PointLight = 0;
 	public static final int DirectionalLight = 1;
@@ -146,7 +156,9 @@ public class Scene3D {
 	public static native void LightNode_setDiffuseColor(long nodePtr, float r,
 			float g, float b, float a);
 
+	//
 	// Texture methods
+	//
 	public static native void Texture_update(long texturePtr, byte[] srcARGB8);
 
 	public static native void Texture_renderFullScreen(long texturePtr,

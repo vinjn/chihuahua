@@ -13,22 +13,63 @@ using namespace gui;
 
 IrrlichtDevice *device;
 
+class MyEventReceiver : public IEventReceiver
+{
+public:
+    s32 x, y;
+    bool LeftButtonDown;
+
+    virtual bool OnEvent(const SEvent& event)
+    {
+        if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
+        {
+            switch (event.MouseInput.Event)
+            {
+            case EMIE_LMOUSE_PRESSED_DOWN:
+                LeftButtonDown = true;
+                break;
+
+            case EMIE_LMOUSE_LEFT_UP:
+                LeftButtonDown = false;
+                break;
+
+            case EMIE_MOUSE_MOVED:
+                x = event.MouseInput.X;
+                y = event.MouseInput.Y;
+                break;
+
+            default:
+                // We won't use the wheel
+                break;
+            }
+        }
+
+        if (event.EventType == irr::EET_KEY_INPUT_EVENT)
+        {
+            if (event.KeyInput.Key == KEY_ESCAPE) device->closeDevice();
+        }
+        return false;
+    }
+};
+MyEventReceiver eventRecv;
+
 int main(int argc, char const* const* argv)
 {
     bx::CommandLine cmdLine(argc, argv);
 
-	device = createDevice(video::EDT_OGLES2, dimension2d<u32>(800, 600), 16,
-			false, false, false, 0);
+    device = createDevice(video::EDT_OGLES2, dimension2d<u32>(600, 800), 16,
+        false, false, false, 0);
 
-	if (!device)
-		return 1;
+    if (!device)
+        return 1;
 
-	device->setWindowCaption(L"Mesh");
+    device->setWindowCaption(L"Mesh");
+    device->setEventReceiver(&eventRecv);
 
     Scene_initializeFromDevice((long)device);
 
-	IVideoDriver* driver = device->getVideoDriver();
-	ISceneManager* smgr = device->getSceneManager();
+    IVideoDriver* driver = device->getVideoDriver();
+    ISceneManager* smgr = device->getSceneManager();
 
     const float kCamDistZ = 40;
 
@@ -38,52 +79,104 @@ int main(int argc, char const* const* argv)
     Node_setScale(nodePtr, k, k, k);
     Node_setTextureAt(nodePtr, 0, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
     Node_setTextureAt(nodePtr, 1, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
-    float m[] =
-    {
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, -1000, 1
-    };
-    Node_setModelMatrix(nodePtr, m);
-    //node->setRotation({ -90, 0, 0 });
-    //node->setMaterialFlag(video::EMF_WIREFRAME, true);
-    //((scene::IAnimatedMeshSceneNode*)nodePtr)->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
-    //((scene::IAnimatedMeshSceneNode*)nodePtr)->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
-    //node->getMaterial(0).setTexture(0, driver->getTexture("../../media/polySurface60VRayCompleteMap.jpg"));
-    //node->getMaterial(1).setTexture(0, driver->getTexture("../../media/polySurface60VRayCompleteMap.jpg"));
-    //node->getMaterial(2).setTexture(0, driver->getTexture("../../media/fire.bmp"));
-    //node->getMaterial(3).setTexture(0, driver->getTexture("../../media/fire.bmp"));
+    Node_setRotation(nodePtr, 0, 0, 0);
 
+    long metaioPtr = Scene_addMeshNode("../../media/metaioman.md2");
+    MeshNode_setAnimationByIndex(metaioPtr, 0);
+    k = 2;
+    Node_setPosition(metaioPtr, 100, 0, 0);
+    Node_setScale(metaioPtr, k, k, k);
+    Node_setTexture(metaioPtr, Scene_addTexture("../../media/metaioman.png"));
+
+#if 0
     nodePtr = Scene_addMeshNode("../../media/LOGO_new.DAE");
     MeshNode_setAnimationByRange(nodePtr, 450, 500);
+    Node_setModelMatrix(nodePtr, m);
     Node_setScale(nodePtr, k, k, k);
+#endif
 
+    long mBigPlane = Scene_addPlaneNode(400, 400);
+    Node_setTexture(mBigPlane,
+        Scene_addTexture("../../media/seymour.jpg"));
 
-    f32 proj[] = {
-        3.4011114, 0.0, 0.0, 0.0,
-        0.0, 1.9131252, 0.0, 0.0,
-        -9.2589855E-4, 5.208254E-4, -1.0033389, -1.0,
-        0.0, 0.0, -100.16695, 0.0
-    };
-    Camera_setProjectionMatrix(proj);
+    long mSmallPlane = Scene_addPlaneNode(400, 400);
+    Node_setTexture(mSmallPlane,
+        Scene_addTexture("../../media/seymour.jpg"));
+
+    Node_setPosition(mBigPlane, 0, 0, -100);
+    Node_setPosition(mSmallPlane, 100, 20, -50);
+    //
+    //Node_setRotation(mBigPlane, -45, 0, 0);
+    //Node_setRotation(mSmallPlane, -45, 0, 0);
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
 #else
-	//auto camera = smgr->addCameraSceneNodeFPS(0);
+    //auto camera = smgr->addCameraSceneNodeFPS(0);
     //camera->setPosition({ 0.0f, 0.0f, -kCamDistZ * 3 });
 #endif
 
-	while(device->run())
-	{
-		driver->beginScene(true, true, SColor(255,100,101,140));
+    while (device->run())
+    {
+        //
+        // Update matrices
+        //
+#if 0
+        // from Metaio SDK
+        float modelMatrix[] =
+        {
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, -1000, 1
+        };
+        f32 proj[] = {
+            3.4011114, 0.0, 0.0, 0.0,
+            0.0, 1.9131252, 0.0, 0.0,
+            -9.2589855E-4, 5.208254E-4, -1.0033389, -1.0,
+            0.0, 0.0, -100.16695, 0.0
+        };
+#else
+        // from HSAR SDK
+        float modelMatrix[] =
+        {
+            0, -1, 0, 0,
+            -1, 0, 0, 0,
+            0, 0, -1, 0,
+            0, 0, 1000, 1
+        };
+        f32 proj[] = {
+            0, -1.9131252, 0.0, 0.0,
+            -3.4011114, 0, 0.0, 0.0,
+            -9.2589855E-4, 5.208254E-4, 1.0033389, 1.0,
+            0.0, 0.0, -100.16695, 0.0
+        };
+#endif
 
-		smgr->drawAll();
-		driver->endScene();
-	}
+        Node_setModelMatrix(nodePtr, modelMatrix);
+        Node_setModelMatrix(metaioPtr, modelMatrix);
+        Node_setModelMatrix(mBigPlane, modelMatrix);
+        Node_setModelMatrix(mSmallPlane, modelMatrix);
 
-	device->drop();
+        Camera_setProjectionMatrix(proj);
+        //
+        // Render
+        //
+        driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
-	return 0;
+        if (eventRecv.LeftButtonDown)
+        {
+            auto node = (scene::IAnimatedMeshSceneNode*)(Scene_pickNodeFromScreen(eventRecv.x, eventRecv.y));
+            if (node)
+            {
+            }
+        }
+
+        smgr->drawAll();
+        driver->endScene();
+    }
+
+    device->drop();
+
+    return 0;
 }
