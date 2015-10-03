@@ -8,17 +8,15 @@ public class Scene3D {
 	static {
 		System.loadLibrary("Scene3D");
 	}
-	private final Context context;
 
-	public Scene3D(Context context) {
-		this.context = context;
+	public static void Scene_initializeFileSystem(Context context) {
 		AssetManager amgr = context.getAssets();
 		String internalDataPath = context.getFilesDir().getAbsolutePath();
 		Scene_initializeFileSystem(internalDataPath, amgr);
 	}
 
-	private native void Scene_initializeFileSystem(String jInternalDataPath,
-			AssetManager amgr);
+	private static native void Scene_initializeFileSystem(
+			String jInternalDataPath, AssetManager amgr);
 
 	// Scene methods
 	public static native long Scene_addLightNode();

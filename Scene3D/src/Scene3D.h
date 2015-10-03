@@ -38,6 +38,7 @@ S3D_API long Scene_addTexture(const char* textureName);
 S3D_API long Scene_addEmptyTexture(int width, int height);
 
 S3D_API void Scene_initializeRenderer(int width, int height);
+S3D_API void Scene_initializeFromDevice(long device);
 S3D_API void Scene_destroy();
 S3D_API void Scene_clear();
 S3D_API void Scene_render();

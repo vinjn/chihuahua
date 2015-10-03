@@ -42,7 +42,6 @@ import com.uengine.gfx.Scene3D;
 
 public final class MainActivity extends Activity implements Renderer {
 
-	private Scene3D mGraphics;
 	private long mMeshNode;
 	float[] modelMatrix = new float[16];
 	float[] projMatrix = new float[16];
@@ -348,8 +347,7 @@ public final class MainActivity extends Activity implements Renderer {
 
 		MetaioDebug.log(Log.INFO, "onSurfaceChanged: " + width + ", " + height);
 		// if (mScene == null) {
-		mGraphics = new Scene3D(this);
-
+		Scene3D.Scene_initializeFileSystem(this);
 		Scene3D.Scene_initializeRenderer(width, height);
 		final float kSize = 1000;
 

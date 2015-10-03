@@ -57,14 +57,15 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
 
 }
 
+io::IFileSystem* fs;
+
 video::IVideoDriver* driver;
 scene::ISceneManager* smgr;
 scene::ISceneCollisionManager* coll;
+
 scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
 scene::ICameraSceneNode* camera;
 scene::ICameraSceneNode* pickCamera;
-io::IFileSystem* fs;
-int screenWidth, sceenHeight;
 
 enum NodeIdCategory
 {
@@ -104,19 +105,8 @@ bool testGLError(const char* comment = "")
     return true;
 }
 
-static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)
+static void setupSceneAndCamera()
 {
-    SIrrlichtCreationParameters params;
-    params.DriverType = driverType;
-    params.WindowSize.Width = width;
-    params.WindowSize.Height = height;
-    driver = video::createDriver(params, fs);
-
-    os::Timer::initTimer(true);
-
-    testGLError("video::createDriver()");
-
-    smgr = new scene::CSceneManager(driver, fs, NULL, 0, NULL );
     coll = smgr->getSceneCollisionManager();
 
     scene::IDummyTransformationSceneNode* transformNode = smgr->addDummyTransformationSceneNode();
@@ -136,6 +126,20 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
     pickCamera->setFarValue(FLT_MAX);
 
     smgr->setActiveCamera(camera);
+}
+
+static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)
+{
+    SIrrlichtCreationParameters params;
+    params.DriverType = driverType;
+    params.WindowSize.Width = width;
+    params.WindowSize.Height = height;
+    driver = video::createDriver(params, fs);
+    testGLError("video::createDriver()");
+
+    os::Timer::initTimer(true);
+
+    smgr = new scene::CSceneManager(driver, fs, NULL, 0, NULL );
 }
 
 template <typename T>
@@ -198,10 +202,11 @@ void Scene_initializeRenderer(int width, int height)
     {
         createDriverAndSmgr(width, height, video::EDT_OGLES2);
     }
+    setupSceneAndCamera();
 
     dimension2d<u32> dim(width, height);
     driver->OnResize(dim);
-    testGLError("driver->OnResize");
+    testGLError("driver->OnResize()");
 }
 
 void Scene_clear()
@@ -240,7 +245,7 @@ static void postProcessNode(scene::ISceneNode* node, const stringc name)
 
 long Scene_loadScene(const char* sceneFileName)
 {
-    scene::ISceneNode* dummy = addDummyNode("scene");
+    scene::ISceneNode* dummy = addDummyNode(sceneFileName);
     smgr->loadScene(sceneFileName, NULL, dummy);
 
     return (long)dummy;
@@ -433,8 +438,8 @@ long Scene_addMeshNode(const char* meshFileName)
             {
                 // assimp-loaded mesh has different front / back settings
                 // TODO: make it uniformed
-                node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, true);
-                node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
+                //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, true);
+                //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
             }
         }
     }
@@ -712,3 +717,12 @@ void Scene_setVisible(s3dBool visible)
     Node_setVisible(Scene_getRootNode(), visible);
 }
 
+void Scene_initializeFromDevice(long irrlichtDevice)
+{
+    auto device = (IrrlichtDevice*)irrlichtDevice;
+    fs = device->getFileSystem();
+    driver = device->getVideoDriver();
+    smgr = device->getSceneManager();
+
+    setupSceneAndCamera();
+}
