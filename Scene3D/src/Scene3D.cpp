@@ -8,6 +8,7 @@
 #include "../source/irrlicht/COGLES2Texture.h"
 #include "../source/irrlicht/CSceneManager.h"
 #include "../source/irrlicht/CCameraSceneNode.h"
+#include "../source/XEffects/XEffects.h"
 
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
@@ -67,6 +68,8 @@ scene::ISceneCollisionManager* coll;
 scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
 scene::CCameraSceneNode* camera;
 
+EffectHandler* effect;
+
 enum NodeIdCategory
 {
     NODE_INVISIBLE_CATEGORY = 0,
@@ -123,6 +126,9 @@ static void setupSceneAndCamera()
     // ref: https://github.com/Yikun/Design-On-Fingertips/blob/master/magicbookshow/irrAR/irrAR.cpp
     camera =(scene::CCameraSceneNode*)smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
     smgr->setActiveCamera(camera);
+
+    // XEffects
+    effect = new EffectHandler(device, driver->getScreenSize(), false, true);
 }
 
 static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)

@@ -182,14 +182,12 @@ public:
 	/*	EffectHandler constructor. Initializes the EffectHandler.
 
 		Parameters:
-		irrlichtDevice: Current Irrlicht device.
 		screenRTTSize: Size of screen render target for post processing. Default is screen size.
 		useVSMShadows: Shadows will use VSM filtering. It is recommended to only use EFT_NONE when this is enabled.
 		useRoundSpotlights: Shadow lights will have a soft round spot light mask. Default is false.
 		use32BitDepthBuffers: XEffects will use 32-bit depth buffers if this is true, otherwise 16-bit. Default is false.
 	*/
-	EffectHandler(irr::IrrlichtDevice* irrlichtDevice, 
-		const irr::core::dimension2du& screenRTTSize = irr::core::dimension2du(0, 0),
+	EffectHandler(const irr::core::dimension2du& screenRTTSize = irr::core::dimension2du(0, 0),
 		const bool useVSMShadows = false, const bool useRoundSpotLights = false,
 		const bool use32BitDepthBuffers = false);
 	
@@ -453,7 +451,6 @@ private:
 	SPostProcessingPair obtainScreenQuadMaterialFromFile(const irr::core::stringc& filename, 
 		irr::video::E_MATERIAL_TYPE baseMaterial = irr::video::EMT_SOLID);
 
-	irr::IrrlichtDevice* device;
 	irr::video::IVideoDriver* driver;
 	irr::scene::ISceneManager* smgr;
 	irr::core::dimension2du mapRes;

@@ -118,6 +118,9 @@
     <Filter Include="Scene3D">
       <UniqueIdentifier>{b68da60b-edda-42a8-9960-09f3ad3b6667}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XEffects">
+      <UniqueIdentifier>{f472c3f0-4b3b-4a70-afe7-d2985d96f319}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1391,6 +1394,24 @@
     <ClInclude Include="..\..\Scene3D\src\Scene3D.h">
       <Filter>Scene3D</Filter>
     </ClInclude>
+    <ClInclude Include="..\XEffects\XEffects.h">
+      <Filter>XEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\EffectShaders.h">
+      <Filter>XEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\EffectHandler.h">
+      <Filter>XEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\EffectCB.h">
+      <Filter>XEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\CShaderPre.h">
+      <Filter>XEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\CScreenQuad.h">
+      <Filter>XEffects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -2167,6 +2188,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Scene3D\src\Scene3D.cpp">
       <Filter>Scene3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\XEffects\EffectHandler.cpp">
+      <Filter>XEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\XEffects\CShaderPre.cpp">
+      <Filter>XEffects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

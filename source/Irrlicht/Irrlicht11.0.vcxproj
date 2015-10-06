@@ -1086,9 +1086,17 @@
     <ClCompile Include="..\assimp\code\PlyLoader.cpp" />
     <ClCompile Include="..\assimp\code\PlyParser.cpp" />
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
+    <ClCompile Include="..\XEffects\CShaderPre.cpp" />
+    <ClCompile Include="..\XEffects\EffectHandler.cpp" />
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
+    <ClInclude Include="..\XEffects\CScreenQuad.h" />
+    <ClInclude Include="..\XEffects\CShaderPre.h" />
+    <ClInclude Include="..\XEffects\EffectCB.h" />
+    <ClInclude Include="..\XEffects\EffectHandler.h" />
+    <ClInclude Include="..\XEffects\EffectShaders.h" />
+    <ClInclude Include="..\XEffects\XEffects.h" />
     <ClInclude Include="CBgfxTexture.h" />
     <ClInclude Include="CD3D9Driver.h" />
     <ClInclude Include="CD3D9HLSLMaterialRenderer.h" />
