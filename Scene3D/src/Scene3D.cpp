@@ -128,7 +128,7 @@ static void setupSceneAndCamera()
     smgr->setActiveCamera(camera);
 
     // XEffects
-    effect = new EffectHandler(device, driver->getScreenSize(), false, true);
+    //effect = new EffectHandler(driver->getScreenSize(), false, true);
 }
 
 static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)
@@ -353,11 +353,19 @@ void Node_setBillboard(long nodePtr, s3dBool isBillboard)
     getTypedPointer<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
 }
 
+#define CHECK_NODE_RETURN(node) \
+    if (node == NULL) \
+        {\
+        printf("Empty node.\n"); \
+        return; \
+        }
+
 #define CHECK_ANIMATED_MESH_RETURN(nodePtr) \
+    CHECK_NODE_RETURN(nodePtr);\
     auto node = getTypedPointer<scene::ISceneNode>(nodePtr);\
-    if (!node || !node->isAnimatedMeshNode())\
+    if (!node->isAnimatedMeshNode())\
     {\
-        printf("%s is not an animated mesh\n", node->getName());\
+        printf("%s is not an animated mesh.\n", node->getName());\
         return;\
     }
 

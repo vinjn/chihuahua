@@ -73,7 +73,7 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    long nodePtr = Scene_addMeshNode("../../media/robot-body.DAE");
+    long nodePtr = Scene_addMeshNode("../../media/robot.FBX");
     MeshNode_setAnimationByIndex(nodePtr, 0);
     f32 k = 10;
     Node_setScale(nodePtr, k, k, k);

@@ -274,7 +274,7 @@ public:
 	/// Returns the device time divided by 100, for use with the shader callbacks.
 	irr::f32 getTime() 
 	{ 
-		return device->getTimer()->getTime() / 100.0f;
+        return 1; // device->getTimer()->getTime() / 100.0f;
 	}
 	
 	/// Sets the scene clear colour, for when the scene is cleared before smgr->drawAll().
@@ -413,9 +413,6 @@ public:
 
 	/// Sets a new screen render target resolution.
 	void setScreenRenderTargetResolution(const irr::core::dimension2du& resolution);
-
-	/// Returns the device that this EffectHandler was initialized with.
-	irr::IrrlichtDevice* getIrrlichtDevice() {return device;}
 
 private:
 

@@ -166,43 +166,43 @@ IMesh* CSkinnedMesh::getMesh(s32 frame, s32 detailLevel, s32 startFrameLoop, s32
 bool CSkinnedMesh::getFrameLoop(u32 i, s32& outBegin, s32& outEnd, s32& outFPS) const
 {
 	if (i >=0 && i < AnimationData.size())
-    {
-        outBegin = AnimationData[i].begin;
-        outEnd = AnimationData[i].end;
-        outFPS = AnimationData[i].fps;
-        return true;
-    }
-    
-    return false;
+	{
+		outBegin = AnimationData[i].begin;
+		outEnd = AnimationData[i].end;
+		outFPS = AnimationData[i].fps;
+		return true;
+	}
+	
+	return false;
 }
 
 bool CSkinnedMesh::getFrameLoop(const c8* name, s32& outBegin, s32& outEnd, s32& outFPS) const
 {
-    for (u32 i = 0; i < AnimationData.size(); ++i)
-    {
-        if (AnimationData[i].name == name)
-        {
-            outBegin = AnimationData[i].begin;
-            outEnd = AnimationData[i].end;
-            outFPS = AnimationData[i].fps;
-            return true;
-        }
-    }
+	for (u32 i = 0; i < AnimationData.size(); ++i)
+	{
+		if (AnimationData[i].name == name)
+		{
+			outBegin = AnimationData[i].begin;
+			outEnd = AnimationData[i].end;
+			outFPS = AnimationData[i].fps;
+			return true;
+		}
+	}
 
-    return false;
+	return false;
 }
 
 u32 CSkinnedMesh::getAnimationCount() const
 {
-    return AnimationData.size();
+	return AnimationData.size();
 }
 
 const c8* CSkinnedMesh::getAnimationName(s32 nr) const
 {
-    if ((u32)nr >= AnimationData.size())
-        return 0;
+	if ((u32)nr >= AnimationData.size())
+		return 0;
 
-    return AnimationData[nr].name.c_str();
+	return AnimationData[nr].name.c_str();
 }
 
 //! Animates this mesh's joints based on frame input
@@ -620,11 +620,24 @@ void CSkinnedMesh::skinJoint(SJoint *joint, SJoint *parentJoint)
 		{
 			SWeight& weight = joint->Weights[i];
 
+#if 1 
+			// Change is here
+			core::matrix4 invMeshTransform = ((SSkinMeshBuffer*)buffersUsed[weight.buffer_id])->Transformation;
+			invMeshTransform.makeInverse();
+			core::matrix4 jointVertexPull2 = invMeshTransform * jointVertexPull;
+
+			// Pull this vertex...
+			jointVertexPull2.transformVect(thisVertexMove, weight.StaticPos);
+
+			if (AnimateNormals)
+				jointVertexPull2.rotateVect(thisNormalMove, weight.StaticNormal);
+#else
 			// Pull this vertex...
 			jointVertexPull.transformVect(thisVertexMove, weight.StaticPos);
 
 			if (AnimateNormals)
 				jointVertexPull.rotateVect(thisNormalMove, weight.StaticNormal);
+#endif
 
 			if (! (*(weight.Moved)) )
 			{
