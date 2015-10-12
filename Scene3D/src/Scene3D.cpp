@@ -242,6 +242,10 @@ static void postProcessNode(scene::ISceneNode* node, const stringc name)
         node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
         node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
         node->setName(name);
+
+        auto selector = smgr->createTriangleSelectorFromBoundingBox(node);
+        node->setTriangleSelector(selector);
+        selector->drop();
     }
 }
 
@@ -353,8 +357,8 @@ void Node_setBillboard(long nodePtr, s3dBool isBillboard)
     getTypedPointer<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
 }
 
-#define CHECK_NODE_RETURN(node) \
-    if (node == NULL) \
+#define CHECK_NODE_RETURN(nodePtr) \
+    if (nodePtr == 0) \
         {\
         printf("Empty node.\n"); \
         return; \
@@ -666,8 +670,15 @@ long Scene_pickNodeFromScreen(int x, int y)
     bool bNoDebugObjects = false;
 
     auto ray = coll->getRayFromScreenCoordinates(position2di(x, y), camera);
+#if 0
     auto hitNode = coll->getSceneNodeFromRayBB(ray, idBitMask, bNoDebugObjects, arRootNode);
-
+#else
+    vector3df hitPt;
+    triangle3df hitTri;
+    auto hitNode = coll->getSceneNodeAndCollisionPointFromRay(ray,
+        hitPt, hitTri, idBitMask, arRootNode, bNoDebugObjects);
+#endif
+    
     if (hitNode)
     {
         printf("hit %s\n", hitNode->getName());

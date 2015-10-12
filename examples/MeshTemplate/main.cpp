@@ -105,9 +105,9 @@ int main(int argc, char const* const* argv)
 
     Node_setPosition(mBigPlane, 0, 0, -100);
     Node_setPosition(mSmallPlane, 100, 20, -50);
-    //
-    //Node_setRotation(mBigPlane, -45, 0, 0);
-    //Node_setRotation(mSmallPlane, -45, 0, 0);
+    
+    Node_setRotation(mBigPlane, 80, 0, 0);
+    Node_setRotation(mSmallPlane, 80, 0, 0);
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
