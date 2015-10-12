@@ -214,7 +214,7 @@ void Scene_initializeRenderer(int width, int height)
 
 void Scene_clear()
 {
-    // printf("clear()");
+    // printf("Scene_clear()");
 
     driver->beginScene(true, true, video::SColor(255, 100, 100, 100));
     // driver->drawPixel(0, 0, video::SColor(255, 255, 0, 0));
@@ -223,7 +223,7 @@ void Scene_clear()
 
 void Scene_render()
 {
-    // printf("render()");
+    // printf("Scene_clear()");
     os::Timer::tick();
     // printf("fps: %d\n", driver->getFPS());
 
