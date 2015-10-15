@@ -187,7 +187,10 @@ public:
 		useRoundSpotlights: Shadow lights will have a soft round spot light mask. Default is false.
 		use32BitDepthBuffers: XEffects will use 32-bit depth buffers if this is true, otherwise 16-bit. Default is false.
 	*/
-	EffectHandler(const irr::core::dimension2du& screenRTTSize = irr::core::dimension2du(0, 0),
+	EffectHandler(
+        irr::video::IVideoDriver* driver,
+        irr::scene::ISceneManager* smgr,
+        const irr::core::dimension2du& screenRTTSize = irr::core::dimension2du(0, 0),
 		const bool useVSMShadows = false, const bool useRoundSpotLights = false,
 		const bool use32BitDepthBuffers = false);
 	
@@ -272,11 +275,11 @@ public:
 	void addShadowToNode(irr::scene::ISceneNode* node, E_FILTER_TYPE filterType = EFT_NONE, E_SHADOW_MODE shadowMode = ESM_BOTH);
 	
 	/// Returns the device time divided by 100, for use with the shader callbacks.
-	irr::f32 getTime() 
-	{ 
-        return 1; // device->getTimer()->getTime() / 100.0f;
-	}
-	
+	//irr::f32 getTime() 
+	//{ 
+ //       return irr::os::Timer::getTime() / 100.0f;
+	//}
+	//
 	/// Sets the scene clear colour, for when the scene is cleared before smgr->drawAll().
 	void setClearColour(irr::video::SColor ClearCol)
 	{

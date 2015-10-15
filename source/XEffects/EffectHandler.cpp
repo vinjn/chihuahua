@@ -1,6 +1,7 @@
 #include "EffectHandler.h"
 #include "EffectCB.h"
 #include "EffectShaders.h"
+#include "../source/irrlicht/os.h"
 
 #include <string>
 #include <iostream>
@@ -12,10 +13,13 @@ using namespace video;
 using namespace core;
 
 
-EffectHandler::EffectHandler(IrrlichtDevice* dev, const irr::core::dimension2du& screenRTTSize,
+EffectHandler::EffectHandler(
+    irr::video::IVideoDriver* driver,
+    irr::scene::ISceneManager* smgr,
+    const irr::core::dimension2du& screenRTTSize,
 	const bool useVSMShadows, const bool useRoundSpotLights, const bool use32BitDepthBuffers)
-: device(dev), smgr(dev->getSceneManager()), driver(dev->getVideoDriver()),
-ScreenRTTSize(screenRTTSize.getArea() == 0 ? dev->getVideoDriver()->getScreenSize() : screenRTTSize),
+    : smgr(smgr), driver(driver),
+    ScreenRTTSize(screenRTTSize.getArea() == 0 ? driver->getScreenSize() : screenRTTSize),
 ClearColour(0x0), shadowsUnsupported(false), DepthRTT(0), DepthPass(false), depthMC(0), shadowMC(0),
 AmbientColour(0x0), use32BitDepth(use32BitDepthBuffers), useVSM(useVSMShadows)
 {
@@ -139,7 +143,7 @@ AmbientColour(0x0), use32BitDepth(use32BitDepthBuffers), useVSM(useVSMShadows)
 		for(u32 i = 0;i < EFT_COUNT;++i)
 			Shadow[i] = EMT_SOLID;
 
-		device->getLogger()->log("XEffects: Shader effects not supported on this system.");
+		printf("XEffects: Shader effects not supported on this system.\n");
 		shadowsUnsupported = true;
 	}
 }
@@ -244,7 +248,7 @@ void EffectHandler::update(irr::video::ITexture* outputTarget)
 		driver->setRenderTarget(ScreenQuad.rt[0], true, true, AmbientColour);
 
 		ICameraSceneNode* activeCam = smgr->getActiveCamera();
-		activeCam->OnAnimate(device->getTimer()->getTime());
+		activeCam->OnAnimate(os::Timer::getTime());
 		activeCam->OnRegisterSceneNode();
 		activeCam->render();
 
@@ -277,7 +281,7 @@ void EffectHandler::update(irr::video::ITexture* outputTarget)
 						(BufferMaterialList[m] == video::EMT_TRANSPARENT_ALPHA_CHANNEL_REF ? DepthT : Depth);
 				}
 
-				ShadowNodeArray[i].node->OnAnimate(device->getTimer()->getTime());
+                ShadowNodeArray[i].node->OnAnimate(os::Timer::getTime());
 				ShadowNodeArray[i].node->render();
 
 				const u32 BufferMaterialListSize = BufferMaterialList.size();
@@ -333,7 +337,7 @@ void EffectHandler::update(irr::video::ITexture* outputTarget)
 					ShadowNodeArray[i].node->getMaterial(m).setTexture(0, currentShadowMapTexture);
 				}
 
-				ShadowNodeArray[i].node->OnAnimate(device->getTimer()->getTime());
+                ShadowNodeArray[i].node->OnAnimate(os::Timer::getTime());
 				ShadowNodeArray[i].node->render();
 
 				for(u32 m = 0;m < CurrentMaterialCount;++m)
@@ -381,7 +385,7 @@ void EffectHandler::update(irr::video::ITexture* outputTarget)
 				}
 			}
 
-			ShadowNodeArray[i].node->OnAnimate(device->getTimer()->getTime());
+            ShadowNodeArray[i].node->OnAnimate(os::Timer::getTime());
 			ShadowNodeArray[i].node->render();
 
 			for(u32 m = 0;m < CurrentMaterialCount;++m)
@@ -424,7 +428,7 @@ void EffectHandler::update(irr::video::ITexture* outputTarget)
 				BufferMaterialList.push_back(DepthPassArray[i]->getMaterial(g).MaterialType);
 
 			DepthPassArray[i]->setMaterialType((E_MATERIAL_TYPE)Depth);
-			DepthPassArray[i]->OnAnimate(device->getTimer()->getTime());
+            DepthPassArray[i]->OnAnimate(os::Timer::getTime());
 			DepthPassArray[i]->render();
 
 			for(u32 g = 0;g < DepthPassArray[i]->getMaterialCount();++g)
@@ -468,7 +472,7 @@ irr::video::ITexture* EffectHandler::getShadowMapTexture(const irr::u32 resoluti
 
 	if(shadowMapTexture == 0)
 	{
-		device->getLogger()->log("XEffects: Please ignore previous warning, it is harmless.");
+		printf("XEffects: Please ignore previous warning, it is harmless.\n");
 
 		shadowMapTexture = driver->addRenderTargetTexture(dimension2du(resolution, resolution),
 			shadowMapName, use32BitDepth ? ECF_G32R32F : ECF_G16R16F);
@@ -483,8 +487,9 @@ irr::video::ITexture* EffectHandler::generateRandomVectorTexture(const irr::core
 {
 	IImage* tmpImage = driver->createImage(irr::video::ECF_A8R8G8B8, dimensions);
 
-	srand(device->getTimer()->getRealTime());
+    srand(os::Timer::getTime());
 	
+    // TODO: optimize
 	for(u32 x = 0;x < dimensions.Width;++x)
 	{
 		for(u32 y = 0;y < dimensions.Height;++y)
