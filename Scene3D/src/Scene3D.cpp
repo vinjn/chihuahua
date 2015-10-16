@@ -128,7 +128,7 @@ static void setupSceneAndCamera()
     smgr->setActiveCamera(camera);
 
     // XEffects
-    //effect = new EffectHandler(driver->getScreenSize(), false, true);
+    effect = new EffectHandler(driver, smgr, driver->getScreenSize(), false, true);
 }
 
 static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)

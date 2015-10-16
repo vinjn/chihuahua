@@ -39,7 +39,7 @@ AmbientColour(0x0), use32BitDepth(use32BitDepthBuffers), useVSM(useVSMShadows)
 
 	video::IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
 	
-	if(gpu && ((driver->getDriverType() == EDT_OPENGL && driver->queryFeature(EVDF_ARB_GLSL)) ||
+    if (gpu && (((driver->getDriverType() == EDT_OPENGL || driver->getDriverType() == EDT_OGLES2) && driver->queryFeature(EVDF_ARB_GLSL)) ||
 			   (driver->getDriverType() == EDT_DIRECT3D9 && driver->queryFeature(EVDF_PIXEL_SHADER_2_0))))
 	{
 		depthMC = new DepthShaderCB(this);
