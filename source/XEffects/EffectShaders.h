@@ -12,13 +12,17 @@ enum E_SHADER_EXTENSION
 const char* LIGHT_MODULATE_P[ESE_COUNT] =
 {
 R"(
+    precision mediump float;
+ 
 	uniform sampler2D ColorMapSampler;
 	uniform sampler2D ScreenMapSampler;
 
+    varying vec4 vTextureCoord0;
+
 	void main() 
 	{		
-		vec4 finalCol = texture2D(ColorMapSampler, gl_TexCoord[0].xy);
-		vec4 lightCol = texture2D(ScreenMapSampler, gl_TexCoord[0].xy);
+		vec4 finalCol = texture2D(ColorMapSampler, vTextureCoord0.xy);
+		vec4 lightCol = texture2D(ScreenMapSampler, vTextureCoord0.xy);
 
 		gl_FragColor = finalCol * lightCol;
 	}
@@ -42,9 +46,13 @@ R"(
 const char* SHADOW_PASS_1P[ESE_COUNT] =
 {
 R"(
+    precision mediump float;
+ 
+    varying vec4 vTextureCoord0;
+
 	void main()
 	{
-		vec4 vInfo = gl_TexCoord[0];
+		vec4 vInfo = vTextureCoord0;
 		float depth = vInfo.z / vInfo.x;
 		gl_FragColor = vec4(depth, depth * depth, 0.0, 0.0);
 	}
@@ -61,15 +69,20 @@ R"(
 const char* SHADOW_PASS_1PT[ESE_COUNT] = 
 {
 R"(
+    precision mediump float;
+ 
 	uniform sampler2D ColorMapSampler;
+
+    varying vec4 vTextureCoord0;
+    varying vec4 vTextureCoord1;
 
 	void main() 
 	{
-		vec4 vInfo = gl_TexCoord[0];
+		vec4 vInfo = vTextureCoord0;
 
 		float depth = vInfo.z / vInfo.x;
 
-		float alpha = texture2D(ColorMapSampler, gl_TexCoord[1].xy).a;
+		float alpha = texture2D(ColorMapSampler, vTextureCoord1.xy).a;
 
 	    gl_FragColor = vec4(depth, depth * depth, 0.0, alpha);
 	}
@@ -94,13 +107,19 @@ R"(
 	uniform mat4 mWorldViewProj;
 	uniform float MaxD;
 
+    attribute vec2 inTexCoord0;
+    attribute vec3 inVertexPosition;
+
+    varying vec4 vTextureCoord0;
+    varying vec4 vTextureCoord1;
+
 	void main()
 	{
-		vec4 tPos = mWorldViewProj * gl_Vertex;
+		vec4 tPos = mWorldViewProj * vec4(inVertexPosition, 1.0);
 		gl_Position = tPos;
-		gl_TexCoord[0] = vec4(MaxD, tPos.y, tPos.z, tPos.w);
+		vTextureCoord0 = vec4(MaxD, tPos.y, tPos.z, tPos.w);
 
-		gl_TexCoord[1].xy = gl_MultiTexCoord0.xy;
+		vTextureCoord1.xy = inTexCoord0.xy;
 	}
 )",
 R"(
@@ -132,6 +151,8 @@ R"(
 const char* SHADOW_PASS_2P[ESE_COUNT] = 
 {
 R"(
+    precision mediump float;
+ 
 	uniform sampler2D ShadowMapSampler;
 	uniform vec4 LightColour;
 	varying float lightVal;
@@ -163,10 +184,13 @@ R"(
 
 	vec2 offsetArray[16];
 
+    varying vec4 vTextureCoord0;
+    varying vec4 vTextureCoord1;
+
 	void main() 
 	{
-		vec4 SMPos = gl_TexCoord[0];
-		vec4 MVar = gl_TexCoord[1];
+		vec4 SMPos = vTextureCoord0;
+		vec4 MVar = vTextureCoord1;
 
 		offsetArray[0] = vec2(0.0, 0.0);
 		offsetArray[1] = vec2(0.0, 1.0);
@@ -316,17 +340,25 @@ R"(
 	uniform mat4 mWorldViewProj;
 	uniform mat4 mWorldViewProj2;
 
+    attribute vec3 inVertexPosition;
+    attribute vec3 inVertexNormal;
+    attribute vec2 inTexCoord0;
+    attribute vec2 inTexCoord1;
+
+    varying vec4 vTextureCoord0;
+    varying vec4 vTextureCoord1;
+
 	VS_OUTPUT vertexMain( in vec3 Position) 
 	{
 		VS_OUTPUT OUT;
 
-		OUT.Position = (mWorldViewProj * vec4(Position.x, Position.y, Position.z, 1.0));
-		OUT.ShadowMapSamplingPos = (mWorldViewProj2 * vec4(Position.x, Position.y, Position.z, 1.0));
+		OUT.Position = (mWorldViewProj * vec4(Position, 1.0));
+		OUT.ShadowMapSamplingPos = (mWorldViewProj2 * vec4(Position, 1.0));
 
 		vec3 lightDir = normalize(LightPos - Position);
 		
 		OUT.MVar.x = OUT.ShadowMapSamplingPos.z;
-		OUT.MVar.y = dot(normalize(gl_Normal.xyz), lightDir);
+		OUT.MVar.y = dot(normalize(inVertexNormal.xyz), lightDir);
 		OUT.MVar.z = MaxD;
 		OUT.MVar.w = 1.0 / MAPRES;
 
@@ -335,11 +367,11 @@ R"(
 
 	void main() 
 	{
-		VS_OUTPUT vOut = vertexMain(gl_Vertex.xyz);
+		VS_OUTPUT vOut = vertexMain(inVertexPosition.xyz);
 
 		gl_Position = vOut.Position;
-		gl_TexCoord[0] = vOut.ShadowMapSamplingPos;
-		gl_TexCoord[1] = vOut.MVar;
+		vTextureCoord0 = vOut.ShadowMapSamplingPos;
+		vTextureCoord1 = vOut.MVar;
 	}
 )",
 R"(
@@ -387,11 +419,15 @@ R"(
 const char* SIMPLE_P[ESE_COUNT] = 
 {
 R"(
+    precision mediump float;
+ 
 	uniform sampler2D ColorMapSampler;
+
+    varying vec4 vTextureCoord0;
 
 	void main() 
 	{		
-		vec4 finalCol = texture2D(ColorMapSampler, gl_TexCoord[0].xy);
+		vec4 finalCol = texture2D(ColorMapSampler, vTextureCoord0.xy);
 		gl_FragColor = finalCol;
 	}
 )",
@@ -410,11 +446,15 @@ R"(
 const char* WHITE_WASH_P[ESE_COUNT] = 
 {
 R"(
+    precision mediump float;
+ 
 	uniform sampler2D ColorMapSampler;
+
+    varying vec4 vTextureCoord1;
 
 	void main() 
 	{
-		float alpha = texture2D(ColorMapSampler, gl_TexCoord[1].xy).a;
+		float alpha = texture2D(ColorMapSampler, vTextureCoord1.xy).a;
 
 	    gl_FragColor = vec4(1.0, 1.0, 1.0, alpha);
 	}
@@ -435,15 +475,20 @@ R"(
 const char* WHITE_WASH_P_ADD[ESE_COUNT] = 
 {
 R"(
+    precision mediump float;
+ 
 	uniform sampler2D ColorMapSampler;
+
+    varying vec4 vTextureCoord1;
+
 	float luminance(vec3 color)
 	{
 		return clamp(color.r * 0.3 + color.g * 0.59 + color.b * 0.11, 0.0, 1.0);
 	}
 	void main() 
 	{
-		vec4 diffuseTex = texture2D(ColorMapSampler, gl_TexCoord[1].xy);
-		//diffuseTex *= gl_TexCoord[2];
+		vec4 diffuseTex = texture2D(ColorMapSampler, vTextureCoord1.xy);
+		//diffuseTex *= vTextureCoord2;
 
 	    gl_FragColor = vec4(1.0, 1.0, 1.0, luminance(diffuseTex.rgb));
 	}
@@ -472,21 +517,31 @@ R"(
 	uniform float screenX, screenY; 
 	uniform vec3 LineStarts0, LineStarts1, LineStarts2, LineStarts3; 
 	uniform vec3 LineEnds0, LineEnds1, LineEnds2, LineEnds3; 
+
+    attribute vec2 inTexCoord0;
+    attribute vec2 inTexCoord1;
+    attribute vec3 inVertexPosition;
+
+    varying vec4 vTextureCoord0;
+    varying vec4 vTextureCoord1;
+    varying vec4 vTextureCoord2;
+    varying vec4 vTextureCoord3;
+
 	void main()  
 	{ 
-		gl_Position = vec4(gl_Vertex.x, gl_Vertex.y, 0.0, 1.0); 
+		gl_Position = vec4(inVertexPosition.x, inVertexPosition.y, 0.0, 1.0); 
 		vec2 tCoords;  
-		tCoords.x = 0.5 * (1.0 + gl_Vertex.x);  
-		tCoords.y = 0.5 * (1.0 + gl_Vertex.y);  
-		gl_TexCoord[0].xy = tCoords.xy;  
+		tCoords.x = 0.5 * (1.0 + inVertexPosition.x);  
+		tCoords.y = 0.5 * (1.0 + inVertexPosition.y);  
+		vTextureCoord0.xy = tCoords.xy;  
 		tCoords.y = 1.0 - tCoords.y;  
 		vec3 tLStart = mix(LineStarts0, LineStarts1, tCoords.x);  
 		vec3 bLStart = mix(LineStarts2, LineStarts3, tCoords.x);  
-		gl_TexCoord[1].xyz = mix(tLStart, bLStart, tCoords.y);  
+		vTextureCoord1.xyz = mix(tLStart, bLStart, tCoords.y);  
 		vec3 tLEnd = mix(LineEnds0, LineEnds1, tCoords.x);  
 		vec3 bLEnd = mix(LineEnds2, LineEnds3, tCoords.x);  
-		gl_TexCoord[2].xyz = mix(tLEnd, bLEnd, tCoords.y);  
-		gl_TexCoord[3].xy = vec2(screenX, screenY); 
+		vTextureCoord2.xyz = mix(tLEnd, bLEnd, tCoords.y);  
+		vTextureCoord3.xy = vec2(screenX, screenY); 
 	}
 )",
 R"(
@@ -524,31 +579,36 @@ R"(
 const char* VSM_BLUR_P[ESE_COUNT] = 
 {
 R"(
+    precision mediump float;
+ 
 	uniform sampler2D ColorMapSampler;
 
 	vec2 offsetArray[5];
+
+    varying vec4 vTextureCoord0;
+    varying vec4 vTextureCoord3;
 
 	void main() 
 	{
 
 	##ifdef VERTICAL_VSM_BLUR
 		offsetArray[0] = vec2(0.0, 0.0);
-		offsetArray[1] = vec2(0.0, -1.5 / gl_TexCoord[3].y);
-		offsetArray[2] = vec2(0.0, 1.5 / gl_TexCoord[3].y);
-		offsetArray[3] = vec2(0.0, -2.5 / gl_TexCoord[3].y);
-		offsetArray[4] = vec2(0.0, 2.5 / gl_TexCoord[3].y);
+		offsetArray[1] = vec2(0.0, -1.5 / vTextureCoord3.y);
+		offsetArray[2] = vec2(0.0, 1.5 / vTextureCoord3.y);
+		offsetArray[3] = vec2(0.0, -2.5 / vTextureCoord3.y);
+		offsetArray[4] = vec2(0.0, 2.5 / vTextureCoord3.y);
 	##else
 		offsetArray[0] = vec2(0.0, 0.0);
-		offsetArray[1] = vec2(-1.5 / gl_TexCoord[3].x, 0.0);
-		offsetArray[2] = vec2(1.5 / gl_TexCoord[3].x, 0.0);
-		offsetArray[3] = vec2(-2.5 / gl_TexCoord[3].x, 0.0);
-		offsetArray[4] = vec2(2.5 / gl_TexCoord[3].x, 0.0);
+		offsetArray[1] = vec2(-1.5 / vTextureCoord3.x, 0.0);
+		offsetArray[2] = vec2(1.5 / vTextureCoord3.x, 0.0);
+		offsetArray[3] = vec2(-2.5 / vTextureCoord3.x, 0.0);
+		offsetArray[4] = vec2(2.5 / vTextureCoord3.x, 0.0);
 	##endif
 
 		vec4 BlurCol = vec4(0.0, 0.0, 0.0, 0.0);
 
 		for(int i = 0;i < 5;++i)
-			BlurCol += texture2D(ColorMapSampler, clamp(gl_TexCoord[0].xy + offsetArray[i], vec2(0.001, 0.001), vec2(0.999, 0.999)));
+			BlurCol += texture2D(ColorMapSampler, clamp(vTextureCoord0.xy + offsetArray[i], vec2(0.001, 0.001), vec2(0.999, 0.999)));
 
 		gl_FragColor = BlurCol / 5.0;
 	}

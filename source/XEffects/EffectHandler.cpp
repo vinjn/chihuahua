@@ -221,6 +221,15 @@ void EffectHandler::addShadowToNode(irr::scene::ISceneNode *node, E_FILTER_TYPE 
 	ShadowNodeArray.push_back(snode);
 }
 
+void EffectHandler::removeNodeFromShadow(irr::scene::ISceneNode *node)
+{
+    SShadowNode snode = { node, ESM_COUNT, EFT_NONE };
+
+    s32 i = ShadowNodeArray.binary_search(snode);
+
+    if (i != -1)
+        ShadowNodeArray.erase(i);
+}
 
 void EffectHandler::addNodeToDepthPass(irr::scene::ISceneNode *node)
 {

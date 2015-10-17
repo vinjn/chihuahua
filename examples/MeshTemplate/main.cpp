@@ -2,6 +2,7 @@
 #include "bx/commandline.h"
 #include "bx/float4x4_t.h"
 #include "../../Scene3D/src/Scene3D.h"
+#include "../../xeffects/Source/XEffects.h"
 
 using namespace irr;
 
@@ -12,6 +13,8 @@ using namespace io;
 using namespace gui;
 
 IrrlichtDevice *device;
+
+extern EffectHandler* effect;
 
 class MyEventReceiver : public IEventReceiver
 {
@@ -71,6 +74,11 @@ int main(int argc, char const* const* argv)
     IVideoDriver* driver = device->getVideoDriver();
     ISceneManager* smgr = device->getSceneManager();
 
+    //auto shadowDimen = 512;
+    //effect->addShadowLight(SShadowLight(shadowDimen, vector3df(0, 0, 0), vector3df(5, 0, 5),
+    //    video::SColor(0, 255, 0, 0), 20.0f, 60.0f, 30.0f * DEGTORAD));
+    //effect->getShadowLight(0).setPosition({ 100, 100, 100 });
+
     const float kCamDistZ = 40;
 
     long nodePtr = Scene_addMeshNode("../../media/robot.FBX");
@@ -81,12 +89,16 @@ int main(int argc, char const* const* argv)
     Node_setTextureAt(nodePtr, 1, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
     Node_setRotation(nodePtr, 0, 0, 0);
 
+    MeshNode_setShadowMode(nodePtr, Shadow_Both);
+
     long metaioPtr = Scene_addMeshNode("../../media/metaioman.md2");
     MeshNode_setAnimationByIndex(metaioPtr, 0);
     k = 2;
     Node_setPosition(metaioPtr, 100, 0, 0);
     Node_setScale(metaioPtr, k, k, k);
     Node_setTexture(metaioPtr, Scene_addTexture("../../media/metaioman.png"));
+
+    MeshNode_setShadowMode(metaioPtr, Shadow_Both);
 
 #if 0
     nodePtr = Scene_addMeshNode("../../media/LOGO_new.DAE");
@@ -103,17 +115,22 @@ int main(int argc, char const* const* argv)
     Node_setTexture(mSmallPlane,
                     Scene_addTexture("../../media/seymour.jpg"));
 
-    Node_setPosition(mBigPlane, 0, 0, -100);
+    Node_setPosition(mBigPlane, 0, 0, 0);
     Node_setPosition(mSmallPlane, 100, 20, -50);
     
-    Node_setRotation(mBigPlane, 80, 0, 0);
-    Node_setRotation(mSmallPlane, 80, 0, 0);
+    Node_setRotation(mBigPlane, 10, 0, 0);
+    Node_setRotation(mSmallPlane, 10, 0, 0);
+
+    MeshNode_setShadowMode(mBigPlane, Shadow_Both);
+    MeshNode_setShadowMode(mSmallPlane, Shadow_Both);
 
 #if 0
-    smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
+    auto camera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
+    smgr->setActiveCamera(camera);
 #else
     //auto camera = smgr->addCameraSceneNodeFPS(0);
-    //camera->setPosition({ 0.0f, 0.0f, -kCamDistZ * 3 });
+    //camera->setPosition({ 0.0f, 0.0f, 0.0f });
+    //smgr->setActiveCamera(camera);
 #endif
 
     while (device->run())
@@ -164,7 +181,7 @@ int main(int argc, char const* const* argv)
         //
         // Render
         //
-        driver->beginScene(true, true, SColor(255, 100, 101, 140));
+        Scene_clear();
 
         if (eventRecv.LeftButtonDown)
         {
@@ -174,8 +191,7 @@ int main(int argc, char const* const* argv)
             }
         }
 
-        smgr->drawAll();
-        driver->endScene();
+        Scene_render();
     }
 
     device->drop();

@@ -273,7 +273,8 @@ public:
 	/// ESM_CAST only casts shadows, and is unaffected by shadows or lighting, and ESM_RECEIVE
 	/// only receives but does not cast shadows.
 	void addShadowToNode(irr::scene::ISceneNode* node, E_FILTER_TYPE filterType = EFT_NONE, E_SHADOW_MODE shadowMode = ESM_BOTH);
-	
+    void removeNodeFromShadow(irr::scene::ISceneNode *node);
+
 	/// Returns the device time divided by 100, for use with the shader callbacks.
 	//irr::f32 getTime() 
 	//{ 

@@ -67,6 +67,15 @@ typedef enum
     LightMap,
     MaterialType_EnumSize  = 0x7fffffff ///< \internal Force type int32_t.
 } MaterialType;
+
+typedef enum
+{
+    Shadow_ReceiveOnly,
+    Shadow_CastOnly,
+    Shadow_Both,
+    Shadow_Off,
+} ShadowMode;
+
 S3D_API void Node_setVisible(long nodePtr, s3dBool visible);
 S3D_API void Node_setPosition(long nodePtr, float x, float y, float z);
 S3D_API void Node_setRotation(long nodePtr, float x, float y, float z);
@@ -88,6 +97,7 @@ S3D_API void MeshNode_setAnimationLoop(long nodePtr, s3dBool isLoop);
 S3D_API void MeshNode_setAnimationByName(long nodePtr, const char* animationName);
 S3D_API void MeshNode_setAnimationByIndex(long nodePtr, int index);
 S3D_API void MeshNode_setAnimationByRange(long nodePtr, int start, int end);
+S3D_API void MeshNode_setShadowMode(long nodePtr, ShadowMode mode);
 
 // LightNode methods
 typedef enum

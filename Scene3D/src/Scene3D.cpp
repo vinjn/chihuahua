@@ -129,6 +129,11 @@ static void setupSceneAndCamera()
 
     // XEffects
     effect = new EffectHandler(driver, smgr, driver->getScreenSize(), false, true);
+
+    auto shadowDimen = 512;
+    effect->addShadowLight(SShadowLight(shadowDimen, vector3df(0, 0, 0), vector3df(5, 0, 5),
+       video::SColor(0, 255, 0, 0), 20.0f, 60.0f, 30.0f * DEGTORAD));
+    effect->getShadowLight(0).setPosition({ 100, 100, 100 });
 }
 
 static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)
@@ -215,8 +220,9 @@ void Scene_initializeRenderer(int width, int height)
 void Scene_clear()
 {
     // printf("Scene_clear()");
-
-    driver->beginScene(true, true, video::SColor(255, 100, 100, 100));
+    auto clr = video::SColor(255, 100, 100, 100);
+    effect->setClearColour(clr);
+    driver->beginScene(true, true, clr);
     // driver->drawPixel(0, 0, video::SColor(255, 255, 0, 0));
     // driver->draw2DRectangleOutline(recti(10, 10, 100, 100));
 }
@@ -227,7 +233,11 @@ void Scene_render()
     os::Timer::tick();
     // printf("fps: %d\n", driver->getFPS());
 
+#if 0
     smgr->drawAll();
+#else
+    effect->update();
+#endif
 
     driver->endScene();
 }
@@ -728,6 +738,16 @@ void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType materi
     default: break;
     }
     node->getMaterial(mtrl).MaterialType = type;
+}
+
+void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
+{
+    scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+
+    // TODO: cache & optimize
+    effect->removeNodeFromShadow(node);
+    E_FILTER_TYPE filterType = EFT_NONE;
+    effect->addShadowToNode(node, filterType, (E_SHADOW_MODE)mode);
 }
 
 void Scene_setVisible(s3dBool visible)
