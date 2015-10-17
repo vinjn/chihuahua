@@ -81,6 +81,10 @@
 #define NO_IRR_COMPILE_WITH_TGA_LOADER_
 #undef NO_IRR_COMPILE_WITH_DIRECT3D_9_
 #define _IRR_COMPILE_WITH_BGFX_
+
+#define NO_IRR_COMPILE_WITH_EGL_MANAGER_
+#define _IRR_COMPILE_WITH_WGL_MANAGER_
+
 #endif
 
 //! WINCE is a very restricted environment for mobile devices

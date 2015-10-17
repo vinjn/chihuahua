@@ -26,8 +26,7 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #else
-#include "PVR-SDK/GLES2/gl2.h"
-#include "PVR-SDK/GLES2/gl2ext.h"
+#include "../glew/GL/glew.h"
 #endif
 
 namespace irr
@@ -92,6 +91,10 @@ COGLES2Driver::COGLES2Driver(const SIrrlichtCreationParameters& params,
 		ContextManager->generateContext();
 		ExposedData = ContextManager->getContext();
 		ContextManager->activateContext(ExposedData);
+
+#ifdef _IRR_COMPILE_WITH_WGL_MANAGER_
+        glewInit();
+#endif
 	}
 
 	windowSize = params.WindowSize;

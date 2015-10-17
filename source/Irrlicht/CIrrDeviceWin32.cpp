@@ -32,10 +32,10 @@
 #endif
 #endif
 #endif
-#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
+#if defined(_IRR_COMPILE_WITH_EGL_MANAGER_)
 #include "CEGLManager.h"
 #endif
-#if defined(_IRR_WINDOWS_API_)
+#if defined(_IRR_COMPILE_WITH_WGL_MANAGER_)
 #include "CWGLManager.h"
 #endif
 
@@ -1200,7 +1200,11 @@ void CIrrDeviceWin32::createDriver()
 		#ifdef _IRR_COMPILE_WITH_OGLES2_
 		{
 			switchToFullScreen();
+#if defined(_IRR_COMPILE_WITH_EGL_MANAGER_)
 			ContextManager = new video::CEGLManager();
+#else
+            ContextManager = new video::CWGLManager();
+#endif
 			ContextManager->initialize(CreationParams, video::SExposedVideoData(HWnd));
 
 			VideoDriver = video::createOGLES2Driver(CreationParams, FileSystem, ContextManager);
@@ -1218,7 +1222,11 @@ void CIrrDeviceWin32::createDriver()
         #ifdef _IRR_COMPILE_WITH_BGFX_
         {
             switchToFullScreen();
+#if defined(_IRR_COMPILE_WITH_EGL_MANAGER_)
             ContextManager = new video::CEGLManager();
+#else
+            ContextManager = new video::CWGLManager();
+#endif
             ContextManager->initialize(CreationParams, video::SExposedVideoData(HWnd));
 
             VideoDriver = video::createBgfxDriver(CreationParams, FileSystem, ContextManager);

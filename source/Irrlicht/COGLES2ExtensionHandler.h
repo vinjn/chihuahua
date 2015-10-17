@@ -24,11 +24,7 @@
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #else
-#include "PVR-SDK/GLES2/gl2.h"
-typedef char GLchar;
-#if defined(_IRR_OGLES2_USE_EXTPOINTER_)
-#include "gles2-ext.h"
-#endif
+#include "../glew/GL/glew.h"
 #endif
 
 #include "os.h"

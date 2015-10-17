@@ -121,6 +121,9 @@
     <Filter Include="XEffects">
       <UniqueIdentifier>{f472c3f0-4b3b-4a70-afe7-d2985d96f319}</UniqueIdentifier>
     </Filter>
+    <Filter Include="glew">
+      <UniqueIdentifier>{7830df64-2f7e-4aed-8c26-102473c5c210}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -2197,6 +2200,9 @@
     </ClCompile>
     <ClCompile Include="..\XEffects\EffectShaders.cpp">
       <Filter>XEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glew\glew.c">
+      <Filter>glew</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,11 @@
 #endif
 
 #ifdef _MSC_VER
+#if defined(_IRR_COMPILE_WITH_EGL_MANAGER_)
 #pragma comment(lib, "libGLESv2.lib")
+#else
+#pragma comment(lib, "OpenGL32.lib")
+#endif
 #endif
 
 namespace irr

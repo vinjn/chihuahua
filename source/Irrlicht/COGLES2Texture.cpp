@@ -1252,7 +1252,7 @@ bool checkOGLES2FBOStatus(COGLES2Driver* Driver)
 			os::Printer::log("FBO missing an image attachment", ELL_ERROR);
 			break;
 
-		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
+        case 0x8CD9: //GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
 			os::Printer::log("FBO has one or several image attachments with different dimensions", ELL_ERROR);
 			break;
 

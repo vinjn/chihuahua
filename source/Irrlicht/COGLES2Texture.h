@@ -14,7 +14,7 @@
 #elif defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_)
 #include <GLES2/gl2.h>
 #else
-#include "PVR-SDK/GLES2/gl2.h"
+#include "../glew/GL/glew.h"
 #endif
 
 #include "ITexture.h"
