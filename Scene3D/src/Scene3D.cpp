@@ -131,8 +131,8 @@ static void setupSceneAndCamera()
     effect = new EffectHandler(driver, smgr, driver->getScreenSize(), false, true);
 
     auto shadowDimen = 512;
-    effect->addShadowLight(SShadowLight(shadowDimen, vector3df(0, 0, 0), vector3df(5, 0, 5),
-       video::SColor(0, 255, 0, 0), 20.0f, 60.0f, 30.0f * DEGTORAD));
+    effect->addShadowLight(SShadowLight(shadowDimen, vector3df(100, 1000, 100), vector3df(0, 0, 0),
+       video::SColor(0, 255, 0, 0), 20.0f, 600.0f, 30.0f * DEGTORAD, true));
     effect->getShadowLight(0).setPosition({ 100, 100, 100 });
 }
 

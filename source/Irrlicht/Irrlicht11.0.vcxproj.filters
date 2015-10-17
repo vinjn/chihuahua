@@ -2195,6 +2195,9 @@
     <ClCompile Include="..\XEffects\CShaderPre.cpp">
       <Filter>XEffects</Filter>
     </ClCompile>
+    <ClCompile Include="..\XEffects\EffectShaders.cpp">
+      <Filter>XEffects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Irrlicht.rc" />

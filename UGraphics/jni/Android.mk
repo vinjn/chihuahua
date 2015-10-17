@@ -3,6 +3,7 @@ LOCAL_PATH := $(call my-dir)/../../source/Irrlicht
 Scene3D_PATH := ../../Scene3D/src
 UGraphics_PATH := ../../UGraphics/src
 ASSIMP_PATH := ../assimp/
+XEffects_PATH := ../XEffects/
 
 include $(CLEAR_VARS)
 
@@ -25,6 +26,9 @@ LOCAL_C_INCLUDES := ../include \
 
 LOCAL_SRC_FILES := \
                     $(Scene3D_PATH)/Scene3D.cpp \
+                    $(XEffects_PATH)/CShaderPre.cpp \
+                    $(XEffects_PATH)/EffectHandler.cpp \
+                    $(XEffects_PATH)/EffectShaders.cpp \
                     $(UGraphics_PATH)/Android/UGraphicsAndroid.cpp \
                     $(Scene3D_PATH)/Android/CAndroidAssetFileArchive.cpp \
                     $(Scene3D_PATH)/Android/CAndroidAssetReader.cpp \

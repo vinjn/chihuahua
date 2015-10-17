@@ -1094,6 +1094,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\XEffects\EffectShaders.cpp" />
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
