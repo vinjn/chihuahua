@@ -2,6 +2,10 @@ uniform sampler2D ScreenMapSampler;
 uniform sampler2D DepthMapSampler;
 uniform sampler2D UserMapSampler;
 
+varying vec2 vTextureCoord0;
+varying vec2 vTextureCoord1;
+varying vec2 vTextureCoord2;
+
 float getDepthAt(vec2 coords)
 {
 	vec4 texDepth = texture2D(DepthMapSampler, coords);
@@ -16,9 +20,9 @@ float getDepthAt(vec2 coords)
 
 void main()
 {
-	vec2 TexCoords = gl_TexCoord[0].xy;
-	vec3 LStart = gl_TexCoord[1].xyz;
-	vec3 LEnd = gl_TexCoord[2].xyz;
+	vec2 TexCoords = vTextureCoord0.xy;
+	vec3 LStart = vTextureCoord1.xyz;
+	vec3 LEnd = vTextureCoord2.xyz;
 
 	vec3 lVec = LEnd - LStart;
 	vec3 lDir = normalize(lVec);

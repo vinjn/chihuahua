@@ -1,5 +1,7 @@
 uniform sampler2D ColorMapSampler;
 
+varying vec2 vTextureCoord0;
+
 vec2 offsetArray[7];
 
 void main() 
@@ -15,7 +17,7 @@ void main()
 	vec4 BlurCol = vec4(0.0, 0.0, 0.0, 0.0);
 
 	for(int i = 0;i < 7;++i)
-		BlurCol += texture2D(ColorMapSampler, clamp(gl_TexCoord[0].xy + offsetArray[i] * 3.0, vec2(0.01, 0.001), vec2(0.999, 0.999)));
+		BlurCol += texture2D(ColorMapSampler, clamp(vTextureCoord0.xy + offsetArray[i] * 3.0, vec2(0.01, 0.001), vec2(0.999, 0.999)));
 	
 	BlurCol /= 7.0;
 	

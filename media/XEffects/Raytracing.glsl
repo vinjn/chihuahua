@@ -1,5 +1,9 @@
 uniform sampler2D UserMapSampler;
 
+varying vec2 vTextureCoord0;
+varying vec2 vTextureCoord1;
+varying vec2 vTextureCoord2;
+
 #define PI 3.14159265359
 #define MAX_RAY 10000.0
 
@@ -93,8 +97,8 @@ vec4 planeReflectionColor(vec3 hitPoint, vec3 lineDir, vec3 planeNormal)
 
 void main()
 {
-	vec3 LStart = gl_TexCoord[1].xyz;
-	vec3 LEnd = gl_TexCoord[2].xyz;
+	vec3 LStart = vTextureCoord1.xyz;
+	vec3 LEnd = vTextureCoord2.xyz;
 
 	vec3 lVec = LEnd - LStart;
 	vec3 lDir = normalize(lVec);
