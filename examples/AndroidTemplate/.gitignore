@@ -24,7 +24,7 @@ proguard/
 
 # Log Files
 *.log
-/libs
+# /libs
 /libs/doc
 /obj/local/armeabi-v7a
 /obj/local/armeabi
