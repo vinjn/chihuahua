@@ -81,12 +81,16 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    long nodePtr = Scene_addMeshNode("../../media/robot.FBX");
+    long nodePtr = Scene_addMeshNode("../../media/41802/BOX.DAE");
     MeshNode_setAnimationByIndex(nodePtr, 0);
     f32 k = 10;
     Node_setScale(nodePtr, k, k, k);
+#if 1
+    //Node_setTexture(nodePtr, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+#else    
     Node_setTextureAt(nodePtr, 0, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
     Node_setTextureAt(nodePtr, 1, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+#endif
     Node_setRotation(nodePtr, 0, 0, 0);
 
     MeshNode_setShadowMode(nodePtr, Shadow_Both);
@@ -115,8 +119,8 @@ int main(int argc, char const* const* argv)
     Node_setTexture(mSmallPlane,
                     Scene_addTexture("../../media/seymour.jpg"));
 
-    Node_setPosition(mBigPlane, 0, 0, 0);
-    Node_setPosition(mSmallPlane, 100, 20, -50);
+    Node_setPosition(mBigPlane, 0, 0, -500);
+    Node_setPosition(mSmallPlane, 100, 20, -500);
     
     Node_setRotation(mBigPlane, 10, 0, 0);
     Node_setRotation(mSmallPlane, 10, 0, 0);

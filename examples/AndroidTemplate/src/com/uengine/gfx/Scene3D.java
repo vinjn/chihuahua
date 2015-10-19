@@ -114,13 +114,10 @@ public class Scene3D {
 	public static native void Node_setTextureAt(long nodePtr, int mtrl,
 			long texturePtr);
 
-	public static native void Node_setTexture(long nodePtr, long texturePtr);
-
-	public static native void Node_setSecondTextureAt(long nodePtr, int mtrl,
-			long texturePtr);
-
 	public static native void Node_setMaterialTypeAt(long nodePtr, int mtrl,
 			int materialType);
+
+	public static native void Node_setTexture(long nodePtr, long texturePtr);
 
 	public static native void Node_setMaterialType(long nodePtr,
 			int materialType);

@@ -366,17 +366,18 @@ public final class MainActivity extends Activity implements Renderer {
 		DebugLog.i("tex: " + Scene3D.Scene_addTextureFromImage(img));
 		DebugLog.i("tex: " + Scene3D.Scene_addTextureFromImage(img));
 
-		if (true) {
+		if (false) {
 			mMeshNode = Scene3D.Scene_addMeshNode("metaioman.md2");
 			Scene3D.Node_setTexture(mMeshNode,
 					Scene3D.Scene_addTexture("metaioman.png"));
 			k = 5;
 		} else {
-			mMeshNode = Scene3D.Scene_addMeshNode("yinhe.FBX");
+			mMeshNode = Scene3D.Scene_addMeshNode("hiar1.DAE");
+//			Scene3D.MeshNode_setAnimationByRange(mMeshNode, 450, 500);
 			Scene3D.Node_setTexture(mMeshNode,
-					Scene3D.Scene_addTexture("yinhe.png"));
-			Scene3D.Node_setMaterialType(mMeshNode, Scene3D.AlphaBlend);
-			k = 1;
+					Scene3D.Scene_addTexture("polySurface60VRayCompleteMap.jpg"));
+			Scene3D.Node_setMaterialType(mMeshNode, Scene3D.Solid);
+			k = 10;
 		}
 
 		Scene3D.Scene_setAnimationCallback(new Scene3D.AnimationCallback() {

@@ -127,13 +127,14 @@ static void setupSceneAndCamera()
     camera =(scene::CCameraSceneNode*)smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
     smgr->setActiveCamera(camera);
 
+#ifdef _IRR_WINDOWS_API_
     // XEffects
     effect = new EffectHandler(driver, smgr, driver->getScreenSize(), false, true);
 
     auto shadowDimen = 512;
     effect->addShadowLight(SShadowLight(1024, vector3df(-15, 30, -15), vector3df(5, 0, 5),
         video::SColor(255, 255, 255, 255), 20.0f, 60.0f, 30.0f * DEGTORAD));
-
+#endif
 }
 
 static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)
@@ -221,7 +222,7 @@ void Scene_clear()
 {
     // printf("Scene_clear()");
     auto clr = video::SColor(255, 100, 100, 100);
-    effect->setClearColour(clr);
+	if (effect) effect->setClearColour(clr);
     driver->beginScene(true, true, clr);
     // driver->drawPixel(0, 0, video::SColor(255, 255, 0, 0));
     // driver->draw2DRectangleOutline(recti(10, 10, 100, 100));
@@ -233,10 +234,10 @@ void Scene_render()
     os::Timer::tick();
     // printf("fps: %d\n", driver->getFPS());
 
-#if 0
-    smgr->drawAll();
-#else
+#ifdef _IRR_WINDOWS_API_
     effect->update();
+#else
+    smgr->drawAll();
 #endif
 
     driver->endScene();
@@ -742,6 +743,8 @@ void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType materi
 
 void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
 {
+	if (!effect) return;
+
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
 
     // TODO: cache & optimize
