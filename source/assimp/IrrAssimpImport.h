@@ -32,8 +32,6 @@ class IrrAssimpImport : public irr::scene::IMeshLoader
         virtual irr::scene::IAnimatedMesh* createMesh(irr::io::IReadFile* file);
         virtual bool isALoadableFileExtension(const irr::io::path& filename) const;
 
-        irr::core::stringc Error;
-
     protected:
     private:
         void createNode(irr::scene::ISkinnedMesh* mesh, aiNode* node, bool isRoot);

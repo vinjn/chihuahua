@@ -185,11 +185,9 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
 
     if (!pScene)
     {
-        Error = Importer.GetErrorString();
+        printf("IrrAssimpImport: %s\n", Importer.GetErrorString());
         return 0;
     }
-    else
-        Error = "";
 
     core::stringc fileDir = FileSystem->getFileDir(path);
 
