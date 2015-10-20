@@ -724,7 +724,7 @@ is quite useful for a mesh viewer.
 int main(int argc, char* argv[])
 {
 	// ask user for driver
-    video::E_DRIVER_TYPE driverType = video::EDT_DIRECT3D9;
+    video::E_DRIVER_TYPE driverType = video::EDT_OGLES2;
 
 	// create device and exit if creation failed
 	MyEventReceiver receiver;
@@ -953,7 +953,7 @@ int main(int argc, char* argv[])
 		driver->getTexture("irrlicht2_bk.jpg"));
 
 	// add a camera scene node
-	Camera[0] = smgr->addCameraSceneNodeMaya();
+	Camera[0] = smgr->addCameraSceneNodeMaya(NULL, -150);
 	Camera[0]->setFarValue(20000.f);
 	// Maya cameras reposition themselves relative to their target, so target the location
 	// where the mesh scene node is placed.
