@@ -328,7 +328,7 @@ long Scene_addTexture(const char* textureName)
     return (long)texture;
 }
 
-void Node_setLighting(long nodePtr, s3dBool enabled)
+void Node_setLighting(long nodePtr, int enabled)
 {
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     node->setMaterialFlag(video::EMF_LIGHTING, enabled);
@@ -363,7 +363,7 @@ void Node_setSecondTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
         node->getMaterial(mtrl).setTexture(1, texture);
 }
 
-void Node_setBillboard(long nodePtr, s3dBool isBillboard)
+void Node_setBillboard(long nodePtr, int isBillboard)
 {
     getTypedPointer<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
 }
@@ -396,7 +396,7 @@ void MeshNode_setAnimationByName(long nodePtr, const char* animationName)
     getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setAnimationByName(animationName);
 }
 
-void MeshNode_setAnimationLoop(long nodePtr, s3dBool isLoop)
+void MeshNode_setAnimationLoop(long nodePtr, int isLoop)
 {
     CHECK_ANIMATED_MESH_RETURN(nodePtr);
     getTypedPointer<scene::IAnimatedMeshSceneNode>(nodePtr)->setLoopMode(isLoop);
@@ -507,7 +507,7 @@ long Scene_getRootNode()
     return (long)arRootNode;
 }
 
-void Node_setVisible(long nodePtr, s3dBool visible)
+void Node_setVisible(long nodePtr, int visible)
 {
     // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     getTypedPointer<scene::ISceneNode>(nodePtr)->setVisible(visible);
@@ -753,7 +753,7 @@ void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
     effect->addShadowToNode(node, filterType, (E_SHADOW_MODE)mode);
 }
 
-void Scene_setVisible(s3dBool visible)
+void Scene_setVisible(int visible)
 {
     Node_setVisible(Scene_getRootNode(), visible);
 }
