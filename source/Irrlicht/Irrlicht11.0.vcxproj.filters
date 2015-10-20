@@ -124,6 +124,12 @@
     <Filter Include="glew">
       <UniqueIdentifier>{7830df64-2f7e-4aed-8c26-102473c5c210}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IrrIMGUI">
+      <UniqueIdentifier>{80fdc982-cfc0-4c21-b53e-d5c41d630719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IrrIMGUI\imgui">
+      <UniqueIdentifier>{c06c85d8-8bea-468d-be54-d4a8c0ac0e10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1415,6 +1421,87 @@
     <ClInclude Include="..\XEffects\CScreenQuad.h">
       <Filter>XEffects</Filter>
     </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CCharFifo.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CIMGUIEventReceiver.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CIMGUIEventStorage.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CIMGUIHandle.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IGUITexture.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IIMGUIHandle.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IMGUIHelper.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IncludeIMGUI.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IncludeIrrlicht.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IReferenceCounter.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUI.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUIConfig.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUIConstants.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUIDebug.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\SIMGUISettings.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\source\CGUITexture.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\source\CIMGUIHandle.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\source\IIMGUIDriver.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\source\IrrIMGUIDebug_priv.h">
+      <Filter>IrrIMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\imconfig.h">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\imgui.h">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\imgui_internal.h">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\stb_rect_pack.h">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\stb_textedit.h">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\stb_truetype.h">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -2203,6 +2290,51 @@
     </ClCompile>
     <ClCompile Include="..\glew\glew.c">
       <Filter>glew</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\CBasicMemoryLeakDetection.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\CChannelBuffer.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\CCharFifo.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\CGUITexture.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\CIMGUIEventReceiver.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\CIMGUIHandle.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\IIMGUIDriver.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\IMGUIHelper.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\IReferenceCounter.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\source\IrrIMGUIInject.cpp">
+      <Filter>IrrIMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\dependency\IMGUI\imgui.cpp">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\dependency\IMGUI\imgui_demo.cpp">
+      <Filter>IrrIMGUI\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IrrIMGUI\dependency\IMGUI\imgui_draw.cpp">
+      <Filter>IrrIMGUI\imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
