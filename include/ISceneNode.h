@@ -462,10 +462,6 @@ namespace scene
 		/** \return The node's scene manager. */
         virtual ISceneManager* getSceneManager(void) const;
 
-        // Hacky way to provide simple RTTI
-        // TODO: remove it
-        virtual bool isAnimatedMeshNode() const { return false; }
-
 	protected:
 
 		//! A clone function for the ISceneNode members.

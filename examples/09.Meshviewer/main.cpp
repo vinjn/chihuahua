@@ -443,7 +443,7 @@ public:
 				else if (id == GUI_ID_SKIN_ANIMATION_FPS)
 				{
 					const s32 pos = ((IGUIScrollBar*)event.GUIEvent.Caller)->getPos();
-					if (scene::ESNT_ANIMATED_MESH == Model->getType())
+                    if (Model && scene::ESNT_ANIMATED_MESH == Model->getType())
 						((scene::IAnimatedMeshSceneNode*)Model)->setAnimationSpeed((f32)pos);
 				}
 				break;

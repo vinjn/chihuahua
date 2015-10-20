@@ -378,7 +378,7 @@ void Node_setBillboard(long nodePtr, s3dBool isBillboard)
 #define CHECK_ANIMATED_MESH_RETURN(nodePtr) \
     CHECK_NODE_RETURN(nodePtr);\
     auto node = getTypedPointer<scene::ISceneNode>(nodePtr);\
-    if (!node->isAnimatedMeshNode())\
+    if (node->getType() != scene::ESNT_ANIMATED_MESH)\
     {\
         printf("%s is not an animated mesh.\n", node->getName());\
         return;\
