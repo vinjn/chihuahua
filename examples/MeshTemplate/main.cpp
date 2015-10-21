@@ -73,6 +73,8 @@ int main(int argc, char const* const* argv)
     IVideoDriver* driver = device->getVideoDriver();
     ISceneManager* smgr = device->getSceneManager();
 
+    device->getFileSystem()->addFileArchive("../../media/");
+
     //auto shadowDimen = 512;
     //effect->addShadowLight(SShadowLight(shadowDimen, vector3df(0, 0, 0), vector3df(5, 0, 5),
     //    video::SColor(0, 255, 0, 0), 20.0f, 60.0f, 30.0f * DEGTORAD));
