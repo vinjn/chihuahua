@@ -365,7 +365,6 @@ void Node_setSecondTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
 
 void Node_setBillboard(long nodePtr, s3dBool isBillboard)
 {
-    getTypedPointer<scene::ISceneNode>(nodePtr)->setBillboard(isBillboard);
 }
 
 #define CHECK_NODE_RETURN(nodePtr) \

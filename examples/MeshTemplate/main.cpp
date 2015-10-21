@@ -80,7 +80,7 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    long nodePtr = Scene_addMeshNode("../../media/41802/BOX.DAE");
+    long nodePtr = Scene_addMeshNode("../../media/robot-org.FBX");
     MeshNode_setAnimationByIndex(nodePtr, 0);
     f32 k = 10;
     Node_setScale(nodePtr, k, k, k);
@@ -88,7 +88,7 @@ int main(int argc, char const* const* argv)
     //IrrIMGUI::CIMGUIEventReceiver EventReceiver;
 
 #if 1
-    //Node_setTexture(nodePtr, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+    Node_setTexture(nodePtr, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
 #else    
     Node_setTextureAt(nodePtr, 0, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
     Node_setTextureAt(nodePtr, 1, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));

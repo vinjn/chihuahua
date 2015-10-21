@@ -2156,9 +2156,6 @@
     <ClCompile Include="CD3D9Texture.cpp">
       <Filter>Irrlicht\video\d3d9</Filter>
     </ClCompile>
-    <ClCompile Include="ISceneNode.cpp">
-      <Filter>Irrlicht</Filter>
-    </ClCompile>
     <ClCompile Include="..\assimp\code\ColladaLoader.cpp">
       <Filter>assimp\importer\collada</Filter>
     </ClCompile>
