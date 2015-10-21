@@ -331,7 +331,7 @@
     </Midl>
     <ClCompile>
       <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_IRRIMGUI_STATIC_LIB_;S3D_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_IRRIMGUI_STATIC_LIB_;UENGINE_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
       <ExceptionHandling>
       </ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -412,7 +412,7 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_IRRIMGUI_STATIC_LIB_;S3D_EXPORTS;WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_IRRIMGUI_STATIC_LIB_;UENGINE_EXPORTS;WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
       </ExceptionHandling>
@@ -1087,21 +1087,6 @@
     <ClCompile Include="..\assimp\code\PlyParser.cpp" />
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
     <ClCompile Include="..\glew\glew.c" />
-    <ClCompile Include="..\IrrIMGUI\dependency\IMGUI\imgui.cpp" />
-    <ClCompile Include="..\IrrIMGUI\dependency\IMGUI\imgui_demo.cpp" />
-    <ClCompile Include="..\IrrIMGUI\dependency\IMGUI\imgui_draw.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CBasicMemoryLeakDetection.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CChannelBuffer.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CCharFifo.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CGUITexture.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CIMGUIEventReceiver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CIMGUIHandle.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IIMGUIDriver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IMGUIHelper.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IReferenceCounter.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IrrIMGUIInject.cpp" />
     <ClCompile Include="..\XEffects\CShaderPre.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -1114,33 +1099,6 @@
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
-    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\imconfig.h" />
-    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\imgui.h" />
-    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\imgui_internal.h" />
-    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\stb_rect_pack.h" />
-    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\stb_textedit.h" />
-    <ClInclude Include="..\IrrIMGUI\dependency\IMGUI\stb_truetype.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CCharFifo.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CIMGUIEventReceiver.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CIMGUIEventStorage.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\CIMGUIHandle.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IGUITexture.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IIMGUIHandle.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IMGUIHelper.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IncludeIMGUI.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IncludeIrrlicht.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IReferenceCounter.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUI.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUIConfig.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUIConstants.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\IrrIMGUIDebug.h" />
-    <ClInclude Include="..\IrrIMGUI\includes\IrrIMGUI\SIMGUISettings.h" />
-    <ClInclude Include="..\IrrIMGUI\source\CGUITexture.h" />
-    <ClInclude Include="..\IrrIMGUI\source\CIMGUIHandle.h" />
-    <ClInclude Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.h" />
-    <ClInclude Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.h" />
-    <ClInclude Include="..\IrrIMGUI\source\IIMGUIDriver.h" />
-    <ClInclude Include="..\IrrIMGUI\source\IrrIMGUIDebug_priv.h" />
     <ClInclude Include="..\XEffects\CScreenQuad.h" />
     <ClInclude Include="..\XEffects\CShaderPre.h" />
     <ClInclude Include="..\XEffects\EffectCB.h" />
