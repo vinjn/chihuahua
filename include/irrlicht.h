@@ -192,9 +192,9 @@
 
 #if defined(_IRR_WINDOWS_) && !defined(IRRLICHT_EXPORTS)
 #ifdef _DEBUG
-#pragma comment(lib, "Scene3D_d.lib")
+#pragma comment(lib, "uEngine_d.lib")
 #else
-#pragma comment(lib, "Scene3D.lib")
+#pragma comment(lib, "uEngine.lib")
 #endif
 #endif
 
