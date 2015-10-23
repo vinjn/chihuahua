@@ -1,8 +1,7 @@
 #include <irrlicht.h>
-#include "AssimpWrapper.h"
 #include <unordered_map>
 #include <vector>
-#include <functional>
+#include "FunctionalAnimator.h"
 #include "../source/Irrlicht/CD3D9HLSLMaterialRenderer.h"
 #include <assert.h>
 
@@ -29,6 +28,7 @@ IVideoDriver* driver;
 ISceneManager* smgr;
 ISceneCollisionManager* coll;
 IAnimatedMeshSceneNode* gNodes[NODE_COUNT];
+IFileSystem* fs;
 
 IrrlichtDevice *device;
 f32 random(float min, float max)
@@ -193,47 +193,6 @@ struct Frame
     void update()
     {
         features.clear();
-
-#if 0
-        int x = eventRecv.x;
-        int y = eventRecv.y;
-        {
-            {
-#else
-#define SPACING 1
-        //#pragma omp parallel for
-        for (int x = 0; x < WINDOW_W - SPACING + 1; x += SPACING)
-        {
-            for (int y = 0; y < WINDOW_H - SPACING + 1; y += SPACING)
-            {
-#endif
-                auto ray = coll->getRayFromScreenCoordinates(position2di(x, y));
-                vector3df hitPt;
-                triangle3df hitTri;
-                s32 hitTriId;
-                ISceneNode* hitNode = coll->getSceneNodeAndCollisionPointFromRay(ray,
-                    hitPt, hitTri, 0, 0, false, &hitTriId);
-
-                if (hitNode)
-                {
-                    auto scrHit = coll->getScreenCoordinatesFrom3DPositionF32(hitPt);
-
-                    Feature feature =
-                    {
-                        hitNode->getID(),
-                        hitTriId,
-                        vector2df(),
-                        {
-                            coll->getScreenCoordinatesFrom3DPositionF32(hitTri.pointA),
-                            coll->getScreenCoordinatesFrom3DPositionF32(hitTri.pointB),
-                            coll->getScreenCoordinatesFrom3DPositionF32(hitTri.pointC)
-                        },
-                        hitTri
-                    };
-                    features.emplace(feature.getKey(), feature);
-                }
-            }
-        }
     }
 
     void debugDraw()
@@ -460,6 +419,10 @@ int main()
     coll = smgr->getSceneCollisionManager();
     device->setEventReceiver(&eventRecv);
 
+    fs = device->getFileSystem();
+
+    fs->addFileArchive("../../media/");
+
     scene::ISceneNode* skydome = smgr->addSkyDomeSceneNode(driver->getTexture("../../media/skydome.jpg"), 16, 8, 0.95f, 2.0f);
 
     c8* meshFiles[] =
@@ -627,7 +590,7 @@ float4 main(VS_OUT IN) : COLOR
 "main",
 EPST_PS_3_0);
 
-        CD3D9HLSLMaterialRenderer* renderer = (CD3D9HLSLMaterialRenderer*)driver->getMaterialRenderer(mtrl);
+        //CD3D9HLSLMaterialRenderer* renderer = (CD3D9HLSLMaterialRenderer*)driver->getMaterialRenderer(mtrl);
 
         mc->drop();
     }
