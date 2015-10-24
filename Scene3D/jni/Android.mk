@@ -93,7 +93,6 @@ LOCAL_SRC_FILES := \
                     CColladaMeshWriter.cpp \
                     CColorConverter.cpp \
                     CCSMLoader.cpp \
-                    ISceneNode.cpp \
                     CCubeSceneNode.cpp \
                     CDefaultSceneNodeAnimatorFactory.cpp \
                     CDefaultSceneNodeFactory.cpp \

@@ -448,6 +448,7 @@ long Scene_addMeshNode(const char* meshFileName)
 {
     scene::IAnimatedMeshSceneNode* node = NULL;
     {
+        printf("Start to load mesh: %s\n", meshFileName);
         scene::IAnimatedMesh* mesh = smgr->getMesh(meshFileName);
         if (mesh)
         {
