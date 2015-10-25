@@ -1198,6 +1198,8 @@ ICameraSceneNode* CSceneManager::getActiveCamera() const
 //! \param camera: The new camera which should be active.
 void CSceneManager::setActiveCamera(ICameraSceneNode* camera)
 {
+    if (ActiveCamera == camera) return;
+
 	if (camera)
 		camera->grab();
 	if (ActiveCamera)

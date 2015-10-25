@@ -736,7 +736,7 @@ int main(int argc, char* argv[])
 
 	Device->setResizable(true);
 
-	Device->setWindowCaption(L"Irrlicht Engine - Loading...");
+	Device->setWindowCaption(L"uMeshViewer - Loading...");
 
 	video::IVideoDriver* driver = Device->getVideoDriver();
 	IGUIEnvironment* env = Device->getGUIEnvironment();

@@ -18,6 +18,7 @@ using namespace irr;
 
 bool isStereoRendering = false;
 bool isGameRunning = true;
+bool isMainCamera = true;
 
 class MyEventReceiver : public IEventReceiver
 {
@@ -39,6 +40,12 @@ public:
                 return true;
             }
         }
+
+        if (event.EventType == EET_MOUSE_INPUT_EVENT)
+        {
+            isMainCamera = !event.MouseInput.isRightPressed();
+        }
+
         return false;
     }
 }myEventReceiver;
@@ -71,7 +78,8 @@ int main(int argc, char** argv)
         return 1; // could not create selected driver.
 
     device->setEventReceiver(&myEventReceiver);
-    device->setWindowCaption(L"uViewer - Ubiquitous Viewer");
+    device->setWindowCaption(L"uSceneViewer - Ubiquitous Scene Viewer");
+    device->getCursorControl()->setVisible(false);
 
     video::IVideoDriver* driver = device->getVideoDriver();
     scene::ISceneManager* smgr = device->getSceneManager();
@@ -95,25 +103,6 @@ int main(int argc, char** argv)
     }
     else
         smgr->loadScene("../../media/example.irr");
-
-
-    /*
-    Now we'll create a camera, and give it a collision response animator
-    that's built from the mesh nodes in the scene we just loaded.
-    */
-    SKeyMap keyMap[] =
-    {
-        { EKA_MOVE_FORWARD, KEY_KEY_W },
-        { EKA_MOVE_BACKWARD, KEY_KEY_S },
-        { EKA_STRAFE_LEFT, KEY_KEY_A },
-        { EKA_STRAFE_RIGHT, KEY_KEY_D },
-        { EKA_JUMP_UP, KEY_SPACE },
-        { EKA_CROUCH, KEY_LCONTROL },
-    };
-
-    scene::ICameraSceneNode * camera = smgr->addCameraSceneNodeFPS(0, 50.f, 0.1f, -1,
-        keyMap, _countof(keyMap),
-        false, 1);
 
     // Create a meta triangle selector to hold several triangle selectors.
     scene::IMetaTriangleSelector * meta = smgr->createMetaTriangleSelector();
@@ -169,38 +158,66 @@ int main(int argc, char** argv)
         }
     }
 
-    /*
-    Now that the mesh scene nodes have had triangle selectors created and added
-    to the meta selector, create a collision response animator from that meta selector.
-    */
-    scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-        meta, camera,
+    //
+    // mainCamera
+    //
+    SKeyMap keyMap[] =
+    {
+        { EKA_MOVE_FORWARD, KEY_KEY_W },
+        { EKA_MOVE_BACKWARD, KEY_KEY_S },
+        { EKA_STRAFE_LEFT, KEY_KEY_A },
+        { EKA_STRAFE_RIGHT, KEY_KEY_D },
+        { EKA_JUMP_UP, KEY_SPACE },
+        { EKA_CROUCH, KEY_LCONTROL }, // TODO: enable this
+    };
+
+    scene::ICameraSceneNode* mainCamera = smgr->addCameraSceneNodeFPS(0, 50.f, 0.1f, -1,
+        keyMap, _countof(keyMap),
+        false, 1);
+    scene::ISceneNodeAnimator* camAnim = smgr->createCollisionResponseAnimator(
+        meta, mainCamera,
         core::vector3df(5, 5, 5),
         core::vector3df(0, -3, 0),
         core::vector3df(0, 15, 0)
         );
-    meta->drop(); // I'm done with the meta selector now
+    meta->drop();
 
-    camera->addAnimator(anim);
-    anim->drop(); // I'm done with the animator now
+    mainCamera->addAnimator(camAnim);
+    camAnim->drop(); // I'm done with the animator now
+    mainCamera->setPosition(core::vector3df(0.f, 20.f, 0.f));
 
-    // And set the camera position so that it doesn't start off stuck in the geometry
-    camera->setPosition(core::vector3df(0.f, 20.f, 0.f));
+    //
+    // flyCamera
+    //
+    scene::ICameraSceneNode* flyCamera = smgr->addCameraSceneNodeFPS(0, 50.f, 0.1f, -1,
+        keyMap, _countof(keyMap),
+        false);
 
+#if 0
     // Point the camera at the cube node, by finding the first node of type ESNT_CUBE
     scene::ISceneNode * cube = smgr->getSceneNodeFromType(scene::ESNT_CUBE);
     if (cube)
         camera->setTarget(cube->getAbsolutePosition());
-
-    /*
-    That's it. Draw everything and finish as usual.
-    */
+#endif
 
     int lastFPS = -1;
 
     while (device->run() && isGameRunning)
     {
         if (!device->isWindowActive()) continue;
+
+        if (isMainCamera)
+        {
+            smgr->setActiveCamera(mainCamera);
+            flyCamera->setPosition(mainCamera->getPosition());
+            flyCamera->setTarget(mainCamera->getTarget());
+        }
+        else
+        {
+            smgr->setActiveCamera(flyCamera);
+            mainCamera->setPosition(flyCamera->getPosition());
+            mainCamera->setTarget(flyCamera->getTarget());
+        }
 
         driver->beginScene(true, true, video::SColor(0, 200, 200, 200));
 

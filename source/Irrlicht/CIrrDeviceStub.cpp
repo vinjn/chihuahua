@@ -44,7 +44,7 @@ CIrrDeviceStub::CIrrDeviceStub(const SIrrlichtCreationParameters& params)
 	FileSystem = io::createFileSystem();
 	VideoModeList = new video::CVideoModeList();
 
-	core::stringc s = "Irrlicht Engine version ";
+	core::stringc s = "uEngine version ";
 	s.append(getVersion());
 	os::Printer::log(s.c_str(), ELL_INFORMATION);
 
