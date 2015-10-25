@@ -1,5 +1,7 @@
 const char* COGLES2Renderer2D_fsh= R"(
+#ifdef GL_ES 
 precision mediump float;
+#endif
 
 /* Uniforms */
 

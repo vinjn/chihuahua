@@ -1,5 +1,7 @@
 const char* COGLES2TransparentVertexAlpha_fsh = R"(
+#ifdef GL_ES 
 precision mediump float;
+#endif
 
 /* Uniforms */
 

@@ -1,7 +1,9 @@
 const char* COGLES2NormalMap_fsh = R"(
 #define MAX_LIGHTS 2
 
+#ifdef GL_ES 
 precision mediump float;
+#endif
 
 /* Uniforms */
 
