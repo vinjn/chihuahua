@@ -90,7 +90,6 @@ int main(int argc, char** argv)
     // load the scene
     if (argc > 1)
     {
-
         auto fs = device->getFileSystem();
         const io::path oldCWD = fs->getWorkingDirectory();
         auto absPath = fs->getAbsolutePath(argv[1]);
@@ -115,6 +114,11 @@ int main(int argc, char** argv)
     */
     core::array<scene::ISceneNode *> nodes;
     smgr->getSceneNodesFromType(scene::ESNT_ANY, nodes); // Find all nodes
+
+    core::vector3df camStartPos;
+    core::vector3df camEllipsoidRadius(5, 5, 5);
+    core::vector3df camGravityPerSecond;
+    core::vector3df camEllipsoidTranslation(0, 15, 0);
 
     for (u32 i = 0; i < nodes.size(); ++i)
     {
@@ -142,6 +146,21 @@ int main(int argc, char** argv)
 
         case scene::ESNT_OCTREE:
             selector = smgr->createOctreeTriangleSelector(((scene::IMeshSceneNode*)node)->getMesh(), node);
+            break;
+
+        case scene::ESNT_CAMERA:
+            camStartPos = node->getAbsolutePosition();
+            for (auto animator : node->getAnimators())
+            {
+                if (animator->getType() == scene::ESNAT_COLLISION_RESPONSE)
+                {
+                    auto optionalCamAnimator = (scene::ISceneNodeAnimatorCollisionResponse*)animator;
+                    camEllipsoidRadius = optionalCamAnimator->getEllipsoidRadius();
+                    camGravityPerSecond = optionalCamAnimator->getGravity();
+                    camEllipsoidTranslation = optionalCamAnimator->getEllipsoidTranslation();
+                    break;
+                }
+            }
             break;
 
         default:
@@ -174,17 +193,17 @@ int main(int argc, char** argv)
     scene::ICameraSceneNode* mainCamera = smgr->addCameraSceneNodeFPS(0, 50.f, 0.1f, -1,
         keyMap, _countof(keyMap),
         false, 1);
-    scene::ISceneNodeAnimator* camAnim = smgr->createCollisionResponseAnimator(
+    auto camAnim = smgr->createCollisionResponseAnimator(
         meta, mainCamera,
-        core::vector3df(5, 5, 5),
-        core::vector3df(0, -3, 0),
-        core::vector3df(0, 15, 0)
+        camEllipsoidRadius,
+        camGravityPerSecond,
+        camEllipsoidTranslation
         );
     meta->drop();
 
     mainCamera->addAnimator(camAnim);
     camAnim->drop(); // I'm done with the animator now
-    mainCamera->setPosition(core::vector3df(0.f, 20.f, 0.f));
+    mainCamera->setPosition(camStartPos);
 
     //
     // flyCamera
