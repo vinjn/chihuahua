@@ -15,21 +15,15 @@ Lets start: Create an Irrlicht device and setup the window.
 
 using namespace irr;
 
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 int main(int argc, char** argv)
 {
 	// ask user for driver
-	video::E_DRIVER_TYPE driverType=driverChoiceConsole();
-	if (driverType==video::EDT_COUNT)
-		return 1;
+    video::E_DRIVER_TYPE driverType = video::EDT_OGLES2;
 
 	// create device and exit if creation failed
 
 	IrrlichtDevice* device =
-		createDevice(driverType, core::dimension2d<u32>(640, 480));
+		createDevice(driverType, core::dimension2d<u32>(800, 600));
 
 	if (device == 0)
 		return 1; // could not create selected driver.
@@ -51,16 +45,54 @@ int main(int argc, char** argv)
 	*/
 
 	// load the scene
-	if (argc>1)
-		smgr->loadScene(argv[1]);
+    if (argc > 1)
+    {
+
+        auto fs = device->getFileSystem();
+        const io::path oldCWD = fs->getWorkingDirectory();
+        auto absPath = fs->getAbsolutePath(argv[1]);
+        auto dirPath = fs->getFileDir(absPath);
+        fs->changeWorkingDirectoryTo(dirPath);
+     
+        smgr->loadScene(argv[1]);
+
+        fs->changeWorkingDirectoryTo(oldCWD);
+    }
 	else
 		smgr->loadScene("../../media/example.irr");
+
 
 	/*
 	Now we'll create a camera, and give it a collision response animator
 	that's built from the mesh nodes in the scene we just loaded.
 	*/
-	scene::ICameraSceneNode * camera = smgr->addCameraSceneNodeFPS(0, 50.f, 0.1f);
+    SKeyMap keyMap[9];
+    keyMap[0].Action = EKA_MOVE_FORWARD;
+    keyMap[0].KeyCode = KEY_UP;
+    keyMap[1].Action = EKA_MOVE_FORWARD;
+    keyMap[1].KeyCode = KEY_KEY_W;
+
+    keyMap[2].Action = EKA_MOVE_BACKWARD;
+    keyMap[2].KeyCode = KEY_DOWN;
+    keyMap[3].Action = EKA_MOVE_BACKWARD;
+    keyMap[3].KeyCode = KEY_KEY_S;
+
+    keyMap[4].Action = EKA_STRAFE_LEFT;
+    keyMap[4].KeyCode = KEY_LEFT;
+    keyMap[5].Action = EKA_STRAFE_LEFT;
+    keyMap[5].KeyCode = KEY_KEY_A;
+
+    keyMap[6].Action = EKA_STRAFE_RIGHT;
+    keyMap[6].KeyCode = KEY_RIGHT;
+    keyMap[7].Action = EKA_STRAFE_RIGHT;
+    keyMap[7].KeyCode = KEY_KEY_D;
+
+    keyMap[8].Action = EKA_JUMP_UP;
+    keyMap[8].KeyCode = KEY_SPACE;
+
+	scene::ICameraSceneNode * camera = smgr->addCameraSceneNodeFPS(0, 50.f, 0.1f, -1, 
+        keyMap, _countof(keyMap),
+        false, 1);
 
 	// Create a meta triangle selector to hold several triangle selectors.
 	scene::IMetaTriangleSelector * meta = smgr->createMetaTriangleSelector();
@@ -121,8 +153,11 @@ int main(int argc, char** argv)
 	to the meta selector, create a collision response animator from that meta selector.
 	*/
 	scene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-		meta, camera, core::vector3df(5,5,5),
-		core::vector3df(0,0,0));
+		meta, camera,
+        core::vector3df(5,5,5),
+        core::vector3df(0, -3, 0),
+        core::vector3df(0, 15, 0)
+        );
 	meta->drop(); // I'm done with the meta selector now
 
 	camera->addAnimator(anim);

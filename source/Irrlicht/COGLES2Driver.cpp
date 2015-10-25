@@ -445,6 +445,14 @@ bool COGLES2Driver::endScene()
 
 		CNullDriver::beginScene(backBuffer, zBuffer, color);
 
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
+        if (ContextManager)
+        {
+            // TODO: videoData or ExposedData?
+            ContextManager->activateContext(SExposedVideoData());
+        }
+#endif
+
 		GLbitfield mask = 0;
 
 		if (backBuffer)

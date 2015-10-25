@@ -34,7 +34,7 @@ CSceneLoaderIrr::~CSceneLoaderIrr()
 //! Returns true if the class might be able to load this file.
 bool CSceneLoaderIrr::isALoadableFileExtension(const io::path& filename) const
 {
-	return core::hasFileExtension(filename, "irr");
+    return core::hasFileExtension(filename, "irr") || core::hasFileExtension(filename, "uscene");
 }
 
 //! Returns true if the class might be able to load this file.

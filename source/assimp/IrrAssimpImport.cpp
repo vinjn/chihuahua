@@ -172,10 +172,9 @@ struct IrrlichtIOSystem : public Assimp::DefaultIOSystem
 
 irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
 {
-    irr::io::path path = file->getFileName();
-
     Assimp::Importer Importer;
     Importer.SetIOHandler(new IrrlichtIOSystem(FileSystem));
+    irr::io::path path = file->getFileName();
 
     const aiScene* pScene = Importer.ReadFile(path.c_str(), 
         aiProcess_Triangulate |
@@ -190,6 +189,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
     }
 
     core::stringc fileDir = FileSystem->getFileDir(path);
+    FileSystem->addFileArchive(fileDir);
 
     Mats.clear();
 
@@ -433,6 +433,8 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
 
     mesh->setDirty();
     mesh->finalize();
+
+    FileSystem->removeFileArchive(fileDir);
 
     return mesh;
 }
