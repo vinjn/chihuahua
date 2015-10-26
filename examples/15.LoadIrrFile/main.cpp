@@ -1,4 +1,4 @@
-/** Example 015 Loading Scenes from .irr Files
+/** Example 015 Lo ading Scenes from .irr Files
 
 Since version 1.1, Irrlicht is able to save and load
 the full scene graph into an .irr file, an xml based
@@ -200,10 +200,10 @@ int main(int argc, char** argv)
         camEllipsoidTranslation
         );
     meta->drop();
-
     mainCamera->addAnimator(camAnim);
     camAnim->drop(); // I'm done with the animator now
     mainCamera->setPosition(camStartPos);
+    mainCamera->setFOV(core::HALF_PI);
 
     //
     // flyCamera

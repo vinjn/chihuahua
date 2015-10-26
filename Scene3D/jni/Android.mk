@@ -26,12 +26,12 @@ LOCAL_C_INCLUDES := ../include \
 
 LOCAL_SRC_FILES := \
                     $(Scene3D_PATH)/Scene3D.cpp \
-                    $(XEffects_PATH)/CShaderPre.cpp \
-                    $(XEffects_PATH)/EffectHandler.cpp \
-                    $(XEffects_PATH)/EffectShaders.cpp \
                     $(Scene3D_PATH)/Android/Scene3DAndroid.cpp \
                     $(Scene3D_PATH)/Android/CAndroidAssetFileArchive.cpp \
                     $(Scene3D_PATH)/Android/CAndroidAssetReader.cpp \
+                    $(XEffects_PATH)/CShaderPre.cpp \
+                    $(XEffects_PATH)/EffectHandler.cpp \
+                    $(XEffects_PATH)/EffectShaders.cpp \
                     $(ASSIMP_PATH)/IrrAssimpImport.cpp \
                     $(ASSIMP_PATH)/code/Assimp.cpp \
                     $(ASSIMP_PATH)/code/BaseImporter.cpp \
