@@ -372,12 +372,12 @@ public final class MainActivity extends Activity implements Renderer {
 					Scene3D.Scene_addTexture("metaioman.png"));
 			k = 5;
 		} else {
-			mMeshNode = Scene3D.Scene_addMeshNode("hiar1.DAE");
+			mMeshNode = Scene3D.Scene_addMeshNode("mesh.obj");
 //			Scene3D.MeshNode_setAnimationByRange(mMeshNode, 450, 500);
-			Scene3D.Node_setTexture(mMeshNode,
-					Scene3D.Scene_addTexture("polySurface60VRayCompleteMap.jpg"));
+//			Scene3D.Node_setTexture(mMeshNode,
+//					Scene3D.Scene_addTexture("d805215948284cb6a97b73296877786d.png"));
 			Scene3D.Node_setMaterialType(mMeshNode, Scene3D.Solid);
-			k = 10;
+			k = 2;
 		}
 
 		Scene3D.Scene_setAnimationCallback(new Scene3D.AnimationCallback() {
@@ -391,18 +391,21 @@ public final class MainActivity extends Activity implements Renderer {
 		Scene3D.MeshNode_setAnimationByIndex(mMeshNode, 0);
 		Scene3D.MeshNode_setAnimationLoop(mMeshNode, true);
 		Scene3D.Node_setPosition(mMeshNode, 0, 0, 0);
-		// jni.Node_setRotation(mMeshNode, 0, 0, z);
+		Scene3D.Node_setRotation(mMeshNode, 90, 0, 0);
 		Scene3D.Node_setScale(mMeshNode, k, k, k);
+		
+		if (false) {
+			mBigPlane = Scene3D.Scene_addPlaneNode(400, 400);
+			Scene3D.Node_setTexture(mBigPlane,
+					Scene3D.Scene_addTexture("seymour.jpg"));
+			mSmallPlane = Scene3D.Scene_addPlaneNode(400, 400);
+			Scene3D.Node_setTexture(mSmallPlane,
+					Scene3D.Scene_addTexture("seymour.jpg"));
 
-		mBigPlane = Scene3D.Scene_addPlaneNode(400, 400);
-		Scene3D.Node_setTexture(mBigPlane,
-				Scene3D.Scene_addTexture("seymour.jpg"));
-		mSmallPlane = Scene3D.Scene_addPlaneNode(400, 400);
-		Scene3D.Node_setTexture(mSmallPlane,
-				Scene3D.Scene_addTexture("seymour.jpg"));
+			Scene3D.Node_setPosition(mBigPlane, 0, 0, -100);
+			Scene3D.Node_setPosition(mSmallPlane, 100, 20, -20);	
+		}
 
-		Scene3D.Node_setPosition(mBigPlane, 0, 0, -100);
-		Scene3D.Node_setPosition(mSmallPlane, 100, 20, -20);
 		//
 //		Scene3D.Node_setRotation(mBigPlane, 45, 0, 0);
 //		Scene3D.Node_setRotation(mSmallPlane, 45, 0, 0);

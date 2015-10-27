@@ -1,208 +1,103 @@
 #include <irrlicht.h>
-#include "bx/commandline.h"
-#include "bx/float4x4_t.h"
-#include "../../Scene3D/src/Scene3D.h"
 
-#include "../../source/IrrIMGUI/includes/IrrIMGUI/IrrIMGUI.h"
+#include "../../source/IrrOculusVR/OculusRenderer.h"
 
 using namespace irr;
 
-using namespace core;
-using namespace scene;
-using namespace video;
-using namespace io;
-using namespace gui;
-
-IrrlichtDevice *device;
-
-class MyEventReceiver : public IEventReceiver
+int main()
 {
-public:
-    s32 x, y;
-    bool LeftButtonDown;
+    int width = 1280;
+    int height = 720;
+    irr::video::E_DRIVER_TYPE driverType = video::EDT_DIRECT3D9;
 
-    virtual bool OnEvent(const SEvent& event)
-    {
-        if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
-        {
-            switch (event.MouseInput.Event)
-            {
-            case EMIE_LMOUSE_PRESSED_DOWN:
-                LeftButtonDown = true;
-                break;
+    // Initialize Irrlicht
+    const core::dimension2du videoDim(width, height);
 
-            case EMIE_LMOUSE_LEFT_UP:
-                LeftButtonDown = false;
-                break;
+    IrrlichtDevice *device = createDevice(driverType, videoDim, 32, false, false, true);
 
-            case EMIE_MOUSE_MOVED:
-                x = event.MouseInput.X;
-                y = event.MouseInput.Y;
-                break;
+    video::IVideoDriver* driver = device->getVideoDriver();
+    scene::ISceneManager* smgr = device->getSceneManager();
 
-            default:
-                // We won't use the wheel
-                break;
-            }
-        }
 
-        if (event.EventType == irr::EET_KEY_INPUT_EVENT)
-        {
-            if (event.KeyInput.Key == KEY_ESCAPE) device->closeDevice();
-        }
-        return false;
-    }
-};
-MyEventReceiver eventRecv;
+    // Get the window handle for Oculus Rift SDK
+    void *window = 0;
 
-int main(int argc, char const* const* argv)
-{
-    bx::CommandLine cmdLine(argc, argv);
+    if (driverType == irr::video::EDT_DIRECT3D9)
+        window = driver->getExposedVideoData().D3D9.HWnd;
+    else if (driverType == irr::video::EDT_OPENGL) // OpenGL under windows - no idea how it's done in Linux
+        window = driver->getExposedVideoData().OpenGLWin32.HWnd;
 
-    device = createDevice(video::EDT_OGLES2, dimension2d<u32>(600, 800), 16,
-                          false, false, false, 0);
 
-    if (!device)
-        return 1;
+    // Initialize Oculus Rift Renderer - world scale set to normal
+    OculusRenderer oculusRenderer(window, driver, smgr, 1.0f);
 
-    device->setWindowCaption(L"Mesh");
-    device->setEventReceiver(&eventRecv);
 
-    Scene_initializeFromDevice((long)device);
+    // FPS camera with no vertical movement.
+    scene::ICameraSceneNode* camera = smgr->addCameraSceneNodeFPS(0, 100.0f, 0.5f, -1,
+        0, 0, true,
+        0.f, false,
+        true);
 
-    IVideoDriver* driver = device->getVideoDriver();
-    ISceneManager* smgr = device->getSceneManager();
+    camera->setPosition(irr::core::vector3df(10, 10.0f, 0));
+    camera->setTarget(irr::core::vector3df(10, 10.0f, 100.0f));
 
-    device->getFileSystem()->addFileArchive("../../media/");
 
-    //auto shadowDimen = 512;
-    //effect->addShadowLight(SShadowLight(shadowDimen, vector3df(0, 0, 0), vector3df(5, 0, 5),
-    //    video::SColor(0, 255, 0, 0), 20.0f, 60.0f, 30.0f * DEGTORAD));
-    //effect->getShadowLight(0).setPosition({ 100, 100, 100 });
+    // add stuff
+    scene::ITerrainSceneNode* terrain = smgr->addTerrainSceneNode(
+        "media/terrain.png",
+        0,					// parent node
+        -1,					// node id
+        core::vector3df(0.f, -20.f, 0.f),		// position
+        core::vector3df(0.f, 0.f, 0.f),		// rotation
+        core::vector3df(1.f, 0.5f, 1.f),	// scale
+        video::SColor(255, 255, 255, 255),	// vertexColor
+        5,					// maxLOD
+        scene::ETPS_17,				// patchSize
+        4					// smoothFactor
+        );
 
-    const float kCamDistZ = 40;
+    terrain->setMaterialFlag(video::EMF_LIGHTING, false);
+    terrain->setMaterialTexture(0,
+        driver->getTexture("media/terraintex.png"));
 
-    long nodePtr = Scene_addMeshNode("../../media/robot-org.FBX");
-    MeshNode_setAnimationByIndex(nodePtr, 0);
-    f32 k = 10;
-    Node_setScale(nodePtr, k, k, k);
 
-    //IrrIMGUI::CIMGUIEventReceiver EventReceiver;
+    /* Enable this to try linking head to a rotating animator. Could be used to link player to plane's cockpit etc
 
-#if 1
-    Node_setTexture(nodePtr, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
-#else    
-    Node_setTextureAt(nodePtr, 0, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
-    Node_setTextureAt(nodePtr, 1, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
-#endif
-    Node_setRotation(nodePtr, 0, 0, 0);
+    irr::scene::ISceneNode *rotatingNode = smgr->addEmptySceneNode();
+    rotatingNode->setPosition(irr::core::vector3df(10, 50, 10));
+    irr::scene::ISceneNode *rotatingChild = smgr->addEmptySceneNode(rotatingNode);
+    rotatingChild->setPosition(irr::core::vector3df(0.0f,4.0f, 0.0f));
+    irr::scene::ISceneNodeAnimator *anim = smgr->createRotationAnimator(irr::core::vector3df(1.0f,0,0.0f));
+    rotatingNode->addAnimator(anim);
+    anim->drop();
 
-    MeshNode_setShadowMode(nodePtr, Shadow_Both);
+    oculusRenderer.linkHeadNode(rotatingChild);
+    */
 
-    long metaioPtr = Scene_addMeshNode("../../media/metaioman.md2");
-    MeshNode_setAnimationByIndex(metaioPtr, 0);
-    k = 2;
-    Node_setPosition(metaioPtr, 100, 0, 0);
-    Node_setScale(metaioPtr, k, k, k);
-    Node_setTexture(metaioPtr, Scene_addTexture("../../media/metaioman.png"));
-
-    MeshNode_setShadowMode(metaioPtr, Shadow_Both);
-
-#if 0
-    nodePtr = Scene_addMeshNode("../../media/LOGO_new.DAE");
-    MeshNode_setAnimationByRange(nodePtr, 450, 500);
-    Node_setModelMatrix(nodePtr, m);
-    Node_setScale(nodePtr, k, k, k);
-#endif
-
-    long mBigPlane = Scene_addPlaneNode(400, 400);
-    Node_setTexture(mBigPlane,
-                    Scene_addTexture("../../media/seymour.jpg"));
-
-    long mSmallPlane = Scene_addPlaneNode(400, 400);
-    Node_setTexture(mSmallPlane,
-                    Scene_addTexture("../../media/seymour.jpg"));
-
-    Node_setPosition(mBigPlane, 0, 0, -500);
-    Node_setPosition(mSmallPlane, 100, 20, -500);
-    
-    Node_setRotation(mBigPlane, 10, 0, 0);
-    Node_setRotation(mSmallPlane, 10, 0, 0);
-
-    MeshNode_setShadowMode(mBigPlane, Shadow_Both);
-    MeshNode_setShadowMode(mSmallPlane, Shadow_Both);
-
-#if 0
-    auto camera = smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
-    smgr->setActiveCamera(camera);
-#else
-    //auto camera = smgr->addCameraSceneNodeFPS(0);
-    //camera->setPosition({ 0.0f, 0.0f, 0.0f });
-    //smgr->setActiveCamera(camera);
-#endif
+    int frames = 0;
 
     while (device->run())
     {
-        //
-        // Update matrices
-        //
-#if 1
-        // from Metaio SDK
-        float modelMatrix[] =
-        {
-            0.99942285, 0.020722449, -0.026918545, 0.0,
-            -0.02240616, 0.9977092, -0.06383123, 0.0,
-            0.025534146, 0.06439753, 0.9975976, 0.0,
-            -38.078552, -193.14294, -1045.8368, 1.0
-        };
-        f32 proj[] =
-        {
-            3.4011114, 0.0, 0.0, 0.0,
-            0.0, 1.9131252, 0.0, 0.0,
-            -9.2589855E-4, 5.208254E-4, -1.0033389, -1.0,
-            0.0, 0.0, -100.16695, 0.0
-        };
-#else
-        // from HSAR SDK
-        float modelMatrix[] =
-        {
-            0, -1, 0, 0,
-            -1, 0, 0, 0,
-            0, 0, -1, 0,
-            0, 0, 1000, 1
-        };
-        f32 proj[] =
-        {
-            0, -1.9131252, 0.0, 0.0,
-            -3.4011114, 0, 0.0, 0.0,
-            -9.2589855E-4, 5.208254E-4, 1.0033389, 1.0,
-            0.0, 0.0, -100.16695, 0.0
-        };
-#endif
+        driver->beginScene(true, true, irr::video::SColor(255, 150, 140, 255));
 
-        Node_setModelMatrix(nodePtr, modelMatrix);
-        Node_setModelMatrix(metaioPtr, modelMatrix);
-        Node_setModelMatrix(mBigPlane, modelMatrix);
-        Node_setModelMatrix(mSmallPlane, modelMatrix);
+        camera->OnAnimate(device->getTimer()->getTime());
+        camera->updateAbsolutePosition();
 
-        Camera_setProjectionMatrix(proj);
-        //
-        // Render
-        //
-        Scene_clear();
+        oculusRenderer.drawAll(camera->getAbsolutePosition(), camera->getRotation().Y,
+            irr::video::SColor(255, 150, 140, 255));
 
-        if (eventRecv.LeftButtonDown)
+        driver->endScene();
+
+        if (++frames == 100)
         {
-            auto node = (scene::IAnimatedMeshSceneNode*)(Scene_pickNodeFromScreen(eventRecv.x, eventRecv.y));
-            if (node)
-            {
-            }
+            irr::core::stringw title = L"IrrOculusVR [FPS: ";
+            title += driver->getFPS();
+            title += "]";
+            device->setWindowCaption(title.c_str());
+
+            frames = 0;
         }
-
-        Scene_render();
     }
-
-    device->drop();
 
     return 0;
 }

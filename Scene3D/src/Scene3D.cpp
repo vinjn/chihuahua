@@ -509,30 +509,31 @@ long Scene_getRootNode()
 
 void Node_setVisible(long nodePtr, int visible)
 {
-    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    CHECK_NODE_RETURN(nodePtr);
     getTypedPointer<scene::ISceneNode>(nodePtr)->setVisible(visible);
 }
 
 void Node_setPosition(long nodePtr, float x, float y, float z)
 {
-    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    CHECK_NODE_RETURN(nodePtr);
     getTypedPointer<scene::ISceneNode>(nodePtr)->setPosition(vector3df(x, y, z));
 }
 
 void Node_setRotation(long nodePtr, float x, float y, float z)
 {
-    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    CHECK_NODE_RETURN(nodePtr);
     getTypedPointer<scene::ISceneNode>(nodePtr)->setRotation(vector3df(x, y, z));
 }
 
 void Node_setScale(long nodePtr, float x, float y, float z)
 {
-    // scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
+    CHECK_NODE_RETURN(nodePtr);
     getTypedPointer<scene::ISceneNode>(nodePtr)->setScale(vector3df(x, y, z));
 }
 
 void Node_setParent(long nodePtr, long parentPtr)
 {
+    CHECK_NODE_RETURN(nodePtr);
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     scene::ISceneNode* parent = (scene::ISceneNode*)parentPtr;
     node->setParent(parent);
@@ -540,6 +541,7 @@ void Node_setParent(long nodePtr, long parentPtr)
 
 void Node_setModelMatrix(long nodePtr, const float* matrix)
 {
+    CHECK_NODE_RETURN(nodePtr);
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     scene::IDummyTransformationSceneNode* transformNode = (scene::IDummyTransformationSceneNode*)(node->getParent());
 

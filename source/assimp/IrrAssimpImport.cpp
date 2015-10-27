@@ -223,7 +223,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
             material.Shininess = shininess;
         }
 
-#if !defined(_IRR_ANDROID_PLATFORM_)
+// #if !defined(_IRR_ANDROID_PLATFORM_)
         if (mat->GetTextureCount(aiTextureType_DIFFUSE) > 0)
         {
             aiString path;
@@ -244,7 +244,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
                 material.MaterialType = video::EMT_PARALLAX_MAP_SOLID;
             }
         }
-#endif // _IRR_ANDROID_PLATFORM_
+// #endif // _IRR_ANDROID_PLATFORM_
         Mats.push_back(material);
     }
 
