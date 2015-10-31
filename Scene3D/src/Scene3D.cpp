@@ -243,7 +243,7 @@ void Scene_render()
     driver->endScene();
 }
 
-static void postProcessNode(scene::ISceneNode* node, const stringc name)
+static void postProcessNode(scene::ISceneNode* node, const stringc name = "")
 {
     if (node)
     {
@@ -252,20 +252,31 @@ static void postProcessNode(scene::ISceneNode* node, const stringc name)
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
         node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
-        node->setName(name);
+        if (!name.empty())
+            node->setName(name);
 
         auto selector = smgr->createTriangleSelectorFromBoundingBox(node);
         node->setTriangleSelector(selector);
         selector->drop();
+        auto it = node->getChildren().begin();
+        for (; it != node->getChildren().end(); ++it)
+            postProcessNode(*it);
     }
 }
 
 long Scene_loadScene(const char* sceneFileName)
 {
-    scene::ISceneNode* dummy = addDummyNode(sceneFileName);
-    smgr->loadScene(sceneFileName, NULL, dummy);
-
-    return (long)dummy;
+    auto dummy = addDummyNode(sceneFileName);
+    auto rootInSceneFile = smgr->addEmptySceneNode(dummy);
+    if (smgr->loadScene(sceneFileName, NULL, rootInSceneFile))
+    {
+        postProcessNode(rootInSceneFile, sceneFileName);
+        return (long)rootInSceneFile;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 long Scene_getNodeFromName(const char* nodeName)
@@ -328,14 +339,23 @@ long Scene_addTexture(const char* textureName)
     return (long)texture;
 }
 
+#define CHECK_NODE_RETURN(nodePtr) \
+    if (nodePtr == 0) \
+        {\
+        printf("Empty node.\n"); \
+        return; \
+        }
+
 void Node_setLighting(long nodePtr, int enabled)
 {
+    CHECK_NODE_RETURN(nodePtr);
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     node->setMaterialFlag(video::EMF_LIGHTING, enabled);
 }
 
 void Node_setTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
 {
+    CHECK_NODE_RETURN(nodePtr);
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     video::ITexture* texture = (video::ITexture*)texturePtr;
     // printf("getMaterialCount: %d\n", node->getMaterialCount());
@@ -346,6 +366,7 @@ void Node_setTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
 
 void Node_setTexture(long nodePtr, long texturePtr)
 {
+    CHECK_NODE_RETURN(nodePtr);
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     video::ITexture* texture = (video::ITexture*)texturePtr;
     // printf("getMaterialCount: %d\n", node->getMaterialCount());
@@ -355,6 +376,7 @@ void Node_setTexture(long nodePtr, long texturePtr)
 
 void Node_setSecondTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
 {
+    CHECK_NODE_RETURN(nodePtr);
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     video::ITexture* texture = (video::ITexture*)texturePtr;
     // printf("getMaterialCount: %d\n", node->getMaterialCount());
@@ -365,14 +387,8 @@ void Node_setSecondTextureAt(long nodePtr, unsigned int mtrl, long texturePtr)
 
 void Node_setBillboard(long nodePtr, int isBillboard)
 {
+    CHECK_NODE_RETURN(nodePtr);
 }
-
-#define CHECK_NODE_RETURN(nodePtr) \
-    if (nodePtr == 0) \
-        {\
-        printf("Empty node.\n"); \
-        return; \
-        }
 
 #define CHECK_ANIMATED_MESH_RETURN(nodePtr) \
     CHECK_NODE_RETURN(nodePtr);\
@@ -544,7 +560,6 @@ void Node_setModelMatrix(long nodePtr, const float* matrix)
     CHECK_NODE_RETURN(nodePtr);
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
     scene::IDummyTransformationSceneNode* transformNode = (scene::IDummyTransformationSceneNode*)(node->getParent());
-
 #if 0
     printf("Node_setModelMatrix");
     for (int i = 0; i < 4; ++i)

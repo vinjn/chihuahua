@@ -203,7 +203,7 @@ int main(int argc, char** argv)
     mainCamera->addAnimator(camAnim);
     camAnim->drop(); // I'm done with the animator now
     mainCamera->setPosition(camStartPos);
-    mainCamera->setFOV(core::HALF_PI);
+    mainCamera->setFOV(core::PI / 4);
 
     //
     // flyCamera

@@ -372,12 +372,12 @@ public final class MainActivity extends Activity implements Renderer {
 					Scene3D.Scene_addTexture("metaioman.png"));
 			k = 5;
 		} else {
-			mMeshNode = Scene3D.Scene_addMeshNode("mesh.obj");
+			mMeshNode = Scene3D.Scene_loadScene("test.uscene");
 //			Scene3D.MeshNode_setAnimationByRange(mMeshNode, 450, 500);
 //			Scene3D.Node_setTexture(mMeshNode,
 //					Scene3D.Scene_addTexture("d805215948284cb6a97b73296877786d.png"));
-			Scene3D.Node_setMaterialType(mMeshNode, Scene3D.Solid);
-			k = 2;
+//			Scene3D.Node_setMaterialType(mMeshNode, Scene3D.Solid);
+			k = 10;
 		}
 
 		Scene3D.Scene_setAnimationCallback(new Scene3D.AnimationCallback() {
