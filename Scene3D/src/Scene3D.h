@@ -22,6 +22,9 @@ extern "C" {
 UENGINE_API long Scene_addLightNode();
 UENGINE_API long Scene_loadScene(const char* sceneFileName);
 
+// TODO: error check?
+UENGINE_API void Scene_runScript(const char* scriptFileName);
+
 UENGINE_API long Scene_addMeshNode(const char* meshFileName);
 UENGINE_API long Scene_addCubeNode(float size);
 UENGINE_API long Scene_addPlaneNode(float width, float height);

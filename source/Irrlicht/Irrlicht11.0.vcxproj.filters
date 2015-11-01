@@ -130,6 +130,9 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{98c40eca-ee73-4897-b82f-121ececfdcdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="v7">
+      <UniqueIdentifier>{3ff89e7c-6c1f-46b8-9202-8680f50af547}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1454,6 +1457,9 @@
     <ClInclude Include="..\imgui\stb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
+    <ClInclude Include="..\v7\v7.h">
+      <Filter>v7</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -2284,6 +2290,9 @@
     </ClCompile>
     <ClCompile Include="..\imgui\imgui_draw.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\v7\v7.c">
+      <Filter>v7</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
