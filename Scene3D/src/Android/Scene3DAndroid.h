@@ -125,6 +125,15 @@ extern "C"
         return node;
     }
 
+    JNIEXPORT jlong JNICALL WRAP_FUNCTION_NAME(Scene_1runScript)(JNIEnv * env, jclass cls, jstring jScriptFileName)
+    {
+        const char *scriptFileName = env->GetStringUTFChars(jScriptFileName, JNI_FALSE);
+        jlong node = Scene_runScript(scriptFileName);
+        env->ReleaseStringUTFChars(jScriptFileName, scriptFileName);
+
+        return node;
+    }
+
     JNIEXPORT jlong JNICALL WRAP_FUNCTION_NAME(Scene_1addCubeNode)(JNIEnv * env, jclass cls, jfloat size)
     {
         return Scene_addCubeNode(size);

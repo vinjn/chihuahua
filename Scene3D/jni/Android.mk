@@ -26,6 +26,7 @@ LOCAL_C_INCLUDES := ../include \
 
 LOCAL_SRC_FILES := \
                     $(Scene3D_PATH)/Scene3D.cpp \
+                    $(Scene3D_PATH)/Javascript/Scene3D_v7.cpp \
                     $(Scene3D_PATH)/Android/Scene3DAndroid.cpp \
                     $(Scene3D_PATH)/Android/CAndroidAssetFileArchive.cpp \
                     $(Scene3D_PATH)/Android/CAndroidAssetReader.cpp \
