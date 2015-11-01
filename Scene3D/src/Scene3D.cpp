@@ -234,7 +234,7 @@ void Scene_render()
     os::Timer::tick();
     // printf("fps: %d\n", driver->getFPS());
 
-#ifdef _IRR_WINDOWS_API_
+#if 0 //def _IRR_WINDOWS_API_
     effect->update();
 #else
     smgr->drawAll();
@@ -533,6 +533,7 @@ void Node_setPosition(long nodePtr, float x, float y, float z)
 {
     CHECK_NODE_RETURN(nodePtr);
     getTypedPointer<scene::ISceneNode>(nodePtr)->setPosition(vector3df(x, y, z));
+    // printf("%.1f, %.1f, %.1f\n", x, y, z);
 }
 
 void Node_setRotation(long nodePtr, float x, float y, float z)

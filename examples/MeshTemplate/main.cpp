@@ -82,7 +82,7 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    long nodePtr = Scene_addMeshNode("../../media/robot-org.FBX");
+    long nodePtr = Scene_addMeshNode("minion.fbx");
     MeshNode_setAnimationByIndex(nodePtr, 0);
     f32 k = 10;
     Node_setScale(nodePtr, k, k, k);
@@ -90,26 +90,26 @@ int main(int argc, char const* const* argv)
     //IrrIMGUI::CIMGUIEventReceiver EventReceiver;
 
 #if 1
-    Node_setTexture(nodePtr, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+    //Node_setTexture(nodePtr, Scene_addTexture("polySurface60VRayCompleteMap.jpg"));
 #else    
-    Node_setTextureAt(nodePtr, 0, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
-    Node_setTextureAt(nodePtr, 1, Scene_addTexture("../../media/polySurface60VRayCompleteMap.jpg"));
+    Node_setTextureAt(nodePtr, 0, Scene_addTexture("polySurface60VRayCompleteMap.jpg"));
+    Node_setTextureAt(nodePtr, 1, Scene_addTexture("polySurface60VRayCompleteMap.jpg"));
 #endif
     Node_setRotation(nodePtr, 0, 0, 0);
 
     MeshNode_setShadowMode(nodePtr, Shadow_Both);
 
-    long metaioPtr = Scene_addMeshNode("../../media/metaioman.md2");
+    long metaioPtr = Scene_addMeshNode("metaioman.md2");
     MeshNode_setAnimationByIndex(metaioPtr, 0);
     k = 2;
-    Node_setPosition(metaioPtr, 100, 0, 0);
+    Node_setPosition(metaioPtr, 100, 100, 100);
     Node_setScale(metaioPtr, k, k, k);
-    Node_setTexture(metaioPtr, Scene_addTexture("../../media/metaioman.png"));
+    Node_setTexture(metaioPtr, Scene_addTexture("metaioman.png"));
 
     MeshNode_setShadowMode(metaioPtr, Shadow_Both);
 
 #if 0
-    nodePtr = Scene_addMeshNode("../../media/LOGO_new.DAE");
+    nodePtr = Scene_addMeshNode("LOGO_new.DAE");
     MeshNode_setAnimationByRange(nodePtr, 450, 500);
     Node_setModelMatrix(nodePtr, m);
     Node_setScale(nodePtr, k, k, k);
@@ -117,11 +117,11 @@ int main(int argc, char const* const* argv)
 
     long mBigPlane = Scene_addPlaneNode(400, 400);
     Node_setTexture(mBigPlane,
-                    Scene_addTexture("../../media/seymour.jpg"));
+                    Scene_addTexture("seymour.jpg"));
 
     long mSmallPlane = Scene_addPlaneNode(400, 400);
     Node_setTexture(mSmallPlane,
-                    Scene_addTexture("../../media/seymour.jpg"));
+                    Scene_addTexture("seymour.jpg"));
 
     Node_setPosition(mBigPlane, 0, 0, -500);
     Node_setPosition(mSmallPlane, 100, 20, -500);

@@ -327,9 +327,9 @@ public final class MainActivity extends Activity implements Renderer {
 			Scene3D.Node_setModelMatrix(mSmallPlane, modelMatrix);
 
 			// DebugLog.w("offsetZ:" + modelMatrix[14]);
+//			Scene3D.Node_setPosition(mMeshNode, k, k, k);
 
 			Scene3D.Camera_setProjectionMatrix(projMatrix);
-			float k = (float) (Math.random() * 360);
 			Scene3D.Scene_setVisible(true);
 		} else {
 			Scene3D.Scene_setVisible(false);
@@ -370,13 +370,15 @@ public final class MainActivity extends Activity implements Renderer {
 			mMeshNode = Scene3D.Scene_addMeshNode("metaioman.md2");
 			Scene3D.Node_setTexture(mMeshNode,
 					Scene3D.Scene_addTexture("metaioman.png"));
+			Scene3D.Node_setPosition(mMeshNode, 100, 300, 100);
+			
 			k = 5;
 		} else {
 			mMeshNode = Scene3D.Scene_loadScene("test.uscene");
-//			Scene3D.MeshNode_setAnimationByRange(mMeshNode, 450, 500);
-//			Scene3D.Node_setTexture(mMeshNode,
-//					Scene3D.Scene_addTexture("d805215948284cb6a97b73296877786d.png"));
-//			Scene3D.Node_setMaterialType(mMeshNode, Scene3D.Solid);
+			// Scene3D.MeshNode_setAnimationByRange(mMeshNode, 450, 500);
+			// Scene3D.Node_setTexture(mMeshNode,
+			// Scene3D.Scene_addTexture("d805215948284cb6a97b73296877786d.png"));
+			// Scene3D.Node_setMaterialType(mMeshNode, Scene3D.Solid);
 			k = 10;
 		}
 
@@ -390,25 +392,25 @@ public final class MainActivity extends Activity implements Renderer {
 		Scene3D.Node_setLighting(mMeshNode, false);
 		Scene3D.MeshNode_setAnimationByIndex(mMeshNode, 0);
 		Scene3D.MeshNode_setAnimationLoop(mMeshNode, true);
-		Scene3D.Node_setPosition(mMeshNode, 0, 0, 0);
-		Scene3D.Node_setRotation(mMeshNode, 90, 0, 0);
+		// Scene3D.Node_setPosition(mMeshNode, 0, 0, 0);
+		// Scene3D.Node_setRotation(mMeshNode, 90, 0, 0);
 		Scene3D.Node_setScale(mMeshNode, k, k, k);
-		
+
 		if (false) {
 			mBigPlane = Scene3D.Scene_addPlaneNode(400, 400);
 			Scene3D.Node_setTexture(mBigPlane,
-					Scene3D.Scene_addTexture("seymour.jpg"));
+					Scene3D.Scene_addTexture("gold.png"));
 			mSmallPlane = Scene3D.Scene_addPlaneNode(400, 400);
 			Scene3D.Node_setTexture(mSmallPlane,
-					Scene3D.Scene_addTexture("seymour.jpg"));
+					Scene3D.Scene_addTexture("gold.png"));
 
 			Scene3D.Node_setPosition(mBigPlane, 0, 0, -100);
-			Scene3D.Node_setPosition(mSmallPlane, 100, 20, -20);	
+			Scene3D.Node_setPosition(mSmallPlane, 100, 20, -20);
 		}
 
 		//
-//		Scene3D.Node_setRotation(mBigPlane, 45, 0, 0);
-//		Scene3D.Node_setRotation(mSmallPlane, 45, 0, 0);
+		Scene3D.Node_setRotation(mBigPlane, 45, 0, 0);
+		Scene3D.Node_setRotation(mSmallPlane, 45, 0, 0);
 
 		long lightNode = Scene3D.Scene_addLightNode();
 		Scene3D.LightNode_setRadius(lightNode, kSize);
