@@ -1079,6 +1079,7 @@
     <ClInclude Include="..\bgfx\src\vertexdecl.h" />
     <ClInclude Include="..\bgfx\src\vs_clear.bin.h" />
     <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h" />
+    <ClCompile Include="..\..\Scene3D\src\Javascript\Scene3D_v7.cpp" />
     <ClCompile Include="..\..\Scene3D\src\Scene3D.cpp" />
     <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
     <ClCompile Include="..\assimp\code\ColladaParser.cpp" />

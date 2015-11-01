@@ -2294,6 +2294,9 @@
     <ClCompile Include="..\v7\v7.c">
       <Filter>v7</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Scene3D\src\Javascript\Scene3D_v7.cpp">
+      <Filter>Scene3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Irrlicht.rc" />

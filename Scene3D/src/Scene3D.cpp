@@ -9,7 +9,6 @@
 #include "../source/irrlicht/CSceneManager.h"
 #include "../source/irrlicht/CCameraSceneNode.h"
 #include "../source/XEffects/XEffects.h"
-#include "../source/v7/v7.h"
 
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
@@ -19,8 +18,6 @@
 
 using namespace irr;
 using namespace core;
-
-struct v7 *v7;
 
 namespace irr
 {
@@ -454,11 +451,6 @@ void Scene_setAnimationCallback(NodePtrFunctor cb)
 void Scene_destroy()
 {
     arRootNode->removeAll();
-
-    if (v7 != NULL)
-    {
-        v7_destroy(v7);
-    }
 }
 
 void Scene_removeNode(long nodePtr)
@@ -792,21 +784,4 @@ void Scene_initializeFromDevice(long irrlichtDevice)
     smgr = device->getSceneManager();
 
     setupSceneAndCamera();
-}
-
-void Scene_runScript(const char* scriptFileName)
-{
-    if (v7 == NULL)
-    {
-        v7 = v7_create();
-    }
-    auto file = fs->createAndOpenFile(scriptFileName);
-    if (file == NULL) return;
-
-    core::array<u8> scriptCode(file->getSize());
-    file->seek(0);
-    file->read(scriptCode.pointer(), file->getSize());
-
-    v7_val_t result;
-    v7_exec(v7, (const char*)scriptCode.pointer(), &result);
 }
