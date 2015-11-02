@@ -71,7 +71,7 @@ v7_val_t Scene_render(struct v7 *v7)
     return 0;
 }
 
-static const char* toString(struct v7 *v7, unsigned long argsIdx = 0)
+static const char* toString(struct v7 *v7, unsigned long argIdx = 0)
 {
     auto arg = v7_arg(v7, 0);
     size_t string_len;
@@ -327,27 +327,38 @@ v7_val_t Node_setParent(struct v7 *v7)
     return 0;
 }
 
+static const float* toMatrix(struct v7 *v7, unsigned long argIdx = 0)
+{
+    static float matrix[16];
+    v7_val_t val = v7_arg(v7, 1);
+    auto arrayLength = v7_array_length(v7, val);
+    //assert(arrayLength == 16);
+    for (auto i = 0; i < arrayLength; i++)
+    {
+        matrix[i] = v7_to_number(v7_array_get(v7, val, i));
+    }
+    return matrix;
+}
+
 v7_val_t Node_setModelMatrix(struct v7 *v7)
 {
     long nodePtr = v7_to_number(v7_arg(v7, 0));
-    float matrix[16]; // TODO
-    ::Node_setModelMatrix(nodePtr, matrix);
+
+    ::Node_setModelMatrix(nodePtr, toMatrix(v7, 1));
 
     return 0;
 }
 
 v7_val_t Camera_setViewMatrix(struct v7 *v7)
 {
-    float matrix[16]; // TODO
-    ::Camera_setViewMatrix(matrix);
+    ::Camera_setViewMatrix(toMatrix(v7, 0));
 
     return 0;
 }
 
 v7_val_t Camera_setProjectionMatrix(struct v7 *v7)
 {
-    float matrix[16]; // TODO
-    ::Camera_setProjectionMatrix(matrix);
+    ::Camera_setProjectionMatrix(toMatrix(v7, 0));
 
     return 0;
 }
