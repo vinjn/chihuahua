@@ -1233,9 +1233,6 @@
     <ClInclude Include="..\bgfx\src\fs_debugfont.bin.h">
       <Filter>bgfx</Filter>
     </ClInclude>
-    <ClInclude Include="..\bgfx\src\glcontext_egl.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
     <ClInclude Include="..\bgfx\src\glimports.h">
       <Filter>bgfx</Filter>
     </ClInclude>
@@ -1459,6 +1456,9 @@
     </ClInclude>
     <ClInclude Include="..\v7\v7.h">
       <Filter>v7</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glcontext_wgl.h">
+      <Filter>bgfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2057,9 +2057,6 @@
     <ClCompile Include="..\bgfx\src\bgfx.cpp">
       <Filter>bgfx</Filter>
     </ClCompile>
-    <ClCompile Include="..\bgfx\src\glcontext_egl.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
     <ClCompile Include="..\bgfx\src\image.cpp">
       <Filter>bgfx</Filter>
     </ClCompile>
@@ -2296,6 +2293,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Scene3D\src\Javascript\Scene3D_v7.cpp">
       <Filter>Scene3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\glcontext_wgl.cpp">
+      <Filter>bgfx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

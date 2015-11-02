@@ -1066,7 +1066,7 @@
     <ClInclude Include="..\bgfx\src\fs_clear6.bin.h" />
     <ClInclude Include="..\bgfx\src\fs_clear7.bin.h" />
     <ClInclude Include="..\bgfx\src\fs_debugfont.bin.h" />
-    <ClInclude Include="..\bgfx\src\glcontext_egl.h" />
+    <ClInclude Include="..\bgfx\src\glcontext_wgl.h" />
     <ClInclude Include="..\bgfx\src\glimports.h" />
     <ClInclude Include="..\bgfx\src\image.h" />
     <ClInclude Include="..\bgfx\src\ovr.h" />
@@ -1090,6 +1090,7 @@
     <ClCompile Include="..\assimp\code\PlyLoader.cpp" />
     <ClCompile Include="..\assimp\code\PlyParser.cpp" />
     <ClCompile Include="..\assimp\IrrAssimpImport.cpp" />
+    <ClCompile Include="..\bgfx\src\glcontext_wgl.cpp" />
     <ClCompile Include="..\glew\glew.c" />
     <ClCompile Include="..\imgui\imgui.cpp" />
     <ClCompile Include="..\imgui\imgui_demo.cpp" />
@@ -1384,7 +1385,6 @@
     <ClCompile Include="..\assimp\code\VertexTriangleAdjacency.cpp" />
     <ClCompile Include="..\assimp\contrib\ConvertUTF\ConvertUTF.c" />
     <ClCompile Include="..\bgfx\src\bgfx.cpp" />
-    <ClCompile Include="..\bgfx\src\glcontext_egl.cpp" />
     <ClCompile Include="..\bgfx\src\image.cpp" />
     <ClCompile Include="..\bgfx\src\ovr.cpp" />
     <ClCompile Include="..\bgfx\src\renderdoc.cpp" />

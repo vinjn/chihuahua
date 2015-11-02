@@ -1,5 +1,4 @@
 #include <irrlicht.h>
-#include "AssimpWrapper.h"
 #include "bx/commandline.h"
 #include "bx/float4x4_t.h"
 
@@ -10,11 +9,6 @@ using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
-
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#pragma comment(linker, "/subsystem:console /ENTRY:mainCRTStartup")
-#endif
 
 IrrlichtDevice *device;
 
