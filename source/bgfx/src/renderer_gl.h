@@ -309,6 +309,14 @@ typedef uint64_t GLuint64;
 #	define GL_RGBA16UI 0x8D76
 #endif // GL_RGBA16UI
 
+#ifndef GL_RGB9_E5
+#	define GL_RGB9_E5 0x8C3D
+#endif // GL_RGB9_E5
+
+#ifndef GL_UNSIGNED_INT_5_9_9_9_REV
+#	define GL_UNSIGNED_INT_5_9_9_9_REV 0x8C3E
+#endif // GL_UNSIGNED_INT_5_9_9_9_REV
+
 #ifndef GL_R11F_G11F_B10F
 #	define GL_R11F_G11F_B10F 0x8C3A
 #endif // GL_R11F_G11F_B10F
@@ -480,6 +488,14 @@ typedef uint64_t GLuint64;
 #ifndef GL_QUERY_RESULT_AVAILABLE
 #	define GL_QUERY_RESULT_AVAILABLE 0x8867
 #endif // GL_QUERY_RESULT_AVAILABLE
+
+#ifndef GL_SAMPLES_PASSED
+#	define GL_SAMPLES_PASSED 0x8914
+#endif // GL_SAMPLES_PASSED
+
+#ifndef GL_ANY_SAMPLES_PASSED
+#	define GL_ANY_SAMPLES_PASSED 0x8C2F
+#endif // GL_ANY_SAMPLES_PASSED
 
 #ifndef GL_READ_FRAMEBUFFER
 #	define GL_READ_FRAMEBUFFER 0x8CA8
@@ -753,6 +769,14 @@ typedef uint64_t GLuint64;
 #	define GL_DEPTH_CLAMP 0x864F
 #endif // GL_DEPTH_CLAMP
 
+#ifndef GL_TEXTURE_BORDER_COLOR
+#	define GL_TEXTURE_BORDER_COLOR 0x1004
+#endif // GL_TEXTURE_BORDER_COLOR
+
+#ifndef GL_CLAMP_TO_BORDER
+#	define GL_CLAMP_TO_BORDER 0x812D
+#endif // GL_CLAMP_TO_BORDER
+
 #ifndef GL_TEXTURE_CUBE_MAP_SEAMLESS
 #	define GL_TEXTURE_CUBE_MAP_SEAMLESS 0x884F
 #endif // GL_TEXTURE_CUBE_MAP_SEAMLESS
@@ -799,7 +823,7 @@ typedef uint64_t GLuint64;
 
 namespace bgfx
 {
-	class ConstantBuffer;
+	class UniformBuffer;
 } // namespace bgfx
 
 namespace bgfx { namespace gl
@@ -1066,7 +1090,7 @@ namespace bgfx { namespace gl
 			, m_fmt(GL_ZERO)
 			, m_type(GL_ZERO)
 			, m_flags(0)
-			, m_currentFlags(UINT32_MAX)
+			, m_currentSamplerHash(UINT32_MAX)
 			, m_numMips(0)
 		{
 		}
@@ -1075,8 +1099,8 @@ namespace bgfx { namespace gl
 		void create(const Memory* _mem, uint32_t _flags, uint8_t _skip);
 		void destroy();
 		void update(uint8_t _side, uint8_t _mip, const Rect& _rect, uint16_t _z, uint16_t _depth, uint16_t _pitch, const Memory* _mem);
-		void setSamplerState(uint32_t _flags);
-		void commit(uint32_t _stage, uint32_t _flags);
+		void setSamplerState(uint32_t _flags, const float _rgba[4]);
+		void commit(uint32_t _stage, uint32_t _flags, const float _palette[][4]);
 
 		GLuint m_id;
 		GLuint m_rbo;
@@ -1084,7 +1108,7 @@ namespace bgfx { namespace gl
 		GLenum m_fmt;
 		GLenum m_type;
 		uint32_t m_flags;
-		uint32_t m_currentFlags;
+		uint32_t m_currentSamplerHash;
 		uint32_t m_width;
 		uint32_t m_height;
 		uint32_t m_depth;
@@ -1166,42 +1190,10 @@ namespace bgfx { namespace gl
  		GLint m_sampler[BGFX_CONFIG_MAX_TEXTURE_SAMPLERS];
  		uint8_t m_numSamplers;
 
-		ConstantBuffer* m_constantBuffer;
+		UniformBuffer* m_constantBuffer;
 		PredefinedUniform m_predefined[PredefinedUniform::Count];
 		uint8_t m_numPredefined;
 		VaoCacheRef m_vcref;
-	};
-
-	struct QueriesGL
-	{
-		void create()
-		{
-			GL_CHECK(glGenQueries(BX_COUNTOF(m_queries), m_queries) );
-		}
-
-		void destroy()
-		{
-			GL_CHECK(glDeleteQueries(BX_COUNTOF(m_queries), m_queries) );
-		}
-
-		void begin(uint16_t _id, GLenum _target) const
-		{
-			GL_CHECK(glBeginQuery(_target, m_queries[_id]) );
-		}
-
-		void end(GLenum _target) const
-		{
-			GL_CHECK(glEndQuery(_target) );
-		}
-
-		uint64_t getResult(uint16_t _id) const
-		{
-			uint64_t result;
-			GL_CHECK(glGetQueryObjectui64v(m_queries[_id], GL_QUERY_RESULT, &result) );
-			return result;
-		}
-
-		GLuint m_queries[64];
 	};
 
 	struct TimerQueryGL
@@ -1266,6 +1258,29 @@ namespace bgfx { namespace gl
 		uint64_t m_elapsed;
 
 		GLuint m_frame[4];
+		bx::RingBufferControl m_control;
+	};
+
+	struct OcclusionQueryGL
+	{
+		OcclusionQueryGL()
+			: m_control(BX_COUNTOF(m_query) )
+		{
+		}
+
+		void create();
+		void destroy();
+		void begin(OcclusionQueryHandle _handle);
+		void end();
+		void resolve(bool _wait = false);
+
+		struct Query
+		{
+			GLuint m_id;
+			OcclusionQueryHandle m_handle;
+		};
+
+		Query m_query[BGFX_CONFIG_MAX_OCCUSION_QUERIES];
 		bx::RingBufferControl m_control;
 	};
 

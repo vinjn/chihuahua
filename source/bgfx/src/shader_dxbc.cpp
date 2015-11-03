@@ -490,7 +490,7 @@ namespace bgfx
 	};
 	BX_STATIC_ASSERT(BX_COUNTOF(s_dxbcSrvType) == DxbcResourceDim::Count);
 
-	static const char* s_dxbcInterpolationName[] =
+	const char* s_dxbcInterpolationName[] =
 	{
 		"",
 		"constant",
@@ -1785,13 +1785,18 @@ namespace bgfx
 				size += read(_reader, _dxbc.outputSignature);
 				break;
 
-			case BX_MAKEFOURCC('R', 'D', 'E', 'F'):
-			case BX_MAKEFOURCC('I', 'F', 'C', 'E'):
-			case BX_MAKEFOURCC('P', 'C', 'S', 'G'):
-			case BX_MAKEFOURCC('S', 'T', 'A', 'T'):
-			case BX_MAKEFOURCC('S', 'F', 'I', '0'):
-			case BX_MAKEFOURCC('P', 'S', 'O', '1'):
-			case BX_MAKEFOURCC('P', 'S', 'O', '2'):
+			case BX_MAKEFOURCC('A', 'o', 'n', '9'): // Contains DX9BC for feature level 9.x (*s_4_0_level_9_*) shaders.
+			case BX_MAKEFOURCC('I', 'F', 'C', 'E'): // Interface.
+			case BX_MAKEFOURCC('R', 'D', 'E', 'F'): // Resource definition.
+			case BX_MAKEFOURCC('S', 'D', 'G', 'B'): // Shader debugging info (old).
+			case BX_MAKEFOURCC('S', 'P', 'D', 'B'): // Shader debugging info (new).
+			case BX_MAKEFOURCC('S', 'F', 'I', '0'): // ?
+			case BX_MAKEFOURCC('S', 'T', 'A', 'T'): // Statistics.
+			case BX_MAKEFOURCC('P', 'C', 'S', 'G'): // Patch constant signature.
+			case BX_MAKEFOURCC('P', 'S', 'O', '1'): // Pipeline State Object 1
+			case BX_MAKEFOURCC('P', 'S', 'O', '2'): // Pipeline State Object 2
+			case BX_MAKEFOURCC('X', 'N', 'A', 'P'): // ?
+			case BX_MAKEFOURCC('X', 'N', 'A', 'S'): // ?
 				size += chunkSize;
 				break;
 
@@ -1884,7 +1889,11 @@ namespace bgfx
 			uint32_t size = read(&reader, instruction);
 			BX_CHECK(size/4 == instruction.length, "read %d, expected %d", size/4, instruction.length); BX_UNUSED(size);
 
-			_fn(token * sizeof(uint32_t), instruction, _userData);
+			bool cont = _fn(token * sizeof(uint32_t), instruction, _userData);
+			if (!cont)
+			{
+				return;
+			}
 
 			token += instruction.length;
 		}

@@ -8,9 +8,9 @@
 
 #include <stdarg.h> // va_list
 #include <stdint.h> // uint32_t
-#include <stdlib.h> // size_t
+#include <stdlib.h> // NULL
 
-#include "bgfxdefines.h"
+#include <bgfx/bgfxdefines.h>
 
 ///
 #define BGFX_HANDLE(_name) \
@@ -200,6 +200,7 @@ namespace bgfx
 			RG32I,
 			RG32U,
 			RG32F,
+			RGB9E5F,
 			BGRA8,
 			RGBA8,
 			RGBA8I,
@@ -281,6 +282,7 @@ namespace bgfx
 	BGFX_HANDLE(FrameBufferHandle);
 	BGFX_HANDLE(IndexBufferHandle);
 	BGFX_HANDLE(IndirectBufferHandle);
+	BGFX_HANDLE(OcclusionQueryHandle);
 	BGFX_HANDLE(ProgramHandle);
 	BGFX_HANDLE(ShaderHandle);
 	BGFX_HANDLE(TextureHandle);
@@ -470,10 +472,10 @@ namespace bgfx
 
 		/// Supported texture formats.
 		///   - `BGFX_CAPS_FORMAT_TEXTURE_NONE` - not supported
-		///   - `BGFX_CAPS_FORMAT_TEXTURE_COLOR` - supported
-		///   - `BGFX_CAPS_FORMAT_TEXTURE_EMULATED` - emulated
+		///   - `BGFX_CAPS_FORMAT_TEXTURE_2D` - supported
+		///   - `BGFX_CAPS_FORMAT_TEXTURE_2D_EMULATED` - emulated
 		///   - `BGFX_CAPS_FORMAT_TEXTURE_VERTEX` - supported vertex texture
-		uint8_t formats[TextureFormat::Count];
+		uint16_t formats[TextureFormat::Count];
 	};
 
 	/// Transient index buffer.
@@ -1393,7 +1395,32 @@ namespace bgfx
 	///
 	void updateTextureCube(TextureHandle _handle, uint8_t _side, uint8_t _mip, uint16_t _x, uint16_t _y, uint16_t _width, uint16_t _height, const Memory* _mem, uint16_t _pitch = UINT16_MAX);
 
+	/// Read back texture content.
+	///
+	/// @param[in] _handle Texture handle.
+	/// @param[in] _data Destination buffer.
+	///
+	/// @attention Texture must be created with `BGFX_TEXTURE_READ_BACK` flag.
+	/// @attention Availability depends on: `BGFX_CAPS_TEXTURE_READ_BACK`.
+	/// @attention C99 equivalent is `bgfx_read_texture`.
+	///
+	void readTexture(TextureHandle _handle, void* _data);
+
+	/// Read back texture content.
+	///
+	/// @param[in] _handle Frame buffer handle.
+	/// @param[in] _attachment Frame buffer attachment index.
+	/// @param[in] _data Destination buffer.
+	///
+	/// @attention Texture must be created with `BGFX_TEXTURE_READ_BACK` flag.
+	/// @attention Availability depends on: `BGFX_CAPS_TEXTURE_READ_BACK`.
+	/// @attention C99 equivalent is `bgfx_read_texture`.
+	///
+	void readTexture(FrameBufferHandle _handle, uint8_t _attachment, void* _data);
+
 	/// Destroy texture.
+	///
+	/// @param[in] _handle Texture handle.
 	///
 	/// @attention C99 equivalent is `bgfx_destroy_texture`.
 	///
@@ -1441,7 +1468,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_create_frame_buffer_from_handles`.
 	///
-	FrameBufferHandle createFrameBuffer(uint8_t _num, TextureHandle* _handles, bool _destroyTextures = false);
+	FrameBufferHandle createFrameBuffer(uint8_t _num, const TextureHandle* _handles, bool _destroyTextures = false);
 
 	/// Create frame buffer for multiple window rendering.
 	///
@@ -1503,32 +1530,48 @@ namespace bgfx
 	///
 	void destroyUniform(UniformHandle _handle);
 
-	/// Set clear color palette value.
+	/// Create occlusion query.
+	///
+	/// @returns Handle to occlusion query object.
+	///
+	/// @attention C99 equivalent is `bgfx_create_occlusion_query`.
+	///
+	OcclusionQueryHandle createOcclusionQuery();
+
+	/// Destroy occlusion query.
+	///
+	/// @param[in] _handle Handle to occlusion query object.
+	///
+	/// @attention C99 equivalent is `bgfx_destroy_occlusion_query`.
+	///
+	void destroyOcclusionQuery(OcclusionQueryHandle _handle);
+
+	/// Set palette color value.
 	///
 	/// @param[in] _index Index into palette.
 	/// @param[in] _rgba Packed 32-bit RGBA value.
 	///
-	/// @attention C99 equivalent is `bgfx_set_clear_color`.
+	/// @attention C99 equivalent is `bgfx_set_palette_color`.
 	///
-	void setClearColor(uint8_t _index, uint32_t _rgba);
+	void setPaletteColor(uint8_t _index, uint32_t _rgba);
 
-	/// Set clear color palette value.
+	/// Set palette color value.
 	///
 	/// @param[in] _index Index into palette.
 	/// @param[in] _r, _g, _b, _a RGBA floating point values.
 	///
-	/// @attention C99 equivalent is `bgfx_set_clear_color`.
+	/// @attention C99 equivalent is `bgfx_set_palette_color`.
 	///
-	void setClearColor(uint8_t _index, float _r, float _g, float _b, float _a);
+	void setPaletteColor(uint8_t _index, float _r, float _g, float _b, float _a);
 
-	/// Set clear color palette value.
+	/// Set palette color value.
 	///
 	/// @param[in] _index Index into palette.
 	/// @param[in] _rgba RGBA floating point value.
 	///
-	/// @attention C99 equivalent is `bgfx_set_clear_color`.
+	/// @attention C99 equivalent is `bgfx_set_palette_color`.
 	///
-	void setClearColor(uint8_t _index, const float _rgba[4]);
+	void setPaletteColor(uint8_t _index, const float _rgba[4]);
 
 	/// Set view name.
 	///
@@ -1561,6 +1604,9 @@ namespace bgfx
 	/// @attention C99 equivalent is `bgfx_set_view_rect`.
 	///
 	void setViewRect(uint8_t _id, uint16_t _x, uint16_t _y, uint16_t _width, uint16_t _height);
+
+	///
+	void setViewRect(uint8_t _id, uint16_t _x, uint16_t _y, BackbufferRatio::Enum _ratio);
 
 	/// Set view scissor. Draw primitive outside view will be clipped. When
 	/// _x, _y, _width and _height are set to 0, scissor will be disabled.
@@ -1659,6 +1705,14 @@ namespace bgfx
 	///
 	void setViewRemap(uint8_t _id = 0, uint8_t _num = UINT8_MAX, const void* _remap = NULL);
 
+	/// Reset all view settings to default.
+	///
+	/// @param[in] _id View id.
+	///
+	/// @attention C99 equivalent is `bgfx_reset_view`.
+	///
+	void resetView(uint8_t _id);
+
 	/// Sets debug marker.
 	///
 	/// @attention C99 equivalent is `bgfx_set_marker`.
@@ -1691,6 +1745,15 @@ namespace bgfx
 	/// @attention C99 equivalent is `bgfx_set_state`.
 	///
 	void setState(uint64_t _state, uint32_t _rgba = 0);
+
+	/// Set condition for rendering.
+	///
+	/// @param[in] _handle Occlusion query handle.
+	/// @param[in] _visible Render if occlusion query is visible.
+	///
+	/// @attention C99 equivalent is `bgfx_set_condition`.
+	///
+	void setCondition(OcclusionQueryHandle _handle, bool _visible);
 
 	/// Set stencil test state.
 	///
@@ -1891,7 +1954,7 @@ namespace bgfx
 	/// @param[in] _stage Texture unit.
 	/// @param[in] _sampler Program sampler.
 	/// @param[in] _handle Frame buffer handle.
-	/// @param[in] _attachment Attachment index.
+	/// @param[in] _attachment Frame buffer attachment index.
 	/// @param[in] _flags Texture sampling mode. Default value UINT32_MAX uses
 	///   texture sampling settings from the texture.
 	///   - `BGFX_TEXTURE_[U/V/W]_[MIRROR/CLAMP]` - Mirror or clamp to edge wrap
@@ -1909,19 +1972,31 @@ namespace bgfx
 	/// Submit primitive for rendering.
 	///
 	/// @param[in] _id View id.
-	/// @param[in] _handle Program.
+	/// @param[in] _program Program.
 	/// @param[in] _depth Depth for sorting.
 	/// @returns Number of draw calls.
 	///
 	/// @attention C99 equivalent is `bgfx_submit`.
 	///
-	uint32_t submit(uint8_t _id, ProgramHandle _handle, int32_t _depth = 0);
+	uint32_t submit(uint8_t _id, ProgramHandle _program, int32_t _depth = 0);
+
+	/// Submit primitive with occlusion query for rendering.
+	///
+	/// @param[in] _id View id.
+	/// @param[in] _program Program.
+	/// @param[in] _occlusionQuery Occlusion query.
+	/// @param[in] _depth Depth for sorting.
+	/// @returns Number of draw calls.
+	///
+	/// @attention C99 equivalent is `bgfx_submit_occlusion_query.
+	///
+	uint32_t submit(uint8_t _id, ProgramHandle _program, OcclusionQueryHandle _occlusionQuery, int32_t _depth = 0);
 
 	/// Submit primitive for rendering with index and instance data info from
 	/// indirect buffer.
 	///
 	/// @param[in] _id View id.
-	/// @param[in] _handle Program.
+	/// @param[in] _program Program.
 	/// @param[in] _indirectHandle Indirect buffer.
 	/// @param[in] _start First element in indirect buffer.
 	/// @param[in] _num Number of dispatches.
@@ -1929,7 +2004,7 @@ namespace bgfx
 	///
 	/// @attention C99 equivalent is `bgfx_submit_indirect`.
 	///
-	uint32_t submit(uint8_t _id, ProgramHandle _handle, IndirectBufferHandle _indirectHandle, uint16_t _start = 0, uint16_t _num = 1, int32_t _depth = 0);
+	uint32_t submit(uint8_t _id, ProgramHandle _program, IndirectBufferHandle _indirectHandle, uint16_t _start = 0, uint16_t _num = 1, int32_t _depth = 0);
 
 	/// Set compute index buffer.
 	///
@@ -1999,7 +2074,7 @@ namespace bgfx
 	/// @param[in] _stage Texture unit.
 	/// @param[in] _sampler Program sampler.
 	/// @param[in] _handle Frame buffer handle.
-	/// @param[in] _attachment Attachment index.
+	/// @param[in] _attachment Frame buffer attachment index.
 	/// @param[in] _access Texture access. See `Access::Enum`.
 	/// @param[in] _format Texture format. See: `TextureFormat::Enum`.
 	///
@@ -2044,6 +2119,100 @@ namespace bgfx
 	/// @attention C99 equivalent is `bgfx_discard`.
 	///
 	void discard();
+
+	/// Blit texture 2D region between two 2D textures.
+	///
+	/// @param[in] _id View id.
+	/// @param[in] _dst Destination texture handle.
+	/// @param[in] _dstX Destination texture X position.
+	/// @param[in] _dstY Destination texture Y position.
+	/// @param[in] _src Source texture handle.
+	/// @param[in] _srcX Source texture X position.
+	/// @param[in] _srcY Source texture Y position.
+	/// @param[in] _width Width of region.
+	/// @param[in] _height Height of region.
+	///
+	/// @attention Destination texture must be create with `BGFX_TEXTURE_BLIT_DST` flag.
+	/// @attention Availability depends on: `BGFX_CAPS_TEXTURE_BLIT`.
+	/// @attention C99 equivalent is `bgfx_blit`.
+	///
+	void blit(uint8_t _id, TextureHandle _dst, uint16_t _dstX, uint16_t _dstY, TextureHandle _src, uint16_t _srcX = 0, uint16_t _srcY = 0, uint16_t _width = UINT16_MAX, uint16_t _height = UINT16_MAX);
+
+	/// Blit texture 2D region between 2D frame buffer and 2D texture.
+	///
+	/// @param[in] _id View id.
+	/// @param[in] _dst Destination texture handle.
+	/// @param[in] _dstX Destination texture X position.
+	/// @param[in] _dstY Destination texture Y position.
+	/// @param[in] _src Source frame buffer handle.
+	/// @param[in] _attachment Source frame buffer attachment index.
+	/// @param[in] _srcX Source texture X position.
+	/// @param[in] _srcY Source texture Y position.
+	/// @param[in] _width Width of region.
+	/// @param[in] _height Height of region.
+	///
+	/// @attention Destination texture must be create with `BGFX_TEXTURE_BLIT_DST` flag.
+	/// @attention Availability depends on: `BGFX_CAPS_TEXTURE_BLIT`.
+	/// @attention C99 equivalent is `bgfx_blit`.
+	///
+	void blit(uint8_t _id, TextureHandle _dst, uint16_t _dstX, uint16_t _dstY, FrameBufferHandle _src, uint8_t _attachment = 0, uint16_t _srcX = 0, uint16_t _srcY = 0, uint16_t _width = UINT16_MAX, uint16_t _height = UINT16_MAX);
+
+	/// Blit texture region between two textures.
+	///
+	/// @param[in] _id View id.
+	/// @param[in] _dst Destination texture handle.
+	/// @param[in] _dstMip Destination texture mip level.
+	/// @param[in] _dstX Destination texture X position.
+	/// @param[in] _dstY Destination texture Y position.
+	/// @param[in] _dstZ If texture is 2D this argument should be 0. If destination texture is cube
+	///   this argument represent destination texture cube face. For 3D texture this argument
+	///   represent destination texture Z position.
+	/// @param[in] _src Source texture handle.
+	/// @param[in] _srcMip Source texture mip level.
+	/// @param[in] _srcX Source texture X position.
+	/// @param[in] _srcY Source texture Y position.
+	/// @param[in] _srcZ If texture is 2D this argument should be 0. If source texture is cube
+	///   this argument represent source texture cube face. For 3D texture this argument
+	///   represent source texture Z position.
+	/// @param[in] _width Width of region.
+	/// @param[in] _height Height of region.
+	/// @param[in] _depth If texture is 3D this argument represent depth of region, otherwise is
+	///   unused.
+	///
+	/// @attention Destination texture must be create with `BGFX_TEXTURE_BLIT_DST` flag.
+	/// @attention Availability depends on: `BGFX_CAPS_TEXTURE_BLIT`.
+	/// @attention C99 equivalent is `bgfx_blit`.
+	///
+	void blit(uint8_t _id, TextureHandle _dst, uint8_t _dstMip, uint16_t _dstX, uint16_t _dstY, uint16_t _dstZ, TextureHandle _src, uint8_t _srcMip = 0, uint16_t _srcX = 0, uint16_t _srcY = 0, uint16_t _srcZ = 0, uint16_t _width = UINT16_MAX, uint16_t _height = UINT16_MAX, uint16_t _depth = UINT16_MAX);
+
+	/// Blit texture region between frame buffer and texture.
+	///
+	/// @param[in] _id View id.
+	/// @param[in] _dst Destination texture handle.
+	/// @param[in] _dstMip Destination texture mip level.
+	/// @param[in] _dstX Destination texture X position.
+	/// @param[in] _dstY Destination texture Y position.
+	/// @param[in] _dstZ If texture is 2D this argument should be 0. If destination texture is cube
+	///   this argument represent destination texture cube face. For 3D texture this argument
+	///   represent destination texture Z position.
+	/// @param[in] _src Source frame buffer handle.
+	/// @param[in] _attachment Source frame buffer attachment index.
+	/// @param[in] _srcMip Source texture mip level.
+	/// @param[in] _srcX Source texture X position.
+	/// @param[in] _srcY Source texture Y position.
+	/// @param[in] _srcZ If texture is 2D this argument should be 0. If source texture is cube
+	///   this argument represent source texture cube face. For 3D texture this argument
+	///   represent source texture Z position.
+	/// @param[in] _width Width of region.
+	/// @param[in] _height Height of region.
+	/// @param[in] _depth If texture is 3D this argument represent depth of region, otherwise is
+	///   unused.
+	///
+	/// @attention Destination texture must be create with `BGFX_TEXTURE_BLIT_DST` flag.
+	/// @attention Availability depends on: `BGFX_CAPS_TEXTURE_BLIT`.
+	/// @attention C99 equivalent is `bgfx_blit`.
+	///
+	void blit(uint8_t _id, TextureHandle _dst, uint8_t _dstMip, uint16_t _dstX, uint16_t _dstY, uint16_t _dstZ, FrameBufferHandle _src, uint8_t _attachment = 0, uint8_t _srcMip = 0, uint16_t _srcX = 0, uint16_t _srcY = 0, uint16_t _srcZ = 0, uint16_t _width = UINT16_MAX, uint16_t _height = UINT16_MAX, uint16_t _depth = UINT16_MAX);
 
 	/// Request screen shot.
 	///
