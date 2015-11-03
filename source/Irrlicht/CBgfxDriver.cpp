@@ -49,6 +49,8 @@ namespace irr
                 caps = bgfx::getCaps();
             }
 
+            static const uint8_t kDefaultView = 0;
+
             //! destructor
             virtual ~CBgfxDriver()
             {
@@ -68,14 +70,14 @@ namespace irr
                     struct
                     {
                         u8 a, b, g, r;
-                    }abgr;
-                }bgfxColor;
+                    } abgr;
+                } bgfxColor;
                 bgfxColor.abgr.r = (u8)color.getRed();
                 bgfxColor.abgr.g = (u8)color.getGreen();
                 bgfxColor.abgr.b = (u8)color.getBlue();
                 bgfxColor.abgr.a = (u8)color.getAlpha();
 
-                bgfx::setViewClear(0
+                bgfx::setViewClear(kDefaultView
                     , (backBuffer ? BGFX_CLEAR_COLOR : 0) | (zBuffer ? BGFX_CLEAR_DEPTH : 0) | 0
                     , bgfxColor.clr
                     , 1.0f
@@ -108,7 +110,7 @@ namespace irr
                 {
                 case ETS_VIEW:
                 case ETS_PROJECTION:
-                    bgfx::setViewTransform(0, Matrices[ETS_VIEW].pointer(), Matrices[ETS_PROJECTION].pointer());
+                    bgfx::setViewTransform(kDefaultView, Matrices[ETS_VIEW].pointer(), Matrices[ETS_PROJECTION].pointer());
                     break;
                 case ETS_WORLD:
                     bgfx::setTransform(mat.pointer());
@@ -151,6 +153,45 @@ namespace irr
             virtual bool queryFeature(E_VIDEO_DRIVER_FEATURE feature) const
             {
                 // TODO:
+#if 0
+
+#define BGFX_CAPS_TEXTURE_COMPARE_LEQUAL UINT64_C(0x0000000000000001) //!< Texture compare less equal mode is supported.
+#define BGFX_CAPS_TEXTURE_COMPARE_ALL    UINT64_C(0x0000000000000003) //!< All texture compare modes are supported.
+#define BGFX_CAPS_TEXTURE_3D             UINT64_C(0x0000000000000004) //!< 3D textures are supported.
+#define BGFX_CAPS_VERTEX_ATTRIB_HALF     UINT64_C(0x0000000000000008) //!< Vertex attribute half-float is supported.
+#define BGFX_CAPS_VERTEX_ATTRIB_UINT10   UINT64_C(0x0000000000000010) //!< Vertex attribute 10_10_10_2 is supported.
+#define BGFX_CAPS_INSTANCING             UINT64_C(0x0000000000000020) //!< Instancing is supported.
+#define BGFX_CAPS_RENDERER_MULTITHREADED UINT64_C(0x0000000000000040) //!< Renderer is on separate thread.
+#define BGFX_CAPS_FRAGMENT_DEPTH         UINT64_C(0x0000000000000080) //!< Fragment depth is accessible in fragment shader.
+#define BGFX_CAPS_BLEND_INDEPENDENT      UINT64_C(0x0000000000000100) //!< Blend independent is supported.
+#define BGFX_CAPS_COMPUTE                UINT64_C(0x0000000000000200) //!< Compute shaders are supported.
+#define BGFX_CAPS_FRAGMENT_ORDERING      UINT64_C(0x0000000000000400) //!< Fragment ordering is available in fragment shader.
+#define BGFX_CAPS_SWAP_CHAIN             UINT64_C(0x0000000000000800) //!< Multiple windows are supported.
+#define BGFX_CAPS_HMD                    UINT64_C(0x0000000000001000) //!< Head Mounted Display is available.
+#define BGFX_CAPS_INDEX32                UINT64_C(0x0000000000002000) //!< 32-bit indices are supported.
+#define BGFX_CAPS_DRAW_INDIRECT          UINT64_C(0x0000000000004000) //!< Draw indirect is supported.
+#define BGFX_CAPS_HIDPI                  UINT64_C(0x0000000000008000) //!< HiDPI rendering is supported.
+#define BGFX_CAPS_TEXTURE_BLIT           UINT64_C(0x0000000000010000) //!< Texture blit is supported.
+#define BGFX_CAPS_TEXTURE_READ_BACK      UINT64_C(0x0000000000020000) //!< Read-back texture is supported.
+#define BGFX_CAPS_OCCLUSION_QUERY        UINT64_C(0x0000000000040000) //!< Occlusion query is supported.
+
+///
+#define BGFX_CAPS_FORMAT_TEXTURE_NONE             UINT16_C(0x0000) //!< Texture format is not supported.
+#define BGFX_CAPS_FORMAT_TEXTURE_2D               UINT16_C(0x0001) //!< Texture format is supported.
+#define BGFX_CAPS_FORMAT_TEXTURE_2D_SRGB          UINT16_C(0x0002) //!< Texture as sRGB format is supported.
+#define BGFX_CAPS_FORMAT_TEXTURE_2D_EMULATED      UINT16_C(0x0004) //!< Texture format is emulated.
+#define BGFX_CAPS_FORMAT_TEXTURE_3D               UINT16_C(0x0008) //!< Texture format is supported.
+#define BGFX_CAPS_FORMAT_TEXTURE_3D_SRGB          UINT16_C(0x0010) //!< Texture as sRGB format is supported.
+#define BGFX_CAPS_FORMAT_TEXTURE_3D_EMULATED      UINT16_C(0x0020) //!< Texture format is emulated.
+#define BGFX_CAPS_FORMAT_TEXTURE_CUBE             UINT16_C(0x0040) //!< Texture format is supported.
+#define BGFX_CAPS_FORMAT_TEXTURE_CUBE_SRGB        UINT16_C(0x0080) //!< Texture as sRGB format is supported.
+#define BGFX_CAPS_FORMAT_TEXTURE_CUBE_EMULATED    UINT16_C(0x0100) //!< Texture format is emulated.
+#define BGFX_CAPS_FORMAT_TEXTURE_VERTEX           UINT16_C(0x0200) //!< Texture format can be used from vertex shader.
+#define BGFX_CAPS_FORMAT_TEXTURE_IMAGE            UINT16_C(0x0400) //!< Texture format can be used as image from compute shader.
+#define BGFX_CAPS_FORMAT_TEXTURE_FRAMEBUFFER      UINT16_C(0x0800) //!< Texture format can be used as frame buffer.
+#define BGFX_CAPS_FORMAT_TEXTURE_FRAMEBUFFER_MSAA UINT16_C(0x1000) //!< Texture format can be used as MSAA frame buffer.
+#define BGFX_CAPS_FORMAT_TEXTURE_MSAA             UINT16_C(0x2000) //!< Texture can be sampled as MSAA.
+#endif                
                 return FeatureEnabled[feature];
             }
 
@@ -258,7 +299,7 @@ namespace irr
             //! sets a viewport
             virtual void setViewPort(const core::rect<s32>& area)
             {
-                bgfx::setViewRect(0, area.UpperLeftCorner.X, area.UpperLeftCorner.Y, area.LowerRightCorner.X, area.LowerRightCorner.Y);
+                bgfx::setViewRect(kViewIdZero, area.UpperLeftCorner.X, area.UpperLeftCorner.Y, area.LowerRightCorner.X, area.LowerRightCorner.Y);
             }
 
             //! Only used internally by the engine
@@ -266,7 +307,7 @@ namespace irr
             {
                 CNullDriver::OnResize(size);
                 bgfx::reset(size.Width, size.Height);
-                bgfx::setViewRect(0, 0, 0, size.Width, size.Height);
+                bgfx::setViewRect(kViewIdZero, 0, 0, size.Width, size.Height);
             }
 
             //! Returns type of video driver
@@ -395,7 +436,7 @@ namespace irr
                 bool clearZBuffer, SColor color)
             {
                 bgfx::FrameBufferHandle framebuffer;
-                bgfx::setViewFrameBuffer(0, framebuffer);
+                bgfx::setViewFrameBuffer(kViewIdZero, framebuffer);
                 return false;
             }
 
