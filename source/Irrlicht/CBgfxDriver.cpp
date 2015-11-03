@@ -17,8 +17,8 @@
 #include "IContextManager.h"
 #include "CBgfxTexture.h"
 
-#include "bgfx.h"
-#include "bgfxplatform.h"
+#include "bgfx/bgfx.h"
+#include "bgfx/bgfxplatform.h"
 
 namespace irr
 {
@@ -45,6 +45,8 @@ namespace irr
 
                 uint32_t debug = BGFX_DEBUG_TEXT;
                 bgfx::setDebug(debug);
+
+                caps = bgfx::getCaps();
             }
 
             //! destructor
@@ -211,9 +213,6 @@ namespace irr
                 const core::vector3df& end,
                 SColor color = SColor(255, 255, 255, 255)) {}
 
-            //! Draws a pixel
-            //			virtual void drawPixel(u32 x, u32 y, const SColor & color){}
-
             //! Returns the name of the video driver.
             virtual const wchar_t* getName() const
             {
@@ -243,7 +242,7 @@ namespace irr
             //! Returns the maximum texture size supported.
             virtual core::dimension2du getMaxTextureSize() const
             {
-                return core::dimension2du();
+                return { caps->maxTextureSize, caps->maxTextureSize };
             }
 
             //! Draws a shadow volume into the stencil buffer.
@@ -374,18 +373,29 @@ namespace irr
             //! Returns the maximum amount of primitives
             virtual u32 getMaximalPrimitiveCount() const
             {
-                return 0;
+                // TODO:
+                return -1;
+            }
+
+            bgfx::TextureFormat::Enum fromIrr(ECOLOR_FORMAT format)
+            {
+                return bgfx::TextureFormat::Unknown;
             }
 
             virtual ITexture* addRenderTargetTexture(const core::dimension2d<u32>& size,
                 const io::path& name, const ECOLOR_FORMAT format = ECF_UNKNOWN)
             {
+                bgfx::TextureFormat::Enum texFormat = fromIrr(format);
+                bgfx::FrameBufferHandle framebuffer = bgfx::createFrameBuffer(size.Width, size.Height, texFormat);
+
                 return NULL;
             }
 
             virtual bool setRenderTarget(video::ITexture* texture, bool clearBackBuffer,
                 bool clearZBuffer, SColor color)
             {
+                bgfx::FrameBufferHandle framebuffer;
+                bgfx::setViewFrameBuffer(0, framebuffer);
                 return false;
             }
 
@@ -395,6 +405,8 @@ namespace irr
             //! Returns an image created from the last rendered frame.
             virtual IImage* createScreenShot(video::ECOLOR_FORMAT format = video::ECF_UNKNOWN, video::E_RENDER_TARGET target = video::ERT_FRAME_BUFFER)
             {
+                const char* filepath = NULL;
+                bgfx::saveScreenShot(filepath);
                 return NULL;
             }
 
@@ -410,7 +422,14 @@ namespace irr
             //! Returns the graphics card vendor name.
             virtual core::stringc getVendorInfo()
             {
-                return "bgfx";
+                static const char* vendorNames[] =
+                {
+                    "Unknown",
+                    "AMD",
+                    "Intel",
+                    "nVIdia",
+                };
+                return vendorNames[caps->vendorId];
             }
 
             // returns the current size of the screen or rendertarget
@@ -420,6 +439,9 @@ namespace irr
             }
 
         private:
+            const bgfx::Caps* caps;
+            bgfx::FrameBufferHandle currentFramebuffer;
+
             //! returns a device dependent texture from a software surface (IImage)
             virtual ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData)
             {

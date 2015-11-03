@@ -7,7 +7,7 @@
 
 #include "ITexture.h"
 #include "CImage.h"
-#include "bgfx.h"
+#include "bgfx/bgfx.h"
 
 namespace irr
 {
