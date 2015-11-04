@@ -47,6 +47,8 @@ namespace irr
                 bgfx::setDebug(debug);
 
                 caps = bgfx::getCaps();
+
+                CurrentFBO = NULL; // TODO
             }
 
             static const uint8_t kDefaultView = 0;
@@ -147,7 +149,11 @@ namespace irr
             //! draws a vertex primitive list
             virtual void drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
                 const void* indexList, u32 primitiveCount,
-                E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType) {}
+                E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType)
+            {
+                bgfx::ProgramHandle progHandle;
+                bgfx::submit(kDefaultView, progHandle);
+            }
 
             //! queries the features of the driver, returns true if feature is available
             virtual bool queryFeature(E_VIDEO_DRIVER_FEATURE feature) const
@@ -175,7 +181,7 @@ namespace irr
 #define BGFX_CAPS_TEXTURE_READ_BACK      UINT64_C(0x0000000000020000) //!< Read-back texture is supported.
 #define BGFX_CAPS_OCCLUSION_QUERY        UINT64_C(0x0000000000040000) //!< Occlusion query is supported.
 
-///
+                ///
 #define BGFX_CAPS_FORMAT_TEXTURE_NONE             UINT16_C(0x0000) //!< Texture format is not supported.
 #define BGFX_CAPS_FORMAT_TEXTURE_2D               UINT16_C(0x0001) //!< Texture format is supported.
 #define BGFX_CAPS_FORMAT_TEXTURE_2D_SRGB          UINT16_C(0x0002) //!< Texture as sRGB format is supported.
@@ -196,7 +202,20 @@ namespace irr
             }
 
             //! Sets a material.
-            virtual void setMaterial(const SMaterial& material) {}
+            virtual void setMaterial(const SMaterial& material)
+            {
+                // TODO: remove it
+                bgfx::setState(BGFX_STATE_DEFAULT);
+
+                uint8_t stage = 0;
+                bgfx::UniformHandle sampler; // TODO
+                CBgfxTexture* tex = (CBgfxTexture*)material.getTexture(0);
+                if (tex)
+                {
+                    bgfx::TextureHandle texHandle = tex->getTexture();
+                    bgfx::setTexture(stage, sampler, texHandle);
+                }
+            }
 
             //! draws an 2d image, using a color (if color is other then Color(255,255,255,255)) and the alpha channel of the texture if wanted.
             virtual void draw2DImage(const video::ITexture* texture,
@@ -257,7 +276,7 @@ namespace irr
             //! Returns the name of the video driver.
             virtual const wchar_t* getName() const
             {
-                return L"bgfx";
+                return L"bgfx-driver";
             }
 
             //! deletes all dynamic lights there are
@@ -283,31 +302,31 @@ namespace irr
             //! Returns the maximum texture size supported.
             virtual core::dimension2du getMaxTextureSize() const
             {
-                return { caps->maxTextureSize, caps->maxTextureSize };
+                return{ caps->maxTextureSize, caps->maxTextureSize };
             }
 
             //! Draws a shadow volume into the stencil buffer.
-            virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible = 0) _IRR_OVERRIDE_ {}
+            virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible = 0) _IRR_OVERRIDE_{}
 
             //! Fills the stencil shadow with color.
             virtual void drawStencilShadow(bool clearStencilBuffer = false,
                 video::SColor leftUpEdge = video::SColor(0, 0, 0, 0),
                 video::SColor rightUpEdge = video::SColor(0, 0, 0, 0),
                 video::SColor leftDownEdge = video::SColor(0, 0, 0, 0),
-                video::SColor rightDownEdge = video::SColor(0, 0, 0, 0)) _IRR_OVERRIDE_ {}
+                video::SColor rightDownEdge = video::SColor(0, 0, 0, 0)) _IRR_OVERRIDE_{}
 
             //! sets a viewport
             virtual void setViewPort(const core::rect<s32>& area)
             {
-                bgfx::setViewRect(kViewIdZero, area.UpperLeftCorner.X, area.UpperLeftCorner.Y, area.LowerRightCorner.X, area.LowerRightCorner.Y);
+                bgfx::setViewRect(kDefaultView, area.UpperLeftCorner.X, area.UpperLeftCorner.Y, area.LowerRightCorner.X, area.LowerRightCorner.Y);
             }
 
             //! Only used internally by the engine
-            virtual void OnResize(const core::dimension2d<u32>& size) 
+            virtual void OnResize(const core::dimension2d<u32>& size)
             {
                 CNullDriver::OnResize(size);
                 bgfx::reset(size.Width, size.Height);
-                bgfx::setViewRect(kViewIdZero, 0, 0, size.Width, size.Height);
+                bgfx::setViewRect(kDefaultView, 0, 0, size.Width, size.Height);
             }
 
             //! Returns type of video driver
@@ -319,6 +338,8 @@ namespace irr
             //! get color format of the current color buffer
             virtual ECOLOR_FORMAT getColorFormat() const
             {
+                if (CurrentFBO) return CurrentFBO->getColorFormat();
+
                 return ECF_UNKNOWN;
             }
 
@@ -418,30 +439,54 @@ namespace irr
                 return -1;
             }
 
-            bgfx::TextureFormat::Enum fromIrr(ECOLOR_FORMAT format)
-            {
-                return bgfx::TextureFormat::Unknown;
-            }
-
             virtual ITexture* addRenderTargetTexture(const core::dimension2d<u32>& size,
                 const io::path& name, const ECOLOR_FORMAT format = ECF_UNKNOWN)
             {
-                bgfx::TextureFormat::Enum texFormat = fromIrr(format);
-                bgfx::FrameBufferHandle framebuffer = bgfx::createFrameBuffer(size.Width, size.Height, texFormat);
-
-                return NULL;
+                return new CBgfxFBOTexture(size, name, format);
             }
 
             virtual bool setRenderTarget(video::ITexture* texture, bool clearBackBuffer,
                 bool clearZBuffer, SColor color)
             {
-                bgfx::FrameBufferHandle framebuffer;
-                bgfx::setViewFrameBuffer(kViewIdZero, framebuffer);
+                CBgfxTexture* bgfxTex = (CBgfxTexture*)texture;
+                if (!bgfxTex->isRenderTarget()) return false;
+
+                // TODO: optimize
+                CBgfxFBOTexture* fboTex = (CBgfxFBOTexture*)texture;
+                bgfx::setViewFrameBuffer(kDefaultView, fboTex->getFrameBuffer());
+
+                // TODO: refactor
+                union
+                {
+                    u32 clr;
+                    struct
+                    {
+                        u8 a, b, g, r;
+                    } abgr;
+                } bgfxColor;
+                bgfxColor.abgr.r = (u8)color.getRed();
+                bgfxColor.abgr.g = (u8)color.getGreen();
+                bgfxColor.abgr.b = (u8)color.getBlue();
+                bgfxColor.abgr.a = (u8)color.getAlpha();
+
+                bgfx::setViewClear(kDefaultView
+                    , (clearBackBuffer ? BGFX_CLEAR_COLOR : 0) | (clearZBuffer ? BGFX_CLEAR_DEPTH : 0) | 0
+                    , bgfxColor.clr
+                    , 1.0f
+                    , 0
+                    );
+
+                bgfx::touch(0);
+
                 return false;
             }
 
             //! Clears the ZBuffer.
-            virtual void clearZBuffer() {}
+            virtual void clearZBuffer()
+            {
+                bgfx::setViewClear(kDefaultView, BGFX_CLEAR_DEPTH);
+                bgfx::touch(0);
+            }
 
             //! Returns an image created from the last rendered frame.
             virtual IImage* createScreenShot(video::ECOLOR_FORMAT format = video::ECF_UNKNOWN, video::E_RENDER_TARGET target = video::ERT_FRAME_BUFFER)
@@ -476,12 +521,14 @@ namespace irr
             // returns the current size of the screen or rendertarget
             virtual const core::dimension2d<u32>& getCurrentRenderTargetSize() const
             {
+                if (CurrentFBO) return CurrentFBO->getSize();
+
                 return core::dimension2d<u32>();
             }
 
         private:
             const bgfx::Caps* caps;
-            bgfx::FrameBufferHandle currentFramebuffer;
+            CBgfxFBOTexture* CurrentFBO;
 
             //! returns a device dependent texture from a software surface (IImage)
             virtual ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData)
@@ -498,6 +545,10 @@ namespace irr
             virtual ITexture* createDeviceDependentTextureCube(const io::path& name, IImage* posXImage, IImage* negXImage,
                 IImage* posYImage, IImage* negYImage, IImage* posZImage, IImage* negZImage)
             {
+#if 0
+                TextureHandle createTextureCube(uint16_t _size, uint8_t _numMips, 
+                    TextureFormat::Enum _format, uint32_t _flags = BGFX_TEXTURE_NONE, const Memory* _mem = NULL);
+#endif
                 return NULL;
             }
         };

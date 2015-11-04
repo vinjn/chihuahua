@@ -26,45 +26,66 @@ public:
 			bool renderTarget=false, void* mipmapData=0);
 
 	//! destructor
-	virtual ~CBgfxTexture();
+	~CBgfxTexture();
 
 	//! lock function
-	virtual void* lock(E_TEXTURE_LOCK_MODE mode=ETLM_READ_WRITE, u32 mipmapLevel=0) _IRR_OVERRIDE_;
+	void* lock(E_TEXTURE_LOCK_MODE mode=ETLM_READ_WRITE, u32 mipmapLevel=0) _IRR_OVERRIDE_;
 
 	//! unlock function
-	virtual void unlock() _IRR_OVERRIDE_;
+	void unlock() _IRR_OVERRIDE_;
 
 	//! Returns original size of the texture.
-	virtual const core::dimension2d<u32>& getOriginalSize() const _IRR_OVERRIDE_;
+	const core::dimension2d<u32>& getOriginalSize() const _IRR_OVERRIDE_;
 
 	//! Returns (=size) of the texture.
-	virtual const core::dimension2d<u32>& getSize() const _IRR_OVERRIDE_;
+	const core::dimension2d<u32>& getSize() const _IRR_OVERRIDE_;
 
 	//! returns driver type of texture (=the driver, who created the texture)
-	virtual E_DRIVER_TYPE getDriverType() const _IRR_OVERRIDE_;
+	E_DRIVER_TYPE getDriverType() const _IRR_OVERRIDE_;
 
 	//! returns color format of texture
-	virtual ECOLOR_FORMAT getColorFormat() const _IRR_OVERRIDE_;
+	ECOLOR_FORMAT getColorFormat() const _IRR_OVERRIDE_;
 
 	//! returns pitch of texture (in bytes)
-	virtual u32 getPitch() const _IRR_OVERRIDE_;
+	u32 getPitch() const _IRR_OVERRIDE_;
 
 	//! Regenerates the mip map levels of the texture. Useful after locking and
 	//! modifying the texture
-	virtual void regenerateMipMapLevels(void* mipmapData=0) _IRR_OVERRIDE_;
+	void regenerateMipMapLevels(void* mipmapData=0) _IRR_OVERRIDE_;
 
 	//! is it a render target?
-	virtual bool isRenderTarget() const _IRR_OVERRIDE_;
+	bool isRenderTarget() const _IRR_OVERRIDE_;
 
-private:
-	core::dimension2d<u32> OrigSize;
+    static bgfx::TextureFormat::Enum toBgfx(ECOLOR_FORMAT format);
+
+    bgfx::TextureHandle getTexture() const {return Texture;}
+
+protected:
+    CBgfxTexture(const io::path& name);
+
+	core::dimension2d<u32> OriginalSize;
 	bool IsRenderTarget;
 
     IImage* LockImage;
     bgfx::TextureHandle Texture;
     bgfx::TextureInfo   Info;
+    ECOLOR_FORMAT Format;
 };
 
+class CBgfxFBOTexture : public CBgfxTexture
+{
+public:
+    CBgfxFBOTexture(const core::dimension2du& size,
+        const io::path& name, const ECOLOR_FORMAT format = ECF_UNKNOWN);
+    ~CBgfxFBOTexture();
+    bgfx::FrameBufferHandle getFrameBuffer() const {return FrameBuffer;}
+
+private:
+    bgfx::FrameBufferHandle FrameBuffer;
+    //bgfx::TextureHandle ColorTex;
+    //bgfx::TextureHandle DepthTex;
+
+};
 
 } // end namespace video
 } // end namespace irr
