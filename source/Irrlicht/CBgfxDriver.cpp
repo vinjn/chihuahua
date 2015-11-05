@@ -46,7 +46,7 @@ namespace irr
                 uint32_t debug = BGFX_DEBUG_TEXT;
                 bgfx::setDebug(debug);
 
-                caps = bgfx::getCaps();
+                Caps = bgfx::getCaps();
 
                 CurrentFBO = NULL; // TODO
             }
@@ -207,14 +207,20 @@ namespace irr
                 // TODO: remove it
                 bgfx::setState(BGFX_STATE_DEFAULT);
 
+                // TODO: use hash map
+                bgfx::ProgramHandle mtrlId = { material.MaterialType };
+
                 uint8_t stage = 0;
                 bgfx::UniformHandle sampler; // TODO
                 CBgfxTexture* tex = (CBgfxTexture*)material.getTexture(0);
                 if (tex)
                 {
                     bgfx::TextureHandle texHandle = tex->getTexture();
-                    bgfx::setTexture(stage, sampler, texHandle);
+                    //bgfx::setTexture(stage, sampler, texHandle);
                 }
+
+                //if (material.BackfaceCulling)
+                //bgfx::setState();
             }
 
             //! draws an 2d image, using a color (if color is other then Color(255,255,255,255)) and the alpha channel of the texture if wanted.
@@ -302,7 +308,7 @@ namespace irr
             //! Returns the maximum texture size supported.
             virtual core::dimension2du getMaxTextureSize() const
             {
-                return{ caps->maxTextureSize, caps->maxTextureSize };
+                return{ Caps->maxTextureSize, Caps->maxTextureSize };
             }
 
             //! Draws a shadow volume into the stencil buffer.
@@ -344,10 +350,16 @@ namespace irr
             }
 
             //! Can be called by an IMaterialRenderer to make its work easier.
-            virtual void setBasicRenderStates(const SMaterial& material, const SMaterial& lastmaterial, bool resetAllRenderstates) {}
+            virtual void setBasicRenderStates(const SMaterial& material, const SMaterial& lastmaterial, bool resetAllRenderstates)
+            {
+
+            }
 
             //! Compare in SMaterial doesn't check texture parameters, so we should call this on each OnRender call.
-            virtual void setTextureRenderStates(const SMaterial& material, bool resetAllRenderstates) {}
+            virtual void setTextureRenderStates(const SMaterial& material, bool resetAllRenderstates)
+            {
+
+            }
 
             //! Get a vertex shader constant index.
             virtual s32 getVertexShaderConstantID(const c8* name)
@@ -417,7 +429,14 @@ namespace irr
                 s32 userData = 0,
                 E_GPU_SHADING_LANGUAGE shadingLang = EGSL_DEFAULT)
             {
-                return -1;
+                auto vshMem = bgfx::makeRef(vertexShaderProgram, strlen(vertexShaderProgram));
+                auto fshMem = bgfx::makeRef(vertexShaderProgram, strlen(vertexShaderProgram));
+                auto vsh = bgfx::createShader(vshMem);
+                auto fsh = bgfx::createShader(fshMem);
+                auto prog = bgfx::createProgram(vsh, fsh, true);
+
+                // TODO: assign callback
+                return prog.idx;
             }
 
             //! Returns pointer to the IGPUProgrammingServices interface.
@@ -515,7 +534,7 @@ namespace irr
                     "Intel",
                     "nVIdia",
                 };
-                return vendorNames[caps->vendorId];
+                return vendorNames[Caps->vendorId];
             }
 
             // returns the current size of the screen or rendertarget
@@ -523,11 +542,11 @@ namespace irr
             {
                 if (CurrentFBO) return CurrentFBO->getSize();
 
-                return core::dimension2d<u32>();
+                return ScreenSize;
             }
 
         private:
-            const bgfx::Caps* caps;
+            const bgfx::Caps* Caps;
             CBgfxFBOTexture* CurrentFBO;
 
             //! returns a device dependent texture from a software surface (IImage)
