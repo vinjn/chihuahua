@@ -1426,10 +1426,6 @@ namespace video
 		it. */
 		virtual void enableClipPlane(u32 index, bool enable) =0;
 
-		//! Set the minimum number of vertices for which a hw buffer will be created
-		/** \param count Number of vertices to set as minimum. */
-		virtual void setMinHardwareBufferVertexCount(u32 count) =0;
-
 		//! Get the global Material, which might override local materials.
 		/** Depending on the enable flags, values from this Material
 		are used to override those of local materials of some

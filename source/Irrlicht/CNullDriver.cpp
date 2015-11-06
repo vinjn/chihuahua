@@ -171,7 +171,7 @@ IImageLoader* createImageLoaderStb()
 //! constructor
 CNullDriver::CNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& screenSize)
 : FileSystem(io), MeshManipulator(0), ViewPort(0,0,0,0), ScreenSize(screenSize),
-	PrimitivesDrawn(0), MinVertexCountForVBO(500), TextureCreationFlags(0),
+	PrimitivesDrawn(0), TextureCreationFlags(0),
 	OverrideMaterial2DEnabled(false), AllowZWriteOnTransparent(false)
 {
 	#ifdef _DEBUG
@@ -1741,9 +1741,6 @@ bool CNullDriver::isHardwareBufferRecommend(const scene::IMeshBuffer* mb)
 	if (!mb || (mb->getHardwareMappingHint_Index()==scene::EHM_NEVER && mb->getHardwareMappingHint_Vertex()==scene::EHM_NEVER))
 		return false;
 
-	if (mb->getVertexCount()<MinVertexCountForVBO)
-		return false;
-
 	return true;
 }
 
@@ -2638,11 +2635,6 @@ ITexture* CNullDriver::createRenderTargetTexture(const core::dimension2d<u32>& s
 	return tex;
 }
 
-
-void CNullDriver::setMinHardwareBufferVertexCount(u32 count)
-{
-	MinVertexCountForVBO = count;
-}
 
 
 SOverrideMaterial& CNullDriver::getOverrideMaterial()

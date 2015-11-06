@@ -27,10 +27,10 @@ int main(int argc, char const* const* argv)
 	IVideoDriver* driver = device->getVideoDriver();
 	ISceneManager* smgr = device->getSceneManager();
     IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
+    auto fs = device->getFileSystem();
 
-#include "../../media/bgfx-shaders/COGLES2Solid.vsh"
-#include "../../media/bgfx-shaders/COGLES2Solid.fsh"
-
+    fs->addFileArchive("../../media");
+    
     struct MyShaderCallBack : public video::IShaderConstantSetCallBack
     {
         void OnSetConstants(video::IMaterialRendererServices* services,
@@ -38,10 +38,14 @@ int main(int argc, char const* const* argv)
         {
         }
     };
-    s32 mtrlId = gpu->addHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2Solid_fsh, new MyShaderCallBack());
+    s32 mtrlId = gpu->addHighLevelShaderMaterialFromFiles(
+        "bgfx-shaders/glsl/vs_cubes.bin", 
+        "bgfx-shaders/glsl/fs_cubes.bin", 
+        new MyShaderCallBack());
     const float kCamDistZ = 40;
 
     scene::IMesh* planeMesh = smgr->getGeometryCreator()->createPlaneMesh({ 10, 10 });
+    planeMesh->setHardwareMappingHint(EHM_STATIC);
     scene::IMeshSceneNode* node = smgr->addMeshSceneNode(planeMesh);
     node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);

@@ -635,10 +635,6 @@ namespace video
 		//! Returns the graphics card vendor name.
 		virtual core::stringc getVendorInfo() _IRR_OVERRIDE_ {return "Not available on this driver.";}
 
-		//! Set the minimum number of vertices for which a hw buffer will be created
-		/** \param count Number of vertices to set as minimum. */
-		virtual void setMinHardwareBufferVertexCount(u32 count) _IRR_OVERRIDE_;
-
 		//! Get the global Material, which might override local materials.
 		/** Depending on the enable flags, values from this Material
 		are used to override those of local materials of some
@@ -841,7 +837,6 @@ namespace video
 		CFPSCounter FPSCounter;
 
 		u32 PrimitivesDrawn;
-		u32 MinVertexCountForVBO;
 
 		u32 TextureCreationFlags;
 
