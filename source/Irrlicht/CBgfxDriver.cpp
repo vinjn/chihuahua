@@ -128,20 +128,216 @@ namespace irr
                 return Matrices[state];
             }
 
+            struct SHWBufferLink_bgfx : public SHWBufferLink
+            {
+                SHWBufferLink_bgfx(const scene::IMeshBuffer *meshBuffer)
+                    : SHWBufferLink(meshBuffer)
+                {}
+
+                // TODO: support static VertexBufferHandle
+                bgfx::DynamicVertexBufferHandle vb;
+                bgfx::DynamicIndexBufferHandle ib;
+
+                bgfx::VertexDecl toBgfx(E_VERTEX_TYPE vType)
+                {
+                    bgfx::VertexDecl decl;
+                    switch (vType)
+                    {
+                    case EVT_STANDARD:
+                    {
+                        decl.begin()
+                            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
+                            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
+                            .end();
+                        break;
+                    }
+                    case EVT_2TCOORDS:
+                    {
+                        decl.begin()
+                            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
+                            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::TexCoord1, 2, bgfx::AttribType::Float)
+                            .end();
+                        break;
+                    }
+                    case EVT_TANGENTS:
+                    {
+                        decl.begin()
+                            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
+                            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::TexCoord1, 2, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Tangent, 3, bgfx::AttribType::Float)
+                            .add(bgfx::Attrib::Bitangent, 3, bgfx::AttribType::Float)
+                            .end();
+                        break;
+                    }
+                    default:
+                        break;
+                    }
+                    return decl;
+                }
+
+                bool updateVB()
+                {
+                    if (!MeshBuffer) return false;
+
+                    const scene::IMeshBuffer* mb = MeshBuffer;
+                    const void* vertices = mb->getVertices();
+                    const u32 vertexCount = mb->getVertexCount();
+                    const E_VERTEX_TYPE vType = mb->getVertexType();
+                    const u32 vertexSize = getVertexPitchFromType(vType);
+
+                    //buffer vertex data, and convert colours...
+                    // TODO: is memcpy necessary?
+                    //core::array<c8> buffer(vertexSize * vertexCount);
+                    //memcpy(buffer.pointer(), vertices, vertexSize * vertexCount);
+
+                    auto mem = bgfx::copy(vertices, vertexSize * vertexCount);
+
+                    if (!isValid(vb))
+                    {
+                        vb = bgfx::createDynamicVertexBuffer(mem, toBgfx(vType));
+                        if (!isValid(vb)) return false;
+                    }
+                    else
+                    {
+                        bgfx::updateDynamicVertexBuffer(vb, 0, mem);
+                    }
+
+                    return true;
+                }
+
+                bool updateIB()
+                {
+                    if (!MeshBuffer) return false;
+
+                    const scene::IMeshBuffer* mb = MeshBuffer;
+
+                    const void* indices = mb->getIndices();
+                    u32 indexCount = mb->getIndexCount();
+
+                    uint16_t flag = 0;
+                    u32 indexSize;
+                    switch (mb->getIndexType())
+                    {
+                    case EIT_16BIT:
+                    {
+                        indexSize = sizeof(u16);
+                        break;
+                    }
+                    case EIT_32BIT:
+                    {
+                        indexSize = sizeof(u32);
+                        flag = BGFX_BUFFER_INDEX32;
+                        break;
+                    }
+                    default:
+                        return false;
+                    }
+
+                    auto mem = bgfx::copy(indices, indexSize * indexCount);
+
+                    if (!isValid(ib))
+                    {
+                        ib = bgfx::createDynamicIndexBuffer(mem, flag);
+                        if (!isValid(ib)) return false;
+                    }
+                    else
+                    {
+                        bgfx::updateDynamicIndexBuffer(ib, 0, mem);
+                    }
+
+                    return true;
+                }
+            };
+
             //! updates hardware buffer if needed
             virtual bool updateHardwareBuffer(SHWBufferLink *HWBuffer)
             {
-                return false;
+                if (!HWBuffer)
+                    return false;
+
+                SHWBufferLink_bgfx* buffer = static_cast<SHWBufferLink_bgfx*>(HWBuffer);
+
+                // TODO: update static buffer
+                if (HWBuffer->Mapped_Vertex != scene::EHM_NEVER)
+                {
+                    if (HWBuffer->ChangedID_Vertex != HWBuffer->MeshBuffer->getChangedID_Vertex()
+                        || !isValid(buffer->vb))
+                    {
+                        HWBuffer->ChangedID_Vertex = HWBuffer->MeshBuffer->getChangedID_Vertex();
+
+                        if (!buffer->updateVB())
+                            return false;
+                    }
+                }
+
+                if (HWBuffer->Mapped_Index != scene::EHM_NEVER)
+                {
+                    if (HWBuffer->ChangedID_Index != HWBuffer->MeshBuffer->getChangedID_Index()
+                        || !isValid(buffer->ib))
+                    {
+                        HWBuffer->ChangedID_Index = HWBuffer->MeshBuffer->getChangedID_Index();
+
+                        if (!buffer->updateIB())
+                            return false;
+                    }
+                }
+
+                return true;
             }
 
             //! Create hardware buffer from mesh
             virtual SHWBufferLink *createHardwareBuffer(const scene::IMeshBuffer* mb)
             {
-                return NULL;
+                if (!mb || (mb->getHardwareMappingHint_Index() == scene::EHM_NEVER && mb->getHardwareMappingHint_Vertex() == scene::EHM_NEVER))
+                    return 0;
+
+                SHWBufferLink_bgfx *HWBuffer = new SHWBufferLink_bgfx(mb);
+
+                //add to map
+                HWBufferMap.insert(HWBuffer->MeshBuffer, HWBuffer);
+
+                HWBuffer->ChangedID_Vertex = HWBuffer->MeshBuffer->getChangedID_Vertex();
+                HWBuffer->ChangedID_Index = HWBuffer->MeshBuffer->getChangedID_Index();
+                HWBuffer->Mapped_Vertex = mb->getHardwareMappingHint_Vertex();
+                HWBuffer->Mapped_Index = mb->getHardwareMappingHint_Index();
+                HWBuffer->LastUsed = 0;
+                HWBuffer->vb = BGFX_INVALID_HANDLE;
+                HWBuffer->ib = BGFX_INVALID_HANDLE;
+
+                if (!updateHardwareBuffer(HWBuffer))
+                {
+                    deleteHardwareBuffer(HWBuffer);
+                    return 0;
+                }
+
+                return HWBuffer;
             }
 
             //! Delete hardware buffer (only some drivers can)
-            virtual void deleteHardwareBuffer(SHWBufferLink *HWBuffer) {}
+            virtual void deleteHardwareBuffer(SHWBufferLink *HWBuffer)
+            {
+                if (!HWBuffer) return;
+
+                SHWBufferLink_bgfx* buffer = static_cast<SHWBufferLink_bgfx*>(HWBuffer);
+                if (isValid(buffer->vb))
+                {
+                    bgfx::destroyDynamicVertexBuffer(buffer->vb);
+                    buffer->vb = BGFX_INVALID_HANDLE;
+                }
+                if (isValid(buffer->ib))
+                {
+                    bgfx::destroyDynamicIndexBuffer(buffer->ib);
+                    buffer->ib = BGFX_INVALID_HANDLE;
+                }
+            }
 
             //! Draw hardware buffer
             virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer) {}
@@ -312,14 +508,14 @@ namespace irr
             }
 
             //! Draws a shadow volume into the stencil buffer.
-            virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible = 0) _IRR_OVERRIDE_{}
+            virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible = 0) {}
 
             //! Fills the stencil shadow with color.
             virtual void drawStencilShadow(bool clearStencilBuffer = false,
                 video::SColor leftUpEdge = video::SColor(0, 0, 0, 0),
                 video::SColor rightUpEdge = video::SColor(0, 0, 0, 0),
                 video::SColor leftDownEdge = video::SColor(0, 0, 0, 0),
-                video::SColor rightDownEdge = video::SColor(0, 0, 0, 0)) _IRR_OVERRIDE_{}
+                video::SColor rightDownEdge = video::SColor(0, 0, 0, 0)) {}
 
             //! sets a viewport
             virtual void setViewPort(const core::rect<s32>& area)
@@ -510,6 +706,7 @@ namespace irr
             //! Returns an image created from the last rendered frame.
             virtual IImage* createScreenShot(video::ECOLOR_FORMAT format = video::ECF_UNKNOWN, video::E_RENDER_TARGET target = video::ERT_FRAME_BUFFER)
             {
+                // TODO: implement bgfx callback
                 const char* filepath = NULL;
                 bgfx::saveScreenShot(filepath);
                 return NULL;
@@ -565,7 +762,7 @@ namespace irr
                 IImage* posYImage, IImage* negYImage, IImage* posZImage, IImage* negZImage)
             {
 #if 0
-                TextureHandle createTextureCube(uint16_t _size, uint8_t _numMips, 
+                TextureHandle createTextureCube(uint16_t _size, uint8_t _numMips,
                     TextureFormat::Enum _format, uint32_t _flags = BGFX_TEXTURE_NONE, const Memory* _mem = NULL);
 #endif
                 return NULL;
