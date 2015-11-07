@@ -48,7 +48,8 @@
 #   define BGFX_CONFIG_MULTITHREADED 0
 #endif
 
-#if defined(_DEBUG) && !defined(BGFX_CONFIG_DEBUG)
+#if defined(_DEBUG)
+#   undef BGFX_CONFIG_DEBUG
 #   define BGFX_CONFIG_DEBUG 1
 #endif
 
