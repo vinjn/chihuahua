@@ -3211,8 +3211,8 @@ bool CD3D9Driver::setPixelShaderConstant(s32 index, const s32* ints, int count)
 
 //! Adds a new material renderer to the VideoDriver, using pixel and/or
 //! vertex shaders to render geometry.
-s32 CD3D9Driver::addShaderMaterial(const c8* vertexShaderProgram,
-	const c8* pixelShaderProgram,
+s32 CD3D9Driver::addShaderMaterial(const core::array<c8>& vertexShaderProgram,
+	const core::array<c8>& pixelShaderProgram,
 	IShaderConstantSetCallBack* callback,
 	E_MATERIAL_TYPE baseMaterial, s32 userData)
 {
@@ -3229,13 +3229,13 @@ s32 CD3D9Driver::addShaderMaterial(const c8* vertexShaderProgram,
 //! Adds a new material renderer to the VideoDriver, based on a high level shading
 //! language.
 s32 CD3D9Driver::addHighLevelShaderMaterial(
-		const c8* vertexShaderProgram,
+		const core::array<c8>& vertexShaderProgram,
 		const c8* vertexShaderEntryPointName,
 		E_VERTEX_SHADER_TYPE vsCompileTarget,
-		const c8* pixelShaderProgram,
+		const core::array<c8>& pixelShaderProgram,
 		const c8* pixelShaderEntryPointName,
 		E_PIXEL_SHADER_TYPE psCompileTarget,
-		const c8* geometryShaderProgram,
+		const core::array<c8>& geometryShaderProgram,
 		const c8* geometryShaderEntryPointName,
 		E_GEOMETRY_SHADER_TYPE gsCompileTarget,
 		scene::E_PRIMITIVE_TYPE inType, scene::E_PRIMITIVE_TYPE outType,

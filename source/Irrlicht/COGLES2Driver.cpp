@@ -2390,8 +2390,8 @@ bool COGLES2Driver::endScene()
 
 	//! Adds a new material renderer to the VideoDriver, using pixel and/or
 	//! vertex shaders to render geometry.
-	s32 COGLES2Driver::addShaderMaterial(const c8* vertexShaderProgram,
-			const c8* pixelShaderProgram,
+	s32 COGLES2Driver::addShaderMaterial(const core::array<c8>& vertexShaderProgram,
+			const core::array<c8>& pixelShaderProgram,
 			IShaderConstantSetCallBack* callback,
 			E_MATERIAL_TYPE baseMaterial, s32 userData)
 	{
@@ -2402,13 +2402,13 @@ bool COGLES2Driver::endScene()
 
 	//! Adds a new material renderer to the VideoDriver, using GLSL to render geometry.
 	s32 COGLES2Driver::addHighLevelShaderMaterial(
-			const c8* vertexShaderProgram,
+			const core::array<c8>& vertexShaderProgram,
 			const c8* vertexShaderEntryPointName,
 			E_VERTEX_SHADER_TYPE vsCompileTarget,
-			const c8* pixelShaderProgram,
+			const core::array<c8>& pixelShaderProgram,
 			const c8* pixelShaderEntryPointName,
 			E_PIXEL_SHADER_TYPE psCompileTarget,
-			const c8* geometryShaderProgram,
+			const core::array<c8>& geometryShaderProgram,
 			const c8* geometryShaderEntryPointName,
 			E_GEOMETRY_SHADER_TYPE gsCompileTarget,
 			scene::E_PRIMITIVE_TYPE inType,

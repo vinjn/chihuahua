@@ -331,9 +331,11 @@ long Scene_addTexture(const char* textureName)
     if (textureName)
     {
         texture = driver->getTexture(textureName);
+#if 0
         video::COGLES2Texture* es2tex = (video::COGLES2Texture*)texture;
         GLuint id = es2tex->getOpenGLTextureName();
         printf("tex#%d = %s\n", id, textureName);
+#endif
     }
 
     return (long)texture;

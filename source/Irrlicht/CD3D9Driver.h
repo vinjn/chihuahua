@@ -395,20 +395,20 @@ namespace video
 
 		//! Adds a new material renderer to the VideoDriver, using pixel and/or
 		//! vertex shaders to render geometry.
-		s32 addShaderMaterial(const c8* vertexShaderProgram, const c8* pixelShaderProgram,
+		s32 addShaderMaterial(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram,
 			IShaderConstantSetCallBack* callback,
 			E_MATERIAL_TYPE baseMaterial, s32 userData);
 
 		//! Adds a new material renderer to the VideoDriver, based on a high level shading
 		//! language.
 		virtual s32 addHighLevelShaderMaterial(
-			const c8* vertexShaderProgram,
+			const core::array<c8>& vertexShaderProgram,
 			const c8* vertexShaderEntryPointName,
 			E_VERTEX_SHADER_TYPE vsCompileTarget,
-			const c8* pixelShaderProgram,
+			const core::array<c8>& pixelShaderProgram,
 			const c8* pixelShaderEntryPointName,
 			E_PIXEL_SHADER_TYPE psCompileTarget,
-			const c8* geometryShaderProgram,
+			const core::array<c8>& geometryShaderProgram,
 			const c8* geometryShaderEntryPointName = "main",
 			E_GEOMETRY_SHADER_TYPE gsCompileTarget = EGST_GS_4_0,
 			scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,

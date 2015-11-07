@@ -17,6 +17,7 @@
 #include "IContextManager.h"
 #include "CBgfxTexture.h"
 
+#include "bx/bx.h"
 #include "bgfx/bgfx.h"
 #include "bgfx/bgfxplatform.h"
 
@@ -340,21 +341,30 @@ namespace irr
             }
 
             //! Draw hardware buffer
-            virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer) {}
+            virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer)
+            {
+                if (!HWBuffer) return;
+
+                SHWBufferLink_bgfx* buffer = static_cast<SHWBufferLink_bgfx*>(HWBuffer);
+                bgfx::setVertexBuffer(buffer->vb);
+                bgfx::setIndexBuffer(buffer->ib);
+
+                bgfx::ProgramHandle progHandle = { 0 };
+                bgfx::submit(kDefaultView, progHandle);
+            }
 
             //! draws a vertex primitive list
             virtual void drawVertexPrimitiveList(const void* vertices, u32 vertexCount,
                 const void* indexList, u32 primitiveCount,
                 E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType)
             {
-                bgfx::ProgramHandle progHandle;
-                bgfx::submit(kDefaultView, progHandle);
+                BX_TRACE("TODO: drawVertexPrimitiveList");
             }
 
             //! queries the features of the driver, returns true if feature is available
             virtual bool queryFeature(E_VIDEO_DRIVER_FEATURE feature) const
             {
-                // TODO:
+                BX_TRACE("TODO: queryFeature");
 #if 0
 
 #define BGFX_CAPS_TEXTURE_COMPARE_LEQUAL UINT64_C(0x0000000000000001) //!< Texture compare less equal mode is supported.
@@ -406,6 +416,7 @@ namespace irr
                 // TODO: use hash map
                 bgfx::ProgramHandle mtrlId = { material.MaterialType };
 
+#if 0
                 uint8_t stage = 0;
                 bgfx::UniformHandle sampler; // TODO
                 CBgfxTexture* tex = (CBgfxTexture*)material.getTexture(0);
@@ -414,6 +425,7 @@ namespace irr
                     bgfx::TextureHandle texHandle = tex->getTexture();
                     //bgfx::setTexture(stage, sampler, texHandle);
                 }
+#endif
 
                 //if (material.BackfaceCulling)
                 //bgfx::setState();
@@ -600,7 +612,7 @@ namespace irr
             }
 
             //! Adds a new material renderer to the VideoDriver
-            virtual s32 addShaderMaterial(const c8* vertexShaderProgram, const c8* pixelShaderProgram,
+            virtual s32 addShaderMaterial(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram,
                 IShaderConstantSetCallBack* callback, E_MATERIAL_TYPE baseMaterial, s32 userData)
             {
                 return -1;
@@ -608,13 +620,13 @@ namespace irr
 
             //! Adds a new material renderer to the VideoDriver
             virtual s32 addHighLevelShaderMaterial(
-                const c8* vertexShaderProgram,
+                const core::array<c8>& vertexShaderProgram,
                 const c8* vertexShaderEntryPointName = 0,
                 E_VERTEX_SHADER_TYPE vsCompileTarget = EVST_VS_1_1,
-                const c8* pixelShaderProgram = 0,
+                const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
                 const c8* pixelShaderEntryPointName = 0,
                 E_PIXEL_SHADER_TYPE psCompileTarget = EPST_PS_1_1,
-                const c8* geometryShaderProgram = 0,
+                const core::array<c8>& geometryShaderProgram = core::array<c8>(0),
                 const c8* geometryShaderEntryPointName = "main",
                 E_GEOMETRY_SHADER_TYPE gsCompileTarget = EGST_GS_4_0,
                 scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,
@@ -625,8 +637,8 @@ namespace irr
                 s32 userData = 0,
                 E_GPU_SHADING_LANGUAGE shadingLang = EGSL_DEFAULT)
             {
-                auto vshMem = bgfx::makeRef(vertexShaderProgram, strlen(vertexShaderProgram));
-                auto fshMem = bgfx::makeRef(vertexShaderProgram, strlen(vertexShaderProgram));
+                auto vshMem = bgfx::copy(vertexShaderProgram.const_pointer(), vertexShaderProgram.size());
+                auto fshMem = bgfx::copy(pixelShaderProgram.const_pointer(), pixelShaderProgram.size());
                 auto vsh = bgfx::createShader(vshMem);
                 auto fsh = bgfx::createShader(fshMem);
                 auto prog = bgfx::createProgram(vsh, fsh, true);
@@ -751,8 +763,9 @@ namespace irr
             {
                 CBgfxTexture* texture = 0;
 
+                BX_UNUSED(mipmapData);
                 if (surface && checkColorFormat(surface->getColorFormat(), surface->getDimension()))
-                    texture = new CBgfxTexture(surface, name, false, mipmapData);
+                    texture = new CBgfxTexture(surface, name);
 
                 return texture;
             }

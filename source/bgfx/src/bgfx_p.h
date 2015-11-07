@@ -8,6 +8,26 @@
 
 #include <bx/platform.h>
 
+//
+// Keep bgfx related configs here to secure bgfx upstream changes
+//
+#ifndef BGFX_CONFIG_MULTITHREADED
+#   define BGFX_CONFIG_MULTITHREADED 0
+#endif
+
+#if defined(_DEBUG)
+#   define BGFX_CONFIG_DEBUG 1
+#endif
+
+// Enablg GL
+#ifdef BX_PLATFORM_WINDOWS
+#ifndef BGFX_CONFIG_RENDERER_OPENGL
+#   define BGFX_CONFIG_RENDERER_OPENGL 31
+#elif defined(BGFX_CONFIG_RENDERER_OPENGLES)
+#   define BGFX_CONFIG_RENDERER_OPENGLES 20
+#endif
+#endif // BX_PLATFORM_WINDOWS
+
 #ifndef BGFX_CONFIG_DEBUG
 #	define BGFX_CONFIG_DEBUG 0
 #endif // BGFX_CONFIG_DEBUG

@@ -1116,7 +1116,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\XEffects\EffectShaders.cpp" />
+    <ClCompile Include="..\XEffects\EffectShaders.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CBgfxDriver.cpp">
       <FileType>CppHeader</FileType>
     </ClCompile>
@@ -1132,12 +1134,24 @@
     <ClInclude Include="..\IrrIMGUI\source\IIMGUIDriver.h" />
     <ClInclude Include="..\IrrIMGUI\source\IrrIMGUIDebug_priv.h" />
     <ClInclude Include="..\v7\v7.h" />
-    <ClInclude Include="..\XEffects\CScreenQuad.h" />
-    <ClInclude Include="..\XEffects\CShaderPre.h" />
-    <ClInclude Include="..\XEffects\EffectCB.h" />
-    <ClInclude Include="..\XEffects\EffectHandler.h" />
-    <ClInclude Include="..\XEffects\EffectShaders.h" />
-    <ClInclude Include="..\XEffects\XEffects.h" />
+    <ClInclude Include="..\XEffects\CScreenQuad.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\CShaderPre.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\EffectCB.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\EffectHandler.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\EffectShaders.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\XEffects\XEffects.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CBgfxTexture.h" />
     <ClInclude Include="CD3D9Driver.h" />
     <ClInclude Include="CD3D9HLSLMaterialRenderer.h" />

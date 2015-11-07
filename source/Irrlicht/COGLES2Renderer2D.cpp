@@ -16,7 +16,7 @@ namespace irr
 namespace video
 {
 
-COGLES2Renderer2D::COGLES2Renderer2D(const c8* vertexShaderProgram, const c8* pixelShaderProgram, COGLES2Driver* driver) :
+COGLES2Renderer2D::COGLES2Renderer2D(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram, COGLES2Driver* driver) :
 	COGLES2MaterialRenderer(driver, 0, EMT_SOLID)
 {
 #ifdef _DEBUG

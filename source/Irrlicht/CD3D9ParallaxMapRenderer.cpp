@@ -284,6 +284,7 @@ namespace video
 			#else
 
 				// compile shaders on our own
+                core::array<c8> d = 
 				init(outMaterialTypeNr, D3D9_PARALLAX_MAP_VSH, D3D9_PARALLAX_MAP_PSH);
 
 			#endif // SHADER_EXTERNAL_DEBUG

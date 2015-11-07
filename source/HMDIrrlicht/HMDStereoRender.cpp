@@ -92,7 +92,7 @@ _renderTexture(NULL)
     _renderMaterial.TextureLayer[0].TextureWrapV = ETC_CLAMP;
 
     IGPUProgrammingServices* gpu = _driver->getGPUProgrammingServices();
-    _renderMaterial.MaterialType = (E_MATERIAL_TYPE)gpu->addHighLevelShaderMaterial(vertexShader, "main", EVST_VS_2_0, fragShader, "main", EPST_PS_2_0, &_distortionCB);
+    //_renderMaterial.MaterialType = (E_MATERIAL_TYPE)gpu->addHighLevelShaderMaterial(vertexShader, "main", EVST_VS_2_0, fragShader, "main", EPST_PS_2_0, &_distortionCB);
 
     setHMD(HMD);
 }

@@ -22,8 +22,7 @@ class CBgfxTexture : public ITexture
 public:
 
 	//! constructor
-	CBgfxTexture(IImage* surface, const io::path& name,
-			bool renderTarget=false, void* mipmapData=0);
+	CBgfxTexture(IImage* surface, const io::path& name);
 
 	//! destructor
 	~CBgfxTexture();

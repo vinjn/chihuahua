@@ -14,23 +14,24 @@ namespace video
 {
 
 //! constructor
-CBgfxTexture::CBgfxTexture(IImage* image, const io::path& name,
-		bool renderTarget, void* mipmapData)
-: ITexture(name), IsRenderTarget(renderTarget), LockImage(NULL)
+CBgfxTexture::CBgfxTexture(IImage* image, const io::path& name)
+: ITexture(name), IsRenderTarget(false), LockImage(NULL)
 {
 	#ifdef _DEBUG
 	setDebugName("CBgfxTexture");
 	#endif
 
-    Format = ECF_A8R8G8B8;
+    Format = image->getColorFormat();
 	OriginalSize = image->getDimension();
 	core::dimension2d<u32> optSize=OriginalSize.getOptimalSize();
 
-    uint32_t _flags = BGFX_TEXTURE_NONE;
+    auto bgfxFormat = toBgfx(Format);
+
+    uint32_t flags = BGFX_TEXTURE_NONE;
     Texture = bgfx::createTexture2D(uint16_t(OriginalSize.Width), uint16_t(OriginalSize.Height), 1
-        , bgfx::TextureFormat::RGBA8
-        , _flags
-        , bgfx::copy(image->lock(), OriginalSize.Width*OriginalSize.Height * 4)
+        , bgfxFormat
+        , flags
+        , bgfx::copy(image->lock(), OriginalSize.Width*OriginalSize.Height * image->getBytesPerPixel())
         );
     image->unlock();
 
@@ -40,7 +41,7 @@ CBgfxTexture::CBgfxTexture(IImage* image, const io::path& name,
         , 0
         , false
         , 1
-        , bgfx::TextureFormat::RGBA8
+        , bgfxFormat
         );
 }
 

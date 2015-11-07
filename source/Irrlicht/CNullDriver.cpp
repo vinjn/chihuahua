@@ -2173,13 +2173,13 @@ IGPUProgrammingServices* CNullDriver::getGPUProgrammingServices()
 
 //! Adds a new material renderer to the VideoDriver, based on a high level shading language.
 s32 CNullDriver::addHighLevelShaderMaterial(
-	const c8* vertexShaderProgram,
+	const core::array<c8>& vertexShaderProgram,
 	const c8* vertexShaderEntryPointName,
 	E_VERTEX_SHADER_TYPE vsCompileTarget,
-	const c8* pixelShaderProgram,
+	const core::array<c8>& pixelShaderProgram,
 	const c8* pixelShaderEntryPointName,
 	E_PIXEL_SHADER_TYPE psCompileTarget,
-	const c8* geometryShaderProgram,
+	const core::array<c8>& geometryShaderProgram,
 	const c8* geometryShaderEntryPointName,
 	E_GEOMETRY_SHADER_TYPE gsCompileTarget,
 	scene::E_PRIMITIVE_TYPE inType, scene::E_PRIMITIVE_TYPE outType,
@@ -2283,17 +2283,18 @@ s32 CNullDriver::addHighLevelShaderMaterialFromFiles(
 		E_MATERIAL_TYPE baseMaterial,
 		s32 userData, E_GPU_SHADING_LANGUAGE shadingLang)
 {
-	c8* vs = 0;
-	c8* ps = 0;
-	c8* gs = 0;
+	core::array<c8> vs;
+    core::array<c8> ps;
+    core::array<c8> gs;
 
 	if (vertexShaderProgram)
 	{
 		const long size = vertexShaderProgram->getSize();
 		if (size)
 		{
-			vs = new c8[size+1];
-			vertexShaderProgram->read(vs, size);
+            vs.reallocate(size + 1);
+            vs.set_used(size + 1);
+			vertexShaderProgram->read(vs.pointer(), size);
 			vs[size] = 0;
 		}
 	}
@@ -2306,8 +2307,9 @@ s32 CNullDriver::addHighLevelShaderMaterialFromFiles(
 			// if both handles are the same we must reset the file
 			if (pixelShaderProgram==vertexShaderProgram)
 				pixelShaderProgram->seek(0);
-			ps = new c8[size+1];
-			pixelShaderProgram->read(ps, size);
+            ps.reallocate(size + 1);
+            ps.set_used(size + 1);
+            pixelShaderProgram->read(ps.pointer(), size);
 			ps[size] = 0;
 		}
 	}
@@ -2321,8 +2323,9 @@ s32 CNullDriver::addHighLevelShaderMaterialFromFiles(
 			if ((geometryShaderProgram==vertexShaderProgram) ||
 					(geometryShaderProgram==pixelShaderProgram))
 				geometryShaderProgram->seek(0);
-			gs = new c8[size+1];
-			geometryShaderProgram->read(gs, size);
+            gs.reallocate(size + 1);
+            gs.set_used(size + 1);
+            geometryShaderProgram->read(gs.pointer(), size);
 			gs[size] = 0;
 		}
 	}
@@ -2334,18 +2337,14 @@ s32 CNullDriver::addHighLevelShaderMaterialFromFiles(
 		inType, outType, verticesOut,
 		callback, baseMaterial, userData, shadingLang);
 
-	delete [] vs;
-	delete [] ps;
-	delete [] gs;
-
 	return result;
 }
 
 
 //! Adds a new material renderer to the VideoDriver, using pixel and/or
 //! vertex shaders to render geometry.
-s32 CNullDriver::addShaderMaterial(const c8* vertexShaderProgram,
-	const c8* pixelShaderProgram,
+s32 CNullDriver::addShaderMaterial(const core::array<c8>& vertexShaderProgram,
+	const core::array<c8>& pixelShaderProgram,
 	IShaderConstantSetCallBack* callback,
 	E_MATERIAL_TYPE baseMaterial,
 	s32 userData)
@@ -2363,16 +2362,17 @@ s32 CNullDriver::addShaderMaterialFromFiles(io::IReadFile* vertexShaderProgram,
 	E_MATERIAL_TYPE baseMaterial,
 	s32 userData)
 {
-	c8* vs = 0;
-	c8* ps = 0;
+    core::array<c8> vs;
+    core::array<c8> ps;
 
 	if (vertexShaderProgram)
 	{
 		const long size = vertexShaderProgram->getSize();
 		if (size)
 		{
-			vs = new c8[size+1];
-			vertexShaderProgram->read(vs, size);
+            vs.reallocate(size + 1);
+            vs.set_used(size + 1);
+			vertexShaderProgram->read(vs.pointer(), size);
 			vs[size] = 0;
 		}
 	}
@@ -2382,16 +2382,14 @@ s32 CNullDriver::addShaderMaterialFromFiles(io::IReadFile* vertexShaderProgram,
 		const long size = pixelShaderProgram->getSize();
 		if (size)
 		{
-			ps = new c8[size+1];
-			pixelShaderProgram->read(ps, size);
+            ps.reallocate(size + 1);
+            ps.set_used(size + 1);
+            pixelShaderProgram->read(ps.pointer(), size);
 			ps[size] = 0;
 		}
 	}
 
 	s32 result = addShaderMaterial(vs, ps, callback, baseMaterial, userData);
-
-	delete [] vs;
-	delete [] ps;
 
 	return result;
 }

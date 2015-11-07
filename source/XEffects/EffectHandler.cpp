@@ -45,6 +45,7 @@ AmbientColour(0x0), use32BitDepth(use32BitDepthBuffers), useVSM(useVSMShadows)
 		depthMC = new DepthShaderCB(this);
 		shadowMC = new ShadowShaderCB(this);
 
+#if 0
 		Depth = gpu->addHighLevelShaderMaterial(
 			sPP.ppShader(SHADOW_PASS_1V[shaderExt]).c_str(), "vertexMain", video::EVST_VS_2_0,
 			sPP.ppShader(SHADOW_PASS_1P[shaderExt]).c_str(), "pixelMain", video::EPST_PS_2_0,
@@ -129,6 +130,7 @@ AmbientColour(0x0), use32BitDepth(use32BitDepthBuffers), useVSM(useVSMShadows)
 		
 		// Drop the screen quad callback.
 		SQCB->drop();
+#endif
 	}
 	else
 	{
@@ -541,11 +543,14 @@ EffectHandler::SPostProcessingPair EffectHandler::obtainScreenQuadMaterialFromFi
 
 	ScreenQuadCB* SQCB = new ScreenQuadCB(this, true);
 
-	s32 PostMat = gpu->addHighLevelShaderMaterial(
-		sPP.ppShader(SCREEN_QUAD_V[shaderExt]).c_str(), "vertexMain", VertexLevel,
-		shaderString.c_str(), "pixelMain", PixelLevel,
-		SQCB, baseMaterial);
-	
+#if 1
+    s32 PostMat;
+#else
+    s32 PostMat = gpu->addHighLevelShaderMaterial(
+        sPP.ppShader(SCREEN_QUAD_V[shaderExt]).c_str(), "vertexMain", VertexLevel,
+        shaderString.c_str(), "pixelMain", PixelLevel,
+        SQCB, baseMaterial);
+#endif
 	SPostProcessingPair pPair(PostMat, SQCB);
 
 	SQCB->drop();

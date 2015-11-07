@@ -256,18 +256,18 @@ namespace video
 		virtual bool setPixelShaderConstant(s32 index, const s32* ints, int count);
 
 		//! Adds a new material renderer to the VideoDriver
-		virtual s32 addShaderMaterial(const c8* vertexShaderProgram, const c8* pixelShaderProgram,
+		virtual s32 addShaderMaterial(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram,
 				IShaderConstantSetCallBack* callback, E_MATERIAL_TYPE baseMaterial, s32 userData);
 
 		//! Adds a new material renderer to the VideoDriver
 		virtual s32 addHighLevelShaderMaterial(
-				const c8* vertexShaderProgram,
+				const core::array<c8>& vertexShaderProgram,
 				const c8* vertexShaderEntryPointName = 0,
 				E_VERTEX_SHADER_TYPE vsCompileTarget = EVST_VS_1_1,
-				const c8* pixelShaderProgram = 0,
+				const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
 				const c8* pixelShaderEntryPointName = 0,
 				E_PIXEL_SHADER_TYPE psCompileTarget = EPST_PS_1_1,
-				const c8* geometryShaderProgram = 0,
+				const core::array<c8>& geometryShaderProgram = core::array<c8>(0),
 				const c8* geometryShaderEntryPointName = "main",
 				E_GEOMETRY_SHADER_TYPE gsCompileTarget = EGST_GS_4_0,
 				scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,
