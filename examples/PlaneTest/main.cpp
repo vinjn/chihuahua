@@ -33,16 +33,16 @@ int main(int argc, char const* const* argv)
 {
     bx::CommandLine cmdLine(argc, argv);
 
-	device = createDevice(video::EDT_BGFX, dimension2d<u32>(800, 600), 16,
-			false, false, false, 0);
+    device = createDevice(video::EDT_BGFX, dimension2d<u32>(800, 600), 16,
+        false, false, false, 0);
 
-	if (!device)
-		return 1;
+    if (!device)
+        return 1;
 
-	device->setWindowCaption(L"PlaneTest");
+    device->setWindowCaption(L"PlaneTest");
 
-	IVideoDriver* driver = device->getVideoDriver();
-	ISceneManager* smgr = device->getSceneManager();
+    IVideoDriver* driver = device->getVideoDriver();
+    ISceneManager* smgr = device->getSceneManager();
     IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
     auto fs = device->getFileSystem();
 
@@ -66,13 +66,7 @@ int main(int argc, char const* const* argv)
         void OnSetMaterial(const SMaterial& material)
         {
             bgfx_set_texture(0, s_texColor, { material.getTexture(0)->getNativeHandle() }, 0);
-            bgfx_set_texture(0, s_texNormal, { material.getTexture(1)->getNativeHandle() }, 0);
-        }
-
-        void OnSetConstants(video::IMaterialRendererServices* services,
-            s32 userData)
-        {
-
+            bgfx_set_texture(1, s_texNormal, { material.getTexture(1)->getNativeHandle() }, 0);
         }
 
         bgfx_uniform_handle s_texColor, s_texNormal;
@@ -83,9 +77,8 @@ int main(int argc, char const* const* argv)
 
     // TODO: implement assets system
     s32 mtrlId = gpu->addHighLevelShaderMaterialFromFiles(
-        "../../media/bgfx-shaders/glsl/vs_bump.bin", 
-        "../../media/bgfx-shaders/glsl/fs_bump.bin", 
-        new MyShaderCallBack());
+        "../../media/bgfx-shaders/glsl/vs_bump.bin", "main", EVST_VS_1_1,
+        "../../media/bgfx-shaders/glsl/fs_bump.bin", "main");
     scene::IMesh* mesh;
 #if 0
     mesh = smgr->getGeometryCreator()->createCubeMesh({ 100, 100, 100 });
@@ -104,25 +97,26 @@ int main(int argc, char const* const* argv)
     node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
     node->setMaterialTexture(1, driver->getTexture("../../media/fieldstone-n.tga"));
     node->setMaterialType((video::E_MATERIAL_TYPE)mtrlId);
+    node->setMaterialShaderCallback(new MyShaderCallBack());
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
 #else
-	auto camera = smgr->addCameraSceneNodeFPS(0);
+    auto camera = smgr->addCameraSceneNodeFPS(0);
     camera->setPosition({ 0.0f, 0.0f, -kCamDistZ * 3 });
 #endif
 
-	while (device->run())
-	{
-		driver->beginScene(true, true, SColor(255,100,101,140));
+    while (device->run())
+    {
+        driver->beginScene(true, true, SColor(255, 100, 101, 140));
 
-		smgr->drawAll();
-		//guienv->drawAll();
+        smgr->drawAll();
+        //guienv->drawAll();
 
-		driver->endScene();
-	}
+        driver->endScene();
+    }
 
-	device->drop();
+    device->drop();
 
-	return 0;
+    return 0;
 }

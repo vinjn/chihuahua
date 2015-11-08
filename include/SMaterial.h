@@ -12,6 +12,7 @@
 #include "EMaterialTypes.h"
 #include "EMaterialFlags.h"
 #include "SMaterialLayer.h"
+#include "IShaderConstantSetCallBack.h"
 
 namespace irr
 {
@@ -264,7 +265,7 @@ namespace video
 			PolygonOffsetFactor(0), PolygonOffsetDirection(EPO_FRONT),
 			Wireframe(false), PointCloud(false), GouraudShading(true),
 			Lighting(true), ZWriteEnable(true), BackfaceCulling(true), FrontfaceCulling(false),
-			FogEnable(false), NormalizeNormals(false), UseMipMaps(true)
+            FogEnable(false), NormalizeNormals(false), UseMipMaps(true), ShaderCallBack(NULL)
 		{ }
 
 		//! Copy constructor
@@ -327,6 +328,9 @@ namespace video
 
 		//! Type of the material. Specifies how everything is blended together
 		E_MATERIAL_TYPE MaterialType;
+
+        //! How to update uniforms
+        video::IShaderConstantSetCallBack* ShaderCallBack;
 
 		//! How much ambient light (a global light) is reflected by this material.
 		/** The default is full white, meaning objects are completely
@@ -694,7 +698,8 @@ namespace video
 				BlendOperation != b.BlendOperation ||
 				BlendFactor != b.BlendFactor ||
 				PolygonOffsetFactor != b.PolygonOffsetFactor ||
-				PolygonOffsetDirection != b.PolygonOffsetDirection ||
+                PolygonOffsetDirection != b.PolygonOffsetDirection ||
+                ShaderCallBack != b.ShaderCallBack ||
 				UseMipMaps != b.UseMipMaps;
 			for (u32 i=0; (i<MATERIAL_MAX_TEXTURES) && !different; ++i)
 			{

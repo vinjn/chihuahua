@@ -446,6 +446,11 @@ namespace scene
 				getMaterial(i).setFlag(flag, newvalue);
 		}
 
+        void setMaterialShaderCallback(video::IShaderConstantSetCallBack* callback)
+        {
+            for (u32 i = 0; i<getMaterialCount(); ++i)
+                getMaterial(i).ShaderCallBack = callback;
+        }
 
 		//! Sets the texture of the specified layer in all materials of this scene node to the new texture.
 		/** \param textureLayer Layer of texture to be set. Must be a

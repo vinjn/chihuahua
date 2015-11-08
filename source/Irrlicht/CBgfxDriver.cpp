@@ -444,17 +444,15 @@ namespace irr
 
                 // TODO: use hash map
                 CurrentProgramHandle = { material.MaterialType };
-#if 1
-                uint8_t stage = 0;
-                bgfx_uniform_handle sampler; // TODO
-                CBgfxTexture* tex = (CBgfxTexture*)material.getTexture(0);
-                if (tex)
-                {
-                    bgfx_texture_handle texHandle = { tex->getNativeHandle() };
-                    //bgfx::setTexture(stage, sampler, texHandle);
-                }
-#endif
 
+                auto shaderCallback = material.ShaderCallBack;
+                if (shaderCallback)
+                {
+                    shaderCallback->OnSetMaterial(material);
+                    s32 userData = 0;
+                    shaderCallback->OnSetConstants(this, userData);
+                }
+                
                 //if (material.BackfaceCulling)
                 //bgfx::setState();
             }
