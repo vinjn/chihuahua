@@ -2,7 +2,7 @@
 #include "bx/commandline.h"
 #include "bx/float4x4_t.h"
 #include "bx/readerwriter.h"
-#include "../../source/bgfx/include/bgfx/bgfx.h"
+#include "bgfx/bgfx.h"
 
 using namespace irr;
 
@@ -52,31 +52,50 @@ int main(int argc, char const* const* argv)
 
     struct MyShaderCallBack : public video::IShaderConstantSetCallBack
     {
+        MyShaderCallBack()
+        {
+            // Create texture sampler uniforms.
+            s_texColor = bgfx::createUniform("s_texColor", bgfx::UniformType::Int1);
+            s_texNormal = bgfx::createUniform("s_texNormal", bgfx::UniformType::Int1);
+
+            auto m_numLights = 4;
+            u_lightPosRadius = bgfx::createUniform("u_lightPosRadius", bgfx::UniformType::Vec4, m_numLights);
+            u_lightRgbInnerR = bgfx::createUniform("u_lightRgbInnerR", bgfx::UniformType::Vec4, m_numLights);
+        }
+
         void OnSetConstants(video::IMaterialRendererServices* services,
             s32 userData)
         {
         }
+
+        bgfx::UniformHandle s_texColor, s_texNormal;
+        bgfx::UniformHandle u_lightPosRadius, u_lightRgbInnerR;
     };
 
     const float kCamDistZ = 40;
 
     // TODO: implement assets system
     s32 mtrlId = gpu->addHighLevelShaderMaterialFromFiles(
-        "../../media/bgfx-shaders/glsl/vs_cubes.bin", 
-        "../../media/bgfx-shaders/glsl/fs_cubes.bin", 
+        "../../media/bgfx-shaders/glsl/vs_bump.bin", 
+        "../../media/bgfx-shaders/glsl/fs_bump.bin", 
         new MyShaderCallBack());
-#if 1
-    scene::IMesh* planeMesh = smgr->getGeometryCreator()->createCubeMesh({ 100, 100, 100 });
-    planeMesh->setHardwareMappingHint(EHM_STATIC);
-    scene::IMeshSceneNode* node = smgr->addMeshSceneNode(planeMesh);
+    scene::IMesh* mesh;
+#if 0
+    mesh = smgr->getGeometryCreator()->createCubeMesh({ 100, 100, 100 });
+    mesh->drop();
+#else
+    mesh = smgr->getMesh("../../media/duck.fbx");
+#endif
+    scene::IMesh* tangentMesh = smgr->getMeshManipulator()->
+        createMeshWithTangents(mesh);
+
+    tangentMesh->setHardwareMappingHint(EHM_STATIC);
+    scene::IMeshSceneNode* node = smgr->addMeshSceneNode(tangentMesh);
     node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
     node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
     node->setMaterialType((video::E_MATERIAL_TYPE)mtrlId);
-
-    planeMesh->drop();
-#endif
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));

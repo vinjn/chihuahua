@@ -1188,78 +1188,6 @@
     <ClInclude Include="..\..\include\bx\uint32_t.h">
       <Filter>bx</Filter>
     </ClInclude>
-    <ClInclude Include="..\bgfx\src\bgfx_p.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\charset.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\config.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear0.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear1.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear2.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear3.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear4.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear5.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear6.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_clear7.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\fs_debugfont.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\glimports.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\image.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\ovr.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\renderdoc.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\renderer.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\renderer_gl.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\vertexdecl.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\vs_clear.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\renderer_d3d.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\renderer_d3d9.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\src\renderer_d3d11.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
     <ClInclude Include="CBgfxTexture.h">
       <Filter>Irrlicht\video\bgfx</Filter>
     </ClInclude>
@@ -1448,16 +1376,124 @@
     <ClInclude Include="..\v7\v7.h">
       <Filter>v7</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\bgfx\c99\bgfx.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bgfx\c99\bgfxplatform.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bgfx\bgfx.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bgfx\bgfxdefines.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bgfx\bgfxplatform.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\bgfx_p.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\charset.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\config.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear0.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear1.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear2.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear3.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear4.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear5.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear6.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_clear7.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\fs_debugfont.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glcontext_eagl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glcontext_egl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glcontext_glx.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glcontext_nsgl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\glcontext_ppapi.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
     <ClInclude Include="..\bgfx\src\glcontext_wgl.h">
       <Filter>bgfx</Filter>
     </ClInclude>
-    <ClInclude Include="..\bgfx\include\bgfx\bgfxplatform.h">
+    <ClInclude Include="..\bgfx\src\glimports.h">
       <Filter>bgfx</Filter>
     </ClInclude>
-    <ClInclude Include="..\bgfx\include\bgfx\bgfxdefines.h">
+    <ClInclude Include="..\bgfx\src\image.h">
       <Filter>bgfx</Filter>
     </ClInclude>
-    <ClInclude Include="..\bgfx\include\bgfx\bgfx.h">
+    <ClInclude Include="..\bgfx\src\ovr.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderdoc.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_d3d.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_d3d11.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_d3d12.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_d3d9.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_gl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\renderer_mtl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\shader_dx9bc.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\shader_dxbc.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\shader_spirv.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\vertexdecl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\vs_clear.bin.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h">
       <Filter>bgfx</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1470,6 +1506,60 @@
     </None>
     <None Include="..\..\include\bx\float4_swizzle.inl">
       <Filter>bx</Filter>
+    </None>
+    <None Include="..\bgfx\src\bgfx_compute.sh">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\bgfx_shader.sh">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear0.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear1.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear2.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear3.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear4.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear5.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear6.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_clear7.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\fs_debugfont.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\glcontext_eagl.mm">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\glcontext_nsgl.mm">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\makefile">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\renderer_mtl.mm">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\varying.def.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\vs_clear.sc">
+      <Filter>bgfx</Filter>
+    </None>
+    <None Include="..\bgfx\src\vs_debugfont.sc">
+      <Filter>bgfx</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -2054,39 +2144,6 @@
     <ClCompile Include="..\assimp\code\FBXUtil.cpp">
       <Filter>assimp\importer\fbx</Filter>
     </ClCompile>
-    <ClCompile Include="..\bgfx\src\bgfx.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\image.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\ovr.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\renderdoc.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\renderer_gl.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\renderer_null.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\renderer_vk.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\vertexdecl.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\renderer_d3d9.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\renderer_d3d11.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
-    <ClCompile Include="..\bgfx\src\renderer_d3d12.cpp">
-      <Filter>bgfx</Filter>
-    </ClCompile>
     <ClCompile Include="CBgfxTexture.cpp">
       <Filter>Irrlicht\video\bgfx</Filter>
     </ClCompile>
@@ -2294,7 +2351,58 @@
     <ClCompile Include="..\..\Scene3D\src\Javascript\Scene3D_v7.cpp">
       <Filter>Scene3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\bgfx\src\bgfx.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\glcontext_egl.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\glcontext_glx.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\glcontext_ppapi.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
     <ClCompile Include="..\bgfx\src\glcontext_wgl.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\image.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\ovr.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderdoc.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_d3d11.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_d3d12.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_d3d9.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_gl.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_null.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\renderer_vk.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\shader_dx9bc.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\shader_dxbc.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\shader_spirv.cpp">
+      <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bgfx\src\vertexdecl.cpp">
       <Filter>bgfx</Filter>
     </ClCompile>
   </ItemGroup>

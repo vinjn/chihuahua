@@ -140,7 +140,7 @@ namespace irr
                 bgfx::DynamicVertexBufferHandle vb;
                 bgfx::DynamicIndexBufferHandle ib;
 
-                bgfx::VertexDecl toBgfx(E_VERTEX_TYPE vType)
+                static bgfx::VertexDecl toBgfx(E_VERTEX_TYPE vType)
                 {
                     bgfx::VertexDecl decl;
                     switch (vType)
@@ -173,7 +173,6 @@ namespace irr
                             .add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float)
                             .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
                             .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::TexCoord1, 2, bgfx::AttribType::Float)
                             .add(bgfx::Attrib::Tangent, 3, bgfx::AttribType::Float)
                             .add(bgfx::Attrib::Bitangent, 3, bgfx::AttribType::Float)
                             .end();
@@ -359,7 +358,25 @@ namespace irr
                 const void* indexList, u32 primitiveCount,
                 E_VERTEX_TYPE vType, scene::E_PRIMITIVE_TYPE pType, E_INDEX_TYPE iType)
             {
-                BX_TRACE("TODO: drawVertexPrimitiveList");
+                BX_CHECK(iType == EIT_16BIT, "Only 16-bit index buffer is supported");
+
+                bgfx::TransientVertexBuffer vb;
+                bgfx::TransientIndexBuffer ib;
+                auto vertexDecl = SHWBufferLink_bgfx::toBgfx(vType);
+                if (!bgfx::allocTransientBuffers(&vb, vertexDecl, vertexCount,
+                    &ib, primitiveCount))
+                {
+                    BX_TRACE("allocTransientBuffers fails.");
+                    return;
+                }
+
+                memcpy(vb.data, vertices, vertexDecl.getSize(vertexCount));
+                memcpy(ib.data, indexList, primitiveCount * 3 * sizeof u16);
+
+                bgfx::setVertexBuffer(&vb);
+                bgfx::setIndexBuffer(&ib);
+
+                bgfx::submit(kDefaultView, CurrentProgramHandle);
             }
 
             //! queries the features of the driver, returns true if feature is available
