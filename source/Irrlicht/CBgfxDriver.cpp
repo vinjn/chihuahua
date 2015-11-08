@@ -26,6 +26,8 @@ inline bool isValid(T _handle) { return UINT16_MAX != _handle.idx; }
 
 #define BGFX_INVALID_HANDLE { UINT16_MAX }
 
+#define BX_UNIMPLEMENTED() BX_TRACE("%s is not implemented.", BX_FUNCTION)
+
 namespace irr
 {
     namespace video
@@ -391,7 +393,7 @@ namespace irr
             //! queries the features of the driver, returns true if feature is available
             virtual bool queryFeature(E_VIDEO_DRIVER_FEATURE feature) const
             {
-                BX_TRACE("TODO: queryFeature");
+                BX_UNIMPLEMENTED();
 #if 0
 
 #define BGFX_CAPS_TEXTURE_COMPARE_LEQUAL UINT64_C(0x0000000000000001) //!< Texture compare less equal mode is supported.
@@ -475,43 +477,67 @@ namespace irr
             //! Draws a part of the texture into the rectangle.
             virtual void draw2DImage(const video::ITexture* texture, const core::rect<s32>& destRect,
                 const core::rect<s32>& sourceRect, const core::rect<s32>* clipRect = 0,
-                const video::SColor* const colors = 0, bool useAlphaChannelOfTexture = false) {}
+                const video::SColor* const colors = 0, bool useAlphaChannelOfTexture = false)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             // rotateType
             // int: 0 - 1 - 2 -3
             // degree: 0 - 90 - 180 - 270
             void draw2DImageRotated(const video::ITexture* texture, const core::rect<s32>& destRect,
                 const core::rect<s32>& sourceRect, int rotateType = 0, const core::rect<s32>* clipRect = 0,
-                const video::SColor* const colors = 0, bool useAlphaChannelOfTexture = false) {}
+                const video::SColor* const colors = 0, bool useAlphaChannelOfTexture = false)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             void draw2DImageBatch(const video::ITexture* texture,
                 const core::array<core::position2d<s32> >& positions,
                 const core::array<core::rect<s32> >& sourceRects,
                 const core::rect<s32>* clipRect,
                 SColor color,
-                bool useAlphaChannelOfTexture) {}
+                bool useAlphaChannelOfTexture)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! draw an 2d rectangle
             virtual void draw2DRectangle(SColor color, const core::rect<s32>& pos,
-                const core::rect<s32>* clip = 0) {}
+                const core::rect<s32>* clip = 0)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //!Draws an 2d rectangle with a gradient.
             virtual void draw2DRectangle(const core::rect<s32>& pos,
                 SColor colorLeftUp, SColor colorRightUp, SColor colorLeftDown, SColor colorRightDown,
-                const core::rect<s32>* clip = 0) {}
+                const core::rect<s32>* clip = 0)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! Draws a 2d line.
             virtual void draw2DLine(const core::position2d<s32>& start,
                 const core::position2d<s32>& end,
-                SColor color = SColor(255, 255, 255, 255)) {}
+                SColor color = SColor(255, 255, 255, 255))
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! Draws a single pixel
-            virtual void drawPixel(u32 x, u32 y, const SColor & color) {}
+            virtual void drawPixel(u32 x, u32 y, const SColor & color)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! Draws a 3d line.
             virtual void draw3DLine(const core::vector3df& start,
                 const core::vector3df& end,
-                SColor color = SColor(255, 255, 255, 255)) {}
+                SColor color = SColor(255, 255, 255, 255))
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! Returns the name of the video driver.
             virtual const wchar_t* getName() const
@@ -520,22 +546,30 @@ namespace irr
             }
 
             //! deletes all dynamic lights there are
-            virtual void deleteAllDynamicLights() {}
+            virtual void deleteAllDynamicLights()
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! adds a dynamic light
             virtual s32 addDynamicLight(const SLight& light)
             {
+                BX_UNIMPLEMENTED();         
                 return -1;
             }
 
             //! Turns a dynamic light on or off
             /** \param lightIndex: the index returned by addDynamicLight
             \param turnOn: true to turn the light on, false to turn it off */
-            virtual void turnLightOn(s32 lightIndex, bool turnOn) {}
+            virtual void turnLightOn(s32 lightIndex, bool turnOn)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! returns the maximal amount of dynamic lights the device can handle
             virtual u32 getMaximalDynamicLightAmount() const
             {
+                BX_UNIMPLEMENTED();
                 return 0;
             }
 
@@ -546,14 +580,20 @@ namespace irr
             }
 
             //! Draws a shadow volume into the stencil buffer.
-            virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible = 0) {}
+            virtual void drawStencilShadowVolume(const core::array<core::vector3df>& triangles, bool zfail, u32 debugDataVisible = 0)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! Fills the stencil shadow with color.
             virtual void drawStencilShadow(bool clearStencilBuffer = false,
                 video::SColor leftUpEdge = video::SColor(0, 0, 0, 0),
                 video::SColor rightUpEdge = video::SColor(0, 0, 0, 0),
                 video::SColor leftDownEdge = video::SColor(0, 0, 0, 0),
-                video::SColor rightDownEdge = video::SColor(0, 0, 0, 0)) {}
+                video::SColor rightDownEdge = video::SColor(0, 0, 0, 0))
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! sets a viewport
             virtual void setViewPort(const core::rect<s32>& area)
@@ -587,54 +627,66 @@ namespace irr
             //! Can be called by an IMaterialRenderer to make its work easier.
             virtual void setBasicRenderStates(const SMaterial& material, const SMaterial& lastmaterial, bool resetAllRenderstates)
             {
-
+                BX_UNIMPLEMENTED();
             }
 
             //! Compare in SMaterial doesn't check texture parameters, so we should call this on each OnRender call.
             virtual void setTextureRenderStates(const SMaterial& material, bool resetAllRenderstates)
             {
-
+                BX_UNIMPLEMENTED();
             }
 
             //! Get a vertex shader constant index.
             virtual s32 getVertexShaderConstantID(const c8* name)
             {
+                BX_UNIMPLEMENTED();
                 return -1;
             }
 
             //! Get a pixel shader constant index.
             virtual s32 getPixelShaderConstantID(const c8* name)
             {
+                BX_UNIMPLEMENTED();
                 return -1;
             }
 
             //! Sets a vertex shader constant.
-            virtual void setVertexShaderConstant(const f32* data, s32 startRegister, s32 constantAmount = 1) {}
+            virtual void setVertexShaderConstant(const f32* data, s32 startRegister, s32 constantAmount = 1)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! Sets a pixel shader constant.
-            virtual void setPixelShaderConstant(const f32* data, s32 startRegister, s32 constantAmount = 1) {}
+            virtual void setPixelShaderConstant(const f32* data, s32 startRegister, s32 constantAmount = 1)
+            {
+                BX_UNIMPLEMENTED();
+            }
 
             //! Sets a constant for the vertex shader based on an index.
             virtual bool setVertexShaderConstant(s32 index, const f32* floats, int count)
             {
+                BX_UNIMPLEMENTED();
                 return false;
             }
 
             //! Int interface for the above.
             virtual bool setVertexShaderConstant(s32 index, const s32* ints, int count)
             {
+                BX_UNIMPLEMENTED();
                 return false;
             }
 
             //! Sets a constant for the pixel shader based on an index.
             virtual bool setPixelShaderConstant(s32 index, const f32* floats, int count)
             {
+                BX_UNIMPLEMENTED();
                 return false;
             }
 
             //! Int interface for the above.
             virtual bool setPixelShaderConstant(s32 index, const s32* ints, int count)
             {
+                BX_UNIMPLEMENTED();
                 return false;
             }
 
@@ -642,6 +694,7 @@ namespace irr
             virtual s32 addShaderMaterial(const core::array<u8>& vertexShaderProgram, const core::array<u8>& pixelShaderProgram,
                 IShaderConstantSetCallBack* callback, E_MATERIAL_TYPE baseMaterial, s32 userData)
             {
+                BX_UNIMPLEMENTED();
                 return -1;
             }
 
@@ -689,7 +742,7 @@ namespace irr
             //! Returns the maximum amount of primitives
             virtual u32 getMaximalPrimitiveCount() const
             {
-                // TODO:
+                BX_UNIMPLEMENTED();
                 return -1;
             }
 
@@ -745,6 +798,7 @@ namespace irr
             //! Returns an image created from the last rendered frame.
             virtual IImage* createScreenShot(video::ECOLOR_FORMAT format = video::ECF_UNKNOWN, video::E_RENDER_TARGET target = video::ERT_FRAME_BUFFER)
             {
+                BX_UNIMPLEMENTED();
                 // TODO: implement bgfx callback
                 const char* filepath = NULL;
                 bgfx_save_screen_shot(filepath);
@@ -754,6 +808,7 @@ namespace irr
             //! Set/unset a clipping plane.
             virtual bool setClipPlane(u32 index, const core::plane3df& plane, bool enable = false)
             {
+                BX_UNIMPLEMENTED();
                 return false;
             }
 
@@ -802,6 +857,7 @@ namespace irr
             virtual ITexture* createDeviceDependentTextureCube(const io::path& name, IImage* posXImage, IImage* negXImage,
                 IImage* posYImage, IImage* negYImage, IImage* posZImage, IImage* negZImage)
             {
+                BX_UNIMPLEMENTED();
 #if 0
                 TextureHandle createTextureCube(uint16_t _size, uint8_t _numMips,
                     TextureFormat::Enum _format, uint32_t _flags = BGFX_TEXTURE_NONE, const Memory* _mem = NULL);

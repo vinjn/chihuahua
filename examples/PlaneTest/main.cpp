@@ -65,8 +65,8 @@ int main(int argc, char const* const* argv)
 
         void OnSetMaterial(const SMaterial& material)
         {
-            //bgfx_set_texture(0, s_texColor, material.TextureLayer[0].Texture, 0);
-            //bgfx_set_texture(0, s_texNormal, tex, 0);
+            bgfx_set_texture(0, s_texColor, { material.getTexture(0)->getNativeHandle() }, 0);
+            bgfx_set_texture(0, s_texNormal, { material.getTexture(1)->getNativeHandle() }, 0);
         }
 
         void OnSetConstants(video::IMaterialRendererServices* services,
@@ -102,6 +102,7 @@ int main(int argc, char const* const* argv)
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
     node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
+    node->setMaterialTexture(1, driver->getTexture("../../media/fieldstone-n.tga"));
     node->setMaterialType((video::E_MATERIAL_TYPE)mtrlId);
 
 #if 0

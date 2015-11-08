@@ -250,6 +250,9 @@ public:
 	//! Used internally by the engine to update Source status on IVideoDriver::getTexture calls.
 	void updateSource(E_TEXTURE_SOURCE source) { Source = source; }
 
+    //! Return the natvie handle, e.g opengl id or bgfx texture handle.
+    virtual u32 getNativeHandle() const { return -1; }
+
 protected:
 
 	//! Helper function, helps to get the desired texture creation format from the flags.
