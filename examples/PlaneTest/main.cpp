@@ -2,7 +2,7 @@
 #include "bx/commandline.h"
 #include "bx/float4x4_t.h"
 #include "bx/readerwriter.h"
-#include "bgfx/bgfx.h"
+#include "bgfx/c99/bgfx.h"
 
 using namespace irr;
 
@@ -14,12 +14,12 @@ using namespace gui;
 
 IrrlichtDevice *device;
 
-static const bgfx::Memory* loadMem(bx::FileReaderI* _reader, const char* _filePath)
+static const bgfx_memory* loadMem(bx::FileReaderI* _reader, const char* _filePath)
 {
     if (0 == bx::open(_reader, _filePath))
     {
         uint32_t size = (uint32_t)bx::getSize(_reader);
-        const bgfx::Memory* mem;// = bgfx::alloc(size + 1);
+        const bgfx_memory* mem;// = bgfx::alloc(size + 1);
         //bx::read(_reader, mem->data, size);
         //bx::close(_reader);
         //mem->data[mem->size - 1] = '\0';
@@ -55,21 +55,28 @@ int main(int argc, char const* const* argv)
         MyShaderCallBack()
         {
             // Create texture sampler uniforms.
-            s_texColor = bgfx::createUniform("s_texColor", bgfx::UniformType::Int1);
-            s_texNormal = bgfx::createUniform("s_texNormal", bgfx::UniformType::Int1);
+            s_texColor = bgfx_create_uniform("s_texColor", BGFX_UNIFORM_TYPE_INT1, 1);
+            s_texNormal = bgfx_create_uniform("s_texNormal", BGFX_UNIFORM_TYPE_INT1, 1);
 
             auto m_numLights = 4;
-            u_lightPosRadius = bgfx::createUniform("u_lightPosRadius", bgfx::UniformType::Vec4, m_numLights);
-            u_lightRgbInnerR = bgfx::createUniform("u_lightRgbInnerR", bgfx::UniformType::Vec4, m_numLights);
+            u_lightPosRadius = bgfx_create_uniform("u_lightPosRadius", BGFX_UNIFORM_TYPE_VEC4, m_numLights);
+            u_lightRgbInnerR = bgfx_create_uniform("u_lightRgbInnerR", BGFX_UNIFORM_TYPE_VEC4, m_numLights);
+        }
+
+        void OnSetMaterial(const SMaterial& material)
+        {
+            //bgfx_set_texture(0, s_texColor, material.TextureLayer[0].Texture, 0);
+            //bgfx_set_texture(0, s_texNormal, tex, 0);
         }
 
         void OnSetConstants(video::IMaterialRendererServices* services,
             s32 userData)
         {
+
         }
 
-        bgfx::UniformHandle s_texColor, s_texNormal;
-        bgfx::UniformHandle u_lightPosRadius, u_lightRgbInnerR;
+        bgfx_uniform_handle s_texColor, s_texNormal;
+        bgfx_uniform_handle u_lightPosRadius, u_lightRgbInnerR;
     };
 
     const float kCamDistZ = 40;
