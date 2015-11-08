@@ -7,7 +7,7 @@
 
 #include "ITexture.h"
 #include "CImage.h"
-#include "bgfx/bgfx.h"
+#include "bgfx/c99/bgfx.h"
 
 namespace irr
 {
@@ -55,9 +55,9 @@ public:
 	//! is it a render target?
 	bool isRenderTarget() const _IRR_OVERRIDE_;
 
-    static bgfx::TextureFormat::Enum toBgfx(ECOLOR_FORMAT format);
+    static bgfx_texture_format toBgfx(ECOLOR_FORMAT format);
 
-    bgfx::TextureHandle getTexture() const {return Texture;}
+    u32 getNativeHandle() const  { return Texture.idx; }
 
 protected:
     CBgfxTexture(const io::path& name);
@@ -66,8 +66,8 @@ protected:
 	bool IsRenderTarget;
 
     IImage* LockImage;
-    bgfx::TextureHandle Texture;
-    bgfx::TextureInfo   Info;
+    bgfx_texture_handle Texture;
+    bgfx_texture_info   Info;
     ECOLOR_FORMAT Format;
 };
 
@@ -77,10 +77,10 @@ public:
     CBgfxFBOTexture(const core::dimension2du& size,
         const io::path& name, const ECOLOR_FORMAT format = ECF_UNKNOWN);
     ~CBgfxFBOTexture();
-    bgfx::FrameBufferHandle getFrameBuffer() const {return FrameBuffer;}
+    bgfx_frame_buffer_handle getFrameBuffer() const {return FrameBuffer;}
 
 private:
-    bgfx::FrameBufferHandle FrameBuffer;
+    bgfx_frame_buffer_handle FrameBuffer;
     //bgfx::TextureHandle ColorTex;
     //bgfx::TextureHandle DepthTex;
 

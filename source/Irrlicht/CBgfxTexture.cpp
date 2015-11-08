@@ -28,14 +28,14 @@ CBgfxTexture::CBgfxTexture(IImage* image, const io::path& name)
     auto bgfxFormat = toBgfx(Format);
 
     uint32_t flags = BGFX_TEXTURE_NONE;
-    Texture = bgfx::createTexture2D(uint16_t(OriginalSize.Width), uint16_t(OriginalSize.Height), 1
+    Texture = bgfx_create_texture_2d(uint16_t(OriginalSize.Width), uint16_t(OriginalSize.Height), 1
         , bgfxFormat
         , flags
-        , bgfx::copy(image->lock(), OriginalSize.Width*OriginalSize.Height * image->getBytesPerPixel())
+        , bgfx_copy(image->lock(), OriginalSize.Width*OriginalSize.Height * image->getBytesPerPixel())
         );
     image->unlock();
 
-    bgfx::calcTextureSize(Info
+    bgfx_calc_texture_size(&Info
         , uint16_t(OriginalSize.Width)
         , uint16_t(OriginalSize.Height)
         , 0
@@ -58,7 +58,7 @@ CBgfxTexture::~CBgfxTexture()
 	if (LockImage)
         LockImage->drop();
 
-    //bgfx::destroyTexture(Texture);
+    //bgfx_destroy_texture(Texture);
 }
 
 
@@ -133,39 +133,39 @@ bool CBgfxTexture::isRenderTarget() const
 	return IsRenderTarget;
 }
 
-bgfx::TextureFormat::Enum CBgfxTexture::toBgfx(ECOLOR_FORMAT format)
+bgfx_texture_format CBgfxTexture::toBgfx(ECOLOR_FORMAT format)
 {
-    static bgfx::TextureFormat::Enum texFormats[] =
+    static bgfx_texture_format texFormats[] =
     {
-        bgfx::TextureFormat::Enum::RGB5A1,//ECF_A1R5G5B5 = 0,
-        bgfx::TextureFormat::Enum::R5G6B5,//ECF_R5G6B5,
-        bgfx::TextureFormat::Enum::Unknown,//ECF_R8G8B8,
-        bgfx::TextureFormat::Enum::RGBA8,//ECF_A8R8G8B8,
+        BGFX_TEXTURE_FORMAT_RGB5A1,//ECF_A1R5G5B5 = 0,
+        BGFX_TEXTURE_FORMAT_R5G6B5,//ECF_R5G6B5,
+        BGFX_TEXTURE_FORMAT_UNKNOWN,//ECF_R8G8B8,
+        BGFX_TEXTURE_FORMAT_RGBA8,//ECF_A8R8G8B8,
 
         /** Compressed image formats. **/
-        bgfx::TextureFormat::Enum::BC1,//ECF_DXT1,
-        bgfx::TextureFormat::Enum::BC1,//ECF_DXT2,
-        bgfx::TextureFormat::Enum::BC2,//ECF_DXT3,
-        bgfx::TextureFormat::Enum::BC2,//ECF_DXT4,
-        bgfx::TextureFormat::Enum::BC3,//ECF_DXT5,
-        bgfx::TextureFormat::Enum::PTC12,//ECF_PVRTC_RGB2,
-        bgfx::TextureFormat::Enum::PTC12A,//ECF_PVRTC_ARGB2,
-        bgfx::TextureFormat::Enum::PTC14,//ECF_PVRTC_RGB4,
-        bgfx::TextureFormat::Enum::PTC14A,//ECF_PVRTC_ARGB4,
-        bgfx::TextureFormat::Enum::PTC22,//ECF_PVRTC2_ARGB2,
-        bgfx::TextureFormat::Enum::PTC24,//ECF_PVRTC2_ARGB4,
-        bgfx::TextureFormat::Enum::ETC1,//ECF_ETC1,
-        bgfx::TextureFormat::Enum::ETC2,//ECF_ETC2_RGB,
-        bgfx::TextureFormat::Enum::ETC2A,//ECF_ETC2_ARGB,
+        BGFX_TEXTURE_FORMAT_BC1,//ECF_DXT1,
+        BGFX_TEXTURE_FORMAT_BC1,//ECF_DXT2,
+        BGFX_TEXTURE_FORMAT_BC2,//ECF_DXT3,
+        BGFX_TEXTURE_FORMAT_BC2,//ECF_DXT4,
+        BGFX_TEXTURE_FORMAT_BC3,//ECF_DXT5,
+        BGFX_TEXTURE_FORMAT_PTC12,//ECF_PVRTC_RGB2,
+        BGFX_TEXTURE_FORMAT_PTC12A,//ECF_PVRTC_ARGB2,
+        BGFX_TEXTURE_FORMAT_PTC14,//ECF_PVRTC_RGB4,
+        BGFX_TEXTURE_FORMAT_PTC14A,//ECF_PVRTC_ARGB4,
+        BGFX_TEXTURE_FORMAT_PTC22,//ECF_PVRTC2_ARGB2,
+        BGFX_TEXTURE_FORMAT_PTC24,//ECF_PVRTC2_ARGB4,
+        BGFX_TEXTURE_FORMAT_ETC1,//ECF_ETC1,
+        BGFX_TEXTURE_FORMAT_ETC2,//ECF_ETC2_RGB,
+        BGFX_TEXTURE_FORMAT_ETC2A,//ECF_ETC2_ARGB,
 
         /** Floating Point formats. The following formats may only be used for render target textures. */
-        bgfx::TextureFormat::Enum::R16F,//ECF_R16F,
-        bgfx::TextureFormat::Enum::RG16F,//ECF_G16R16F,
-        bgfx::TextureFormat::Enum::RGBA16F,//ECF_A16B16G16R16F,
-        bgfx::TextureFormat::Enum::R32F,//ECF_R32F,
-        bgfx::TextureFormat::Enum::RG32F,//ECF_G32R32F,
-        bgfx::TextureFormat::Enum::RGBA32F,//ECF_A32B32G32R32F,
-        bgfx::TextureFormat::Enum::Unknown,//ECF_UNKNOWN
+        BGFX_TEXTURE_FORMAT_R16F,//ECF_R16F,
+        BGFX_TEXTURE_FORMAT_RG16F,//ECF_G16R16F,
+        BGFX_TEXTURE_FORMAT_RGBA16F,//ECF_A16B16G16R16F,
+        BGFX_TEXTURE_FORMAT_R32F,//ECF_R32F,
+        BGFX_TEXTURE_FORMAT_RG32F,//ECF_G32R32F,
+        BGFX_TEXTURE_FORMAT_RGBA32F,//ECF_A32B32G32R32F,
+        BGFX_TEXTURE_FORMAT_UNKNOWN,//ECF_UNKNOWN
     };
 
     return texFormats[format];
@@ -179,12 +179,12 @@ CBgfxFBOTexture::CBgfxFBOTexture(const core::dimension2du& size,
     IsRenderTarget = true;
     Format = format;
 
-    FrameBuffer = bgfx::createFrameBuffer(OriginalSize.Width, OriginalSize.Height, toBgfx(format));
+    FrameBuffer = bgfx_create_frame_buffer(OriginalSize.Width, OriginalSize.Height, toBgfx(format), 0);
 }
 
 CBgfxFBOTexture::~CBgfxFBOTexture()
 {
-    bgfx::destroyFrameBuffer(FrameBuffer);
+    bgfx_destroy_frame_buffer(FrameBuffer);
 }
 
 } // end namespace video

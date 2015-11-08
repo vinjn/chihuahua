@@ -18,8 +18,13 @@
 #include "CBgfxTexture.h"
 
 #include "bx/bx.h"
-#include "bgfx/bgfx.h"
-#include "bgfx/bgfxplatform.h"
+#include "bgfx/c99/bgfx.h"
+#include "bgfx/c99/bgfxplatform.h"
+
+template <typename T>
+inline bool isValid(T _handle) { return UINT16_MAX != _handle.idx; }
+
+#define BGFX_INVALID_HANDLE { UINT16_MAX }
 
 namespace irr
 {
@@ -38,27 +43,30 @@ namespace irr
 #endif
                 ) :CNullDriver(io, params.WindowSize)
             {
-                bgfx::winSetHwnd((HWND)params.WindowId);
-                bgfx::init(bgfx::RendererType::Count, BGFX_PCI_ID_NONE);
+                bgfx_platform_data platformData;
+                platformData.nwh = params.WindowId;
+                bgfx_set_platform_data(&platformData);
+                bgfx_init(BGFX_RENDERER_TYPE_COUNT, BGFX_PCI_ID_NONE, 0, NULL, NULL);
 
                 uint32_t reset = BGFX_RESET_VSYNC;
-                bgfx::reset(ScreenSize.Width, ScreenSize.Height, reset);
+                bgfx_reset(ScreenSize.Width, ScreenSize.Height, reset);
 
                 uint32_t debug = BGFX_DEBUG_TEXT;
-                bgfx::setDebug(debug);
+                bgfx_set_debug(debug);
 
-                Caps = bgfx::getCaps();
+                Caps = bgfx_get_caps();
 
                 CurrentFBO = NULL; // TODO
                 CurrentProgramHandle = BGFX_INVALID_HANDLE;
             }
 
             static const uint8_t kDefaultView = 0;
+            static const int32_t kDefaultDepth = 0;
 
             //! destructor
             virtual ~CBgfxDriver()
             {
-                bgfx::shutdown();
+                bgfx_shutdown();
             }
 
             //! clears the zbuffer
@@ -81,16 +89,16 @@ namespace irr
                 bgfxColor.abgr.b = (u8)color.getBlue();
                 bgfxColor.abgr.a = (u8)color.getAlpha();
 
-                bgfx::setViewClear(kDefaultView
+                bgfx_set_view_clear(kDefaultView
                     , (backBuffer ? BGFX_CLEAR_COLOR : 0) | (zBuffer ? BGFX_CLEAR_DEPTH : 0) | 0
                     , bgfxColor.clr
                     , 1.0f
                     , 0
                     );
-                bgfx::touch(0);
+                bgfx_touch(0);
 
                 // Use debug font to print information about this example.
-                bgfx::dbgTextClear();
+                bgfx_dbg_text_clear(0, false);
 
                 return true;
             }
@@ -98,7 +106,7 @@ namespace irr
             //! presents the rendered scene on the screen, returns false if failed
             virtual bool endScene()
             {
-                bgfx::frame();
+                bgfx_frame();
 
                 return true;
             }
@@ -114,17 +122,17 @@ namespace irr
                 {
                 case ETS_VIEW:
                 case ETS_PROJECTION:
-                    bgfx::setViewTransform(kDefaultView, Matrices[ETS_VIEW].pointer(), Matrices[ETS_PROJECTION].pointer());
+                    bgfx_set_view_transform(kDefaultView, Matrices[ETS_VIEW].pointer(), Matrices[ETS_PROJECTION].pointer());
                     break;
                 case ETS_WORLD:
-                    bgfx::setTransform(mat.pointer());
+                    bgfx_set_transform(mat.pointer(), 1);
                     break;
                 default:
                     break;
                 }
             }
 
-            //! Returns the transformation set by setTransform
+            //! Returns the transformation set by bgfx_set_transform
             virtual const core::matrix4& getTransform(E_TRANSFORMATION_STATE state) const
             {
                 return Matrices[state];
@@ -137,45 +145,45 @@ namespace irr
                 {}
 
                 // TODO: support static VertexBufferHandle
-                bgfx::DynamicVertexBufferHandle vb;
-                bgfx::DynamicIndexBufferHandle ib;
+                bgfx_dynamic_vertex_buffer_handle vb;
+                bgfx_dynamic_index_buffer_handle ib;
 
-                static bgfx::VertexDecl toBgfx(E_VERTEX_TYPE vType)
+                static bgfx_vertex_decl toBgfx(E_VERTEX_TYPE vType)
                 {
-                    bgfx::VertexDecl decl;
+                    bgfx_vertex_decl decl;
                     switch (vType)
                     {
                     case EVT_STANDARD:
                     {
-                        decl.begin()
-                            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
-                            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
-                            .end();
+                        bgfx_vertex_decl_begin(&decl, BGFX_RENDERER_TYPE_NULL);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_POSITION, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_NORMAL, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_COLOR0, 4, BGFX_ATTRIB_TYPE_UINT8, true, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_TEXCOORD0, 2, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_end(&decl);
                         break;
                     }
                     case EVT_2TCOORDS:
                     {
-                        decl.begin()
-                            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
-                            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::TexCoord1, 2, bgfx::AttribType::Float)
-                            .end();
+                        bgfx_vertex_decl_begin(&decl, BGFX_RENDERER_TYPE_NULL);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_POSITION, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_NORMAL, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_COLOR0, 4, BGFX_ATTRIB_TYPE_UINT8, true, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_TEXCOORD0, 2, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_TEXCOORD1, 2, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_end(&decl);
                         break;
                     }
                     case EVT_TANGENTS:
                     {
-                        decl.begin()
-                            .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Normal, 3, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Color0, 4, bgfx::AttribType::Uint8, true)
-                            .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Tangent, 3, bgfx::AttribType::Float)
-                            .add(bgfx::Attrib::Bitangent, 3, bgfx::AttribType::Float)
-                            .end();
+                        bgfx_vertex_decl_begin(&decl, BGFX_RENDERER_TYPE_NULL);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_POSITION, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_NORMAL, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_COLOR0, 4, BGFX_ATTRIB_TYPE_UINT8, true, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_TEXCOORD0, 2, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_TANGENT, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_add(&decl, BGFX_ATTRIB_BITANGENT, 3, BGFX_ATTRIB_TYPE_FLOAT, false, false);
+                        bgfx_vertex_decl_end(&decl);
                         break;
                     }
                     default:
@@ -199,16 +207,17 @@ namespace irr
                     //core::array<u8> buffer(vertexSize * vertexCount);
                     //memcpy(buffer.pointer(), vertices, vertexSize * vertexCount);
 
-                    auto mem = bgfx::copy(vertices, vertexSize * vertexCount);
+                    auto mem = bgfx_copy(vertices, vertexSize * vertexCount);
 
                     if (!isValid(vb))
                     {
-                        vb = bgfx::createDynamicVertexBuffer(mem, toBgfx(vType));
+                        auto decl =  toBgfx(vType);
+                        vb = bgfx_create_dynamic_vertex_buffer_mem(mem, &decl, BGFX_BUFFER_NONE);
                         if (!isValid(vb)) return false;
                     }
                     else
                     {
-                        bgfx::updateDynamicVertexBuffer(vb, 0, mem);
+                        bgfx_update_dynamic_vertex_buffer(vb, 0, mem);
                     }
 
                     return true;
@@ -242,16 +251,16 @@ namespace irr
                         return false;
                     }
 
-                    auto mem = bgfx::copy(indices, indexSize * indexCount);
+                    auto mem = bgfx_copy(indices, indexSize * indexCount);
 
                     if (!isValid(ib))
                     {
-                        ib = bgfx::createDynamicIndexBuffer(mem, flag);
+                        ib = bgfx_create_dynamic_index_buffer_mem(mem, flag);
                         if (!isValid(ib)) return false;
                     }
                     else
                     {
-                        bgfx::updateDynamicIndexBuffer(ib, 0, mem);
+                        bgfx_update_dynamic_index_buffer(ib, 0, mem);
                     }
 
                     return true;
@@ -330,12 +339,12 @@ namespace irr
                 SHWBufferLink_bgfx* HWBuffer = static_cast<SHWBufferLink_bgfx*>(_HWBuffer);
                 if (isValid(HWBuffer->vb))
                 {
-                    bgfx::destroyDynamicVertexBuffer(HWBuffer->vb);
+                    bgfx_destroy_dynamic_vertex_buffer(HWBuffer->vb);
                     HWBuffer->vb = BGFX_INVALID_HANDLE;
                 }
                 if (isValid(HWBuffer->ib))
                 {
-                    bgfx::destroyDynamicIndexBuffer(HWBuffer->ib);
+                    bgfx_destroy_dynamic_index_buffer(HWBuffer->ib);
                     HWBuffer->ib = BGFX_INVALID_HANDLE;
                 }
                 CNullDriver::deleteHardwareBuffer(_HWBuffer);
@@ -347,10 +356,10 @@ namespace irr
                 if (!_HWBuffer) return;
 
                 SHWBufferLink_bgfx* HWBuffer = static_cast<SHWBufferLink_bgfx*>(_HWBuffer);
-                bgfx::setVertexBuffer(HWBuffer->vb);
-                bgfx::setIndexBuffer(HWBuffer->ib);
+                bgfx_set_dynamic_vertex_buffer(HWBuffer->vb, UINT32_MAX);
+                bgfx_set_dynamic_index_buffer(HWBuffer->ib, 0, UINT32_MAX);
 
-                bgfx::submit(kDefaultView, CurrentProgramHandle);
+                bgfx_submit(kDefaultView, CurrentProgramHandle, kDefaultDepth);
             }
 
             //! draws a vertex primitive list
@@ -360,23 +369,23 @@ namespace irr
             {
                 BX_CHECK(iType == EIT_16BIT, "Only 16-bit index buffer is supported");
 
-                bgfx::TransientVertexBuffer vb;
-                bgfx::TransientIndexBuffer ib;
+                bgfx_transient_vertex_buffer_t vb;
+                bgfx_transient_index_buffer_t ib;
                 auto vertexDecl = SHWBufferLink_bgfx::toBgfx(vType);
-                if (!bgfx::allocTransientBuffers(&vb, vertexDecl, vertexCount,
+                if (!bgfx_alloc_transient_buffers(&vb, &vertexDecl, vertexCount,
                     &ib, primitiveCount))
                 {
                     BX_TRACE("allocTransientBuffers fails.");
                     return;
                 }
 
-                memcpy(vb.data, vertices, vertexDecl.getSize(vertexCount));
+                memcpy(vb.data, vertices, vertexDecl.stride * vertexCount);
                 memcpy(ib.data, indexList, primitiveCount * 3 * sizeof u16);
 
-                bgfx::setVertexBuffer(&vb);
-                bgfx::setIndexBuffer(&ib);
+                bgfx_set_transient_vertex_buffer(&vb, 0, UINT32_MAX);
+                bgfx_set_transient_index_buffer(&ib, 0, UINT32_MAX);
 
-                bgfx::submit(kDefaultView, CurrentProgramHandle);
+                bgfx_submit(kDefaultView, CurrentProgramHandle, kDefaultDepth);
             }
 
             //! queries the features of the driver, returns true if feature is available
@@ -429,17 +438,17 @@ namespace irr
             virtual void setMaterial(const SMaterial& material)
             {
                 // TODO: remove it
-                bgfx::setState(BGFX_STATE_DEFAULT);
+                bgfx_set_state(BGFX_STATE_DEFAULT,  0);
 
                 // TODO: use hash map
                 CurrentProgramHandle = { material.MaterialType };
-#if 0
+#if 1
                 uint8_t stage = 0;
-                bgfx::UniformHandle sampler; // TODO
+                bgfx_uniform_handle sampler; // TODO
                 CBgfxTexture* tex = (CBgfxTexture*)material.getTexture(0);
                 if (tex)
                 {
-                    bgfx::TextureHandle texHandle = tex->getTexture();
+                    bgfx_texture_handle texHandle = { tex->getNativeHandle() };
                     //bgfx::setTexture(stage, sampler, texHandle);
                 }
 #endif
@@ -549,15 +558,16 @@ namespace irr
             //! sets a viewport
             virtual void setViewPort(const core::rect<s32>& area)
             {
-                bgfx::setViewRect(kDefaultView, area.UpperLeftCorner.X, area.UpperLeftCorner.Y, area.LowerRightCorner.X, area.LowerRightCorner.Y);
+                bgfx_set_view_rect(kDefaultView, area.UpperLeftCorner.X, area.UpperLeftCorner.Y, area.LowerRightCorner.X, area.LowerRightCorner.Y);
             }
 
             //! Only used internally by the engine
             virtual void OnResize(const core::dimension2d<u32>& size)
             {
                 CNullDriver::OnResize(size);
-                bgfx::reset(size.Width, size.Height);
-                bgfx::setViewRect(kDefaultView, 0, 0, size.Width, size.Height);
+                const auto kResetFlags = 0;
+                bgfx_reset(size.Width, size.Height, kResetFlags);
+                bgfx_set_view_rect(kDefaultView, 0, 0, size.Width, size.Height);
             }
 
             //! Returns type of video driver
@@ -655,11 +665,11 @@ namespace irr
                 E_GPU_SHADING_LANGUAGE shadingLang = EGSL_DEFAULT)
             {
                 // TODO: supports callback & baseMaterial
-                auto vshMem = bgfx::copy(vertexShaderProgram.const_pointer(), vertexShaderProgram.size());
-                auto fshMem = bgfx::copy(pixelShaderProgram.const_pointer(), pixelShaderProgram.size());
-                auto vsh = bgfx::createShader(vshMem);
-                auto fsh = bgfx::createShader(fshMem);
-                auto prog = bgfx::createProgram(vsh, fsh, true);
+                auto vshMem = bgfx_copy(vertexShaderProgram.const_pointer(), vertexShaderProgram.size());
+                auto fshMem = bgfx_copy(pixelShaderProgram.const_pointer(), pixelShaderProgram.size());
+                auto vsh = bgfx_create_shader(vshMem);
+                auto fsh = bgfx_create_shader(fshMem);
+                auto prog = bgfx_create_program(vsh, fsh, true);
 
                 return prog.idx;
             }
@@ -697,7 +707,7 @@ namespace irr
 
                 // TODO: optimize
                 CBgfxFBOTexture* fboTex = (CBgfxFBOTexture*)texture;
-                bgfx::setViewFrameBuffer(kDefaultView, fboTex->getFrameBuffer());
+                bgfx_set_view_frame_buffer(kDefaultView, fboTex->getFrameBuffer());
 
                 // TODO: refactor
                 union
@@ -713,14 +723,14 @@ namespace irr
                 bgfxColor.abgr.b = (u8)color.getBlue();
                 bgfxColor.abgr.a = (u8)color.getAlpha();
 
-                bgfx::setViewClear(kDefaultView
+                bgfx_set_view_clear(kDefaultView
                     , (clearBackBuffer ? BGFX_CLEAR_COLOR : 0) | (clearZBuffer ? BGFX_CLEAR_DEPTH : 0) | 0
                     , bgfxColor.clr
                     , 1.0f
                     , 0
                     );
 
-                bgfx::touch(0);
+                bgfx_touch(0);
 
                 return false;
             }
@@ -728,8 +738,8 @@ namespace irr
             //! Clears the ZBuffer.
             virtual void clearZBuffer()
             {
-                bgfx::setViewClear(kDefaultView, BGFX_CLEAR_DEPTH);
-                bgfx::touch(0);
+                bgfx_set_view_clear(kDefaultView, BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
+                bgfx_touch(0);
             }
 
             //! Returns an image created from the last rendered frame.
@@ -737,7 +747,7 @@ namespace irr
             {
                 // TODO: implement bgfx callback
                 const char* filepath = NULL;
-                bgfx::saveScreenShot(filepath);
+                bgfx_save_screen_shot(filepath);
                 return NULL;
             }
 
@@ -772,9 +782,9 @@ namespace irr
             }
 
         private:
-            const bgfx::Caps* Caps;
+            const bgfx_caps* Caps;
             CBgfxFBOTexture* CurrentFBO;
-            bgfx::ProgramHandle CurrentProgramHandle;
+            bgfx_program_handle CurrentProgramHandle;
 
             //! returns a device dependent texture from a software surface (IImage)
             virtual ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData)
