@@ -33,7 +33,7 @@ int main(int argc, char const* const* argv)
 {
     bx::CommandLine cmdLine(argc, argv);
 
-    device = createDevice(video::EDT_BGFX, dimension2d<u32>(800, 600), 16,
+    device = createDevice(video::EDT_BGFX_OPENGL, dimension2d<u32>(800, 600), 16,
         false, false, false, 0);
 
     if (!device)

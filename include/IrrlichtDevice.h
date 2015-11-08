@@ -387,7 +387,13 @@ namespace irr
 #else
 					return false;
 #endif
-                case video::EDT_BGFX:
+                case video::EDT_BGFX_OPENGL:
+                case video::EDT_BGFX_OPENGL_ES:
+                case video::EDT_BGFX_D3D9:
+                case video::EDT_BGFX_D3D11:
+                case video::EDT_BGFX_D3D12:
+                case video::EDT_BGFX_METAL:
+                case video::EDT_BGFX_VULKAN:
 #ifdef _IRR_COMPILE_WITH_BGFX_
                     return true;
 #else

@@ -1218,18 +1218,23 @@ void CIrrDeviceWin32::createDriver()
 		#endif
 		break;
 
-    case video::EDT_BGFX:
+    case video::EDT_BGFX_OPENGL:
+    case video::EDT_BGFX_OPENGL_ES:
+    case video::EDT_BGFX_D3D9:
+    case video::EDT_BGFX_D3D11:
+    case video::EDT_BGFX_D3D12:
+    case video::EDT_BGFX_VULKAN:
         #ifdef _IRR_COMPILE_WITH_BGFX_
         {
             switchToFullScreen();
 #if defined(_IRR_COMPILE_WITH_EGL_MANAGER_)
             ContextManager = new video::CEGLManager();
 #else
-            ContextManager = new video::CWGLManager();
+            //ContextManager = new video::CWGLManager();
 #endif
-            ContextManager->initialize(CreationParams, video::SExposedVideoData(HWnd));
+            //ContextManager->initialize(CreationParams, video::SExposedVideoData(HWnd));
 
-            VideoDriver = video::createBgfxDriver(CreationParams, FileSystem, ContextManager);
+            VideoDriver = video::createBgfxDriver(CreationParams, FileSystem, NULL);
             if (!VideoDriver)
             {
                 os::Printer::log("Could not create bgfx driver.", ELL_ERROR);

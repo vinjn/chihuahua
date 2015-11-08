@@ -814,7 +814,7 @@ namespace bgfx { namespace d3d11
 							, desc.SubSysId
 							, desc.Revision
 							);
-						BX_TRACE("\tMemory: %" PRIi64 " (video), %" PRIi64 " (system), %" PRIi64 " (shared)"
+						BX_TRACE("\tMemory: %p (video), %p (system), %p (shared)"
 							, desc.DedicatedVideoMemory
 							, desc.DedicatedSystemMemory
 							, desc.SharedSystemMemory

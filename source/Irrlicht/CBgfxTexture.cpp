@@ -101,7 +101,7 @@ const core::dimension2d<u32>& CBgfxTexture::getSize() const
 //! returns driver type of texture (=the driver, who created the texture)
 E_DRIVER_TYPE CBgfxTexture::getDriverType() const
 {
-	return EDT_BGFX;
+	return EDT_BGFX_OPENGL;
 }
 
 

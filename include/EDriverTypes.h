@@ -63,7 +63,13 @@ namespace video
 
         //! bgfx based driver
         /** Supports shaders etc. */
-        EDT_BGFX,
+        EDT_BGFX_OPENGL,
+        EDT_BGFX_OPENGL_ES,
+        EDT_BGFX_D3D9,
+        EDT_BGFX_D3D11,
+        EDT_BGFX_D3D12,
+        EDT_BGFX_METAL,
+        EDT_BGFX_VULKAN,
 
 		//! No driver, just for counting the elements
 		EDT_COUNT
@@ -79,7 +85,13 @@ namespace video
 		"OpenGL 1.x/2.x/3.x",
 		"OpenGL ES1",
         "OpenGL ES2",
-        "bgfx",
+        "bgfx OpenGL",
+        "bgfx OpenGL ES",
+        "bgfx D3D 9",
+        "bgfx D3D 11",
+        "bgfx D3D 12",
+        "bgfx Metal",
+        "bgfx Vulkan",
 		0 
 	};
 	

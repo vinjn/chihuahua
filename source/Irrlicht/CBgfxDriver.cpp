@@ -45,10 +45,25 @@ namespace irr
 #endif
                 ) :CNullDriver(io, params.WindowSize)
             {
-                bgfx_platform_data platformData;
+                bgfx_platform_data platformData = {};
                 platformData.nwh = params.WindowId;
                 bgfx_set_platform_data(&platformData);
-                bgfx_init(BGFX_RENDERER_TYPE_COUNT, BGFX_PCI_ID_NONE, 0, NULL, NULL);
+
+                DriverType = params.DriverType;
+                bgfx_renderer_type_t bgfxRenderType = BGFX_RENDERER_TYPE_NULL;
+                switch (DriverType)
+                {
+                case EDT_BGFX_OPENGL:       bgfxRenderType = BGFX_RENDERER_TYPE_OPENGL; break;
+                case EDT_BGFX_OPENGL_ES:    bgfxRenderType = BGFX_RENDERER_TYPE_OPENGLES; break;
+                case EDT_BGFX_D3D9:         bgfxRenderType = BGFX_RENDERER_TYPE_DIRECT3D9; break;
+                case EDT_BGFX_D3D11:        bgfxRenderType = BGFX_RENDERER_TYPE_DIRECT3D11; break;
+                case EDT_BGFX_D3D12:        bgfxRenderType = BGFX_RENDERER_TYPE_DIRECT3D12; break;
+                case EDT_BGFX_METAL:        bgfxRenderType = BGFX_RENDERER_TYPE_METAL; break;
+                case EDT_BGFX_VULKAN:       bgfxRenderType = BGFX_RENDERER_TYPE_VULKAN; break;
+                default:
+                    break;
+                }
+                bgfx_init(bgfxRenderType, BGFX_PCI_ID_NONE, 0, NULL, NULL);
 
                 uint32_t reset = BGFX_RESET_VSYNC;
                 bgfx_reset(ScreenSize.Width, ScreenSize.Height, reset);
@@ -619,7 +634,7 @@ namespace irr
             //! Returns type of video driver
             virtual E_DRIVER_TYPE getDriverType() const
             {
-                return EDT_BGFX;
+                return DriverType;
             }
 
             //! get color format of the current color buffer
@@ -846,6 +861,7 @@ namespace irr
             const bgfx_caps* Caps;
             CBgfxFBOTexture* CurrentFBO;
             bgfx_program_handle CurrentProgramHandle;
+            E_DRIVER_TYPE DriverType;
 
             //! returns a device dependent texture from a software surface (IImage)
             virtual ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData)
