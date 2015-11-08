@@ -145,6 +145,7 @@ public:
             return NULL;
         }
 
+#if 0
         // rgb -> bgr
         {
             u8* p = imgRaw;
@@ -155,6 +156,7 @@ public:
                 p += 4;
             }
         }
+#endif
 
         IImage* image = new CImage(ECF_A8R8G8B8, core::dimension2du(width, height), imgRaw);
 

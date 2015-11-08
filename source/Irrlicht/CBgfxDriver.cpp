@@ -439,8 +439,16 @@ namespace irr
             //! Sets a material.
             virtual void setMaterial(const SMaterial& material)
             {
+#define CCW_STATE_DEFAULT (0 \
+					| BGFX_STATE_RGB_WRITE \
+					| BGFX_STATE_ALPHA_WRITE \
+					| BGFX_STATE_DEPTH_TEST_LESS \
+					| BGFX_STATE_DEPTH_WRITE \
+					| BGFX_STATE_CULL_CCW \
+					| BGFX_STATE_MSAA \
+					)
                 // TODO: remove it
-                bgfx_set_state(BGFX_STATE_DEFAULT,  0);
+                bgfx_set_state(CCW_STATE_DEFAULT, 0);
 
                 // TODO: use hash map
                 CurrentProgramHandle = { material.MaterialType };

@@ -41,14 +41,6 @@ namespace scene
 		EMAT_COUNT
 	};
 
-	//! Interface for using some special functions of MD2 meshes
-	// TODO: remove this class
-	class IAnimatedMeshMD2 : public IAnimatedMesh
-	{
-	public:
-
-	};
-
 } // end namespace scene
 } // end namespace irr
 

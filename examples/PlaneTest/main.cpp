@@ -52,13 +52,14 @@ int main(int argc, char const* const* argv)
 
     struct MyShaderCallBack : public video::IShaderConstantSetCallBack
     {
+        const int m_numLights = 4;
+
         MyShaderCallBack()
         {
             // Create texture sampler uniforms.
             s_texColor = bgfx_create_uniform("s_texColor", BGFX_UNIFORM_TYPE_INT1, 1);
             s_texNormal = bgfx_create_uniform("s_texNormal", BGFX_UNIFORM_TYPE_INT1, 1);
 
-            auto m_numLights = 4;
             u_lightPosRadius = bgfx_create_uniform("u_lightPosRadius", BGFX_UNIFORM_TYPE_VEC4, m_numLights);
             u_lightRgbInnerR = bgfx_create_uniform("u_lightRgbInnerR", BGFX_UNIFORM_TYPE_VEC4, m_numLights);
         }
@@ -67,6 +68,27 @@ int main(int argc, char const* const* argv)
         {
             bgfx_set_texture(0, s_texColor, { material.getTexture(0)->getNativeHandle() }, 0);
             bgfx_set_texture(1, s_texNormal, { material.getTexture(1)->getNativeHandle() }, 0);
+
+            float lightPosRadius[4][4];
+            for (uint32_t ii = 0; ii < m_numLights; ++ii)
+            {
+                lightPosRadius[ii][0] = sinf((device->getTimer()->getTime() *(0.1f + ii*0.17f) + ii*HALF_PI*1.37f))*3.0f;
+                lightPosRadius[ii][1] = cosf((device->getTimer()->getTime()*(0.2f + ii*0.29f) + ii*HALF_PI*1.49f))*3.0f;
+                lightPosRadius[ii][2] = -2.5f;
+                lightPosRadius[ii][3] = 3.0f;
+            }
+
+            bgfx_set_uniform(u_lightPosRadius, lightPosRadius, m_numLights);
+
+            float lightRgbInnerR[4][4] =
+            {
+                { 1.0f, 0.7f, 0.2f, 0.8f },
+                { 0.7f, 0.2f, 1.0f, 0.8f },
+                { 0.2f, 1.0f, 0.7f, 0.8f },
+                { 1.0f, 0.4f, 0.2f, 0.8f },
+            };
+
+            bgfx_set_uniform(u_lightRgbInnerR, lightRgbInnerR, m_numLights);
         }
 
         bgfx_uniform_handle s_texColor, s_texNormal;
@@ -98,6 +120,8 @@ int main(int argc, char const* const* argv)
     node->setMaterialTexture(1, driver->getTexture("../../media/fieldstone-n.tga"));
     node->setMaterialType((video::E_MATERIAL_TYPE)mtrlId);
     node->setMaterialShaderCallback(new MyShaderCallBack());
+    node->setMaterialFlag(EMF_BACK_FACE_CULLING, true);
+    node->setMaterialFlag(EMF_FRONT_FACE_CULLING, false);
 
 #if 0
     smgr->addCameraSceneNode(0, vector3df(0, 0, -kCamDistZ * 3), vector3df(0, 0, 0));
