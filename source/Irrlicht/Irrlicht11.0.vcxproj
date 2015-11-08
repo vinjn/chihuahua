@@ -1051,9 +1051,9 @@
     <ClInclude Include="..\assimp\code\TriangulateProcess.h" />
     <ClInclude Include="..\assimp\contrib\ConvertUTF\ConvertUTF.h" />
     <ClInclude Include="..\assimp\IrrAssimpImport.h" />
-    <ClInclude Include="..\bgfx\include\bgfx.h" />
-    <ClInclude Include="..\bgfx\include\bgfxdefines.h" />
-    <ClInclude Include="..\bgfx\include\bgfxplatform.h" />
+    <ClInclude Include="..\bgfx\include\bgfx\bgfx.h" />
+    <ClInclude Include="..\bgfx\include\bgfx\bgfxdefines.h" />
+    <ClInclude Include="..\bgfx\include\bgfx\bgfxplatform.h" />
     <ClInclude Include="..\bgfx\src\bgfx_p.h" />
     <ClInclude Include="..\bgfx\src\charset.h" />
     <ClInclude Include="..\bgfx\src\config.h" />

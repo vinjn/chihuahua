@@ -25,10 +25,10 @@ namespace video
 //! Public constructor
 CD3D9HLSLMaterialRenderer::CD3D9HLSLMaterialRenderer(IDirect3DDevice9* d3ddev,
 	video::IVideoDriver* driver, s32& outMaterialTypeNr,
-	const core::array<c8>& vertexShaderProgram,
+	const core::array<u8>& vertexShaderProgram,
 	const c8* vertexShaderEntryPointName,
 	E_VERTEX_SHADER_TYPE vsCompileTarget,
-	const core::array<c8>& pixelShaderProgram,
+	const core::array<u8>& pixelShaderProgram,
 	const c8* pixelShaderEntryPointName,
 	E_PIXEL_SHADER_TYPE psCompileTarget,
 	IShaderConstantSetCallBack* callback,

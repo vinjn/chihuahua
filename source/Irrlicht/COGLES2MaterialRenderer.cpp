@@ -22,8 +22,8 @@ namespace video
 
 COGLES2MaterialRenderer::COGLES2MaterialRenderer(COGLES2Driver* driver,
 		s32& outMaterialTypeNr,
-		const core::array<c8>& vertexShaderProgram,
-		const core::array<c8>& pixelShaderProgram,
+		const core::array<u8>& vertexShaderProgram,
+		const core::array<u8>& pixelShaderProgram,
 		IShaderConstantSetCallBack* callback,
 		E_MATERIAL_TYPE baseMaterial,
 		s32 userData)
@@ -117,8 +117,8 @@ GLuint COGLES2MaterialRenderer::getProgram() const
 }
 
 void COGLES2MaterialRenderer::init(s32& outMaterialTypeNr,
-		const core::array<c8>& vertexShaderProgram,
-		const core::array<c8>& pixelShaderProgram,
+		const core::array<u8>& vertexShaderProgram,
+		const core::array<u8>& pixelShaderProgram,
 		bool addMaterial)
 {
 	outMaterialTypeNr = -1;

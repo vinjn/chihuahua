@@ -19,7 +19,7 @@ namespace video
 class COGLES2Renderer2D : public COGLES2MaterialRenderer
 {
 public:
-	COGLES2Renderer2D(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram, COGLES2Driver* driver);
+	COGLES2Renderer2D(const core::array<u8>& vertexShaderProgram, const core::array<u8>& pixelShaderProgram, COGLES2Driver* driver);
 	~COGLES2Renderer2D();
 
 	virtual void OnSetMaterial(const SMaterial& material, const SMaterial& lastMaterial,

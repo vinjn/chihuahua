@@ -39,7 +39,7 @@ namespace irr
                 ) :CNullDriver(io, params.WindowSize)
             {
                 bgfx::winSetHwnd((HWND)params.WindowId);
-                bgfx::init();
+                bgfx::init(bgfx::RendererType::Count, BGFX_PCI_ID_NONE);
 
                 uint32_t reset = BGFX_RESET_VSYNC;
                 bgfx::reset(ScreenSize.Width, ScreenSize.Height, reset);
@@ -50,6 +50,7 @@ namespace irr
                 Caps = bgfx::getCaps();
 
                 CurrentFBO = NULL; // TODO
+                CurrentProgramHandle = BGFX_INVALID_HANDLE;
             }
 
             static const uint8_t kDefaultView = 0;
@@ -196,7 +197,7 @@ namespace irr
 
                     //buffer vertex data, and convert colours...
                     // TODO: is memcpy necessary?
-                    //core::array<c8> buffer(vertexSize * vertexCount);
+                    //core::array<u8> buffer(vertexSize * vertexCount);
                     //memcpy(buffer.pointer(), vertices, vertexSize * vertexCount);
 
                     auto mem = bgfx::copy(vertices, vertexSize * vertexCount);
@@ -323,34 +324,34 @@ namespace irr
             }
 
             //! Delete hardware buffer (only some drivers can)
-            virtual void deleteHardwareBuffer(SHWBufferLink *HWBuffer)
+            virtual void deleteHardwareBuffer(SHWBufferLink *_HWBuffer)
             {
-                if (!HWBuffer) return;
+                if (!_HWBuffer) return;
 
-                SHWBufferLink_bgfx* buffer = static_cast<SHWBufferLink_bgfx*>(HWBuffer);
-                if (isValid(buffer->vb))
+                SHWBufferLink_bgfx* HWBuffer = static_cast<SHWBufferLink_bgfx*>(_HWBuffer);
+                if (isValid(HWBuffer->vb))
                 {
-                    bgfx::destroyDynamicVertexBuffer(buffer->vb);
-                    buffer->vb = BGFX_INVALID_HANDLE;
+                    bgfx::destroyDynamicVertexBuffer(HWBuffer->vb);
+                    HWBuffer->vb = BGFX_INVALID_HANDLE;
                 }
-                if (isValid(buffer->ib))
+                if (isValid(HWBuffer->ib))
                 {
-                    bgfx::destroyDynamicIndexBuffer(buffer->ib);
-                    buffer->ib = BGFX_INVALID_HANDLE;
+                    bgfx::destroyDynamicIndexBuffer(HWBuffer->ib);
+                    HWBuffer->ib = BGFX_INVALID_HANDLE;
                 }
+                CNullDriver::deleteHardwareBuffer(_HWBuffer);
             }
 
             //! Draw hardware buffer
-            virtual void drawHardwareBuffer(SHWBufferLink *HWBuffer)
+            virtual void drawHardwareBuffer(SHWBufferLink *_HWBuffer)
             {
-                if (!HWBuffer) return;
+                if (!_HWBuffer) return;
 
-                SHWBufferLink_bgfx* buffer = static_cast<SHWBufferLink_bgfx*>(HWBuffer);
-                bgfx::setVertexBuffer(buffer->vb);
-                bgfx::setIndexBuffer(buffer->ib);
+                SHWBufferLink_bgfx* HWBuffer = static_cast<SHWBufferLink_bgfx*>(_HWBuffer);
+                bgfx::setVertexBuffer(HWBuffer->vb);
+                bgfx::setIndexBuffer(HWBuffer->ib);
 
-                bgfx::ProgramHandle progHandle = { 0 };
-                bgfx::submit(kDefaultView, progHandle);
+                bgfx::submit(kDefaultView, CurrentProgramHandle);
             }
 
             //! draws a vertex primitive list
@@ -414,8 +415,7 @@ namespace irr
                 bgfx::setState(BGFX_STATE_DEFAULT);
 
                 // TODO: use hash map
-                bgfx::ProgramHandle mtrlId = { material.MaterialType };
-
+                CurrentProgramHandle = { material.MaterialType };
 #if 0
                 uint8_t stage = 0;
                 bgfx::UniformHandle sampler; // TODO
@@ -612,7 +612,7 @@ namespace irr
             }
 
             //! Adds a new material renderer to the VideoDriver
-            virtual s32 addShaderMaterial(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram,
+            virtual s32 addShaderMaterial(const core::array<u8>& vertexShaderProgram, const core::array<u8>& pixelShaderProgram,
                 IShaderConstantSetCallBack* callback, E_MATERIAL_TYPE baseMaterial, s32 userData)
             {
                 return -1;
@@ -620,13 +620,13 @@ namespace irr
 
             //! Adds a new material renderer to the VideoDriver
             virtual s32 addHighLevelShaderMaterial(
-                const core::array<c8>& vertexShaderProgram,
+                const core::array<u8>& vertexShaderProgram,
                 const c8* vertexShaderEntryPointName = 0,
                 E_VERTEX_SHADER_TYPE vsCompileTarget = EVST_VS_1_1,
-                const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
+                const core::array<u8>& pixelShaderProgram = core::array<u8>(0),
                 const c8* pixelShaderEntryPointName = 0,
                 E_PIXEL_SHADER_TYPE psCompileTarget = EPST_PS_1_1,
-                const core::array<c8>& geometryShaderProgram = core::array<c8>(0),
+                const core::array<u8>& geometryShaderProgram = core::array<u8>(0),
                 const c8* geometryShaderEntryPointName = "main",
                 E_GEOMETRY_SHADER_TYPE gsCompileTarget = EGST_GS_4_0,
                 scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,
@@ -637,13 +637,13 @@ namespace irr
                 s32 userData = 0,
                 E_GPU_SHADING_LANGUAGE shadingLang = EGSL_DEFAULT)
             {
+                // TODO: supports callback & baseMaterial
                 auto vshMem = bgfx::copy(vertexShaderProgram.const_pointer(), vertexShaderProgram.size());
                 auto fshMem = bgfx::copy(pixelShaderProgram.const_pointer(), pixelShaderProgram.size());
                 auto vsh = bgfx::createShader(vshMem);
                 auto fsh = bgfx::createShader(fshMem);
                 auto prog = bgfx::createProgram(vsh, fsh, true);
 
-                // TODO: assign callback
                 return prog.idx;
             }
 
@@ -757,6 +757,7 @@ namespace irr
         private:
             const bgfx::Caps* Caps;
             CBgfxFBOTexture* CurrentFBO;
+            bgfx::ProgramHandle CurrentProgramHandle;
 
             //! returns a device dependent texture from a software surface (IImage)
             virtual ITexture* createDeviceDependentTexture(IImage* surface, const io::path& name, void* mipmapData)

@@ -1188,15 +1188,6 @@
     <ClInclude Include="..\..\include\bx\uint32_t.h">
       <Filter>bx</Filter>
     </ClInclude>
-    <ClInclude Include="..\bgfx\include\bgfx.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\include\bgfxdefines.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
-    <ClInclude Include="..\bgfx\include\bgfxplatform.h">
-      <Filter>bgfx</Filter>
-    </ClInclude>
     <ClInclude Include="..\bgfx\src\bgfx_p.h">
       <Filter>bgfx</Filter>
     </ClInclude>
@@ -1458,6 +1449,15 @@
       <Filter>v7</Filter>
     </ClInclude>
     <ClInclude Include="..\bgfx\src\glcontext_wgl.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\include\bgfx\bgfxplatform.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\include\bgfx\bgfxdefines.h">
+      <Filter>bgfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bgfx\include\bgfx\bgfx.h">
       <Filter>bgfx</Filter>
     </ClInclude>
   </ItemGroup>
