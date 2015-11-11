@@ -281,104 +281,80 @@ COGLES2Driver::~COGLES2Driver()
 #include "../../media/shaders/COGLES2Solid.vsh"
 #include "../../media/shaders/COGLES2Solid.fsh"
 
-        addHighLevelShaderMaterial(COGLES2Solid_vsh, "main", EVST_VS_2_0, COGLES2Solid_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, SolidCB, EMT_SOLID, 0, EGSL_DEFAULT);
+        addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2Solid_fsh, SolidCB, EMT_SOLID);
 
 #include "../../media/shaders/COGLES2Solid2.vsh"
 #include "../../media/shaders/COGLES2Solid2Layer.fsh"
-        addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2Solid2Layer_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, Solid2LayerCB, EMT_SOLID, 0, EGSL_DEFAULT);
+        addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2Solid2Layer_fsh, Solid2LayerCB, EMT_SOLID);
 
 #include "../../media/shaders/COGLES2LightmapModulate.fsh"
 
-        addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2LightmapModulate_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+        addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapCB, EMT_SOLID);
 
 #include "../../media/shaders/COGLES2LightmapAdd.fsh"
 
-		addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2LightmapAdd_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapAddCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapAdd_fsh, LightmapAddCB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2LightmapModulate_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapM2CB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapM2CB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2LightmapModulate_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapM4CB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapM4CB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2LightmapModulate_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapLightingCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapLightingCB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2LightmapModulate_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapLightingM2CB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapLightingM2CB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2LightmapModulate_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, LightmapLightingM4CB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapLightingM4CB, EMT_SOLID);
 
 #include "../../media/shaders/COGLES2DetailMap.fsh"
 
-		addHighLevelShaderMaterial(COGLES2Solid2_vsh, "main", EVST_VS_2_0, COGLES2DetailMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, DetailMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2DetailMap_fsh, DetailMapCB, EMT_SOLID);
 
 #include "../../media/shaders/COGLES2SphereMap.vsh"
 #include "../../media/shaders/COGLES2SphereMap.fsh"
 
-		addHighLevelShaderMaterial(COGLES2SphereMap_vsh, "main", EVST_VS_2_0, COGLES2SphereMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, SphereMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2SphereMap_vsh, COGLES2SphereMap_fsh, SphereMapCB, EMT_SOLID);
 
 #include "../../media/shaders/COGLES2Reflection2Layer.vsh"
 #include "../../media/shaders/COGLES2Reflection2Layer.fsh"
 
-		addHighLevelShaderMaterial(COGLES2Reflection2Layer_vsh, "main", EVST_VS_2_0, COGLES2Reflection2Layer_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, Reflection2LayerCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Reflection2Layer_vsh, COGLES2Reflection2Layer_fsh, Reflection2LayerCB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2Solid_vsh, "main", EVST_VS_2_0, COGLES2Solid_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentAddColorCB, EMT_TRANSPARENT_ADD_COLOR, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2Solid_fsh, TransparentAddColorCB, EMT_TRANSPARENT_ADD_COLOR);
 
 #include "../../media/shaders/COGLES2TransparentAlphaChannel.fsh"
-		addHighLevelShaderMaterial(COGLES2Solid_vsh, "main", EVST_VS_2_0, COGLES2TransparentAlphaChannel_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentAlphaChannelCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2TransparentAlphaChannel_fsh, TransparentAlphaChannelCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
 #include "../../media/shaders/COGLES2TransparentAlphaChannelRef.fsh"
 
-		addHighLevelShaderMaterial(COGLES2Solid_vsh, "main", EVST_VS_2_0, COGLES2TransparentAlphaChannelRef_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentAlphaChannelRefCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2TransparentAlphaChannelRef_fsh, TransparentAlphaChannelRefCB, EMT_SOLID);
 
 #include "../../media/shaders/COGLES2TransparentVertexAlpha.fsh"
 
-		addHighLevelShaderMaterial(COGLES2Solid_vsh, "main", EVST_VS_2_0, COGLES2TransparentVertexAlpha_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2TransparentVertexAlpha_fsh, TransparentVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
-		addHighLevelShaderMaterial(COGLES2Reflection2Layer_vsh, "main", EVST_VS_2_0, COGLES2Reflection2Layer_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, TransparentReflection2LayerCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Reflection2Layer_vsh, COGLES2Reflection2Layer_fsh, TransparentReflection2LayerCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
 #include "../../media/shaders/COGLES2NormalMap.vsh"
 #include "../../media/shaders/COGLES2NormalMap.fsh"
 
-		addHighLevelShaderMaterial(COGLES2NormalMap_vsh, "main", EVST_VS_2_0, COGLES2NormalMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, NormalMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2NormalMap_vsh, COGLES2NormalMap_fsh, NormalMapCB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2NormalMap_vsh, "main", EVST_VS_2_0, COGLES2NormalMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, NormalMapAddColorCB, EMT_TRANSPARENT_ADD_COLOR, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2NormalMap_vsh, COGLES2NormalMap_fsh, NormalMapAddColorCB, EMT_TRANSPARENT_ADD_COLOR);
 
-		addHighLevelShaderMaterial(COGLES2NormalMap_vsh, "main", EVST_VS_2_0, COGLES2NormalMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, NormalMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2NormalMap_vsh, COGLES2NormalMap_fsh, NormalMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
 #include "../../media/shaders/COGLES2ParallaxMap.vsh"
 #include "../../media/shaders/COGLES2ParallaxMap.fsh"
 
-		addHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, "main", EVST_VS_2_0, COGLES2ParallaxMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, ParallaxMapCB, EMT_SOLID, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, COGLES2ParallaxMap_fsh, ParallaxMapCB, EMT_SOLID);
 
-		addHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, "main", EVST_VS_2_0, COGLES2ParallaxMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, ParallaxMapAddColorCB, EMT_TRANSPARENT_ADD_COLOR, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, COGLES2ParallaxMap_fsh, ParallaxMapAddColorCB, EMT_TRANSPARENT_ADD_COLOR);
 
-		addHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, "main", EVST_VS_2_0, COGLES2ParallaxMap_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, ParallaxMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, COGLES2ParallaxMap_fsh, ParallaxMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
 #include "../../media/shaders/COGLES2OneTextureBlend.fsh"
 
-		addHighLevelShaderMaterial(COGLES2Solid_vsh, "main", EVST_VS_2_0, COGLES2OneTextureBlend_fsh, "main", EPST_PS_2_0, "", "main",
-			EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, OneTextureBlendCB, EMT_ONETEXTURE_BLEND, 0, EGSL_DEFAULT);
+		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2OneTextureBlend_fsh, OneTextureBlendCB, EMT_ONETEXTURE_BLEND);
 
 		// Drop callbacks.
 
@@ -410,7 +386,11 @@ COGLES2Driver::~COGLES2Driver()
 		// Create 2D material renderer.
 #include "../../media/shaders/COGLES2Renderer2D.vsh"
 #include "../../media/shaders/COGLES2Renderer2D.fsh"
-        MaterialRenderer2D = new COGLES2Renderer2D(COGLES2Renderer2D_vsh, COGLES2Renderer2D_fsh, this);
+        core::array<c8> vs, ps;
+        vs.set_pointer((c8*)COGLES2Renderer2D_vsh, strlen(COGLES2Renderer2D_vsh), false, false);
+        ps.set_pointer((c8*)COGLES2Renderer2D_fsh, strlen(COGLES2Renderer2D_fsh), false, false);
+
+        MaterialRenderer2D = new COGLES2Renderer2D(vs, ps, this);
 	}
 
 
@@ -507,7 +487,7 @@ bool COGLES2Driver::endScene()
 		const u32 vertexSize = getVertexPitchFromType(vType);
 
 		//buffer vertex data, and convert colours...
-		core::array<u8> buffer(vertexSize * vertexCount);
+		core::array<c8> buffer(vertexSize * vertexCount);
 		memcpy(buffer.pointer(), vertices, vertexSize * vertexCount);
 
 		//get or create buffer
@@ -2390,8 +2370,8 @@ bool COGLES2Driver::endScene()
 
 	//! Adds a new material renderer to the VideoDriver, using pixel and/or
 	//! vertex shaders to render geometry.
-	s32 COGLES2Driver::addShaderMaterial(const core::array<u8>& vertexShaderProgram,
-			const core::array<u8>& pixelShaderProgram,
+	s32 COGLES2Driver::addShaderMaterial(const core::array<c8>& vertexShaderProgram,
+			const core::array<c8>& pixelShaderProgram,
 			IShaderConstantSetCallBack* callback,
 			E_MATERIAL_TYPE baseMaterial, s32 userData)
 	{
@@ -2402,13 +2382,13 @@ bool COGLES2Driver::endScene()
 
 	//! Adds a new material renderer to the VideoDriver, using GLSL to render geometry.
 	s32 COGLES2Driver::addHighLevelShaderMaterial(
-			const core::array<u8>& vertexShaderProgram,
+			const core::array<c8>& vertexShaderProgram,
 			const c8* vertexShaderEntryPointName,
 			E_VERTEX_SHADER_TYPE vsCompileTarget,
-			const core::array<u8>& pixelShaderProgram,
+			const core::array<c8>& pixelShaderProgram,
 			const c8* pixelShaderEntryPointName,
 			E_PIXEL_SHADER_TYPE psCompileTarget,
-			const core::array<u8>& geometryShaderProgram,
+			const core::array<c8>& geometryShaderProgram,
 			const c8* geometryShaderEntryPointName,
 			E_GEOMETRY_SHADER_TYPE gsCompileTarget,
 			scene::E_PRIMITIVE_TYPE inType,

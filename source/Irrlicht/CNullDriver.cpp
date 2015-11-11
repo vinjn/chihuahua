@@ -120,7 +120,7 @@ public:
 #if 1
         return false;
 #else
-        core::array<u8> data(file->getSize());
+        core::array<c8> data(file->getSize());
         file->seek(0);
         file->read(data.pointer(), file->getSize());
         return stbi_info_from_memory((u8*)data.pointer(), file->getSize(), NULL, NULL, NULL) != 0;
@@ -134,7 +134,7 @@ public:
         int height = 0;
         int comp = 0;
 
-        core::array<u8> data(file->getSize());
+        core::array<c8> data(file->getSize());
         file->seek(0);
         file->read(data.pointer(), file->getSize());
         u8* imgRaw = stbi_load_from_memory((u8*)data.pointer(), file->getSize(), &width, &height, &comp, 4);
@@ -2175,13 +2175,13 @@ IGPUProgrammingServices* CNullDriver::getGPUProgrammingServices()
 
 //! Adds a new material renderer to the VideoDriver, based on a high level shading language.
 s32 CNullDriver::addHighLevelShaderMaterial(
-	const core::array<u8>& vertexShaderProgram,
+	const core::array<c8>& vertexShaderProgram,
 	const c8* vertexShaderEntryPointName,
 	E_VERTEX_SHADER_TYPE vsCompileTarget,
-	const core::array<u8>& pixelShaderProgram,
+	const core::array<c8>& pixelShaderProgram,
 	const c8* pixelShaderEntryPointName,
 	E_PIXEL_SHADER_TYPE psCompileTarget,
-	const core::array<u8>& geometryShaderProgram,
+	const core::array<c8>& geometryShaderProgram,
 	const c8* geometryShaderEntryPointName,
 	E_GEOMETRY_SHADER_TYPE gsCompileTarget,
 	scene::E_PRIMITIVE_TYPE inType, scene::E_PRIMITIVE_TYPE outType,
@@ -2285,9 +2285,9 @@ s32 CNullDriver::addHighLevelShaderMaterialFromFiles(
 		E_MATERIAL_TYPE baseMaterial,
 		s32 userData, E_GPU_SHADING_LANGUAGE shadingLang)
 {
-	core::array<u8> vs;
-    core::array<u8> ps;
-    core::array<u8> gs;
+	core::array<c8> vs;
+    core::array<c8> ps;
+    core::array<c8> gs;
 
 	if (vertexShaderProgram)
 	{
@@ -2345,8 +2345,8 @@ s32 CNullDriver::addHighLevelShaderMaterialFromFiles(
 
 //! Adds a new material renderer to the VideoDriver, using pixel and/or
 //! vertex shaders to render geometry.
-s32 CNullDriver::addShaderMaterial(const core::array<u8>& vertexShaderProgram,
-	const core::array<u8>& pixelShaderProgram,
+s32 CNullDriver::addShaderMaterial(const core::array<c8>& vertexShaderProgram,
+	const core::array<c8>& pixelShaderProgram,
 	IShaderConstantSetCallBack* callback,
 	E_MATERIAL_TYPE baseMaterial,
 	s32 userData)
@@ -2364,8 +2364,8 @@ s32 CNullDriver::addShaderMaterialFromFiles(io::IReadFile* vertexShaderProgram,
 	E_MATERIAL_TYPE baseMaterial,
 	s32 userData)
 {
-    core::array<u8> vs;
-    core::array<u8> ps;
+    core::array<c8> vs;
+    core::array<c8> ps;
 
 	if (vertexShaderProgram)
 	{

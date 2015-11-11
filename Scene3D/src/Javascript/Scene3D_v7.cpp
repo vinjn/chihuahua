@@ -535,7 +535,7 @@ void Scene_runScript(const char* scriptFileName)
     auto file = fs->createAndOpenFile(scriptFileName);
     if (file == NULL) return;
 
-    core::array<u8> scriptCode(file->getSize());
+    core::array<c8> scriptCode(file->getSize());
     file->seek(0);
     file->read(scriptCode.pointer(), file->getSize());
     file->drop();

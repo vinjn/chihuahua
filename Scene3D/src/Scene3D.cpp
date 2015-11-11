@@ -484,6 +484,11 @@ long Scene_addMeshNode(const char* meshFileName)
                 // node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, true);
                 // node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, false);
             }
+
+            if (mesh->getMeshType() != scene::EAMT_SKINNED)
+            {
+                // assimp loaded meshes...
+            }
         }
     }
     return (long)node;

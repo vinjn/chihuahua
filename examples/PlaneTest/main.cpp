@@ -33,7 +33,7 @@ int main(int argc, char const* const* argv)
 {
     bx::CommandLine cmdLine(argc, argv);
 
-    device = createDevice(video::EDT_BGFX_OPENGL, dimension2d<u32>(800, 600), 16,
+    device = createDevice(video::EDT_BGFX_D3D11, dimension2d<u32>(800, 600), 16,
         false, false, false, 0);
 
     if (!device)
@@ -72,10 +72,10 @@ int main(int argc, char const* const* argv)
             float lightPosRadius[4][4];
             for (uint32_t ii = 0; ii < m_numLights; ++ii)
             {
-                lightPosRadius[ii][0] = sinf((device->getTimer()->getTime() *(0.1f + ii*0.17f) + ii*HALF_PI*1.37f))*3.0f;
-                lightPosRadius[ii][1] = cosf((device->getTimer()->getTime()*(0.2f + ii*0.29f) + ii*HALF_PI*1.49f))*3.0f;
+                lightPosRadius[ii][0] = sinf((device->getTimer()->getTime() * 0.001f *(0.1f + ii*0.17f) + ii*HALF_PI*1.37f))*100.0f;
+                lightPosRadius[ii][1] = cosf((device->getTimer()->getTime()* 0.001f*(0.2f + ii*0.29f) + ii*HALF_PI*1.49f))*100.0f;
                 lightPosRadius[ii][2] = -2.5f;
-                lightPosRadius[ii][3] = 3.0f;
+                lightPosRadius[ii][3] = 100.0f;
             }
 
             bgfx_set_uniform(u_lightPosRadius, lightPosRadius, m_numLights);
@@ -99,8 +99,8 @@ int main(int argc, char const* const* argv)
 
     // TODO: implement assets system
     s32 mtrlId = gpu->addHighLevelShaderMaterialFromFiles(
-        "../../media/bgfx-shaders/glsl/vs_bump.bin", "main", EVST_VS_1_1,
-        "../../media/bgfx-shaders/glsl/fs_bump.bin", "main");
+        "../../media/bgfx-shaders/dx11/vs_bump.bin", "main", EVST_VS_1_1,
+        "../../media/bgfx-shaders/dx11/fs_bump.bin", "main");
     scene::IMesh* mesh;
 #if 0
     mesh = smgr->getGeometryCreator()->createCubeMesh({ 100, 100, 100 });

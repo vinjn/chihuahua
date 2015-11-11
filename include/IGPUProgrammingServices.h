@@ -85,13 +85,13 @@ public:
 	target is not reachable. The error strings are then printed to the
 	error log and can be catched with a custom event receiver. */
 	virtual s32 addHighLevelShaderMaterial(
-        const core::array<u8>& vertexShaderProgram,
+        const core::array<c8>& vertexShaderProgram,
 		const c8* vertexShaderEntryPointName,
 		E_VERTEX_SHADER_TYPE vsCompileTarget,
-		const core::array<u8>& pixelShaderProgram,
+		const core::array<c8>& pixelShaderProgram,
 		const c8* pixelShaderEntryPointName,
 		E_PIXEL_SHADER_TYPE psCompileTarget,
-		const core::array<u8>& geometryShaderProgram,
+		const core::array<c8>& geometryShaderProgram,
 		const c8* geometryShaderEntryPointName = "main",
 		E_GEOMETRY_SHADER_TYPE gsCompileTarget = EGST_GS_4_0,
 		scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,
@@ -102,12 +102,30 @@ public:
 		s32 userData = 0,
 		E_GPU_SHADING_LANGUAGE shadingLang = EGSL_DEFAULT) = 0;
 
+
+    // Provide back-compatitable method
+    //! Adds a new material renderer to the VideoDriver, based on a high level shading language.
+    s32 addSimpleHighLevelShaderMaterial(
+        const c8* vertexShaderProgram,
+        const c8* pixelShaderProgram,
+        IShaderConstantSetCallBack* callback,
+        E_MATERIAL_TYPE baseMaterial)
+    {
+        core::array<c8> vs;
+        vs.set_pointer((c8*)vertexShaderProgram, strlen(vertexShaderProgram), false, false);
+        core::array<c8> ps;
+        ps.set_pointer((c8*)pixelShaderProgram, strlen(pixelShaderProgram), false, false);
+
+        return addHighLevelShaderMaterial(vs, "main", EVST_VS_2_0, ps, "main", EPST_PS_2_0, core::array<c8>(0), "main",
+            EGST_GS_4_0, scene::EPT_TRIANGLES, scene::EPT_TRIANGLE_STRIP, 0, callback, baseMaterial, 0, EGSL_DEFAULT);
+    }
+
 	//! convenience function for use without geometry shaders
 	s32 addHighLevelShaderMaterial(
-		const core::array<u8>& vertexShaderProgram,
+		const core::array<c8>& vertexShaderProgram,
 		const c8* vertexShaderEntryPointName="main",
 		E_VERTEX_SHADER_TYPE vsCompileTarget=EVST_VS_1_1,
-		const core::array<u8>& pixelShaderProgram=0,
+		const core::array<c8>& pixelShaderProgram=0,
 		const c8* pixelShaderEntryPointName="main",
 		E_PIXEL_SHADER_TYPE psCompileTarget=EPST_PS_1_1,
 		IShaderConstantSetCallBack* callback=0,
@@ -129,8 +147,8 @@ public:
 	type 1.1.
 	*/
 	s32 addHighLevelShaderMaterial(
-		const core::array<u8>& vertexShaderProgram,
-		const core::array<u8>& pixelShaderProgram=0,
+		const core::array<c8>& vertexShaderProgram,
+		const core::array<c8>& pixelShaderProgram=0,
 		IShaderConstantSetCallBack* callback=0,
 		E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
 		s32 userData=0)
@@ -149,9 +167,9 @@ public:
 	type 1.1 and geometry shader 4.0.
 	*/
 	s32 addHighLevelShaderMaterial(
-		const core::array<u8>& vertexShaderProgram,
-        const core::array<u8>& pixelShaderProgram = core::array<u8>(0),
-        const core::array<u8>& geometryShaderProgram = core::array<u8>(0),
+		const core::array<c8>& vertexShaderProgram,
+        const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
+        const core::array<c8>& geometryShaderProgram = core::array<c8>(0),
 		scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,
 		scene::E_PRIMITIVE_TYPE outType = scene::EPT_TRIANGLE_STRIP,
 		u32 verticesOut = 0,
@@ -410,8 +428,8 @@ public:
 	error occured. -1 is returned for example if a vertex or pixel shader
 	program could not be compiled, the error strings are then printed out
 	into the error log, and can be catched with a custom event receiver. */
-    virtual s32 addShaderMaterial(const core::array<u8>& vertexShaderProgram = core::array<u8>(0),
-        const core::array<u8>& pixelShaderProgram = core::array<u8>(0),
+    virtual s32 addShaderMaterial(const core::array<c8>& vertexShaderProgram = core::array<c8>(0),
+        const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
 		IShaderConstantSetCallBack* callback = 0,
 		E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
 		s32 userData = 0) = 0;

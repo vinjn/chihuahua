@@ -32,7 +32,7 @@ public:
 
 	//! Public constructor
 	CD3D9ShaderMaterialRenderer(IDirect3DDevice9* d3ddev, video::IVideoDriver* driver,
-		s32& outMaterialTypeNr, const core::array<u8>& vertexShaderProgram, const core::array<u8>& pixelShaderProgram,
+		s32& outMaterialTypeNr, const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram,
 		IShaderConstantSetCallBack* callback, IMaterialRenderer* baseMaterial, s32 userData);
 
 	//! Destructor
@@ -58,7 +58,7 @@ protected:
 					IMaterialRenderer* baseMaterial,
 					s32 userData=0);
 
-	void init(s32& outMaterialTypeNr, const core::array<u8>& vertexShaderProgram, const c8* pixelShaderProgram);
+    void init(s32& outMaterialTypeNr, const c8* vertexShaderProgram, const c8* pixelShaderProgram);
 	bool createPixelShader(const c8* pxsh);
 	bool createVertexShader(const char* vtxsh);
 

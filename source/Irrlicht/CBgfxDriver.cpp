@@ -221,7 +221,7 @@ namespace irr
 
                     //buffer vertex data, and convert colours...
                     // TODO: is memcpy necessary?
-                    //core::array<u8> buffer(vertexSize * vertexCount);
+                    //core::array<c8> buffer(vertexSize * vertexCount);
                     //memcpy(buffer.pointer(), vertices, vertexSize * vertexCount);
 
                     auto mem = bgfx_copy(vertices, vertexSize * vertexCount);
@@ -459,7 +459,7 @@ namespace irr
 					| BGFX_STATE_ALPHA_WRITE \
 					| BGFX_STATE_DEPTH_TEST_LESS \
 					| BGFX_STATE_DEPTH_WRITE \
-					| BGFX_STATE_CULL_CCW \
+					| BGFX_STATE_CULL_CW \
 					| BGFX_STATE_MSAA \
 					)
                 // TODO: remove it
@@ -712,7 +712,7 @@ namespace irr
             }
 
             //! Adds a new material renderer to the VideoDriver
-            virtual s32 addShaderMaterial(const core::array<u8>& vertexShaderProgram, const core::array<u8>& pixelShaderProgram,
+            virtual s32 addShaderMaterial(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram,
                 IShaderConstantSetCallBack* callback, E_MATERIAL_TYPE baseMaterial, s32 userData)
             {
                 BX_UNIMPLEMENTED();
@@ -721,13 +721,13 @@ namespace irr
 
             //! Adds a new material renderer to the VideoDriver
             virtual s32 addHighLevelShaderMaterial(
-                const core::array<u8>& vertexShaderProgram,
+                const core::array<c8>& vertexShaderProgram,
                 const c8* vertexShaderEntryPointName = 0,
                 E_VERTEX_SHADER_TYPE vsCompileTarget = EVST_VS_1_1,
-                const core::array<u8>& pixelShaderProgram = core::array<u8>(0),
+                const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
                 const c8* pixelShaderEntryPointName = 0,
                 E_PIXEL_SHADER_TYPE psCompileTarget = EPST_PS_1_1,
-                const core::array<u8>& geometryShaderProgram = core::array<u8>(0),
+                const core::array<c8>& geometryShaderProgram = core::array<c8>(0),
                 const c8* geometryShaderEntryPointName = "main",
                 E_GEOMETRY_SHADER_TYPE gsCompileTarget = EGST_GS_4_0,
                 scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,

@@ -16,7 +16,7 @@ namespace irr
 namespace video
 {
 
-COGLES2Renderer2D::COGLES2Renderer2D(const core::array<u8>& vertexShaderProgram, const core::array<u8>& pixelShaderProgram, COGLES2Driver* driver) :
+COGLES2Renderer2D::COGLES2Renderer2D(const core::array<c8>& vertexShaderProgram, const core::array<c8>& pixelShaderProgram, COGLES2Driver* driver) :
 	COGLES2MaterialRenderer(driver, 0, EMT_SOLID)
 {
 #ifdef _DEBUG
@@ -25,7 +25,7 @@ COGLES2Renderer2D::COGLES2Renderer2D(const core::array<u8>& vertexShaderProgram,
 
 	int Temp = 0;
 
-	init(Temp, vertexShaderProgram, pixelShaderProgram, false);
+    init(Temp, vertexShaderProgram.const_pointer(), pixelShaderProgram.const_pointer(), false);
 
 	Driver->getBridgeCalls()->setProgram(Program);
 

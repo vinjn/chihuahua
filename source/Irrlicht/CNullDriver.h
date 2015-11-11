@@ -503,8 +503,8 @@ namespace video
 
 		//! Adds a new material renderer to the VideoDriver, using pixel and/or
 		//! vertex shaders to render geometry.
-		virtual s32 addShaderMaterial(const core::array<u8>& vertexShaderProgram = core::array<u8>(0),
-			const core::array<u8>& pixelShaderProgram = core::array<u8>(0),
+		virtual s32 addShaderMaterial(const core::array<c8>& vertexShaderProgram = core::array<c8>(0),
+			const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
 			IShaderConstantSetCallBack* callback = 0,
 			E_MATERIAL_TYPE baseMaterial = video::EMT_SOLID,
 			s32 userData=0) _IRR_OVERRIDE_;
@@ -537,13 +537,13 @@ namespace video
 		//! Adds a new material renderer to the VideoDriver, based on a high level shading
 		//! language. Currently only HLSL in D3D9 is supported.
 		virtual s32 addHighLevelShaderMaterial(
-			const core::array<u8>& vertexShaderProgram,
+			const core::array<c8>& vertexShaderProgram,
 			const c8* vertexShaderEntryPointName = 0,
 			E_VERTEX_SHADER_TYPE vsCompileTarget = EVST_VS_1_1,
-			const core::array<u8>& pixelShaderProgram = core::array<u8>(0),
+			const core::array<c8>& pixelShaderProgram = core::array<c8>(0),
 			const c8* pixelShaderEntryPointName = 0,
 			E_PIXEL_SHADER_TYPE psCompileTarget = EPST_PS_1_1,
-			const core::array<u8>& geometryShaderProgram = core::array<u8>(0),
+			const core::array<c8>& geometryShaderProgram = core::array<c8>(0),
 			const c8* geometryShaderEntryPointName = "main",
 			E_GEOMETRY_SHADER_TYPE gsCompileTarget = EGST_GS_4_0,
 			scene::E_PRIMITIVE_TYPE inType = scene::EPT_TRIANGLES,

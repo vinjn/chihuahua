@@ -354,7 +354,7 @@ void CQ3LevelMesh::loadVisData(tBSPLump* l, io::IReadFile* file)
 */
 void CQ3LevelMesh::loadEntities(tBSPLump* l, io::IReadFile* file)
 {
-	core::array<u8> entity;
+	core::array<c8> entity;
 	entity.set_used( l->length + 2 );
 	entity[l->length + 1 ] = 0;
 
@@ -1440,7 +1440,7 @@ void CQ3LevelMesh::getConfiguration( io::IReadFile* file )
 	l.offset = file->getPos();
 	l.length = file->getSize ();
 
-	core::array<u8> entity;
+	core::array<c8> entity;
 	entity.set_used( l.length + 2 );
 	entity[l.length + 1 ] = 0;
 
@@ -1602,7 +1602,7 @@ void CQ3LevelMesh::getShader( io::IReadFile* file )
 		return;
 
 	// load script
-	core::array<u8> script;
+	core::array<c8> script;
 	const long len = file->getSize();
 
 	script.set_used( len + 2 );
