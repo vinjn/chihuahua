@@ -145,7 +145,8 @@ public:
             return NULL;
         }
 
-#if 0
+#if 1
+        // TODO: WTF
         // rgb -> bgr
         {
             u8* p = imgRaw;
