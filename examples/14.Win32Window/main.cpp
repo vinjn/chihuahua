@@ -19,8 +19,6 @@ windows book for details.
 
 using namespace irr;
 
-#pragma comment(lib, "irrlicht.lib")
-
 HWND hOKButton;
 HWND hWnd;
 
@@ -58,9 +56,7 @@ static LRESULT CALLBACK CustomWndProc(HWND hWnd, UINT message,
 int main()
 {
 	// ask user for driver
-	video::E_DRIVER_TYPE driverType=driverChoiceConsole();
-	if (driverType==video::EDT_COUNT)
-		return 1;
+    video::E_DRIVER_TYPE driverType = video::EDT_OGLES2;
 
 	printf("Select the render window (some dead window may exist too):\n"\
 		" (a) Window with button (via CreationParam)\n"\
@@ -147,7 +143,7 @@ int main()
 	irr::scene::ISceneManager* smgr = device->getSceneManager();
 	video::IVideoDriver* driver = device->getVideoDriver();
 
-	if (driverType==video::EDT_OPENGL)
+    if (driverType == video::EDT_OGLES2)
 	{
 		HDC HDc=GetDC(hIrrlichtWindow);
 		PIXELFORMATDESCRIPTOR pfd={0};
@@ -186,7 +182,7 @@ int main()
 	driver->getTexture("../../media/irrlicht2_bk.jpg"));
 
 	// This shows that we can render to multiple windows within one application
-	device->getGUIEnvironment()->addStaticText(core::stringw("Second screen render").c_str(),core::recti(0,0,200,200));
+	//device->getGUIEnvironment()->addStaticText(core::stringw("Second screen render").c_str(),core::recti(0,0,200,200));
 
 	// show and execute dialog
 
@@ -215,7 +211,7 @@ int main()
 		if (key=='b')
 		{
 			driver->beginScene(true, true, 0xbbbbbbbb);
-			device->getGUIEnvironment()->drawAll();
+			//device->getGUIEnvironment()->drawAll();
 			driver->endScene();
 		}
 	}
