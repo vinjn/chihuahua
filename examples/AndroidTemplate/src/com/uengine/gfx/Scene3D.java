@@ -52,7 +52,7 @@ public class Scene3D {
 
 	public static native void Scene_destroy();
 
-	public static native void Scene_clear();
+	public static native void Scene_clear(int r, int g, int b, int a);
 
 	public static native void Scene_render();
 

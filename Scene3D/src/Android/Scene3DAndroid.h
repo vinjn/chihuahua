@@ -97,9 +97,9 @@ extern "C"
         Scene_setVisible(visible);
     }
 
-    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Scene_1clear)(JNIEnv * env, jclass cls)
+    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Scene_1clear)(JNIEnv * env, jclass cls, jint r, jint g, jint b, jint a)
     {
-        Scene_clear();
+        Scene_clear(r, g, b, a);
     }
 
     JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Scene_1render)(JNIEnv * env, jclass cls)

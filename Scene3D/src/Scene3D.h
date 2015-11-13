@@ -39,7 +39,7 @@ UENGINE_API long Scene_addEmptyTexture(int width, int height);
 UENGINE_API void Scene_initializeRenderer(int width, int height);
 UENGINE_API void Scene_initializeFromDevice(long device);
 UENGINE_API void Scene_destroy();
-UENGINE_API void Scene_clear();
+UENGINE_API void Scene_clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 UENGINE_API void Scene_render();
 UENGINE_API long Scene_getNodeFromName(const char* nodeName);
 UENGINE_API void Scene_removeNode(long nodePtr);

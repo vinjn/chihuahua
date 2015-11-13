@@ -218,10 +218,10 @@ void Scene_initializeRenderer(int width, int height)
     testGLError("driver->OnResize()");
 }
 
-void Scene_clear()
+void Scene_clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 {
     // printf("Scene_clear()");
-    auto clr = video::SColor(255, 100, 100, 100);
+    auto clr = video::SColor(a, r, g, b);
 	if (effect) effect->setClearColour(clr);
     driver->beginScene(true, true, clr);
     // driver->drawPixel(0, 0, video::SColor(255, 255, 0, 0));
