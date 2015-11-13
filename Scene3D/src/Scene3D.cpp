@@ -59,6 +59,14 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
 
 }
 
+namespace irr
+{
+namespace io
+{
+IFileSystem* createFileSystem();
+}
+}
+
 io::IFileSystem* fs;
 
 video::IVideoDriver* driver;
@@ -124,7 +132,7 @@ static void setupSceneAndCamera()
     }
 
     // ref: https://github.com/Yikun/Design-On-Fingertips/blob/master/magicbookshow/irrAR/irrAR.cpp
-    camera =(scene::CCameraSceneNode*)smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
+    camera = (scene::CCameraSceneNode*)smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
     smgr->setActiveCamera(camera);
 
 #ifdef _IRR_WINDOWS_API_
@@ -133,12 +141,14 @@ static void setupSceneAndCamera()
 
     auto shadowDimen = 512;
     effect->addShadowLight(SShadowLight(1024, vector3df(-15, 30, -15), vector3df(5, 0, 5),
-        video::SColor(255, 255, 255, 255), 20.0f, 60.0f, 30.0f * DEGTORAD));
+                                        video::SColor(255, 255, 255, 255), 20.0f, 60.0f, 30.0f * DEGTORAD));
 #endif
 }
 
 static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)
 {
+    fs = io::createFileSystem();
+
     SIrrlichtCreationParameters params;
     params.DriverType = driverType;
     params.WindowSize.Width = width;
@@ -204,7 +214,7 @@ void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a)
 
 void Scene_initializeRenderer(int width, int height)
 {
-    printf("initializeRenderer()");
+    printf("Scene_initializeRenderer\n");
 
     // TODO: memory leak
     // if (driver == NULL)
@@ -222,7 +232,7 @@ void Scene_clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 {
     // printf("Scene_clear()");
     auto clr = video::SColor(a, r, g, b);
-	if (effect) effect->setClearColour(clr);
+    if (effect) effect->setClearColour(clr);
     driver->beginScene(true, true, clr);
     // driver->drawPixel(0, 0, video::SColor(255, 255, 0, 0));
     // driver->draw2DRectangleOutline(recti(10, 10, 100, 100));
@@ -344,7 +354,6 @@ long Scene_addTexture(const char* textureName)
 #define CHECK_NODE_RETURN(nodePtr) \
     if (nodePtr == 0) \
         {\
-        printf("Empty node.\n"); \
         return; \
         }
 
@@ -442,7 +451,7 @@ void Scene_setAnimationCallback(NodePtrFunctor cb)
 
         virtual void OnAnimationEnd(scene::IAnimatedMeshSceneNode* node)
         {
-            mCallback((long)node);    
+            mCallback((long)node);
         }
         NodePtrFunctor mCallback;
     };
@@ -452,7 +461,11 @@ void Scene_setAnimationCallback(NodePtrFunctor cb)
 
 void Scene_destroy()
 {
+    if (effect) delete effect;
     arRootNode->removeAll();
+    driver->drop();
+    smgr->drop();
+    fs->drop();
 }
 
 void Scene_removeNode(long nodePtr)
@@ -477,7 +490,7 @@ long Scene_addMeshNode(const char* meshFileName)
                 // node->setAnimation(0);
             }
             if (mesh->getMeshType() == scene::EAMT_MD2 ||
-                mesh->getMeshType() == scene::EAMT_3DS)
+                    mesh->getMeshType() == scene::EAMT_3DS)
             {
                 // assimp-loaded mesh has different front / back settings
                 // TODO: make it uniformed
@@ -712,9 +725,9 @@ long Scene_pickNodeFromScreen(int x, int y)
     vector3df hitPt;
     triangle3df hitTri;
     auto hitNode = coll->getSceneNodeAndCollisionPointFromRay(ray,
-        hitPt, hitTri, idBitMask, arRootNode, bNoDebugObjects);
+                   hitPt, hitTri, idBitMask, arRootNode, bNoDebugObjects);
 #endif
-    
+
     if (hitNode)
     {
         printf("hit %s\n", hitNode->getName());
@@ -758,7 +771,7 @@ void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType materi
     {
     case Solid: type = video::EMT_SOLID; break;
     case ColorAdd: type = video::EMT_TRANSPARENT_ADD_COLOR; break;
-    case AlphaBlend: type = video::EMT_TRANSPARENT_ALPHA_CHANNEL; break;
+    case Transparent: type = video::EMT_TRANSPARENT_ALPHA_CHANNEL; break;
     case NormalMap: type = video::EMT_NORMAL_MAP_SOLID; break;
     case LightMap: type = video::EMT_LIGHTMAP; break;
     default: break;
@@ -768,7 +781,7 @@ void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType materi
 
 void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
 {
-	if (!effect) return;
+    if (!effect) return;
 
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
 
@@ -786,6 +799,7 @@ void Scene_setVisible(int visible)
 void Scene_initializeFromDevice(long irrlichtDevice)
 {
     auto device = (IrrlichtDevice*)irrlichtDevice;
+
     fs = device->getFileSystem();
     driver = device->getVideoDriver();
     smgr = device->getSceneManager();

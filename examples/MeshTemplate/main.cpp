@@ -3,8 +3,6 @@
 #include "bx/float4x4_t.h"
 #include "../../Scene3D/src/Scene3D.h"
 
-#include "../../source/IrrIMGUI/includes/IrrIMGUI/IrrIMGUI.h"
-
 using namespace irr;
 
 using namespace core;
@@ -191,7 +189,7 @@ int main(int argc, char const* const* argv)
         //
         // Render
         //
-        Scene_clear();
+        Scene_clear(122, 122, 122, 122);
 
         if (eventRecv.LeftButtonDown)
         {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uEngine", "..\source\Irrlicht\Irrlicht11.0.vcxproj", "{E08E042A-6C45-411B-92BE-3CC31331019F}"
 EndProject
@@ -164,6 +164,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MeshTemplate", "MeshTemplat
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OculusSimple", "OculusSimple\OculusSimple.vcxproj", "{259BC66E-240A-467C-BBD9-36921E5D9A83}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uCreator", "uCreator\uCreator.vcxproj", "{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -461,6 +463,14 @@ Global
 		{259BC66E-240A-467C-BBD9-36921E5D9A83}.Release|Win32.Build.0 = Release|Win32
 		{259BC66E-240A-467C-BBD9-36921E5D9A83}.Release|x64.ActiveCfg = Release|x64
 		{259BC66E-240A-467C-BBD9-36921E5D9A83}.Release|x64.Build.0 = Release|x64
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Debug|Win32.Build.0 = Debug|Win32
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Debug|x64.ActiveCfg = Debug|x64
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Debug|x64.Build.0 = Debug|x64
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Release|Win32.ActiveCfg = Release|Win32
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Release|Win32.Build.0 = Release|Win32
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Release|x64.ActiveCfg = Release|x64
+		{4A1FB5EA-22F5-42A8-AB92-1D2DF5D47FB9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

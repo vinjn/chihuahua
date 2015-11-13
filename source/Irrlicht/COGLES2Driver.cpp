@@ -91,11 +91,10 @@ COGLES2Driver::COGLES2Driver(const SIrrlichtCreationParameters& params,
 		ContextManager->generateContext();
 		ExposedData = ContextManager->getContext();
 		ContextManager->activateContext(ExposedData);
-
-#ifdef _IRR_COMPILE_WITH_WGL_MANAGER_
-        glewInit();
-#endif
 	}
+#ifdef _IRR_COMPILE_WITH_WGL_MANAGER_
+    glewInit();
+#endif
 
 	windowSize = params.WindowSize;
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)

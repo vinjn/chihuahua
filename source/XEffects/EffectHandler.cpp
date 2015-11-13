@@ -153,6 +153,9 @@ AmbientColour(0x0), use32BitDepth(use32BitDepthBuffers), useVSM(useVSMShadows)
 
 EffectHandler::~EffectHandler()
 {
+    delete depthMC;
+    delete shadowMC;
+
 	if(ScreenRTT)
 		driver->removeTexture(ScreenRTT);
 

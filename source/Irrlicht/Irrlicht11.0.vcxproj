@@ -331,7 +331,7 @@
     </Midl>
     <ClCompile>
       <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_IRRIMGUI_STATIC_LIB_;UENGINE_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
+      <PreprocessorDefinitions>UENGINE_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -411,7 +411,7 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_IRRIMGUI_STATIC_LIB_;UENGINE_EXPORTS;WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>UENGINE_EXPORTS;WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -1086,21 +1086,6 @@
     <ClCompile Include="..\bgfx\src\shader_spirv.cpp" />
     <ClCompile Include="..\bgfx\src\vertexdecl.cpp" />
     <ClCompile Include="..\glew\glew.c" />
-    <ClCompile Include="..\imgui\imgui.cpp" />
-    <ClCompile Include="..\imgui\imgui_demo.cpp" />
-    <ClCompile Include="..\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CBasicMemoryLeakDetection.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CChannelBuffer.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CCharFifo.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CGUITexture.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CIMGUIEventReceiver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CIMGUIHandle.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IIMGUIDriver.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IMGUIHelper.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IReferenceCounter.cpp" />
-    <ClCompile Include="..\IrrIMGUI\source\IrrIMGUIInject.cpp" />
     <ClCompile Include="..\v7\v7.c" />
     <ClCompile Include="..\XEffects\CShaderPre.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -1151,17 +1136,6 @@
     <ClInclude Include="..\bgfx\src\vertexdecl.h" />
     <ClInclude Include="..\bgfx\src\vs_clear.bin.h" />
     <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h" />
-    <ClInclude Include="..\imgui\imgui.h" />
-    <ClInclude Include="..\imgui\imgui_internal.h" />
-    <ClInclude Include="..\imgui\stb_rect_pack.h" />
-    <ClInclude Include="..\imgui\stb_textedit.h" />
-    <ClInclude Include="..\imgui\stb_truetype.h" />
-    <ClInclude Include="..\IrrIMGUI\source\CGUITexture.h" />
-    <ClInclude Include="..\IrrIMGUI\source\CIMGUIHandle.h" />
-    <ClInclude Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.h" />
-    <ClInclude Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.h" />
-    <ClInclude Include="..\IrrIMGUI\source\IIMGUIDriver.h" />
-    <ClInclude Include="..\IrrIMGUI\source\IrrIMGUIDebug_priv.h" />
     <ClInclude Include="..\v7\v7.h" />
     <ClInclude Include="..\XEffects\CScreenQuad.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -1643,9 +1617,6 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Irrlicht.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\imgui\install_IMGUI_here.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

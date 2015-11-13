@@ -30,8 +30,8 @@ void ImGui_ImplGlfw_RenderDrawLists(ImDrawData* draw_data)
 {
     // We are using the OpenGL fixed pipeline to make the example code simpler to read!
     // Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, vertex/texcoord/color pointers.
-    GLint last_texture;
-    glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+    GLint last_texture; glGetIntegerv(GL_TEXTURE_BINDING_2D, &last_texture);
+    GLint last_viewport[4]; glGetIntegerv(GL_VIEWPORT, last_viewport);
     glPushAttrib(GL_ENABLE_BIT | GL_COLOR_BUFFER_BIT | GL_TRANSFORM_BIT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -49,7 +49,8 @@ void ImGui_ImplGlfw_RenderDrawLists(ImDrawData* draw_data)
     float fb_height = io.DisplaySize.y * io.DisplayFramebufferScale.y;
     draw_data->ScaleClipRects(io.DisplayFramebufferScale);
 
-    // Setup orthographic projection matrix
+    // Setup viewport, orthographic projection matrix
+    glViewport(0, 0, (GLsizei)io.DisplaySize.x, (GLsizei)io.DisplaySize.y);
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
@@ -80,7 +81,7 @@ void ImGui_ImplGlfw_RenderDrawLists(ImDrawData* draw_data)
             {
                 glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId);
                 glScissor((int)pcmd->ClipRect.x, (int)(fb_height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y));
-                glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, GL_UNSIGNED_SHORT, idx_buffer);
+                glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer);
             }
             idx_buffer += pcmd->ElemCount;
         }
@@ -97,6 +98,7 @@ void ImGui_ImplGlfw_RenderDrawLists(ImDrawData* draw_data)
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glPopAttrib();
+    glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]);
 }
 
 static const char* ImGui_ImplGlfw_GetClipboardText()
@@ -253,13 +255,13 @@ void ImGui_ImplGlfw_NewFrame()
     // (we already got mouse wheel, keyboard keys & characters from glfw callbacks polled in glfwPollEvents())
     if (glfwGetWindowAttrib(g_Window, GLFW_FOCUSED))
     {
-    	double mouse_x, mouse_y;
-    	glfwGetCursorPos(g_Window, &mouse_x, &mouse_y);
-    	io.MousePos = ImVec2((float)mouse_x, (float)mouse_y);   // Mouse position in screen coordinates (set to -1,-1 if no mouse / on another screen, etc.)
+        double mouse_x, mouse_y;
+        glfwGetCursorPos(g_Window, &mouse_x, &mouse_y);
+        io.MousePos = ImVec2((float)mouse_x, (float)mouse_y);   // Mouse position in screen coordinates (set to -1,-1 if no mouse / on another screen, etc.)
     }
     else
     {
-    	io.MousePos = ImVec2(-1,-1);
+        io.MousePos = ImVec2(-1,-1);
     }
    
     for (int i = 0; i < 3; i++)
