@@ -27,6 +27,7 @@ LOCAL_C_INCLUDES := ../include \
 LOCAL_SRC_FILES := \
                     $(Scene3D_PATH)/Scene3D.cpp \
                     $(Scene3D_PATH)/Javascript/Scene3D_v7.cpp \
+                    ../v7/v7.c \
                     $(XEffects_PATH)/CShaderPre.cpp \
                     $(XEffects_PATH)/EffectHandler.cpp \
                     $(XEffects_PATH)/EffectShaders.cpp \

@@ -329,9 +329,6 @@ namespace video
 		//! Type of the material. Specifies how everything is blended together
 		E_MATERIAL_TYPE MaterialType;
 
-        //! How to update uniforms
-        video::IShaderConstantSetCallBack* ShaderCallBack;
-
 		//! How much ambient light (a global light) is reflected by this material.
 		/** The default is full white, meaning objects are completely
 		globally illuminated. Reduce this if you want to see diffuse
@@ -478,6 +475,9 @@ namespace video
 		//! Shall mipmaps be used if available
 		/** Sometimes, disabling mipmap usage can be useful. Default: true */
 		bool UseMipMaps:1;
+
+        //! How to update uniforms
+        video::IShaderConstantSetCallBack* ShaderCallBack;
 
 		//! Gets the texture transformation matrix for level i
 		/** \param i The desired level. Must not be larger than MATERIAL_MAX_TEXTURES.
