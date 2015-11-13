@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\source\IMGUI\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\IMGUI\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\IMGUI\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw_gl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\context.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glew\glew.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\init.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\input.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\monitor.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\wgl_context.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\win32_init.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\win32_monitor.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\win32_time.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\win32_tls.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\win32_window.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\window.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\glfw\src\winmm_joystick.c">
+      <Filter>glfw</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\source\IMGUI\imconfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\IMGUI\imgui.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_glfw_gl3.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\IMGUI\imgui_internal.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\IMGUI\stb_rect_pack.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\IMGUI\stb_textedit.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\IMGUI\stb_truetype.h">
+      <Filter>stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\glfw\src\wgl_context.h">
+      <Filter>glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\glfw\src\win32_platform.h">
+      <Filter>glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\glfw\src\win32_tls.h">
+      <Filter>glfw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\glfw\src\winmm_joystick.h">
+      <Filter>glfw</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{e5d6383e-bb77-4af7-bde2-515259da2ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glfw">
+      <UniqueIdentifier>{7c0f1814-4bd5-4b1c-815b-51738c2f86b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stb">
+      <UniqueIdentifier>{74bb0068-008c-4b5e-bdd3-07a49d5601b8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
