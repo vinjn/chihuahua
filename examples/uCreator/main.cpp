@@ -7,6 +7,7 @@
 #include "glfw/include/GLFW/glfw3.h"
 #include "ImWindow/ImWindow.h"
 #include "uWindows.h"
+#include "include/bx/fpumath.h"
 
 #include "Scene3D/src/Scene3D.h"
 #ifdef _DEBUG
@@ -120,10 +121,9 @@ int main(int, char**)
     glfwMakeContextCurrent(window);
     glewInit();
 
-    int display_w, display_h;
-    glfwGetFramebufferSize(window, &display_w, &display_h);
+    glfwGetFramebufferSize(window, &displayWidth, &displayHeight);
 
-    Scene_initializeRenderer(display_w, display_h);
+    Scene_initializeRenderer(displayWidth, displayHeight);
 
     // Setup ImGui binding
     ImGui_ImplGlfwGL3_Init(window, true);
@@ -168,16 +168,9 @@ int main(int, char**)
     //io.Fonts->AddFontFromFileTTF("../../extra_fonts/DroidSans.ttf", 18.0f);
     //io.Fonts->AddFontFromFileTTF("../../extra_fonts/fontawesome-webfont.ttf", 18.0f, &icons_config, icons_ranges);
 
-    bool show_test_window = true;
-    bool show_another_window = false;
-    ImVec4 clear_color = ImColor(114, 144, 154);
-
-    long nodePtr = Scene_addMeshNode("c:\\Users\\vincentz\\Documents\\VrViewer\\Cerberus_by_Andrew_Maximov\\Cerberus_LP.FBX");
+    long nodePtr = Scene_addMeshNode("c:\\Users\\vincentz\\Documents\\VrViewer\\maya-dio\\Dio.obj");
     MeshNode_setAnimationByIndex(nodePtr, 0);
-    float k = 10;
-    Node_setScale(nodePtr, k, k, k);
-
-    bool show_app_log = true;
+    Node_setMaterialType(nodePtr, Transparent);
 
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -187,67 +180,39 @@ int main(int, char**)
 
         ShowExampleAppMainMenuBar();
 
-#if 0
-        // 1. Show a simple window
-        // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
+        float time = glfwGetTime();
+
+        Scene_clear(100, 100, 100, 255);
+
+        winMgr.Run();
+
+        // sceneWindow
         {
-            static float f = 0.0f;
-            ImGui::Text("Hello, world!");
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-            ImGui::ColorEdit3("clear color", (float*)&clear_color);
-            if (ImGui::Button("Test Window")) show_test_window ^= 1;
-            if (ImGui::Button("Another Window")) show_another_window ^= 1;
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-        }
+            auto sceneWindowPos = sceneWindow->GetLastPosition();
+            auto sceneWindowSize = sceneWindow->GetLastSize();
+            glViewport(sceneWindowPos.x, displayHeight - 1 - sceneWindowPos.y - sceneWindowSize.y, sceneWindowSize.x, sceneWindowSize.y);
 
-        // 2. Show another simple window, this time using an explicit Begin/End pair
-        if (show_another_window)
-        {
-            ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_FirstUseEver);
-            ImGui::Begin("Another Window", &show_another_window);
-            ImGui::Text("Hello");
-            ImGui::End();
-        }
+            float scale[16];
+            float rot[16];
+            float trans[16];
+            float tmp0[16];
+            float mtx[16];
 
-        // 3. Show the ImGui test window. Most of the sample code is in ImGui::ShowTestWindow()
-        if (show_test_window)
-        {
-            ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
-            ImGui::ShowTestWindow(&show_test_window);
-        }
-#endif
+            float k = 0.1f;
+            bx::mtxScale(scale, k, k, k);
+            bx::mtxRotateY(rot, time*0.1f);
+            bx::mtxTranslate(trans, 0, 0, 30);
+            //bx::mtxMul(tmp0, scale, rot);
+            bx::mtxMul(mtx, rot, trans);
 
-        // Rendering
-        //glViewport(0, 0, display_w, display_h);
-        //glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-        //glClear(GL_COLOR_BUFFER_BIT);
+            float proj[16];
+            bx::mtxProj(proj, 60.0f, sceneWindowSize.x / sceneWindowSize.y, 0.1f, 1000.0f, true);
 
-        Scene_clear(clear_color.x * 255, clear_color.y * 255, clear_color.z * 255, clear_color.w * 255);
-        {
-            // from Metaio SDK
-            float modelMatrix[] =
-            {
-                0.99942285, 0.020722449, -0.026918545, 0.0,
-                -0.02240616, 0.9977092, -0.06383123, 0.0,
-                0.025534146, 0.06439753, 0.9975976, 0.0,
-                -38.078552, -193.14294, -1045.8368, 1.0
-            };
-            float proj[] =
-            {
-                3.4011114, 0.0, 0.0, 0.0,
-                0.0, 1.9131252, 0.0, 0.0,
-                -9.2589855E-4, 5.208254E-4, -1.0033389, -1.0,
-                0.0, 0.0, -100.16695, 0.0
-            };
-
-            Node_setModelMatrix(nodePtr, modelMatrix);
+            Node_setModelMatrix(nodePtr, mtx);
             Camera_setProjectionMatrix(proj);
             Scene_render();
         }
 
-        winMgr.Run();
-
-        ImGui::Render();
         glfwSwapBuffers(window);
     }
 
