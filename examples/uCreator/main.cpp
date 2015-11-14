@@ -4,7 +4,7 @@
 #include "imgui_impl_glfw_gl3.h"
 #include <stdio.h>
 #include "../../source/glew/GL/glew.h"
-#include <GLFW/glfw3.h>
+#include "../../source/glfw/include/GLFW/glfw3.h"
 
 #include "Scene3D/src/Scene3D.h"
 #ifdef _DEBUG
@@ -16,6 +16,169 @@
 static void error_callback(int error, const char* description)
 {
     fprintf(stderr, "Error %d: %s\n", error, description);
+}
+
+
+// Usage:
+//  static ExampleAppLog my_log;
+//  my_log.AddLog("Hello %d world\n", 123);
+//  my_log.Draw("title");
+struct ExampleAppLog
+{
+    ImGuiTextBuffer     Buf;
+    ImGuiTextFilter     Filter;
+    ImVector<int>       LineOffsets;        // Index to lines offset
+    bool                ScrollToBottom;
+
+    void    Clear()     { Buf.clear(); LineOffsets.clear(); }
+
+    void    AddLog(const char* fmt, ...) IM_PRINTFARGS(2)
+    {
+        int old_size = Buf.size();
+        va_list args;
+        va_start(args, fmt);
+        Buf.appendv(fmt, args);
+        va_end(args);
+        for (int new_size = Buf.size(); old_size < new_size; old_size++)
+            if (Buf[old_size] == '\n')
+                LineOffsets.push_back(old_size);
+        ScrollToBottom = true;
+    }
+
+    void    Draw(const char* title, bool* p_opened = NULL)
+    {
+        ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiSetCond_FirstUseEver);
+        ImGui::Begin(title, p_opened);
+        if (ImGui::Button("Clear")) Clear();
+        ImGui::SameLine();
+        bool copy = ImGui::Button("Copy");
+        ImGui::SameLine();
+        Filter.Draw("Filter", -100.0f);
+        ImGui::Separator();
+        ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
+        if (copy) ImGui::LogToClipboard();
+
+        if (Filter.IsActive())
+        {
+            const char* buf_begin = Buf.begin();
+            const char* line = buf_begin;
+            for (int line_no = 0; line != NULL; line_no++)
+            {
+                const char* line_end = (line_no < LineOffsets.Size) ? buf_begin + LineOffsets[line_no] : NULL;
+                if (Filter.PassFilter(line, line_end))
+                    ImGui::TextUnformatted(line, line_end);
+                line = line_end && line_end[1] ? line_end + 1 : NULL;
+            }
+        }
+        else
+        {
+            ImGui::TextUnformatted(Buf.begin());
+        }
+
+        if (ScrollToBottom)
+            ImGui::SetScrollHere(1.0f);
+        ScrollToBottom = false;
+        ImGui::EndChild();
+        ImGui::End();
+    }
+};
+
+#define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
+
+static void ShowExampleAppLog(bool* opened)
+{
+    static ExampleAppLog log;
+
+    // Demo fill
+    static float last_time = -1.0f;
+    float time = ImGui::GetTime();
+    if (time - last_time >= 0.3f)
+    {
+        const char* random_words[] = { "system", "info", "warning", "error", "fatal", "notice", "log" };
+        log.AddLog("[%s] Hello, time is %.1f, rand() %d\n", random_words[rand() % IM_ARRAYSIZE(random_words)], time, (int)rand());
+        last_time = time;
+    }
+
+    log.Draw("Example: Log", opened);
+}
+
+
+static void ShowExampleMenuFile()
+{
+    ImGui::MenuItem("(dummy menu)", NULL, false, false);
+    if (ImGui::MenuItem("New")) {}
+    if (ImGui::MenuItem("Open", "Ctrl+O")) {}
+    if (ImGui::BeginMenu("Open Recent"))
+    {
+        ImGui::MenuItem("fish_hat.c");
+        ImGui::MenuItem("fish_hat.inl");
+        ImGui::MenuItem("fish_hat.h");
+        if (ImGui::BeginMenu("More.."))
+        {
+            ImGui::MenuItem("Hello");
+            ImGui::MenuItem("Sailor");
+            if (ImGui::BeginMenu("Recurse.."))
+            {
+                ShowExampleMenuFile();
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMenu();
+    }
+    if (ImGui::MenuItem("Save", "Ctrl+S")) {}
+    if (ImGui::MenuItem("Save As..")) {}
+    ImGui::Separator();
+    if (ImGui::BeginMenu("Options"))
+    {
+        static bool enabled = true;
+        ImGui::MenuItem("Enabled", "", &enabled);
+        ImGui::BeginChild("child", ImVec2(0, 60), true);
+        for (int i = 0; i < 10; i++)
+            ImGui::Text("Scrolling Text %d", i);
+        ImGui::EndChild();
+        static float f = 0.5f;
+        static int n = 0;
+        ImGui::SliderFloat("Value", &f, 0.0f, 1.0f);
+        ImGui::InputFloat("Input", &f, 0.1f);
+        ImGui::Combo("Combo", &n, "Yes\0No\0Maybe\0\0");
+        ImGui::EndMenu();
+    }
+    if (ImGui::BeginMenu("Colors"))
+    {
+        for (int i = 0; i < ImGuiCol_COUNT; i++)
+            ImGui::MenuItem(ImGui::GetStyleColName((ImGuiCol)i));
+        ImGui::EndMenu();
+    }
+    if (ImGui::BeginMenu("Disabled", false)) // Disabled
+    {
+        IM_ASSERT(0);
+    }
+    if (ImGui::MenuItem("Checked", NULL, true)) {}
+    if (ImGui::MenuItem("Quit", "Alt+F4")) {}
+}
+
+static void ShowExampleAppMainMenuBar()
+{
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            ShowExampleMenuFile();
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Edit"))
+        {
+            if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+            if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+            ImGui::Separator();
+            if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+            if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+            if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
+    }
 }
 
 int main(int, char**)
@@ -30,11 +193,18 @@ int main(int, char**)
 #if __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
-    GLFWwindow* window = glfwCreateWindow(1024, 768, "uCreator", NULL, NULL);
+    auto vidMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    auto displayWidth = vidMode->width - 80;
+    auto displayHeight = vidMode->height - 80;
+
+    GLFWwindow* window = glfwCreateWindow(displayWidth, displayHeight, "uCreator", NULL, NULL);
     glfwMakeContextCurrent(window);
     glewInit();
 
-    Scene_initializeRenderer(1024, 768);
+    int display_w, display_h;
+    glfwGetFramebufferSize(window, &display_w, &display_h);
+
+    Scene_initializeRenderer(display_w, display_h);
 
     // Setup ImGui binding
     ImGui_ImplGlfwGL3_Init(window, true);
@@ -64,11 +234,16 @@ int main(int, char**)
     float k = 10;
     Node_setScale(nodePtr, k, k, k);
 
+    bool show_app_log = true;
+
     // Main loop
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
         ImGui_ImplGlfwGL3_NewFrame();
+
+        ShowExampleAppMainMenuBar();
+        if (show_app_log) ShowExampleAppLog(&show_app_log);
 
         // 1. Show a simple window
         // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
@@ -99,8 +274,6 @@ int main(int, char**)
         }
 
         // Rendering
-        int display_w, display_h;
-        glfwGetFramebufferSize(window, &display_w, &display_h);
         //glViewport(0, 0, display_w, display_h);
         //glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         //glClear(GL_COLOR_BUFFER_BIT);

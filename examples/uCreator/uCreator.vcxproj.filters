@@ -11,9 +11,6 @@
     <ClCompile Include="..\..\source\IMGUI\imgui_draw.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_glfw_gl3.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\source\glfw\src\context.c">
       <Filter>glfw</Filter>
     </ClCompile>
@@ -53,15 +50,13 @@
     <ClCompile Include="..\..\source\glfw\src\winmm_joystick.c">
       <Filter>glfw</Filter>
     </ClCompile>
+    <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\IMGUI\imconfig.h">
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\IMGUI\imgui.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_impl_glfw_gl3.h">
       <Filter>imgui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\source\IMGUI\imgui_internal.h">
@@ -88,6 +83,7 @@
     <ClInclude Include="..\..\source\glfw\src\winmm_joystick.h">
       <Filter>glfw</Filter>
     </ClInclude>
+    <ClInclude Include="imgui_impl_glfw_gl3.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">

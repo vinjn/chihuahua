@@ -9,12 +9,12 @@
 
 // GL3W/GLFW
 #include "../../source/glew/GL/glew.h"
-#include <GLFW/glfw3.h>
+#include "../../source/glfw/include/GLFW/glfw3.h"
 #ifdef _WIN32
 #undef APIENTRY
 #define GLFW_EXPOSE_NATIVE_WIN32
 #define GLFW_EXPOSE_NATIVE_WGL
-#include <GLFW/glfw3native.h>
+#include "../../source/glfw/include/GLFW/glfw3native.h"
 #endif
 
 // Data
