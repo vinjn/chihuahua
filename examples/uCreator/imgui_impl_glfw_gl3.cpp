@@ -4,17 +4,17 @@
 // See main.cpp for an example of using this.
 // https://github.com/ocornut/imgui
 
-#include "../../source/IMGUI/imgui.h"
+#include "IMGUI/imgui.h"
 #include "imgui_impl_glfw_gl3.h"
 
 // GL3W/GLFW
-#include "../../source/glew/GL/glew.h"
-#include "../../source/glfw/include/GLFW/glfw3.h"
+#include "glew/GL/glew.h"
+#include "glfw/include/GLFW/glfw3.h"
 #ifdef _WIN32
 #undef APIENTRY
 #define GLFW_EXPOSE_NATIVE_WIN32
 #define GLFW_EXPOSE_NATIVE_WGL
-#include "../../source/glfw/include/GLFW/glfw3native.h"
+#include "glfw/include/GLFW/glfw3native.h"
 #endif
 
 // Data

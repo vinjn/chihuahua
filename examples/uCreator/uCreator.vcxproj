@@ -90,7 +90,7 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\glfw\include;$(SolutionDir)\libs\gl3w;..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../source/;$(SolutionDir)\libs\glfw\include;$(SolutionDir)\libs\gl3w;..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_GLFW_USE_OPENGL;_GLFW_WGL;_GLFW_WIN32;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -121,7 +121,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\libs\glfw\include;$(SolutionDir)\libs\gl3w;..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../source/;$(SolutionDir)\libs\glfw\include;$(SolutionDir)\libs\gl3w;..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_GLFW_USE_OPENGL;_GLFW_WGL;_GLFW_WIN32;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -172,6 +172,7 @@
     <ClCompile Include="..\..\source\IMGUI\imgui_demo.cpp" />
     <ClCompile Include="..\..\source\IMGUI\imgui_draw.cpp" />
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="ImWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,8 @@
     <ClInclude Include="..\..\source\IMGUI\stb_textedit.h" />
     <ClInclude Include="..\..\source\IMGUI\stb_truetype.h" />
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="ImwConfig.h" />
+    <ClInclude Include="ImWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

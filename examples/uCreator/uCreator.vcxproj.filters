@@ -51,6 +51,9 @@
       <Filter>glfw</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="ImWindow.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\IMGUI\imconfig.h">
@@ -84,6 +87,12 @@
       <Filter>glfw</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="ImwConfig.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImWindow.h">
+      <Filter>imgui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">
