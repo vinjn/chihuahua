@@ -171,8 +171,8 @@
     <ClCompile Include="..\..\source\IMGUI\imgui.cpp" />
     <ClCompile Include="..\..\source\IMGUI\imgui_demo.cpp" />
     <ClCompile Include="..\..\source\IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="..\..\source\ImWindow\ImWindow.cpp" />
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
-    <ClCompile Include="ImWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +186,10 @@
     <ClInclude Include="..\..\source\IMGUI\stb_rect_pack.h" />
     <ClInclude Include="..\..\source\IMGUI\stb_textedit.h" />
     <ClInclude Include="..\..\source\IMGUI\stb_truetype.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImwConfig.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImWindow.h" />
+    <ClInclude Include="uWindows.h" />
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
-    <ClInclude Include="ImwConfig.h" />
-    <ClInclude Include="ImWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

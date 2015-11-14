@@ -1,10 +1,12 @@
 // ImGui - standalone example application for Glfw + OpenGL 3, using programmable pipeline
 
-#include "../../source/IMGUI/imgui.h"
+#include "IMGUI/imgui.h"
 #include "imgui_impl_glfw_gl3.h"
 #include <stdio.h>
-#include "../../source/glew/GL/glew.h"
-#include "../../source/glfw/include/GLFW/glfw3.h"
+#include "glew/GL/glew.h"
+#include "glfw/include/GLFW/glfw3.h"
+#include "ImWindow/ImWindow.h"
+#include "uWindows.h"
 
 #include "Scene3D/src/Scene3D.h"
 #ifdef _DEBUG
@@ -18,90 +20,7 @@ static void error_callback(int error, const char* description)
     fprintf(stderr, "Error %d: %s\n", error, description);
 }
 
-
-// Usage:
-//  static ExampleAppLog my_log;
-//  my_log.AddLog("Hello %d world\n", 123);
-//  my_log.Draw("title");
-struct ExampleAppLog
-{
-    ImGuiTextBuffer     Buf;
-    ImGuiTextFilter     Filter;
-    ImVector<int>       LineOffsets;        // Index to lines offset
-    bool                ScrollToBottom;
-
-    void    Clear()     { Buf.clear(); LineOffsets.clear(); }
-
-    void    AddLog(const char* fmt, ...) IM_PRINTFARGS(2)
-    {
-        int old_size = Buf.size();
-        va_list args;
-        va_start(args, fmt);
-        Buf.appendv(fmt, args);
-        va_end(args);
-        for (int new_size = Buf.size(); old_size < new_size; old_size++)
-            if (Buf[old_size] == '\n')
-                LineOffsets.push_back(old_size);
-        ScrollToBottom = true;
-    }
-
-    void    Draw(const char* title, bool* p_opened = NULL)
-    {
-        ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiSetCond_FirstUseEver);
-        ImGui::Begin(title, p_opened);
-        if (ImGui::Button("Clear")) Clear();
-        ImGui::SameLine();
-        bool copy = ImGui::Button("Copy");
-        ImGui::SameLine();
-        Filter.Draw("Filter", -100.0f);
-        ImGui::Separator();
-        ImGui::BeginChild("scrolling", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-        if (copy) ImGui::LogToClipboard();
-
-        if (Filter.IsActive())
-        {
-            const char* buf_begin = Buf.begin();
-            const char* line = buf_begin;
-            for (int line_no = 0; line != NULL; line_no++)
-            {
-                const char* line_end = (line_no < LineOffsets.Size) ? buf_begin + LineOffsets[line_no] : NULL;
-                if (Filter.PassFilter(line, line_end))
-                    ImGui::TextUnformatted(line, line_end);
-                line = line_end && line_end[1] ? line_end + 1 : NULL;
-            }
-        }
-        else
-        {
-            ImGui::TextUnformatted(Buf.begin());
-        }
-
-        if (ScrollToBottom)
-            ImGui::SetScrollHere(1.0f);
-        ScrollToBottom = false;
-        ImGui::EndChild();
-        ImGui::End();
-    }
-};
-
-#define IM_ARRAYSIZE(_ARR)  ((int)(sizeof(_ARR)/sizeof(*_ARR)))
-
-static void ShowExampleAppLog(bool* opened)
-{
-    static ExampleAppLog log;
-
-    // Demo fill
-    static float last_time = -1.0f;
-    float time = ImGui::GetTime();
-    if (time - last_time >= 0.3f)
-    {
-        const char* random_words[] = { "system", "info", "warning", "error", "fatal", "notice", "log" };
-        log.AddLog("[%s] Hello, time is %.1f, rand() %d\n", random_words[rand() % IM_ARRAYSIZE(random_words)], time, (int)rand());
-        last_time = time;
-    }
-
-    log.Draw("Example: Log", opened);
-}
-
+using namespace ImWindow;
 
 static void ShowExampleMenuFile()
 {
@@ -209,6 +128,30 @@ int main(int, char**)
     // Setup ImGui binding
     ImGui_ImplGlfwGL3_Init(window, true);
 
+    ImwWindowManager winMgr;
+    winMgr.Init();
+
+    auto hierachyWindow = new HierarchyWindow();
+    auto sceneWindow = new SceneWindow();
+    auto gameWindow = new GameWindow();
+    auto projectWindow = new ProjectWindow();
+    auto consoleWindow = new ConsoleWindow();
+    auto inspectorWindow = new InspectorWindow();
+
+    // right
+    winMgr.Dock(inspectorWindow);
+
+    // bottom
+    winMgr.DockWith(projectWindow, inspectorWindow, E_DOCK_ORIENTATION_LEFT);
+    winMgr.DockWith(consoleWindow, projectWindow, E_DOCK_ORIENTATION_CENTER);
+
+    // top-right
+    winMgr.DockWith(sceneWindow, projectWindow, E_DOCK_ORIENTATION_TOP);
+    winMgr.DockWith(gameWindow, sceneWindow, E_DOCK_ORIENTATION_CENTER);
+
+    // top-left
+    winMgr.DockWith(hierachyWindow, sceneWindow, E_DOCK_ORIENTATION_LEFT);
+
     // Load Fonts
     // (see extra_fonts/README.txt for more details)
     //ImGuiIO& io = ImGui::GetIO();
@@ -243,8 +186,8 @@ int main(int, char**)
         ImGui_ImplGlfwGL3_NewFrame();
 
         ShowExampleAppMainMenuBar();
-        if (show_app_log) ShowExampleAppLog(&show_app_log);
 
+#if 0
         // 1. Show a simple window
         // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in a window automatically called "Debug"
         {
@@ -272,6 +215,7 @@ int main(int, char**)
             ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
             ImGui::ShowTestWindow(&show_test_window);
         }
+#endif
 
         // Rendering
         //glViewport(0, 0, display_w, display_h);
@@ -300,6 +244,8 @@ int main(int, char**)
             Camera_setProjectionMatrix(proj);
             Scene_render();
         }
+
+        winMgr.Run();
 
         ImGui::Render();
         glfwSwapBuffers(window);
