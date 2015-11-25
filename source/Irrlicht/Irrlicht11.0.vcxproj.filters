@@ -124,14 +124,11 @@
     <Filter Include="glew">
       <UniqueIdentifier>{7830df64-2f7e-4aed-8c26-102473c5c210}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IrrIMGUI">
-      <UniqueIdentifier>{80fdc982-cfc0-4c21-b53e-d5c41d630719}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="imgui">
-      <UniqueIdentifier>{98c40eca-ee73-4897-b82f-121ececfdcdc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="v7">
       <UniqueIdentifier>{3ff89e7c-6c1f-46b8-9202-8680f50af547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glfw">
+      <UniqueIdentifier>{a1b7fb96-4884-4117-a460-aac2ee196c8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1340,39 +1337,6 @@
     <ClInclude Include="..\XEffects\CScreenQuad.h">
       <Filter>XEffects</Filter>
     </ClInclude>
-    <ClInclude Include="..\IrrIMGUI\source\CGUITexture.h">
-      <Filter>IrrIMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IrrIMGUI\source\CIMGUIHandle.h">
-      <Filter>IrrIMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.h">
-      <Filter>IrrIMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.h">
-      <Filter>IrrIMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IrrIMGUI\source\IIMGUIDriver.h">
-      <Filter>IrrIMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\IrrIMGUI\source\IrrIMGUIDebug_priv.h">
-      <Filter>IrrIMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\imgui\imgui.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\imgui\imgui_internal.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\imgui\stb_rect_pack.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\imgui\stb_textedit.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\imgui\stb_truetype.h">
-      <Filter>imgui</Filter>
-    </ClInclude>
     <ClInclude Include="..\v7\v7.h">
       <Filter>v7</Filter>
     </ClInclude>
@@ -2300,51 +2264,6 @@
     <ClCompile Include="..\glew\glew.c">
       <Filter>glew</Filter>
     </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\CBasicMemoryLeakDetection.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\CChannelBuffer.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\CCharFifo.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\CGUITexture.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\CIMGUIEventReceiver.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\CIMGUIHandle.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\CIrrlichtIMGUIDriver.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\COpenGLIMGUIDriver.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\IIMGUIDriver.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\IMGUIHelper.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\IReferenceCounter.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\IrrIMGUI\source\IrrIMGUIInject.cpp">
-      <Filter>IrrIMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\imgui\imgui.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\imgui\imgui_demo.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\imgui\imgui_draw.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\v7\v7.c">
       <Filter>v7</Filter>
     </ClCompile>
@@ -2408,10 +2327,5 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Irrlicht.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\imgui\install_IMGUI_here.txt">
-      <Filter>imgui</Filter>
-    </Text>
   </ItemGroup>
 </Project>

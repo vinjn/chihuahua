@@ -3,8 +3,6 @@
 #include "bx/float4x4_t.h"
 #include "../../Scene3D/src/Scene3D.h"
 
-#include "../../source/IrrIMGUI/includes/IrrIMGUI/IrrIMGUI.h"
-
 using namespace irr;
 
 using namespace core;

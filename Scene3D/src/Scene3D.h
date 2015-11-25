@@ -61,7 +61,7 @@ typedef enum
 {
     Solid,
     ColorAdd,
-    AlphaBlend,
+    Transparent,
     NormalMap,
     LightMap,
     MaterialType_EnumSize  = 0x7fffffff ///< \internal Force type int32_t.

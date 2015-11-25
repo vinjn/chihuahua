@@ -57,8 +57,6 @@ extern "C"
         AAssetManager* amgr = AAssetManager_fromJava(env, assetManager);
 
         // TODO: recreation
-
-        fs = io::createFileSystem();
         io::CAndroidAssetFileArchive* assets = new io::CAndroidAssetFileArchive(amgr, false, false);
         assets->addDirectoryToFileList("");
         fs->addFileArchive(assets);
