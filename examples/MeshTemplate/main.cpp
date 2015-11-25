@@ -84,7 +84,7 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    long nodePtr = Scene_addMeshNode("minion.fbx");
+    long nodePtr = Scene_addMeshNode("pose08.FBX");
     MeshNode_setAnimationByIndex(nodePtr, 0);
     f32 k = 10;
     Node_setScale(nodePtr, k, k, k);
@@ -191,7 +191,7 @@ int main(int argc, char const* const* argv)
         //
         // Render
         //
-        Scene_clear();
+        Scene_clear(122, 122, 122, 122);
 
         if (eventRecv.LeftButtonDown)
         {
