@@ -11,14 +11,8 @@ LOCAL_MODULE := Scene3D
 
 LOCAL_CFLAGS := -D_IRR_ANDROID_PLATFORM_ -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
 
-# uncomment the next line to make DEBUG libarry
-#define NDEBUG
-
-ifndef NDEBUG
 LOCAL_CFLAGS += -g -D_DEBUG
-else
-LOCAL_CFLAGS += -fexpensive-optimizations -O3
-endif
+# LOCAL_CFLAGS += -fexpensive-optimizations -O3
 
 LOCAL_C_INCLUDES := ../include \
                     ../source/assimp/include \
