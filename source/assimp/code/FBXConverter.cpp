@@ -2767,9 +2767,6 @@ private:
                     ++next_pos[i];
                 }
 
-                // vinjn: fix a bug
-                if (ksize == 0) break;
-
                 const size_t id0 = next_pos[i]>0 ? next_pos[i]-1 : 0;
                 const size_t id1 = next_pos[i]==ksize ? ksize-1 : next_pos[i];
 

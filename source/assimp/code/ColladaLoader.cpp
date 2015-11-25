@@ -169,8 +169,6 @@ void ColladaLoader::InternReadFile( const std::string& pFile, aiScene* pScene, I
     // ... then fill the materials with the now adjusted settings
     FillMaterials(parser, pScene);
 
-    // vinjn hack
-    parser.mUnitSize = 1;
         // Apply unitsize scale calculation
         pScene->mRootNode->mTransformation *= aiMatrix4x4(parser.mUnitSize, 0,  0,  0,
                                                           0,  parser.mUnitSize,  0,  0,
