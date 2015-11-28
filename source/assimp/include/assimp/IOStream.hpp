@@ -62,9 +62,6 @@ namespace Assimp    {
  *  implementation for IOSystem that creates instances of your custom IO class.
 */
 class ASSIMP_API IOStream
-#ifndef SWIG
-    : public Intern::AllocateFromAssimpHeap
-#endif
 {
 protected:
     /** Constructor protected, use IOSystem::Open() to create an instance. */

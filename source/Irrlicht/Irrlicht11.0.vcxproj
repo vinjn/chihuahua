@@ -330,7 +330,7 @@
       <TypeLibraryName>.\..\Debug/Irrlicht.tlb</TypeLibraryName>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\contrib\rapidjson\include\;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UENGINE_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -410,7 +410,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\contrib\rapidjson\include\;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>UENGINE_EXPORTS;WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -491,7 +491,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\contrib\rapidjson\include\;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>false</ExceptionHandling>
@@ -579,7 +579,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\contrib\rapidjson\include\;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_IRR_STATIC_LIB_;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions); _ITERATOR_DEBUG_LEVEL=0</PreprocessorDefinitions>
       <ExceptionHandling>
       </ExceptionHandling>
@@ -641,7 +641,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\contrib\rapidjson\include\;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_IRR_STATIC_LIB_;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
@@ -711,7 +711,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\contrib\rapidjson\include\;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_IRR_STATIC_LIB_;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling>
@@ -785,7 +785,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\IrrIMGUI\includes;..\..\include\compat\msvc;..\bgfx\include;..\3rdparty\khronos;..\assimp\contrib\rapidjson\include\;..\assimp\code\BoostWorkaround;..\assimp\include;..\..\include;zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;IRRLICHT_EXPORTS;_CRT_SECURE_NO_DEPRECATE;_IRR_USE_SDL_DEVICE_=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>
       </ExceptionHandling>
@@ -1049,6 +1049,9 @@
     <ClInclude Include="..\assimp\code\FBXTokenizer.h" />
     <ClInclude Include="..\assimp\code\FBXUtil.h" />
     <ClInclude Include="..\assimp\code\GenVertexNormalsProcess.h" />
+    <ClInclude Include="..\assimp\code\glTFFileData.h" />
+    <ClInclude Include="..\assimp\code\glTFImporter.h" />
+    <ClInclude Include="..\assimp\code\glTFUtil.h" />
     <ClInclude Include="..\assimp\code\PlyLoader.h" />
     <ClInclude Include="..\assimp\code\PlyParser.h" />
     <ClInclude Include="..\assimp\code\ProcessHelper.h" />
@@ -1061,6 +1064,8 @@
     <ClCompile Include="..\assimp\code\ColladaLoader.cpp" />
     <ClCompile Include="..\assimp\code\ColladaParser.cpp" />
     <ClCompile Include="..\assimp\code\DXFLoader.cpp" />
+    <ClCompile Include="..\assimp\code\glTFImporter.cpp" />
+    <ClCompile Include="..\assimp\code\glTFUtil.cpp" />
     <ClCompile Include="..\assimp\code\ObjFileImporter.cpp" />
     <ClCompile Include="..\assimp\code\ObjFileMtlImporter.cpp" />
     <ClCompile Include="..\assimp\code\ObjFileParser.cpp" />

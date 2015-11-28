@@ -82,9 +82,9 @@ int main(int argc, char const* const* argv)
 
     const float kCamDistZ = 40;
 
-    long nodePtr = Scene_addMeshNode("pose08.FBX");
+    long nodePtr = Scene_addMeshNode("duck/duck.gltf");
     MeshNode_setAnimationByIndex(nodePtr, 0);
-    f32 k = 10;
+    f32 k = 100;
     Node_setScale(nodePtr, k, k, k);
 
     //IrrIMGUI::CIMGUIEventReceiver EventReceiver;

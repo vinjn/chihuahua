@@ -130,6 +130,9 @@
     <Filter Include="glfw">
       <UniqueIdentifier>{a1b7fb96-4884-4117-a460-aac2ee196c8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assimp\importer\gltf">
+      <UniqueIdentifier>{2288610b-178f-40f2-a22d-df107170b8f1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\IEventReceiver.h">
@@ -1460,6 +1463,15 @@
     <ClInclude Include="..\bgfx\src\vs_debugfont.bin.h">
       <Filter>bgfx</Filter>
     </ClInclude>
+    <ClInclude Include="..\assimp\code\glTFUtil.h">
+      <Filter>assimp\importer\gltf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\assimp\code\glTFImporter.h">
+      <Filter>assimp\importer\gltf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\assimp\code\glTFFileData.h">
+      <Filter>assimp\importer\gltf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\changes.txt">
@@ -2323,6 +2335,12 @@
     </ClCompile>
     <ClCompile Include="..\bgfx\src\vertexdecl.cpp">
       <Filter>bgfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\glTFUtil.cpp">
+      <Filter>assimp\importer\gltf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\assimp\code\glTFImporter.cpp">
+      <Filter>assimp\importer\gltf</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

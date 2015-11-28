@@ -9,14 +9,15 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := Scene3D
 
-LOCAL_CFLAGS := -D_IRR_ANDROID_PLATFORM_ -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
+LOCAL_CFLAGS := -D_IRR_ANDROID_PLATFORM_ -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing -DRAPIDJSON_HAS_CXX11_RVALUE_REFS=0
 
 LOCAL_CFLAGS += -g -D_DEBUG
 # LOCAL_CFLAGS += -fexpensive-optimizations -O3
 
 LOCAL_C_INCLUDES := ../include \
                     ../source/assimp/include \
-                    ../source/assimp/code/BoostWorkaround
+                    ../source/assimp/code/BoostWorkaround \
+                    ../source/assimp/contrib/rapidjson/include
 
 LOCAL_SRC_FILES := \
                     $(Scene3D_PATH)/Scene3D.cpp \
@@ -73,6 +74,8 @@ LOCAL_SRC_FILES := \
                     $(ASSIMP_PATH)/code/ObjFileImporter.cpp \
                     $(ASSIMP_PATH)/code/ObjFileMtlImporter.cpp \
                     $(ASSIMP_PATH)/code/ObjFileParser.cpp \
+                    $(ASSIMP_PATH)/code/glTFUtil.cpp \
+                    $(ASSIMP_PATH)/code/glTFImporter.cpp \
                     $(ASSIMP_PATH)/contrib/ConvertUTF/ConvertUTF.c \
                     C3DSMeshFileLoader.cpp \
                     CAnimatedMeshHalfLife.cpp \

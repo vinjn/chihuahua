@@ -95,47 +95,6 @@ namespace Assimp {
 }
 
 using namespace Assimp;
-using namespace Assimp::Intern;
-
-// ------------------------------------------------------------------------------------------------
-// Intern::AllocateFromAssimpHeap serves as abstract base class. It overrides
-// new and delete (and their array counterparts) of public API classes (e.g. Logger) to
-// utilize our DLL heap.
-// See http://www.gotw.ca/publications/mill15.htm
-// ------------------------------------------------------------------------------------------------
-void* AllocateFromAssimpHeap::operator new ( size_t num_bytes)  {
-    return ::operator new(num_bytes);
-}
-
-void* AllocateFromAssimpHeap::operator new ( size_t num_bytes, const std::nothrow_t& ) throw()  {
-    try {
-        return AllocateFromAssimpHeap::operator new( num_bytes );
-    }
-    catch( ... )    {
-        return NULL;
-    }
-}
-
-void AllocateFromAssimpHeap::operator delete ( void* data)  {
-    return ::operator delete(data);
-}
-
-void* AllocateFromAssimpHeap::operator new[] ( size_t num_bytes)    {
-    return ::operator new[](num_bytes);
-}
-
-void* AllocateFromAssimpHeap::operator new[] ( size_t num_bytes, const std::nothrow_t& ) throw() {
-    try {
-        return AllocateFromAssimpHeap::operator new[]( num_bytes );
-    }
-    catch( ... )    {
-        return NULL;
-    }
-}
-
-void AllocateFromAssimpHeap::operator delete[] ( void* data)    {
-    return ::operator delete[](data);
-}
 
 // ------------------------------------------------------------------------------------------------
 // Importer constructor.

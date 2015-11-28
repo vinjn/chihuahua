@@ -302,7 +302,7 @@ class glTFReader
     void CopyData()
     {
         // TODO: it does not split the loaded vertices, should it?
-        mScene->mFlags |= AI_SCENE_FLAGS_NON_VERBOSE_FORMAT;
+        //mScene->mFlags |= AI_SCENE_FLAGS_NON_VERBOSE_FORMAT;
 
         if (mImpMaterials.empty()) {
             mImpMaterials.push_back(new aiMaterial());
