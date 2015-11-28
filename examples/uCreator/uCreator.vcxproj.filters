@@ -51,7 +51,21 @@
       <Filter>glfw</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
-    <ClCompile Include="..\..\source\ImWindow\ImWindow.cpp" />
+    <ClCompile Include="..\..\source\ImWindow\ImwWindowManager.cpp">
+      <Filter>ImWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ImWindow\ImwWindow.cpp">
+      <Filter>ImWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ImWindow\ImwStatusBar.cpp">
+      <Filter>ImWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ImWindow\ImwPlatformWindow.cpp">
+      <Filter>ImWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\source\ImWindow\ImwContainer.cpp">
+      <Filter>ImWindow</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\IMGUI\imconfig.h">
@@ -85,9 +99,25 @@
       <Filter>glfw</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
-    <ClInclude Include="..\..\source\ImWindow\ImWindow.h" />
-    <ClInclude Include="..\..\source\ImWindow\ImwConfig.h" />
     <ClInclude Include="uWindows.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImwWindowManager.h">
+      <Filter>ImWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ImWindow\ImwWindow.h">
+      <Filter>ImWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ImWindow\ImwStatusBar.h">
+      <Filter>ImWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ImWindow\ImwPlatformWindow.h">
+      <Filter>ImWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ImWindow\ImwContainer.h">
+      <Filter>ImWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\source\ImWindow\ImwConfig.h">
+      <Filter>ImWindow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">
@@ -98,6 +128,9 @@
     </Filter>
     <Filter Include="stb">
       <UniqueIdentifier>{74bb0068-008c-4b5e-bdd3-07a49d5601b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImWindow">
+      <UniqueIdentifier>{01a74dc8-b12b-4af6-8641-0f15e0c796d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

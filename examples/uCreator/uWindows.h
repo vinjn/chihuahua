@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ImWindow/ImWindow.h"
+#include "ImWindow/ImwWindow.h"
 
 using namespace ImWindow;
 

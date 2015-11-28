@@ -171,7 +171,11 @@
     <ClCompile Include="..\..\source\IMGUI\imgui.cpp" />
     <ClCompile Include="..\..\source\IMGUI\imgui_demo.cpp" />
     <ClCompile Include="..\..\source\IMGUI\imgui_draw.cpp" />
-    <ClCompile Include="..\..\source\ImWindow\ImWindow.cpp" />
+    <ClCompile Include="..\..\source\ImWindow\ImwContainer.cpp" />
+    <ClCompile Include="..\..\source\ImWindow\ImwPlatformWindow.cpp" />
+    <ClCompile Include="..\..\source\ImWindow\ImwStatusBar.cpp" />
+    <ClCompile Include="..\..\source\ImWindow\ImwWindow.cpp" />
+    <ClCompile Include="..\..\source\ImWindow\ImwWindowManager.cpp" />
     <ClCompile Include="imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -187,7 +191,11 @@
     <ClInclude Include="..\..\source\IMGUI\stb_textedit.h" />
     <ClInclude Include="..\..\source\IMGUI\stb_truetype.h" />
     <ClInclude Include="..\..\source\ImWindow\ImwConfig.h" />
-    <ClInclude Include="..\..\source\ImWindow\ImWindow.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImwContainer.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImwPlatformWindow.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImwStatusBar.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImwWindow.h" />
+    <ClInclude Include="..\..\source\ImWindow\ImwWindowManager.h" />
     <ClInclude Include="uWindows.h" />
     <ClInclude Include="imgui_impl_glfw_gl3.h" />
   </ItemGroup>
