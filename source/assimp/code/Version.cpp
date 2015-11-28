@@ -6,7 +6,7 @@
 #include "ScenePrivate.h"
 
 static const unsigned int MajorVersion = 3;
-static const unsigned int MinorVersion = 1;
+static const unsigned int MinorVersion = 2;
 
 // --------------------------------------------------------------------------------
 // Legal information string - dont't remove this.
@@ -64,12 +64,12 @@ ASSIMP_API unsigned int aiGetCompileFlags ()    {
 }
 
 // include current build revision, which is even updated from time to time -- :-)
-//#include "revision.h"
+#include "revision.h"
 
 // ------------------------------------------------------------------------------------------------
 ASSIMP_API unsigned int aiGetVersionRevision ()
 {
-    return 7777;
+    return GitVersion;
 }
 
 // ------------------------------------------------------------------------------------------------

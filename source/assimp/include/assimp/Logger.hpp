@@ -57,6 +57,9 @@ class LogStream;
  *  logging stuff ('DefaultLogger'). This class defines just basic logging
  *  behaviour and is not of interest for you. Instead, take a look at #DefaultLogger. */
 class ASSIMP_API Logger
+#ifndef SWIG
+    : public Intern::AllocateFromAssimpHeap
+#endif
 {
 public:
 
@@ -157,7 +160,7 @@ protected:
     Logger();
 
     /** Construction with a given log severity */
-    Logger(LogSeverity severity);
+    explicit Logger(LogSeverity severity);
 
     // ----------------------------------------------------------------------
     /** @brief Called as a request to write a specific debug message

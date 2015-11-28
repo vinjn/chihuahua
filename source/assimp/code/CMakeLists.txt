@@ -562,6 +562,17 @@ ADD_ASSIMP_IMPORTER(X
   XFileExporter.cpp
 )
 
+ADD_ASSIMP_IMPORTER(GLTF
+  glTFImporter.cpp
+  glTFImporter.h
+  glTFUtil.cpp
+  glTFUtil.h
+  glTFFileData.h
+
+  glTFExporter.h
+  glTFExporter.cpp
+)
+
 SET( Step_SRCS
   StepExporter.h
   StepExporter.cpp
@@ -632,14 +643,24 @@ SOURCE_GROUP( unzip FILES ${unzip_SRCS})
 SET ( openddl_parser_SRCS
   ../contrib/openddlparser/code/OpenDDLParser.cpp
   ../contrib/openddlparser/code/DDLNode.cpp
+  ../contrib/openddlparser/code/OpenDDLCommon.cpp
+  ../contrib/openddlparser/code/OpenDDLExport.cpp
   ../contrib/openddlparser/code/Value.cpp
   ../contrib/openddlparser/include/openddlparser/OpenDDLParser.h
   ../contrib/openddlparser/include/openddlparser/OpenDDLParserUtils.h
   ../contrib/openddlparser/include/openddlparser/OpenDDLCommon.h
+  ../contrib/openddlparser/include/openddlparser/OpenDDLExport.h
   ../contrib/openddlparser/include/openddlparser/DDLNode.h
   ../contrib/openddlparser/include/openddlparser/Value.h
 )
 SOURCE_GROUP( openddl_parser FILES ${openddl_parser_SRCS})
+
+SET( picojson_SRCS
+    ../contrib/picojson/picojson.h
+)
+SOURCE_GROUP( picojson FILES ${picojson_SRCS} )
+
+INCLUDE_DIRECTORIES( "../contrib/rapidjson/include" )
 
 # VC2010 fixes
 if(MSVC10)
@@ -685,6 +706,7 @@ SET( assimp_src
   ${Poly2Tri_SRCS}
   ${Clipper_SRCS}
   ${openddl_parser_SRCS}
+  ${picojson_SRCS}
   # Necessary to show the headers in the project when using the VC++ generator:
   ${Boost_SRCS}
 
@@ -766,7 +788,7 @@ INSTALL( TARGETS assimp
 INSTALL( FILES ${PUBLIC_HEADERS} DESTINATION ${ASSIMP_INCLUDE_INSTALL_DIR}/assimp COMPONENT assimp-dev)
 INSTALL( FILES ${COMPILER_HEADERS} DESTINATION ${ASSIMP_INCLUDE_INSTALL_DIR}/assimp/Compiler COMPONENT assimp-dev)
 if (ASSIMP_ANDROID_JNIIOSYSTEM)
-  INSTALL(FILES ${HEADER_PATH}/../${ASSIMP_ANDROID_JNIIOSYSTEM_PATH}/AndroidJNIIOSystem.h
+  INSTALL(FILES ${HEADER_PATH}/${ASSIMP_ANDROID_JNIIOSYSTEM_PATH}/AndroidJNIIOSystem.h
     DESTINATION ${ASSIMP_INCLUDE_INSTALL_DIR}
     COMPONENT assimp-dev)
 endif(ASSIMP_ANDROID_JNIIOSYSTEM)

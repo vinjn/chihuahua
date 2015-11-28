@@ -42,11 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define INCLUDED_AI_IRRXML_WRAPPER
 
 // some long includes ....
-#if 0
-#include "./../contrib/irrXML/irrXML.h"
-#else
 #include "irrXML.h"
-#endif
 #include "./../include/assimp/IOStream.hpp"
 #include "BaseImporter.h"
 #include <vector>
@@ -80,7 +76,7 @@ public:
 
     // ----------------------------------------------------------------------------------
     //! Construction from an existing IOStream
-    CIrrXML_IOStreamReader(IOStream* _stream)
+    explicit CIrrXML_IOStreamReader(IOStream* _stream)
         : stream (_stream)
         , t (0)
     {

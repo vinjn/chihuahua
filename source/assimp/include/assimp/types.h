@@ -47,7 +47,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Some runtime headers
 #include <sys/types.h>
-#include <memory.h>
 #include <math.h>
 #include <stddef.h>
 #include <string.h>
@@ -69,7 +68,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <new>      // for std::nothrow_t
 #include <string>   // for aiString::Set(const std::string&)
 
-
 namespace Assimp    {
     //! @cond never
 namespace Intern        {
@@ -86,7 +84,7 @@ namespace Intern        {
      * the application is determined to crash.
      */
     // --------------------------------------------------------------------
-#if 0
+#ifndef SWIG
     struct ASSIMP_API AllocateFromAssimpHeap    {
         // http://www.gotw.ca/publications/mill15.htm
 
@@ -162,7 +160,7 @@ struct aiColor3D
 #ifdef __cplusplus
     aiColor3D () : r(0.0f), g(0.0f), b(0.0f) {}
     aiColor3D (float _r, float _g, float _b) : r(_r), g(_g), b(_b) {}
-    aiColor3D (float _r) : r(_r), g(_r), b(_r) {}
+    explicit aiColor3D (float _r) : r(_r), g(_r), b(_r) {}
     aiColor3D (const aiColor3D& o) : r(o.r), g(o.g), b(o.b) {}
 
     /** Component-wise comparison */

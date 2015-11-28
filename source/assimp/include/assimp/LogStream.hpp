@@ -54,6 +54,9 @@ class IOSystem;
  *  details. Writing your own implementation of LogStream is just necessary if these
  *  are not enough for your purpose. */
 class ASSIMP_API LogStream
+#ifndef SWIG
+    : public Intern::AllocateFromAssimpHeap
+#endif
 {
 protected:
     /** @brief  Default constructor */
