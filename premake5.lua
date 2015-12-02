@@ -154,6 +154,7 @@ solution "uEngine"
 
         includedirs {
             "include",
+            "source/khronos",
             "src",
             "source/assimp/include",
         }
@@ -166,6 +167,9 @@ solution "uEngine"
 
         files {
             "include/*",
+            "Scene3D/src/Scene3D.h",
+            "Scene3D/src/Scene3D.cpp",
+            -- "Scene3D/src/Javascript/Scene3D_v7.cpp",
             "source/Irrlicht/*.h",
             "source/Irrlicht/CAnimatedMeshHalfLife.cpp",
             "source/Irrlicht/CAnimatedMeshMD2.cpp",
@@ -312,60 +316,43 @@ solution "uEngine"
                 "zlib.lib",
             }
 
-    -- function create_app_project( app_path )
-    --     leaf_name = string.sub(app_path, string.len("apps/") + 1);
+    function create_app_project( app_path )
+        leaf_name = string.sub(app_path, string.len("examples/") + 1);
 
-    --     project (leaf_name)
+        project (leaf_name)
 
-    --         includedirs {
-    --             "include",
-    --             "../opencv-lib/include",
-    --             "../eigen", -- for dvo-slam 
-    --             "../opencv-gfx/include",
-    --             "apps/" .. leaf_name .. "/include",
-    --         }
+            includedirs {
+                "include",
+                "examples/" .. leaf_name .. "/include",
+            }
 
-    --         if CUDA_PATH ~= nil then
-    --             includedirs { 
-    --                 path.join("$(CUDA_PATH)", "include"),
-    --             }
-    --             links {
-    --                 "cuda.lib",
-    --                 "cudart.lib",
-    --                 "nvrtc.lib"
-    --             }
-    --             configuration {"x86", "windows"}
-    --                 libdirs {
-    --                     path.join("$(CUDA_PATH)", "lib/win32"),
-    --                 }
-    --             configuration {"x64", "windows"}
-    --                 libdirs {
-    --                     path.join("$(CUDA_PATH)", "lib/x64"),
-    --                 }
-    --         end
+            files {
+                "examples/" .. leaf_name .. "/**.h",
+                "examples/" .. leaf_name .. "/**.cpp",
+            }
 
-    --         files {
-    --             "apps/" .. leaf_name .. "/**",
-    --         }
+            links {
+                "opengl32.lib",
+            }
 
-    --         links {
-    --             "opengl32.lib",
-    --             "glu32.lib",
-    --         }
+            configuration "Debug"
+                links {
+                    "uEngine-d.lib",
+                }
+            configuration "Release"
+                links {
+                    "uEngine.lib",
+                }
+    end
 
-    --         configuration "Debug"
-    --             links {
-    --                 "opencv-rgbd-d.lib",
-    --                 "opencv-gfx-d.lib",
-    --             }
-    --         configuration "Release"
-    --             links {
-    --                 "opencv-rgbd.lib",
-    --                 "opencv-gfx.lib",
-    --             }
-    -- end
-
-    -- local apps = os.matchdirs("apps/*")
-    -- for _, app in ipairs(apps) do
-    --     create_app_project(app)
-    -- end 
+    local apps = os.matchdirs("examples/*")
+    for _, app in ipairs(apps) do
+        if not string.contains(app, "_") 
+            and not string.contains(app, "Android")
+            and not string.contains(app, "Mac")
+            and not string.contains(app, "Demo")
+            and not string.contains(app, "OculusSimple")
+            and not string.contains(app, "Metaio")then
+            create_app_project(app)
+        end
+    end 

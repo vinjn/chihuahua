@@ -15,13 +15,13 @@ and tell the linker to link with the .lib file.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 /*
 To receive events like mouse and keyboard input, or GUI events like "the OK
 button has been clicked", we need an object which is derived from the
-irr::IEventReceiver object. There is only one method to override:
-irr::IEventReceiver::OnEvent(). This method will be called by the engine once
+ue::IEventReceiver object. There is only one method to override:
+ue::IEventReceiver::OnEvent(). This method will be called by the engine once
 when an event happens. What we really want to know is whether a key is being
 held down, and so we will remember the current state of each key.
 */
@@ -32,7 +32,7 @@ public:
 	virtual bool OnEvent(const SEvent& event)
 	{
 		// Remember whether each key is down or up
-		if (event.EventType == irr::EET_KEY_INPUT_EVENT)
+		if (event.EventType == ue::EET_KEY_INPUT_EVENT)
 			KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 
 		return false;
@@ -59,7 +59,7 @@ private:
 /*
 The event receiver for keeping the pressed keys is ready, the actual responses
 will be made inside the render loop, right before drawing the scene. So lets
-just create an irr::IrrlichtDevice and the scene node we want to move. We also
+just create an ue::IrrlichtDevice and the scene node we want to move. We also
 create some other additional scene nodes, to show that there are also some
 different possibilities to move and animate scene nodes.
 */
@@ -207,14 +207,14 @@ int main()
 		sphere node around respectively. */
 		core::vector3df nodePosition = node->getPosition();
 
-		if(receiver.IsKeyDown(irr::KEY_KEY_W))
+		if(receiver.IsKeyDown(ue::KEY_KEY_W))
 			nodePosition.Y += MOVEMENT_SPEED * frameDeltaTime;
-		else if(receiver.IsKeyDown(irr::KEY_KEY_S))
+		else if(receiver.IsKeyDown(ue::KEY_KEY_S))
 			nodePosition.Y -= MOVEMENT_SPEED * frameDeltaTime;
 
-		if(receiver.IsKeyDown(irr::KEY_KEY_A))
+		if(receiver.IsKeyDown(ue::KEY_KEY_A))
 			nodePosition.X -= MOVEMENT_SPEED * frameDeltaTime;
-		else if(receiver.IsKeyDown(irr::KEY_KEY_D))
+		else if(receiver.IsKeyDown(ue::KEY_KEY_D))
 			nodePosition.X += MOVEMENT_SPEED * frameDeltaTime;
 
 		node->setPosition(nodePosition);

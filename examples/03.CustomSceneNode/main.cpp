@@ -22,7 +22,7 @@ and tell the linker to link with the .lib file.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 /*
 Here comes the more sophisticated part of this tutorial:
@@ -32,12 +32,12 @@ scene node, but a simple tetraeder, a 3d object consisting of 4
 connected vertices, which only draws itself and does nothing more.
 Note that this scenario does not require a custom scene node in Irrlicht.
 Instead one would create a mesh from the geometry and pass it to a
-irr::scene::IMeshSceneNode. This example just illustrates creation of a custom
+ue::scene::IMeshSceneNode. This example just illustrates creation of a custom
 scene node in a very simple setting.
 
 To let our scene node be able to be inserted into the Irrlicht
 Engine scene, the class we create needs to be derived from the
-irr::scene::ISceneNode class and has to override some methods.
+ue::scene::ISceneNode class and has to override some methods.
 */
 
 #include "FullScreenSceneNode.h"
@@ -92,7 +92,7 @@ int main()
     tetraeder, and to show that you now can use your scene node like any
     other scene node in the engine, we add an animator to the scene node,
     which rotates the node a little bit.
-    irr::scene::ISceneManager::createRotationAnimator() could return 0, so
+    ue::scene::ISceneManager::createRotationAnimator() could return 0, so
     should be checked.
     */
     scene::ISceneNodeAnimator* anim =
@@ -104,7 +104,7 @@ int main()
 
         /*
         I'm done referring to anim, so must
-        irr::IReferenceCounted::drop() this reference now because it
+        ue::IReferenceCounted::drop() this reference now because it
         was produced by a createFoo() function. As I shouldn't refer to
         it again, ensure that I can't by setting to 0.
         */

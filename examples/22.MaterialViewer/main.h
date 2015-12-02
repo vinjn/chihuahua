@@ -4,19 +4,19 @@
 #include <irrlicht.h>
 
 // Helper control to allow setting colors
-class CColorControl : public irr::gui::IGUIElement
+class CColorControl : public ue::gui::IGUIElement
 {
 public:
-	CColorControl(irr::gui::IGUIEnvironment* guiEnv, const irr::core::position2d<irr::s32> & pos, const wchar_t *text, irr::gui::IGUIElement* parent, irr::s32 id=-1);
+	CColorControl(ue::gui::IGUIEnvironment* guiEnv, const ue::core::position2d<ue::s32> & pos, const wchar_t *text, ue::gui::IGUIElement* parent, ue::s32 id=-1);
 
 	// Event receiver
-	virtual bool OnEvent(const irr::SEvent &event);
+	virtual bool OnEvent(const ue::SEvent &event);
 
 	// Set the color values
-	void setColor(const irr::video::SColor& col);
+	void setColor(const ue::video::SColor& col);
 
 	// Get the color values
-	const irr::video::SColor& getColor() const
+	const ue::video::SColor& getColor() const
 	{
 		return Color;
 	}
@@ -36,49 +36,49 @@ public:
 protected:
 
 	// Add a staticbox for a description + an editbox so users can enter numbers
-	irr::gui::IGUIEditBox* addEditForNumbers(irr::gui::IGUIEnvironment* guiEnv, const irr::core::position2d<irr::s32> & pos, const wchar_t *text, irr::s32 id, irr::gui::IGUIElement * parent);
+	ue::gui::IGUIEditBox* addEditForNumbers(ue::gui::IGUIEnvironment* guiEnv, const ue::core::position2d<ue::s32> & pos, const wchar_t *text, ue::s32 id, ue::gui::IGUIElement * parent);
 
 	// Get the color value from the editfields
-	irr::video::SColor getColorFromEdits() const;
+	ue::video::SColor getColorFromEdits() const;
 
 	// Fill the editfields with the value for the given color
-	void setEditsFromColor(irr::video::SColor col);
+	void setEditsFromColor(ue::video::SColor col);
 
 private:
 
 	bool DirtyFlag;
-	irr::video::SColor Color;
-	irr::s32 ButtonSetId;
-	irr::gui::IGUIStaticText * ColorStatic;
-	irr::gui::IGUIEditBox * EditAlpha;
-	irr::gui::IGUIEditBox * EditRed;
-	irr::gui::IGUIEditBox * EditGreen;
-	irr::gui::IGUIEditBox * EditBlue;
+	ue::video::SColor Color;
+	ue::s32 ButtonSetId;
+	ue::gui::IGUIStaticText * ColorStatic;
+	ue::gui::IGUIEditBox * EditAlpha;
+	ue::gui::IGUIEditBox * EditRed;
+	ue::gui::IGUIEditBox * EditGreen;
+	ue::gui::IGUIEditBox * EditBlue;
 };
 
 /*
 	Custom GUI-control for to edit all colors typically used in materials and lights
 */
-class CTypicalColorsControl : public irr::gui::IGUIElement
+class CTypicalColorsControl : public ue::gui::IGUIElement
 {
 public:
 	// Constructor
-	CTypicalColorsControl(irr::gui::IGUIEnvironment* guiEnv, const irr::core::position2d<irr::s32> & pos, bool hasEmissive, irr::gui::IGUIElement* parent, irr::s32 id=-1);
+	CTypicalColorsControl(ue::gui::IGUIEnvironment* guiEnv, const ue::core::position2d<ue::s32> & pos, bool hasEmissive, ue::gui::IGUIElement* parent, ue::s32 id=-1);
 
 	// Destructor
 	virtual ~CTypicalColorsControl();
 
 	// Set the color values to those within the material
-	void setColorsToMaterialColors(const irr::video::SMaterial & material);
+	void setColorsToMaterialColors(const ue::video::SMaterial & material);
 
 	// Update all changed colors in the material
-	void updateMaterialColors(irr::video::SMaterial & material) const;
+	void updateMaterialColors(ue::video::SMaterial & material) const;
 
 	// Set the color values to those from the light data
-	void setColorsToLightDataColors(const irr::video::SLight & lightData);
+	void setColorsToLightDataColors(const ue::video::SLight & lightData);
 
 	// Update all changed colors in the light data
-	void updateLightColors(irr::video::SLight & lightData) const;
+	void updateLightColors(ue::video::SLight & lightData) const;
 
 	// To reset the dirty flags
 	void resetDirty();
@@ -93,22 +93,22 @@ private:
 /*
 	GUI-Control to offer a selection of available textures.
 */
-class CTextureControl : public irr::gui::IGUIElement
+class CTextureControl : public ue::gui::IGUIElement
 {
 public:
-	CTextureControl(irr::gui::IGUIEnvironment* guiEnv, irr::video::IVideoDriver * driver, const irr::core::position2d<irr::s32> & pos, irr::gui::IGUIElement* parent, irr::s32 id=-1);
+	CTextureControl(ue::gui::IGUIEnvironment* guiEnv, ue::video::IVideoDriver * driver, const ue::core::position2d<ue::s32> & pos, ue::gui::IGUIElement* parent, ue::s32 id=-1);
 
-	virtual bool OnEvent(const irr::SEvent &event);
+	virtual bool OnEvent(const ue::SEvent &event);
 
 	// Workaround for a problem with comboboxes.
 	// We have to get in front when the combobox wants to get in front or combobox-list might be drawn below other elements.
-	virtual bool bringToFront(irr::gui::IGUIElement* element);
+	virtual bool bringToFront(ue::gui::IGUIElement* element);
 
 	// Return selected texturename (if any, otherwise 0)
 	const wchar_t * getSelectedTextureName() const;
 
 	// Change active selectionbased on the texture name
-	void selectTextureByName(const irr::core::stringw& name);
+	void selectTextureByName(const ue::core::stringw& name);
 
 	// Reset the dirty flag
 	void resetDirty()
@@ -123,11 +123,11 @@ public:
 	};
 
 	// Put the names of all currently loaded textures in a combobox
-	void updateTextures(irr::video::IVideoDriver * driver);
+	void updateTextures(ue::video::IVideoDriver * driver);
 
 private:
 	bool DirtyFlag;
-	irr::gui::IGUIComboBox * ComboTexture;
+	ue::gui::IGUIComboBox * ComboTexture;
 };
 
 /*
@@ -140,14 +140,14 @@ struct SMaterialControl
 	: Initialized(false), Driver(0)
 	, TypicalColorsControl(0), ButtonLighting(0), InfoLighting(0), ComboMaterial(0)
 	{
-		for (irr::u32 i=0; i<irr::video::MATERIAL_MAX_TEXTURES; ++i)
+		for (ue::u32 i=0; i<ue::video::MATERIAL_MAX_TEXTURES; ++i)
 			TextureControls[i] = 0;
 	}
 
 	// Destructor
 	~SMaterialControl()
 	{
-		for (irr::u32 i=0; i<irr::video::MATERIAL_MAX_TEXTURES; ++i)
+		for (ue::u32 i=0; i<ue::video::MATERIAL_MAX_TEXTURES; ++i)
 		{
 			if (TextureControls[i] )
 				TextureControls[i]->drop();
@@ -156,27 +156,27 @@ struct SMaterialControl
 			TypicalColorsControl->drop();
 	}
 
-	void init(irr::scene::IMeshSceneNode* node, irr::IrrlichtDevice * device, const irr::core::position2d<irr::s32> & pos, const wchar_t * description);
+	void init(ue::scene::IMeshSceneNode* node, ue::IrrlichtDevice * device, const ue::core::position2d<ue::s32> & pos, const wchar_t * description);
 
-	void update(irr::scene::IMeshSceneNode* sceneNode, irr::scene::IMeshSceneNode* sceneNode2T, irr::scene::IMeshSceneNode* sceneNodeTangents);
+	void update(ue::scene::IMeshSceneNode* sceneNode, ue::scene::IMeshSceneNode* sceneNode2T, ue::scene::IMeshSceneNode* sceneNodeTangents);
 
 	void updateTextures();
 
-	void selectTextures(const irr::core::stringw& name);
+	void selectTextures(const ue::core::stringw& name);
 
 	bool isLightingEnabled() const;
 
 protected:
 
-	void updateMaterial(irr::video::SMaterial & material);
+	void updateMaterial(ue::video::SMaterial & material);
 
 	bool Initialized;
-	irr::video::IVideoDriver * 	Driver;
+	ue::video::IVideoDriver * 	Driver;
 	CTypicalColorsControl* 		TypicalColorsControl;
-	irr::gui::IGUIButton * 		ButtonLighting;
-	irr::gui::IGUIStaticText* 	InfoLighting;
-	irr::gui::IGUIComboBox * 	ComboMaterial;
-	CTextureControl*			TextureControls[irr::video::MATERIAL_MAX_TEXTURES];
+	ue::gui::IGUIButton * 		ButtonLighting;
+	ue::gui::IGUIStaticText* 	InfoLighting;
+	ue::gui::IGUIComboBox * 	ComboMaterial;
+	CTextureControl*			TextureControls[ue::video::MATERIAL_MAX_TEXTURES];
 };
 
 /*
@@ -194,9 +194,9 @@ struct SLightNodeControl
 			TypicalColorsControl->drop();
 	}
 
-	void init(irr::scene::ILightSceneNode* node, irr::gui::IGUIEnvironment* guiEnv, const irr::core::position2d<irr::s32> & pos, const wchar_t * description);
+	void init(ue::scene::ILightSceneNode* node, ue::gui::IGUIEnvironment* guiEnv, const ue::core::position2d<ue::s32> & pos, const wchar_t * description);
 
-	void update(irr::scene::ILightSceneNode* node);
+	void update(ue::scene::ILightSceneNode* node);
 
 protected:
 	bool Initialized;
@@ -210,20 +210,20 @@ struct SConfig
 {
 	SConfig()
 	: RenderInBackground(true)
-	, DriverType(irr::video::EDT_NULL)
+	, DriverType(ue::video::EDT_NULL)
 	, ScreenSize(640, 480)
 	{
 	}
 
 	bool RenderInBackground;
-	irr::video::E_DRIVER_TYPE DriverType;
-	irr::core::dimension2d<irr::u32> ScreenSize;
+	ue::video::E_DRIVER_TYPE DriverType;
+	ue::core::dimension2d<ue::u32> ScreenSize;
 };
 
 /*
 	Main application class
 */
-class CApp : public irr::IEventReceiver
+class CApp : public ue::IEventReceiver
 {
 	friend int main(int argc, char *argv[]);
 
@@ -236,8 +236,8 @@ public:
 	, MeshManipulator(0)
 	, Camera(0)
 	, SceneNode(0), SceneNode2T(0), SceneNodeTangents(0), NodeLight(0)
-	, CameraRotationAxis(irr::core::vector3df(1,0,0))
-	, LightRotationAxis(irr::core::vector3df(1,0,0))
+	, CameraRotationAxis(ue::core::vector3df(1,0,0))
+	, LightRotationAxis(ue::core::vector3df(1,0,0))
 	, ControlVertexColors(0)
 	, GlobalAmbient(0)
 	, MousePressed(false)
@@ -263,7 +263,7 @@ public:
 	}
 
 	// Event handler
-	virtual bool OnEvent(const irr::SEvent &event);
+	virtual bool OnEvent(const ue::SEvent &event);
 
 protected:
 
@@ -278,38 +278,38 @@ protected:
 	void quit();
 
 	// Create some useful textures.
-	void createDefaultTextures(irr::video::IVideoDriver * driver);
+	void createDefaultTextures(ue::video::IVideoDriver * driver);
 
 	// Load a texture and make sure nodes know it when more textures are available.
-	void loadTexture(const irr::io::path &name);
+	void loadTexture(const ue::io::path &name);
 
 	// Rotate a node around the origin (0,0,0)
-	void RotateHorizontal(irr::scene::ISceneNode* node, irr::f32 angle);
-	void RotateAroundAxis(irr::scene::ISceneNode* node, irr::f32 angle, const irr::core::vector3df& axis);
-	void ZoomOut(irr::scene::ISceneNode* node, irr::f32 units);
-	void UpdateRotationAxis(irr::scene::ISceneNode* node, irr::core::vector3df& axis);
+	void RotateHorizontal(ue::scene::ISceneNode* node, ue::f32 angle);
+	void RotateAroundAxis(ue::scene::ISceneNode* node, ue::f32 angle, const ue::core::vector3df& axis);
+	void ZoomOut(ue::scene::ISceneNode* node, ue::f32 units);
+	void UpdateRotationAxis(ue::scene::ISceneNode* node, ue::core::vector3df& axis);
 
 
 private:
 	SConfig	Config;
 	bool	IsRunning;
-	irr::u32 RealTimeTick;
-	irr::IrrlichtDevice * 			Device;
-	irr::scene::IMeshManipulator* 	MeshManipulator;
-	irr::scene::ICameraSceneNode *	Camera;
-	irr::scene::IMeshSceneNode* 	SceneNode;
-	irr::scene::IMeshSceneNode* 	SceneNode2T;
-	irr::scene::IMeshSceneNode* 	SceneNodeTangents;
-	irr::scene::ILightSceneNode* 	NodeLight;
-	irr::core::vector3df CameraRotationAxis;
-	irr::core::vector3df LightRotationAxis;
+	ue::u32 RealTimeTick;
+	ue::IrrlichtDevice * 			Device;
+	ue::scene::IMeshManipulator* 	MeshManipulator;
+	ue::scene::ICameraSceneNode *	Camera;
+	ue::scene::IMeshSceneNode* 	SceneNode;
+	ue::scene::IMeshSceneNode* 	SceneNode2T;
+	ue::scene::IMeshSceneNode* 	SceneNodeTangents;
+	ue::scene::ILightSceneNode* 	NodeLight;
+	ue::core::vector3df CameraRotationAxis;
+	ue::core::vector3df LightRotationAxis;
 	SMaterialControl	MeshMaterialControl;
 	SLightNodeControl	LightControl;
 	CColorControl*	ControlVertexColors;
 	CColorControl*	GlobalAmbient;
-	bool KeysPressed[irr::KEY_KEY_CODES_COUNT];
+	bool KeysPressed[ue::KEY_KEY_CODES_COUNT];
 	bool MousePressed;
-	irr::core::position2d<irr::s32> MouseStart;
+	ue::core::position2d<ue::s32> MouseStart;
 };
 
 #endif

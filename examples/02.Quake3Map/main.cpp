@@ -17,15 +17,15 @@ console.
 
 /*
 As already written in the HelloWorld example, in the Irrlicht Engine everything
-can be found in the namespace 'irr'. To get rid of the irr:: in front of the
+can be found in the namespace 'irr'. To get rid of the ue:: in front of the
 name of every class, we tell the compiler that we use that namespace from now
-on, and we will not have to write that 'irr::'. There are 5 other sub
+on, and we will not have to write that 'ue::'. There are 5 other sub
 namespaces 'core', 'scene', 'video', 'io' and 'gui'. Unlike in the HelloWorld
 example, we do not call 'using namespace' for these 5 other namespaces, because
 in this way you will see what can be found in which namespace. But if you like,
 you can also include the namespaces like in the previous example.
 */
-using namespace irr;
+using namespace ue;
 
 /*
 Again, to be able to use the Irrlicht.DLL file, we need to link with the
@@ -85,8 +85,8 @@ int main()
 
 	/*
 	Get a pointer to the video driver and the SceneManager so that
-	we do not always have to call irr::IrrlichtDevice::getVideoDriver() and
-	irr::IrrlichtDevice::getSceneManager().
+	we do not always have to call ue::IrrlichtDevice::getVideoDriver() and
+	ue::IrrlichtDevice::getSceneManager().
 	*/
 	video::IVideoDriver* driver = device->getVideoDriver();
 	scene::ISceneManager* smgr = device->getSceneManager();
@@ -94,7 +94,7 @@ int main()
 	/*
 	To display the Quake 3 map, we first need to load it. Quake 3 maps
 	are packed into .pk3 files which are nothing else than .zip files.
-	So we add the .pk3 file to our irr::io::IFileSystem. After it was added,
+	So we add the .pk3 file to our ue::io::IFileSystem. After it was added,
 	we are able to read from the files in that archive as if they are
 	directly stored on the disk.
 	*/
@@ -102,21 +102,21 @@ int main()
 
 	/*
 	Now we can load the mesh by calling
-	irr::scene::ISceneManager::getMesh(). We get a pointer returned to an
-	irr::scene::IAnimatedMesh. As you might know, Quake 3 maps are not
+	ue::scene::ISceneManager::getMesh(). We get a pointer returned to an
+	ue::scene::IAnimatedMesh. As you might know, Quake 3 maps are not
 	really animated, they are only a huge chunk of static geometry with
 	some materials attached. Hence the IAnimatedMesh consists of only one
 	frame, so we get the "first frame" of the "animation", which is our
 	quake level and create an Octree scene node with it, using
-	irr::scene::ISceneManager::addOctreeSceneNode().
+	ue::scene::ISceneManager::addOctreeSceneNode().
 	The Octree optimizes the scene a little bit, trying to draw only geometry
 	which is currently visible. An alternative to the Octree would be a
-	irr::scene::IMeshSceneNode, which would always draw the complete
+	ue::scene::IMeshSceneNode, which would always draw the complete
 	geometry of the mesh, without optimization. Try it: Use
-	irr::scene::ISceneManager::addMeshSceneNode() instead of
+	ue::scene::ISceneManager::addMeshSceneNode() instead of
 	addOctreeSceneNode() and compare the primitives drawn by the video
-	driver. (There is a irr::video::IVideoDriver::getPrimitiveCountDrawn()
-	method in the irr::video::IVideoDriver class). Note that this
+	driver. (There is a ue::video::IVideoDriver::getPrimitiveCountDrawn()
+	method in the ue::video::IVideoDriver class). Note that this
 	optimization with the Octree is only useful when drawing huge meshes
 	consisting of lots of geometry.
 	*/
@@ -130,10 +130,10 @@ int main()
 	/*
 	Because the level was not modelled around the origin (0,0,0), we
 	translate the whole level a little bit. This is done on
-	irr::scene::ISceneNode level using the methods
-	irr::scene::ISceneNode::setPosition() (in this case),
-	irr::scene::ISceneNode::setRotation(), and
-	irr::scene::ISceneNode::setScale().
+	ue::scene::ISceneNode level using the methods
+	ue::scene::ISceneNode::setPosition() (in this case),
+	ue::scene::ISceneNode::setRotation(), and
+	ue::scene::ISceneNode::setScale().
 	*/
 	if (node)
 		node->setPosition(core::vector3df(-1300,-144,-1249));
@@ -145,26 +145,26 @@ int main()
 	MayaCamera which can be controlled like the camera in Maya:
 	Rotate with left mouse button pressed, Zoom with both buttons pressed,
 	translate with right mouse button pressed. This could be created with
-	irr::scene::ISceneManager::addCameraSceneNodeMaya(). But for this
+	ue::scene::ISceneManager::addCameraSceneNodeMaya(). But for this
 	example, we want to create a camera which behaves like the ones in
 	first person shooter games (FPS) and hence use
-	irr::scene::ISceneManager::addCameraSceneNodeFPS().
+	ue::scene::ISceneManager::addCameraSceneNodeFPS().
 	*/
 	smgr->addCameraSceneNodeFPS();
 
 	/*
 	The mouse cursor needs not be visible, so we hide it via the
-	irr::IrrlichtDevice::ICursorControl.
+	ue::IrrlichtDevice::ICursorControl.
 	*/
 	device->getCursorControl()->setVisible(false);
 
 	/*
 	We have done everything, so lets draw it. We also write the current
 	frames per second and the primitives drawn into the caption of the
-	window. The test for irr::IrrlichtDevice::isWindowActive() is optional,
+	window. The test for ue::IrrlichtDevice::isWindowActive() is optional,
 	but prevents the engine to grab the mouse cursor after task switching
 	when other programs are active. The call to
-	irr::IrrlichtDevice::yield() will avoid the busy loop to eat up all CPU
+	ue::IrrlichtDevice::yield() will avoid the busy loop to eat up all CPU
 	cycles when the window is not active.
 	*/
 	int lastFPS = -1;

@@ -6,7 +6,7 @@
 
 #include <irrlicht.h>
 
-using namespace irr;
+using namespace ue;
 
 class CMainMenu : public IEventReceiver
 {

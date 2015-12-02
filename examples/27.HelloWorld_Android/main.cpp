@@ -10,7 +10,7 @@
 #include "android_tools.h"
 #include "android/window.h"
 
-using namespace irr;
+using namespace ue;
 using namespace core;
 using namespace scene;
 using namespace video;
@@ -166,9 +166,9 @@ public:
 		return false;
 	}
 
-	void MoveSprite(const irr::core::position2d<irr::s32> &touchPos)
+	void MoveSprite(const ue::core::position2d<ue::s32> &touchPos)
 	{
-		irr::core::position2d<irr::s32> move(touchPos - TouchStartPos);
+		ue::core::position2d<ue::s32> move(touchPos - TouchStartPos);
 		SpriteToMove->setRelativePosition(SpriteStartRect.UpperLeftCorner + move);
 	}
 
@@ -177,7 +177,7 @@ private:
 	android_app* AndroidApp;
 	gui::IGUIElement * SpriteToMove;
 	core::rect<s32> SpriteStartRect;
-	core::position2d<irr::s32> TouchStartPos;
+	core::position2d<ue::s32> TouchStartPos;
 	s32 TouchID;
 };
 
@@ -287,9 +287,9 @@ void android_main(android_app* app)
 
 	/* Get display metrics. We are accessing the Java functions of the JVM directly in this case as there is no NDK function for that yet.
 	   Checkout android_tools.cpp if you want to know how that is done. */
-	irr::android::SDisplayMetrics displayMetrics;
+	ue::android::SDisplayMetrics displayMetrics;
 	memset(&displayMetrics, 0, sizeof displayMetrics);
-	irr::android::getDisplayMetrics(app, displayMetrics);
+	ue::android::getDisplayMetrics(app, displayMetrics);
 
 	/* For troubleshooting you can use the Irrlicht logger.
 	   The Irrlicht logging messages are send to the Android logging system using the tag "Irrlicht".

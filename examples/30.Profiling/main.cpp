@@ -54,12 +54,8 @@ collecting profiling information is disabled by default for speed reasons.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
-
-using namespace irr;
+using namespace ue;
 using namespace core;
 using namespace scene;
 using namespace video;
@@ -256,27 +252,27 @@ public:
 
 					for ( int x = 0; x < nodesX; ++x )
 					{
-						irr::f32 gapX = x > 0 ? (x-1)*GAP : 0.f;
-						irr::f32 posX = -halfSizeX + x*extent.X + gapX;
+						ue::f32 gapX = x > 0 ? (x-1)*GAP : 0.f;
+						ue::f32 posX = -halfSizeX + x*extent.X + gapX;
 						for ( int y = 0; y < nodesY; ++y )
 						{
-							irr::f32 gapY = y > 0 ? (y-1)*GAP : 0.f;
-							irr::f32 posY = -halfSizeY + y*extent.Y + gapY;
+							ue::f32 gapY = y > 0 ? (y-1)*GAP : 0.f;
+							ue::f32 posY = -halfSizeY + y*extent.Y + gapY;
 							for ( int z=0; z < nodesZ; ++z )
 							{
-								irr::f32 gapZ = z > 0 ? (z-1)*GAP : 0.f;
-								irr::f32 posZ = -halfSizeZ + z*extent.Z + gapZ;
+								ue::f32 gapZ = z > 0 ? (z-1)*GAP : 0.f;
+								ue::f32 posZ = -halfSizeZ + z*extent.Z + gapZ;
 								scene::IAnimatedMeshSceneNode * node = SceneManager->addAnimatedMeshSceneNode(aniMesh, NULL, -1, vector3df(posX, posY, posZ) );
 								node->setMaterialFlag(video::EMF_LIGHTING, false);
 							}
 						}
 					}
 
-					irr::scene::ICameraSceneNode * camera = SceneManager->addCameraSceneNodeFPS(0, 20.f, 0.1f );
+					ue::scene::ICameraSceneNode * camera = SceneManager->addCameraSceneNodeFPS(0, 20.f, 0.1f );
 					camera->updateAbsolutePosition();
 					camera->setTarget( vector3df(0,0,0) );
 					camera->updateAbsolutePosition();
-					camera->setPosition(irr::core::vector3df(halfSizeX+extent.X, halfSizeY+extent.Y, halfSizeZ+extent.Z));
+					camera->setPosition(ue::core::vector3df(halfSizeX+extent.X, halfSizeY+extent.Y, halfSizeZ+extent.Z));
 					camera->updateAbsolutePosition();
 				}
 			}

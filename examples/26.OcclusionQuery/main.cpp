@@ -34,16 +34,10 @@ is the third way to optimize occlusion queries. Just check the queries every
 of the objects and camera.
 */
 
-#ifdef _MSC_VER
-// We'll also define this to stop MSVC complaining about sprintf().
-#define _CRT_SECURE_NO_WARNINGS
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 /*
 We need keyboard input events to switch some parameters
@@ -55,7 +49,7 @@ public:
 	virtual bool OnEvent(const SEvent& event)
 	{
 		// Remember whether each key is down or up
-		if (event.EventType == irr::EET_KEY_INPUT_EVENT)
+		if (event.EventType == ue::EET_KEY_INPUT_EVENT)
 			KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 
 		return false;
@@ -80,7 +74,7 @@ private:
 
 
 /*
-We create an irr::IrrlichtDevice and the scene nodes. One occluder, one
+We create an ue::IrrlichtDevice and the scene nodes. One occluder, one
 occluded. The latter is a complex sphere, which has many triangles.
 */
 int main()
@@ -152,7 +146,7 @@ int main()
 
 	while(device->run())
 	{
-		plane->setVisible(!receiver.IsKeyDown(irr::KEY_SPACE));
+		plane->setVisible(!receiver.IsKeyDown(ue::KEY_SPACE));
 
 		driver->beginScene(true, true, video::SColor(255,113,113,133));
 		/*

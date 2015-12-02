@@ -45,7 +45,7 @@ void CDemo::run()
 		resolution.Height = 480;
 	}
 
-	irr::SIrrlichtCreationParameters params;
+	ue::SIrrlichtCreationParameters params;
 	params.DriverType=driverType;
 	params.WindowSize=resolution;
 	params.Bits=32;

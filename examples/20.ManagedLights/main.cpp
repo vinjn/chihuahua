@@ -9,12 +9,8 @@ node callbacks, are left out for simplicity of the example.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 using namespace core;
-
-#if defined(_MSC_VER)
-#pragma comment(lib, "Irrlicht.lib")
-#endif // MSC_VER
 
 /*
     Normally, you are limited to 8 dynamic lights per scene: this is a hardware limit.  If you
@@ -79,18 +75,18 @@ public:
 	{
 		bool handled = false;
 
-		if (event.EventType == irr::EET_KEY_INPUT_EVENT && event.KeyInput.PressedDown)
+		if (event.EventType == ue::EET_KEY_INPUT_EVENT && event.KeyInput.PressedDown)
 		{
 			handled = true;
 			switch(event.KeyInput.Key)
 			{
-			case irr::KEY_KEY_1:
+			case ue::KEY_KEY_1:
 				RequestedMode = NO_MANAGEMENT;
 				break;
-			case irr::KEY_KEY_2:
+			case ue::KEY_KEY_2:
 				RequestedMode = LIGHTS_NEAREST_NODE;
 				break;
-			case irr::KEY_KEY_3:
+			case ue::KEY_KEY_3:
 				RequestedMode = LIGHTS_IN_ZONE;
 				break;
 			default:

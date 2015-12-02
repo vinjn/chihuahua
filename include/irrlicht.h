@@ -190,14 +190,6 @@
 #include "vector2d.h"
 #include "vector3d.h"
 
-#if defined(_IRR_WINDOWS_) && !defined(IRRLICHT_EXPORTS)
-#ifdef _DEBUG
-#pragma comment(lib, "uEngine_d.lib")
-#else
-#pragma comment(lib, "uEngine.lib")
-#endif
-#endif
-
 /*! \mainpage Irrlicht Engine 1.9 API documentation
  *
  * <div align="center"><img src="logobig.png" ></div>

@@ -16,11 +16,7 @@ You can move the camera while left-mouse button is clicked.
 #include "driverChoice.h"
 #include "main.h"
 
-using namespace irr;
-
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
+using namespace ue;
 
 /*
 	Variables within the empty namespace are globals which are restricted to this file.
@@ -373,7 +369,7 @@ const wchar_t * CTextureControl::getSelectedTextureName() const
 	return ComboTexture->getItem(selected);
 }
 
-void CTextureControl::selectTextureByName(const irr::core::stringw& name)
+void CTextureControl::selectTextureByName(const ue::core::stringw& name)
 {
 	for (u32 i=0; i< ComboTexture->getItemCount(); ++i)
 	{
@@ -464,7 +460,7 @@ void SMaterialControl::init(scene::IMeshSceneNode* node, IrrlichtDevice * device
 	// Controls for selecting the material textures
 	guiEnv->addStaticText(L"Textures", core::rect<s32>(pos.X, top, pos.X+60, top+15), false, false, 0, -1, false);
 	top += 15;
-	for (irr::u32 i=0; i<irr::video::MATERIAL_MAX_TEXTURES; ++i)
+	for (ue::u32 i=0; i<ue::video::MATERIAL_MAX_TEXTURES; ++i)
 	{
 		TextureControls[i] = new CTextureControl(guiEnv, Driver, core::position2di(pos.X, top), guiEnv->getRootGUIElement());
 		top += 15;
@@ -522,19 +518,19 @@ void SMaterialControl::update(scene::IMeshSceneNode* sceneNode, scene::IMeshScen
 
 	TypicalColorsControl->resetDirty();
 
-	for (irr::u32 i=0; i<irr::video::MATERIAL_MAX_TEXTURES; ++i)
+	for (ue::u32 i=0; i<ue::video::MATERIAL_MAX_TEXTURES; ++i)
 		TextureControls[i]->resetDirty();
 }
 
 void SMaterialControl::updateTextures()
 {
-	for (irr::u32 i=0; i<irr::video::MATERIAL_MAX_TEXTURES; ++i)
+	for (ue::u32 i=0; i<ue::video::MATERIAL_MAX_TEXTURES; ++i)
 		TextureControls[i]->updateTextures(Driver);
 }
 
-void SMaterialControl::selectTextures(const irr::core::stringw& name)
+void SMaterialControl::selectTextures(const ue::core::stringw& name)
 {
-	for (irr::u32 i=0; i<irr::video::MATERIAL_MAX_TEXTURES; ++i)
+	for (ue::u32 i=0; i<ue::video::MATERIAL_MAX_TEXTURES; ++i)
 		TextureControls[i]->selectTextureByName(name);
 }
 
@@ -547,7 +543,7 @@ void SMaterialControl::updateMaterial(video::SMaterial & material)
 {
 	TypicalColorsControl->updateMaterialColors(material);
 	material.Lighting = ButtonLighting->isPressed();
-	for (irr::u32 i=0; i<irr::video::MATERIAL_MAX_TEXTURES; ++i)
+	for (ue::u32 i=0; i<ue::video::MATERIAL_MAX_TEXTURES; ++i)
 	{
 		if ( TextureControls[i]->isDirty() )
 		{
@@ -763,7 +759,7 @@ bool CApp::init(int argc, char *argv[])
 */
 bool CApp::update()
 {
-	using namespace irr;
+	using namespace ue;
 
 	video::IVideoDriver* videoDriver =  Device->getVideoDriver();
 	if ( !Device->run() )
@@ -951,7 +947,7 @@ void CApp::loadTexture(const io::path &name)
 	MeshMaterialControl.updateTextures();
 }
 
-void CApp::RotateHorizontal(irr::scene::ISceneNode* node, irr::f32 angle)
+void CApp::RotateHorizontal(ue::scene::ISceneNode* node, ue::f32 angle)
 {
 	if ( node )
 	{
@@ -964,7 +960,7 @@ void CApp::RotateHorizontal(irr::scene::ISceneNode* node, irr::f32 angle)
 	}
 }
 
-void CApp::RotateAroundAxis(irr::scene::ISceneNode* node, irr::f32 angle, const irr::core::vector3df& axis)
+void CApp::RotateAroundAxis(ue::scene::ISceneNode* node, ue::f32 angle, const ue::core::vector3df& axis)
 {
 	if ( node )
 	{
@@ -977,18 +973,18 @@ void CApp::RotateAroundAxis(irr::scene::ISceneNode* node, irr::f32 angle, const 
 	}
 }
 
-void CApp::ZoomOut(irr::scene::ISceneNode* node, irr::f32 units)
+void CApp::ZoomOut(ue::scene::ISceneNode* node, ue::f32 units)
 {
 	if ( node )
 	{
 		core::vector3df pos(node->getPosition());
-		irr::f32 len = pos.getLength() + units;
+		ue::f32 len = pos.getLength() + units;
 		pos.setLength(len);
 		node->setPosition(pos);
 	}
 }
 
-void CApp::UpdateRotationAxis(irr::scene::ISceneNode* node, irr::core::vector3df& axis)
+void CApp::UpdateRotationAxis(ue::scene::ISceneNode* node, ue::core::vector3df& axis)
 {
 	// Find a perpendicular axis to the x,z vector. If none found (vector straight up/down) continue to use the existing one.
 	core::vector3df pos(node->getPosition());

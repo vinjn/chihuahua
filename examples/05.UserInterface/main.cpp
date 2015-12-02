@@ -13,7 +13,7 @@ and a pointer to a listbox.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 using namespace core;
 using namespace scene;
@@ -43,9 +43,9 @@ enum
 /*
 	Set the skin transparency by changing the alpha values of all skin-colors
 */
-void setSkinTransparency(s32 alpha, irr::gui::IGUISkin * skin)
+void setSkinTransparency(s32 alpha, ue::gui::IGUISkin * skin)
 {
-	for (s32 i=0; i<irr::gui::EGDC_COUNT ; ++i)
+	for (s32 i=0; i<ue::gui::EGDC_COUNT ; ++i)
 	{
 		video::SColor col = skin->getColor((EGUI_DEFAULT_COLOR)i);
 		col.setAlpha(alpha);

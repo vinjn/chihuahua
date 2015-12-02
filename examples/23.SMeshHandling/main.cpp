@@ -13,12 +13,8 @@ Ok, let's start with the headers (I think there's nothing to say about it)
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 //Namespaces for the engine
-using namespace irr;
+using namespace ue;
 using namespace video;
 using namespace core;
 using namespace scene;
@@ -297,7 +293,7 @@ public:
 	virtual bool OnEvent(const SEvent& event)
 	{
 		// Remember whether each key is down or up
-		if (event.EventType == irr::EET_KEY_INPUT_EVENT)
+		if (event.EventType == ue::EET_KEY_INPUT_EVENT)
 			KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
 
 		return false;
@@ -391,21 +387,21 @@ int main(int argc, char* argv[])
 			continue;
 		}
 
-		if(receiver.IsKeyDown(irr::KEY_KEY_W))
+		if(receiver.IsKeyDown(ue::KEY_KEY_W))
 		{
 			meshnode->setMaterialFlag(video::EMF_WIREFRAME, !meshnode->getMaterial(0).Wireframe);
 		}
-		else if(receiver.IsKeyDown(irr::KEY_KEY_1))
+		else if(receiver.IsKeyDown(ue::KEY_KEY_1))
 		{
 			hm.generate(eggbox);
 			mesh.init(hm, 50.f, grey, driver);
 		}
-		else if(receiver.IsKeyDown(irr::KEY_KEY_2))
+		else if(receiver.IsKeyDown(ue::KEY_KEY_2))
 		{
 			hm.generate(moresine);
 			mesh.init(hm, 50.f, yellow, driver);
 		}
-		else if(receiver.IsKeyDown(irr::KEY_KEY_3))
+		else if(receiver.IsKeyDown(ue::KEY_KEY_3))
 		{
 			hm.generate(justexp);
 			mesh.init(hm, 50.f, yellow, driver);

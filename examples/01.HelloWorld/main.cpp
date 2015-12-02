@@ -2,13 +2,13 @@
 
 /*
 In the Irrlicht Engine, everything can be found in the namespace 'irr'. So if
-you want to use a class of the engine, you have to write irr:: before the name
-of the class. For example to use the IrrlichtDevice write: irr::IrrlichtDevice.
-To get rid of the irr:: in front of the name of every class, we tell the
+you want to use a class of the engine, you have to write ue:: before the name
+of the class. For example to use the IrrlichtDevice write: ue::IrrlichtDevice.
+To get rid of the ue:: in front of the name of every class, we tell the
 compiler that we use that namespace from now on, and we will not have to write
-irr:: anymore.
+ue:: anymore.
 */
-using namespace irr;
+using namespace ue;
 
 /*
 There are 5 sub namespaces in the Irrlicht Engine. Take a look at them, you can
@@ -122,11 +122,11 @@ int main()
 
     c8* files[] =
     {
-        "../../media/metaioman.md2",
+        "../media/metaioman.md2",
     };
     c8* textures[] =
     {
-        "../../media/seymour.jpg",
+        "../media/seymour.jpg",
     };
     IAnimatedMeshSceneNode* head = 0;
     const float kCamDistZ = 40;
@@ -230,7 +230,7 @@ int main()
 	Device created before with createDevice(). In the Irrlicht Engine, you
 	have to delete all objects you created with a method or function which
 	starts with 'create'. The object is simply deleted by calling ->drop().
-	See the documentation at irr::IReferenceCounted::drop() for more
+	See the documentation at ue::IReferenceCounted::drop() for more
 	information.
 	*/
 	device->drop();

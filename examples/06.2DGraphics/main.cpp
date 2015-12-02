@@ -12,7 +12,7 @@ and tell the linker to link with the .lib file.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 
 /*

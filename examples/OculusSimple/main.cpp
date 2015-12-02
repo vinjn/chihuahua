@@ -2,13 +2,13 @@
 
 #include "../../source/IrrOculusVR/OculusRenderer.h"
 
-using namespace irr;
+using namespace ue;
 
 int main()
 {
     int width = 1280;
     int height = 720;
-    irr::video::E_DRIVER_TYPE driverType = video::EDT_DIRECT3D9;
+    ue::video::E_DRIVER_TYPE driverType = video::EDT_DIRECT3D9;
 
     // Initialize Irrlicht
     const core::dimension2du videoDim(width, height);
@@ -22,9 +22,9 @@ int main()
     // Get the window handle for Oculus Rift SDK
     void *window = 0;
 
-    if (driverType == irr::video::EDT_DIRECT3D9)
+    if (driverType == ue::video::EDT_DIRECT3D9)
         window = driver->getExposedVideoData().D3D9.HWnd;
-    else if (driverType == irr::video::EDT_OPENGL) // OpenGL under windows - no idea how it's done in Linux
+    else if (driverType == ue::video::EDT_OPENGL) // OpenGL under windows - no idea how it's done in Linux
         window = driver->getExposedVideoData().OpenGLWin32.HWnd;
 
 
@@ -38,8 +38,8 @@ int main()
         0.f, false,
         true);
 
-    camera->setPosition(irr::core::vector3df(10, 10.0f, 0));
-    camera->setTarget(irr::core::vector3df(10, 10.0f, 100.0f));
+    camera->setPosition(ue::core::vector3df(10, 10.0f, 0));
+    camera->setTarget(ue::core::vector3df(10, 10.0f, 100.0f));
 
 
     // add stuff
@@ -63,11 +63,11 @@ int main()
 
     /* Enable this to try linking head to a rotating animator. Could be used to link player to plane's cockpit etc
 
-    irr::scene::ISceneNode *rotatingNode = smgr->addEmptySceneNode();
-    rotatingNode->setPosition(irr::core::vector3df(10, 50, 10));
-    irr::scene::ISceneNode *rotatingChild = smgr->addEmptySceneNode(rotatingNode);
-    rotatingChild->setPosition(irr::core::vector3df(0.0f,4.0f, 0.0f));
-    irr::scene::ISceneNodeAnimator *anim = smgr->createRotationAnimator(irr::core::vector3df(1.0f,0,0.0f));
+    ue::scene::ISceneNode *rotatingNode = smgr->addEmptySceneNode();
+    rotatingNode->setPosition(ue::core::vector3df(10, 50, 10));
+    ue::scene::ISceneNode *rotatingChild = smgr->addEmptySceneNode(rotatingNode);
+    rotatingChild->setPosition(ue::core::vector3df(0.0f,4.0f, 0.0f));
+    ue::scene::ISceneNodeAnimator *anim = smgr->createRotationAnimator(ue::core::vector3df(1.0f,0,0.0f));
     rotatingNode->addAnimator(anim);
     anim->drop();
 
@@ -78,19 +78,19 @@ int main()
 
     while (device->run())
     {
-        driver->beginScene(true, true, irr::video::SColor(255, 150, 140, 255));
+        driver->beginScene(true, true, ue::video::SColor(255, 150, 140, 255));
 
         camera->OnAnimate(device->getTimer()->getTime());
         camera->updateAbsolutePosition();
 
         oculusRenderer.drawAll(camera->getAbsolutePosition(), camera->getRotation().Y,
-            irr::video::SColor(255, 150, 140, 255));
+            ue::video::SColor(255, 150, 140, 255));
 
         driver->endScene();
 
         if (++frames == 100)
         {
-            irr::core::stringw title = L"IrrOculusVR [FPS: ";
+            ue::core::stringw title = L"IrrOculusVR [FPS: ";
             title += driver->getFPS();
             title += "]";
             device->setWindowCaption(title.c_str());

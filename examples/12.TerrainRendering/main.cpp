@@ -17,11 +17,7 @@ toggles between solid and detail mapped material.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
-
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
+using namespace ue;
 
 
 class MyEventReceiver : public IEventReceiver
@@ -38,31 +34,31 @@ public:
 	bool OnEvent(const SEvent& event)
 	{
 		// check if user presses the key 'W' or 'D'
-		if (event.EventType == irr::EET_KEY_INPUT_EVENT && !event.KeyInput.PressedDown)
+		if (event.EventType == ue::EET_KEY_INPUT_EVENT && !event.KeyInput.PressedDown)
 		{
 			switch (event.KeyInput.Key)
 			{
-			case irr::KEY_KEY_W: // switch wire frame mode
+			case ue::KEY_KEY_W: // switch wire frame mode
 				Terrain->setMaterialFlag(video::EMF_WIREFRAME,
 						!Terrain->getMaterial(0).Wireframe);
 				Terrain->setMaterialFlag(video::EMF_POINTCLOUD, false);
 				return true;
-			case irr::KEY_KEY_P: // switch wire frame mode
+			case ue::KEY_KEY_P: // switch wire frame mode
 				Terrain->setMaterialFlag(video::EMF_POINTCLOUD,
 						!Terrain->getMaterial(0).PointCloud);
 				Terrain->setMaterialFlag(video::EMF_WIREFRAME, false);
 				return true;
-			case irr::KEY_KEY_D: // toggle detail map
+			case ue::KEY_KEY_D: // toggle detail map
 				Terrain->setMaterialType(
 					Terrain->getMaterial(0).MaterialType == video::EMT_SOLID ?
 					video::EMT_DETAIL_MAP : video::EMT_SOLID);
 				return true;
-			case irr::KEY_KEY_S: // toggle skies
+			case ue::KEY_KEY_S: // toggle skies
 				showBox=!showBox;
 				Skybox->setVisible(showBox);
 				Skydome->setVisible(!showBox);
 				return true;
-			case irr::KEY_KEY_X: // toggle debug information
+			case ue::KEY_KEY_X: // toggle debug information
 				showDebug=!showDebug;
 				Terrain->setDebugDataVisible(showDebug?scene::EDS_BBOX_ALL:scene::EDS_OFF);
 				return true;
@@ -96,8 +92,8 @@ int main()
 		return 1;
 
 	// create device with full flexibility over creation parameters
-	// you can add more parameters if desired, check irr::SIrrlichtCreationParameters
-	irr::SIrrlichtCreationParameters params;
+	// you can add more parameters if desired, check ue::SIrrlichtCreationParameters
+	ue::SIrrlichtCreationParameters params;
 	params.DriverType=driverType;
 	params.WindowSize=core::dimension2d<u32>(640, 480);
 	IrrlichtDevice* device = createDeviceEx(params);

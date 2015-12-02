@@ -13,12 +13,8 @@ nothing to say about it)
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 //Namespaces for the engine
-using namespace irr;
+using namespace ue;
 using namespace core;
 using namespace video;
 using namespace scene;
@@ -53,7 +49,7 @@ class MyEventReceiver : public IEventReceiver
 		virtual bool OnEvent(const SEvent& event)
 		{
 			//Key S enables/disables SplitScreen
-			if (event.EventType == irr::EET_KEY_INPUT_EVENT &&
+			if (event.EventType == ue::EET_KEY_INPUT_EVENT &&
 				event.KeyInput.Key == KEY_KEY_S && event.KeyInput.PressedDown)
 			{
 				SplitScreen = !SplitScreen;

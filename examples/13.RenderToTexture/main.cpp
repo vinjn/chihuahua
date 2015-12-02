@@ -11,11 +11,7 @@ for the rendering driver, create the Irrlicht Device:
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
-
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
+using namespace ue;
 
 int main()
 {

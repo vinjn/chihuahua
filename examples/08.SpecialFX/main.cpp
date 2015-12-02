@@ -22,11 +22,7 @@ runs slow on your hardware.
 #  include <android_native_app_glue.h>
 #endif
 
-using namespace irr;
-
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
+using namespace ue;
 
 #ifndef _IRR_ANDROID_PLATFORM_
 int main()
@@ -64,7 +60,7 @@ void android_main(struct android_app* app)
 	optional to avoid slow screen modes for runs without shadows.
 	*/
 #ifdef _IRR_ANDROID_PLATFORM_
-        struct irr::SIrrlichtCreationParameters p;
+        struct ue::SIrrlichtCreationParameters p;
         p.DriverType = driverType;
         // The android app object is needed by the irrlicht device.
         p.PrivateData = app;

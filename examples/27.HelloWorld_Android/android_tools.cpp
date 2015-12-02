@@ -4,7 +4,7 @@
 #include "android_tools.h"
 #include <android/log.h>	// for the occasional debugging, style: __android_log_print(ANDROID_LOG_VERBOSE, "Irrlicht", "%s\n", "We do log");
 
-namespace irr 
+namespace ue 
 {
 namespace android
 {
@@ -181,4 +181,4 @@ void setSoftInputVisibility(android_app* app, bool visible)
 }
 
 } // namespace android
-} // namespace irr
+} // namespace ue

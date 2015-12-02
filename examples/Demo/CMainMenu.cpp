@@ -288,7 +288,7 @@ bool CMainMenu::OnEvent(const SEvent& event)
 		}
 	}
 	else
-	if (event.EventType == irr::EET_MOUSE_INPUT_EVENT &&
+	if (event.EventType == ue::EET_MOUSE_INPUT_EVENT &&
 		event.MouseInput.Event == EMIE_RMOUSE_LEFT_UP )
 	{
 		core::rect<s32> r(event.MouseInput.X, event.MouseInput.Y, 0, 0);
@@ -363,7 +363,7 @@ bool CMainMenu::OnEvent(const SEvent& event)
 
 void CMainMenu::getOriginalSkinColor()
 {
-	irr::gui::IGUISkin * skin = MenuDevice->getGUIEnvironment()->getSkin();
+	ue::gui::IGUISkin * skin = MenuDevice->getGUIEnvironment()->getSkin();
 	for (s32 i=0; i<gui::EGDC_COUNT ; ++i)
 	{
 		SkinColor[i] = skin->getColor( (gui::EGUI_DEFAULT_COLOR)i );
@@ -374,7 +374,7 @@ void CMainMenu::getOriginalSkinColor()
 
 void CMainMenu::setTransparency()
 {
-	irr::gui::IGUISkin * skin = MenuDevice->getGUIEnvironment()->getSkin();
+	ue::gui::IGUISkin * skin = MenuDevice->getGUIEnvironment()->getSkin();
 
 	for (u32 i=0; i<gui::EGDC_COUNT ; ++i)
 	{

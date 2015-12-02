@@ -3,7 +3,7 @@
 #include "bx/float4x4_t.h"
 #include "../../Scene3D/src/Scene3D.h"
 
-using namespace irr;
+using namespace ue;
 
 using namespace core;
 using namespace scene;
@@ -21,7 +21,7 @@ public:
 
     virtual bool OnEvent(const SEvent& event)
     {
-        if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
+        if (event.EventType == ue::EET_MOUSE_INPUT_EVENT)
         {
             switch (event.MouseInput.Event)
             {
@@ -44,7 +44,7 @@ public:
             }
         }
 
-        if (event.EventType == irr::EET_KEY_INPUT_EVENT)
+        if (event.EventType == ue::EET_KEY_INPUT_EVENT)
         {
             if (event.KeyInput.Key == KEY_ESCAPE) device->closeDevice();
         }
@@ -71,9 +71,9 @@ int main(int argc, char const* const* argv)
     IVideoDriver* driver = device->getVideoDriver();
     ISceneManager* smgr = device->getSceneManager();
 
-    device->getFileSystem()->addFileArchive("../../media/");
+    device->getFileSystem()->addFileArchive("../media/");
 
-    Scene_runScript("test.js");
+    //Scene_runScript("test.js");
 
     //auto shadowDimen = 512;
     //effect->addShadowLight(SShadowLight(shadowDimen, vector3df(0, 0, 0), vector3df(5, 0, 5),

@@ -11,16 +11,12 @@ can easily be integrated into own apps.
 
 #include <irrlicht.h>
 
-using namespace irr;
+using namespace ue;
 using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
-
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 
 /* SettingManager class.
@@ -40,7 +36,7 @@ public:
 	SettingManager(const stringw& settings_file): SettingsFile(settings_file), NullDevice(0)
 	{
 		// Irrlicht null device, we want to load settings before we actually created our device, therefore, nulldevice
-		NullDevice = irr::createDevice(irr::video::EDT_NULL);
+		NullDevice = ue::createDevice(ue::video::EDT_NULL);
 
 		//DriverOptions is an irrlicht map,
 		//we can insert values in the map in two ways by calling insert(key,value) or by using the [key] operator
@@ -93,7 +89,7 @@ public:
 		if (!NullDevice)
 			return false;
 
-		irr::io::IXMLReader* xml = NullDevice->getFileSystem()->createXMLReader(SettingsFile);	//create xml reader
+		ue::io::IXMLReader* xml = NullDevice->getFileSystem()->createXMLReader(SettingsFile);	//create xml reader
 		if (!xml)
 			return false;
 
@@ -108,7 +104,7 @@ public:
 			switch (xml->getNodeType())
 			{
 				//we found a new element
-				case irr::io::EXN_ELEMENT:
+				case ue::io::EXN_ELEMENT:
 				{
 					//we currently are in the empty or mygame section and find the video tag so we set our current section to video
 					if (currentSection.empty() && videoTag.equals_ignore_case(xml->getNodeName()))
@@ -137,7 +133,7 @@ public:
 				break;
 
 				//we found the end of an element
-				case irr::io::EXN_ELEMENT_END:
+				case ue::io::EXN_ELEMENT_END:
 					//we were at the end of the video section so we reset our tag
 					currentSection=L"";
 				break;
@@ -159,7 +155,7 @@ public:
 			return false;
 
 		//create xml writer
-		irr::io::IXMLWriter* xwriter = NullDevice->getFileSystem()->createXMLWriter( SettingsFile );
+		ue::io::IXMLWriter* xwriter = NullDevice->getFileSystem()->createXMLWriter( SettingsFile );
 		if (!xwriter)
 			return false;
 
@@ -259,7 +255,7 @@ private:
 	map<stringw, stringw> SettingMap; //current config
 
 	stringw SettingsFile; // location of the xml, usually the
-	irr::IrrlichtDevice* NullDevice;
+	ue::IrrlichtDevice* NullDevice;
 };
 
 /*
@@ -361,11 +357,11 @@ This dialog shows the current settings from the configuration xml and allows the
 void createSettingsDialog(SAppContext& app)
 {
 	// first get rid of alpha in gui
-	for (irr::s32 i=0; i<irr::gui::EGDC_COUNT ; ++i)
+	for (ue::s32 i=0; i<ue::gui::EGDC_COUNT ; ++i)
 	{
-		irr::video::SColor col = app.Gui->getSkin()->getColor((irr::gui::EGUI_DEFAULT_COLOR)i);
+		ue::video::SColor col = app.Gui->getSkin()->getColor((ue::gui::EGUI_DEFAULT_COLOR)i);
 		col.setAlpha(255);
-		app.Gui->getSkin()->setColor((irr::gui::EGUI_DEFAULT_COLOR)i, col);
+		app.Gui->getSkin()->setColor((ue::gui::EGUI_DEFAULT_COLOR)i, col);
 	}
 
 	//create video settings windows
@@ -448,7 +444,7 @@ int main()
 
 		if (driver)
 		{
-			if ( irr::IrrlichtDevice::isDriverSupported( static_cast<E_DRIVER_TYPE>( driver->getValue() )))
+			if ( ue::IrrlichtDevice::isDriverSupported( static_cast<E_DRIVER_TYPE>( driver->getValue() )))
 			{
 				// selected driver is supported, so we use it.
 				param.DriverType = static_cast<E_DRIVER_TYPE>( driver->getValue());

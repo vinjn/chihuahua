@@ -36,17 +36,8 @@ to ask the user for a driver type using the console.
 	#define QUAKE3_MAP_NAME			"maps/20kdm2.bsp"
 #endif
 
-using namespace irr;
+using namespace ue;
 using namespace scene;
-
-/*
-Again, to be able to use the Irrlicht.DLL file, we need to link with the
-Irrlicht.lib. We could set this option in the project settings, but
-to make it easy, we use a pragma comment lib:
-*/
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 
 /*

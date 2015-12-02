@@ -13,7 +13,7 @@
 #include <windows.h>
 #endif
 
-using namespace irr;
+using namespace ue;
 
 // audio support
 

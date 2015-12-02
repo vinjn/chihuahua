@@ -17,7 +17,7 @@ windows book for details.
 #include <iostream>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 HWND hOKButton;
 HWND hWnd;
@@ -131,16 +131,16 @@ int main()
 	*/
 	// create irrlicht device in the button window
 
-	irr::SIrrlichtCreationParameters param;
+	ue::SIrrlichtCreationParameters param;
 	param.DriverType = driverType;
 	if (key=='a')
 		param.WindowId = reinterpret_cast<void*>(hIrrlichtWindow);
 
-	irr::IrrlichtDevice* device = irr::createDeviceEx(param);
+	ue::IrrlichtDevice* device = ue::createDeviceEx(param);
 
 	// setup a simple 3d scene
 
-	irr::scene::ISceneManager* smgr = device->getSceneManager();
+	ue::scene::ISceneManager* smgr = device->getSceneManager();
 	video::IVideoDriver* driver = device->getVideoDriver();
 
     if (driverType == video::EDT_OGLES2)

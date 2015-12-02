@@ -13,7 +13,7 @@ following code starts up the engine and loads the level, as per tutorial 2.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 enum
 {

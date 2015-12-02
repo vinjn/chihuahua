@@ -11,11 +11,7 @@ nearly all other tutorials.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
-
-#ifdef _MSC_VER
-#pragma comment(lib, "Irrlicht.lib")
-#endif
+using namespace ue;
 
 /*
 For this example, we need an event receiver, to make it possible for the user
@@ -75,16 +71,16 @@ public:
 	bool OnEvent(const SEvent& event)
 	{
 		// check if user presses the key 'E' or 'R'
-		if (event.EventType == irr::EET_KEY_INPUT_EVENT &&
+		if (event.EventType == ue::EET_KEY_INPUT_EVENT &&
 			!event.KeyInput.PressedDown && Room && ListBox)
 		{
 			// change selected item in listbox
 
 			int sel = ListBox->getSelected();
-			if (event.KeyInput.Key == irr::KEY_KEY_R)
+			if (event.KeyInput.Key == ue::KEY_KEY_R)
 				++sel;
 			else
-			if (event.KeyInput.Key == irr::KEY_KEY_E)
+			if (event.KeyInput.Key == ue::KEY_KEY_E)
 				--sel;
 			else
 				return false;

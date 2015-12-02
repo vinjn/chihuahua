@@ -15,7 +15,7 @@ tutorial, we use a lot stuff from the gui namespace.
 */
 #include <irrlicht.h>
 
-using namespace irr;
+using namespace ue;
 using namespace gui;
 
 
@@ -108,9 +108,9 @@ void setActiveCamera(scene::ICameraSceneNode* newActive)
 /*
 	Set the skin transparency by changing the alpha values of all skin-colors
 */
-void setSkinTransparency(s32 alpha, irr::gui::IGUISkin * skin)
+void setSkinTransparency(s32 alpha, ue::gui::IGUISkin * skin)
 {
-	for (s32 i=0; i<irr::gui::EGDC_COUNT ; ++i)
+	for (s32 i=0; i<ue::gui::EGDC_COUNT ; ++i)
 	{
 		video::SColor col = skin->getColor((EGUI_DEFAULT_COLOR)i);
 		col.setAlpha(alpha);
@@ -352,7 +352,7 @@ void onKillFocus()
 	// Avoid that the FPS-camera continues moving when the user presses alt-tab while 
 	// moving the camera. 
 	const core::list<scene::ISceneNodeAnimator*>& animators = Camera[1]->getAnimators();
-	core::list<irr::scene::ISceneNodeAnimator*>::ConstIterator iter = animators.begin();
+	core::list<ue::scene::ISceneNodeAnimator*>::ConstIterator iter = animators.begin();
 	while ( iter != animators.end() )
 	{
 		if ( (*iter)->getType() == scene::ESNAT_CAMERA_FPS )
@@ -360,9 +360,9 @@ void onKillFocus()
 			// we send a key-down event for all keys used by this animator
 			scene::ISceneNodeAnimatorCameraFPS * fpsAnimator = static_cast<scene::ISceneNodeAnimatorCameraFPS*>(*iter);
 			const core::array<SKeyMap>& keyMap = fpsAnimator->getKeyMap();
-			for ( irr::u32 i=0; i< keyMap.size(); ++i )
+			for ( ue::u32 i=0; i< keyMap.size(); ++i )
 			{
-				irr::SEvent event;
+				ue::SEvent event;
 				event.EventType = EET_KEY_INPUT_EVENT;
 				event.KeyInput.Key = keyMap[i].KeyCode;
 				event.KeyInput.PressedDown = false;
@@ -517,14 +517,14 @@ public:
 	/*
 		Handle key-up events
 	*/
-	bool OnKeyUp(irr::EKEY_CODE keyCode)
+	bool OnKeyUp(ue::EKEY_CODE keyCode)
 	{
 		// Don't handle keys if we have a modal dialog open as it would lead 
 		// to unexpected application behaviour for the user.
 		if ( hasModalDialog() )
 			return false;
 		
-		if (keyCode == irr::KEY_ESCAPE)
+		if (keyCode == ue::KEY_ESCAPE)
 		{
 			if (Device)
 			{
@@ -537,7 +537,7 @@ public:
 				return true;
 			}
 		}
-		else if (keyCode == irr::KEY_F1)
+		else if (keyCode == ue::KEY_F1)
 		{
 			if (Device)
 			{
@@ -546,12 +546,12 @@ public:
 					elem->setVisible(!elem->isVisible());
 			}
 		}
-		else if (keyCode == irr::KEY_KEY_M)
+		else if (keyCode == ue::KEY_KEY_M)
 		{
 			if (Device)
 				Device->minimizeWindow();
 		}
-		else if (keyCode == irr::KEY_KEY_L)
+		else if (keyCode == ue::KEY_KEY_L)
 		{
 			UseLight=!UseLight;
 			if (Model)

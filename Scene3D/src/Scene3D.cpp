@@ -8,7 +8,7 @@
 #include "../source/irrlicht/COGLES2Texture.h"
 #include "../source/irrlicht/CSceneManager.h"
 #include "../source/irrlicht/CCameraSceneNode.h"
-#include "../source/XEffects/XEffects.h"
+// #include "../source/XEffects/XEffects.h"
 
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
 #include <OpenGLES/ES2/gl.h>
@@ -16,10 +16,10 @@
 #include <GLES2/gl2.h>
 #endif
 
-using namespace irr;
+using namespace ue;
 using namespace core;
 
-namespace irr
+namespace ue
 {
 class CIrrDeviceIPhone;
 namespace video
@@ -59,7 +59,7 @@ IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileS
 
 }
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -76,7 +76,7 @@ scene::ISceneCollisionManager* coll;
 scene::ISceneNode* arRootNode; // arRootNode's parent = dummy node
 scene::CCameraSceneNode* camera;
 
-EffectHandler* effect;
+// EffectHandler* effect;
 
 enum NodeIdCategory
 {
@@ -135,7 +135,7 @@ static void setupSceneAndCamera()
     camera = (scene::CCameraSceneNode*)smgr->addCameraSceneNode(0, vector3df(0, 0, 0), vector3df(0, 0, 100));
     smgr->setActiveCamera(camera);
 
-#ifdef _IRR_WINDOWS_API_
+#if 0
     // XEffects
     effect = new EffectHandler(driver, smgr, driver->getScreenSize(), false, true);
 
@@ -232,7 +232,7 @@ void Scene_clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 {
     // printf("Scene_clear()");
     auto clr = video::SColor(a, r, g, b);
-    if (effect) effect->setClearColour(clr);
+    // if (effect) effect->setClearColour(clr);
     driver->beginScene(true, true, clr);
     // driver->drawPixel(0, 0, video::SColor(255, 255, 0, 0));
     // driver->draw2DRectangleOutline(recti(10, 10, 100, 100));
@@ -461,7 +461,7 @@ void Scene_setAnimationCallback(NodePtrFunctor cb)
 
 void Scene_destroy()
 {
-    if (effect) delete effect;
+    // if (effect) delete effect;
     arRootNode->removeAll();
     driver->drop();
     smgr->drop();
@@ -781,6 +781,7 @@ void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType materi
 
 void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
 {
+    #if 0
     if (!effect) return;
 
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
@@ -789,6 +790,7 @@ void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
     effect->removeNodeFromShadow(node);
     E_FILTER_TYPE filterType = EFT_NONE;
     effect->addShadowToNode(node, filterType, (E_SHADOW_MODE)mode);
+    #endif
 }
 
 void Scene_setVisible(int visible)

@@ -7,16 +7,12 @@ It can also be used for experiments with the mouse in general.
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 using namespace core;
 using namespace scene;
 using namespace video;
 using namespace io;
 using namespace gui;
-
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#endif
 
 const int DELAY_TIME = 3000;
 
@@ -394,7 +390,7 @@ s32 AddIconToSpriteBank( gui::IGUISpriteBank * spriteBank, video::IVideoDriver* 
 	video::ITexture * tex = driver->getTexture( file );
 	if ( tex )
 	{
-		core::array< core::rect<irr::s32> >& spritePositions = spriteBank->getPositions();
+		core::array< core::rect<ue::s32> >& spritePositions = spriteBank->getPositions();
 		spritePositions.push_back( rect );
 		array< SGUISprite >& sprites = spriteBank->getSprites();
 		spriteBank->addTexture( tex );

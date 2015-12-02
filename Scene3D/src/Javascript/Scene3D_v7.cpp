@@ -1,8 +1,8 @@
 #include "../Scene3D.h"
 #include "irrlicht.h"
-#include "../source/v7/v7.h"
+#include "../../../source/v7/v7.c"
 
-using namespace irr;
+using namespace ue;
 using namespace core;
 
 struct v7 *v7;

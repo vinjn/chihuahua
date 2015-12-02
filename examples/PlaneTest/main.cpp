@@ -4,7 +4,7 @@
 #include "bx/readerwriter.h"
 #include "bgfx/c99/bgfx.h"
 
-using namespace irr;
+using namespace ue;
 
 using namespace core;
 using namespace scene;

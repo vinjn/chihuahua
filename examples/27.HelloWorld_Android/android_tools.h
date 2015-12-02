@@ -7,7 +7,7 @@
 #include <irrlicht.h>
 #include <android_native_app_glue.h>
 
-namespace irr 
+namespace ue 
 {
 namespace android
 {

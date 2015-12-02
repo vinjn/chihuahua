@@ -11,11 +11,9 @@
 #include "CMainMenu.h"
 #include "CDemo.h"
 
-using namespace irr;
+using namespace ue;
 
 #ifdef _WIN32
-
-#pragma comment(lib, "Irrlicht.lib")
 INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
 #else
 int main(int argc, char* argv[])

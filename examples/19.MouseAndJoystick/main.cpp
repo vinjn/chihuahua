@@ -7,16 +7,10 @@ that supports joysticks.  These are currently Windows, Linux and SDL
 devices.
 */
 
-#ifdef _MSC_VER
-// We'll define this to stop MSVC complaining about sprintf().
-#define _CRT_SECURE_NO_WARNINGS
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-
 #include <irrlicht.h>
 #include "driverChoice.h"
 
-using namespace irr;
+using namespace ue;
 
 /*
 Just as we did in example 04.Movement, we'll store the latest state of the
@@ -37,7 +31,7 @@ public:
 	virtual bool OnEvent(const SEvent& event)
 	{
 		// Remember the mouse state
-		if (event.EventType == irr::EET_MOUSE_INPUT_EVENT)
+		if (event.EventType == ue::EET_MOUSE_INPUT_EVENT)
 		{
 			switch(event.MouseInput.Event)
 			{
@@ -64,7 +58,7 @@ public:
 		// once every run() of the Irrlicht device.  Store the
 		// state of the first joystick, ignoring other joysticks.
 		// This is currently only supported on Windows and Linux.
-		if (event.EventType == irr::EET_JOYSTICK_INPUT_EVENT
+		if (event.EventType == ue::EET_JOYSTICK_INPUT_EVENT
 			&& event.JoystickEvent.Joystick == 0)
 		{
 			JoystickState = event.JoystickEvent;
@@ -96,7 +90,7 @@ private:
 /*
 The event receiver for keeping the pressed keys is ready, the actual responses
 will be made inside the render loop, right before drawing the scene. So lets
-just create an irr::IrrlichtDevice and the scene node we want to move. We also
+just create an ue::IrrlichtDevice and the scene node we want to move. We also
 create some other additional scene nodes, to show that there are also some
 different possibilities to move and animate scene nodes.
 */
