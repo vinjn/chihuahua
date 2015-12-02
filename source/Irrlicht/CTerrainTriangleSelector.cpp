@@ -8,7 +8,7 @@
 #include "CTerrainSceneNode.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -233,6 +233,6 @@ const ITriangleSelector* CTerrainTriangleSelector::getSelector(u32 index) const
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif

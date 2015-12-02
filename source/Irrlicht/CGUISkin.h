@@ -11,7 +11,7 @@
 #include "IGUISkin.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -238,7 +238,7 @@ namespace gui
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_GUI_
 

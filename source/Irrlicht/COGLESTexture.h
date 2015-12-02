@@ -22,7 +22,7 @@
 #include "PVR-SDK/GLES/gl.h"
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -177,7 +177,7 @@ protected:
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 #endif // _IRR_COMPILE_WITH_OGLES1_

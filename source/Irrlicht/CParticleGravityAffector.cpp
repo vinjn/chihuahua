@@ -6,7 +6,7 @@
 #include "os.h"
 #include "IAttributes.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -60,5 +60,5 @@ void CParticleGravityAffector::deserializeAttributes(io::IAttributes* in, io::SA
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

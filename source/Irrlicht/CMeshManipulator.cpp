@@ -10,7 +10,7 @@
 #include "irrMap.h"
 #include "triangle3d.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -111,7 +111,7 @@ void recalculateNormalsT(IMeshBuffer* buffer, bool smooth, bool angleWeighted)
 
 			core::vector3df weight(1.f,1.f,1.f);
 			if (angleWeighted)
-				weight = irr::scene::getAngleWeight(v1,v2,v3); // writing irr::scene:: necessary for borland
+				weight = ue::scene::getAngleWeight(v1,v2,v3); // writing ue::scene:: necessary for borland
 
 			buffer->getNormal(idx[i+0]) += weight.X*normal;
 			buffer->getNormal(idx[i+1]) += weight.Y*normal;
@@ -293,7 +293,7 @@ void recalculateTangentsT(IMeshBuffer* buffer, bool recalculateNormals, bool smo
 			//Angle-weighted normals look better, but are slightly more CPU intensive to calculate
 			core::vector3df weight(1.f,1.f,1.f);
 			if (angleWeighted)
-				weight = irr::scene::getAngleWeight(v[i+0].Pos,v[i+1].Pos,v[i+2].Pos);	// writing irr::scene:: necessary for borland
+				weight = ue::scene::getAngleWeight(v[i+0].Pos,v[i+1].Pos,v[i+2].Pos);	// writing ue::scene:: necessary for borland
 			core::vector3df localNormal;
 			core::vector3df localTangent;
 			core::vector3df localBinormal;
@@ -2146,5 +2146,5 @@ IMesh* CMeshManipulator::createForsythOptimizedMesh(const IMesh *mesh) const
 }
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

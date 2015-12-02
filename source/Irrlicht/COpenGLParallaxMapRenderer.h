@@ -11,7 +11,7 @@
 #include "COpenGLShaderMaterialRenderer.h"
 #include "IShaderConstantSetCallBack.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -48,7 +48,7 @@ protected:
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 #endif

@@ -8,7 +8,7 @@
 #include "irrArray.h"
 #include "IMeshBuffer.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -294,7 +294,7 @@ namespace scene
 	//! Meshbuffer with vertices having tangents stored, e.g. for normal mapping
 	typedef CMeshBuffer<video::S3DVertexTangents> SMeshBufferTangents;
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

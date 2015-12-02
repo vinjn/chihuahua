@@ -29,7 +29,7 @@
 
 #include "IMaterialRenderer.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -75,7 +75,7 @@ protected:
 
 	bool createPixelShader(const c8* pxsh);
 	bool createVertexShader(const c8* vtxsh);
-	bool checkError(const irr::c8* type);
+	bool checkError(const ue::c8* type);
 
 	COpenGLDriver* Driver;
 	IShaderConstantSetCallBack* CallBack;
@@ -90,7 +90,7 @@ protected:
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 #endif

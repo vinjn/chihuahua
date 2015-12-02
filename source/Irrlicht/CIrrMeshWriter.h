@@ -10,7 +10,7 @@
 #include "IVideoDriver.h"
 #include "IFileSystem.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {

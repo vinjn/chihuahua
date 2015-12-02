@@ -5,7 +5,7 @@
 #include "CVideoModeList.h"
 #include "irrMath.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -128,5 +128,5 @@ void CVideoModeList::addMode(const core::dimension2d<u32>& size, s32 depth)
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 

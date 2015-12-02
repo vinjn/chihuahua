@@ -9,7 +9,7 @@
 
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -263,7 +263,7 @@ void COctreeTriangleSelector::getTrianglesFromOctree(SOctreeNode* node,
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

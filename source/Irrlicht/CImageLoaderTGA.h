@@ -10,7 +10,7 @@
 #include "IImageLoader.h"
 
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -76,7 +76,7 @@ private:
 #endif // compiled with loader
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

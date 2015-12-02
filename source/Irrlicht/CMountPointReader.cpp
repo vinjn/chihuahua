@@ -9,7 +9,7 @@
 #include "CReadFile.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {

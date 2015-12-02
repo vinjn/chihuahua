@@ -4,7 +4,7 @@
 //
 // Because I (Nikolaus Gebhardt) did some changes to Murphy McCauley's loader,
 // I'm writing this down here:
-// - Replaced all dependencies to STL and stdio with irr:: methods/constructs
+// - Replaced all dependencies to STL and stdio with ue:: methods/constructs
 // - Disabled logging define
 // - Changed some minor things (Don't remember what exactly.)
 // Thanks a lot to Murphy McCauley for writing this loader.
@@ -48,7 +48,7 @@
 #include "SMesh.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -135,7 +135,7 @@ namespace scene
 	};
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

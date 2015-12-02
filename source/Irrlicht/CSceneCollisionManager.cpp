@@ -11,7 +11,7 @@
 #include "os.h"
 #include "irrMath.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -963,5 +963,5 @@ inline bool CSceneCollisionManager::getLowestRoot(f32 a, f32 b, f32 c, f32 maxR,
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

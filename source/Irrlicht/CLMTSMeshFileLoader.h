@@ -26,7 +26,7 @@ Version 1.5 - 15 March 2005
 #include "IFileSystem.h"
 #include "IVideoDriver.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -104,6 +104,6 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif // !defined(__C_LMTS_MESH_FILE_LOADER_H_INCLUDED__)

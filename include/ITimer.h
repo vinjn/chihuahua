@@ -7,7 +7,7 @@
 
 #include "IReferenceCounted.h"
 
-namespace irr
+namespace ue
 {
 
 //! Interface for getting and manipulating the virtual time
@@ -98,6 +98,6 @@ public:
 	virtual void tick() = 0;
 };
 
-} // end namespace irr
+} // end namespace ue
 
 #endif

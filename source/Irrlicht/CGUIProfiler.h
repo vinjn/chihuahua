@@ -10,7 +10,7 @@
 
 #include "IGUIProfiler.h"
 
-namespace irr
+namespace ue
 {
 
 class IProfiler;
@@ -66,7 +66,7 @@ namespace gui
 		virtual bool getFrozen() const _IRR_OVERRIDE_;
 
 		//! Filters prevents data that doesn't achieve the conditions from being displayed
-		virtual void setFilters(irr::u32 minCalls, irr::u32 minTimeSum, irr::f32 minTimeAverage, irr::u32 minTimeMax) _IRR_OVERRIDE_;
+		virtual void setFilters(ue::u32 minCalls, ue::u32 minTimeSum, ue::f32 minTimeAverage, ue::u32 minTimeMax) _IRR_OVERRIDE_;
 
 		virtual IGUIElement* getElementFromPoint(const core::position2d<s32>& point) _IRR_OVERRIDE_
 		{
@@ -84,22 +84,22 @@ namespace gui
 		void rebuildColumns();
 
 		IProfiler * Profiler;
-		irr::gui::IGUITable* DisplayTable;
-		irr::u32 CurrentGroupIdx;
-		irr::s32 CurrentGroupPage;
-		irr::s32 NumGroupPages;
+		ue::gui::IGUITable* DisplayTable;
+		ue::u32 CurrentGroupIdx;
+		ue::s32 CurrentGroupPage;
+		ue::s32 NumGroupPages;
 		bool DrawBackground;
 		bool Frozen;
 		bool UnfreezeOnce;
 		bool ShowGroupsTogether;
-		irr::u32 MinCalls;
-		irr::u32 MinTimeSum;
-		irr::f32 MinTimeAverage;
-		irr::u32 MinTimeMax;
+		ue::u32 MinCalls;
+		ue::u32 MinTimeSum;
+		ue::f32 MinTimeAverage;
+		ue::u32 MinTimeMax;
 	};
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_GUI_
 

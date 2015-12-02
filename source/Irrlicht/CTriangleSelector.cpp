@@ -7,7 +7,7 @@
 #include "IMeshBuffer.h"
 #include "IAnimatedMeshSceneNode.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -276,4 +276,4 @@ const ITriangleSelector* CTriangleSelector::getSelector(u32 index) const
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue

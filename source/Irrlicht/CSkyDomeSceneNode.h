@@ -9,7 +9,7 @@
 #include "ISceneNode.h"
 #include "SMeshBuffer.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {

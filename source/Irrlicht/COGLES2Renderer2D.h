@@ -11,7 +11,7 @@
 
 #include "COGLES2MaterialRenderer.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {

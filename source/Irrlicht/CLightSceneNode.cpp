@@ -9,7 +9,7 @@
 
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -271,5 +271,5 @@ ISceneNode* CLightSceneNode::clone(ISceneNode* newParent, ISceneManager* newMana
 }
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

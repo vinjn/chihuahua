@@ -11,7 +11,7 @@
 #include "os.h"
 #include "SLight.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -300,7 +300,7 @@ namespace video
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_DIRECT3D_9_
 

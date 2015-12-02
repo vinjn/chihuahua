@@ -68,7 +68,7 @@
 	The code for parsing this file would look like this:
 	\code
 	#include <irrXML.h>
-	using namespace irr; // irrXML is located in the namespace irr::io
+	using namespace ue; // irrXML is located in the namespace ue::io
 	using namespace io;
 
 	#include <string> // we use STL strings to store data in this example
@@ -150,7 +150,7 @@
 	irrXML 1.0, this has now been done.
 */
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -248,7 +248,7 @@ namespace io
 	The typical usage of this parser looks like this:
 	\code
 	#include <irrXML.h>
-	using namespace irr; // irrXML is located in the namespace irr::io
+	using namespace ue; // irrXML is located in the namespace ue::io
 	using namespace io;
 
 	void main()
@@ -568,13 +568,13 @@ namespace io
 
 	\code
 	#include <irrXML.h>
-	using namespace irr;
+	using namespace ue;
 	using namespace io;
 	\endcode
 	*/
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif // __IRR_XML_H_INCLUDED__
 

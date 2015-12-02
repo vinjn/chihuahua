@@ -8,7 +8,7 @@
 #include "CBlit.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -530,4 +530,4 @@ inline SColor CImage::getPixelBox( s32 x, s32 y, s32 fx, s32 fy, s32 bias ) cons
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue

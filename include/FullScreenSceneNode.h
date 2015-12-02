@@ -3,7 +3,7 @@
 
 #include <irrlicht.h>
 
-namespace irr {
+namespace ue {
 
 struct FullScreenSceneNode : public scene::ISceneNode
 {
@@ -55,7 +55,7 @@ struct FullScreenSceneNode : public scene::ISceneNode
             need to create a bounding box from the 4 vertices we use.
             If you do not want the engine to use the box for automatic culling,
             and/or don't want to create the box, you could also call
-            irr::scene::ISceneNode::setAutomaticCulling() with irr::scene::EAC_OFF.
+            ue::scene::ISceneNode::setAutomaticCulling() with ue::scene::EAC_OFF.
             */
             Box.reset(Vertices[0].Pos);
             for (s32 i = 1; i < 4; ++i)
@@ -63,11 +63,11 @@ struct FullScreenSceneNode : public scene::ISceneNode
         }
 
     /*
-    Before it is drawn, the irr::scene::ISceneNode::OnRegisterSceneNode()
+    Before it is drawn, the ue::scene::ISceneNode::OnRegisterSceneNode()
     method of every scene node in the scene is called by the scene manager.
     If the scene node wishes to draw itself, it may register itself in the
     scene manager to be drawn. This is necessary to tell the scene manager
-    when it should call irr::scene::ISceneNode::render(). For
+    when it should call ue::scene::ISceneNode::render(). For
     example, normal scene nodes render their content one after another,
     while stencil buffer shadows would like to be drawn after all other
     scene nodes. And camera or light scene nodes need to be rendered before
@@ -76,7 +76,7 @@ struct FullScreenSceneNode : public scene::ISceneNode
     like cameras or light, we would have to call
     SceneManager->registerNodeForRendering(this, SNRT_LIGHT_AND_CAMERA);
     After this, we call the actual
-    irr::scene::ISceneNode::OnRegisterSceneNode() method of the base class,
+    ue::scene::ISceneNode::OnRegisterSceneNode() method of the base class,
     which simply lets also all the child scene nodes of this node register
     themselves.
     */
@@ -118,10 +118,10 @@ struct FullScreenSceneNode : public scene::ISceneNode
 
     /*
     And finally we create three small additional methods.
-    irr::scene::ISceneNode::getBoundingBox() returns the bounding box of
-    this scene node, irr::scene::ISceneNode::getMaterialCount() returns the
+    ue::scene::ISceneNode::getBoundingBox() returns the bounding box of
+    this scene node, ue::scene::ISceneNode::getMaterialCount() returns the
     amount of materials in this scene node (our tetraeder only has one
-    material), and irr::scene::ISceneNode::getMaterial() returns the
+    material), and ue::scene::ISceneNode::getMaterial() returns the
     material at an index. Because we have only one material here, we can
     return the only one material, assuming that no one ever calls
     getMaterial() with an index greater than 0.

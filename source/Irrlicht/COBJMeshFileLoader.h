@@ -12,7 +12,7 @@
 #include "SMeshBuffer.h"
 #include "irrMap.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -116,7 +116,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -9,7 +9,7 @@
 #include "path.h"
 #include "IMeshTextureLoader.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -84,6 +84,6 @@ protected:
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif

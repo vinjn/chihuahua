@@ -6,7 +6,7 @@
 #include "IAttributes.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -66,5 +66,5 @@ void CParticleFadeOutAffector::deserializeAttributes(io::IAttributes* in, io::SA
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

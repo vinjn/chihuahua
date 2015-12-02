@@ -7,7 +7,7 @@
 
 #include "IrrCompileConfig.h"
 
-namespace irr
+namespace ue
 {
 
 //! 8 bit unsigned variable.
@@ -108,7 +108,7 @@ typedef float				f32;
 typedef double				f64;
 
 
-} // end namespace irr
+} // end namespace ue
 
 
 #include <wchar.h>
@@ -142,7 +142,7 @@ typedef unsigned short wchar_t;
 #endif // microsoft compiler
 #endif // _IRR_WINDOWS_API_
 
-namespace irr
+namespace ue
 {
 
 //! Type name for character type used by the file system.
@@ -159,7 +159,7 @@ strings
 	#define _IRR_TEXT(X) X
 #endif
 
-} // end namespace irr
+} // end namespace ue
 
 //! define a break macro for debugging.
 #if defined(_DEBUG)
@@ -253,8 +253,8 @@ Compiler version defines: VC6.0 : 1200, VC7.0 : 1300, VC7.1 : 1310, VC8.0 : 1400
 /** some compilers can create those by directly writing the
 code like 'code', but some generate warnings so we use this macro here */
 #define MAKE_IRR_ID(c0, c1, c2, c3) \
-		((irr::u32)(irr::u8)(c0) | ((irr::u32)(irr::u8)(c1) << 8) | \
-		((irr::u32)(irr::u8)(c2) << 16) | ((irr::u32)(irr::u8)(c3) << 24 ))
+		((ue::u32)(ue::u8)(c0) | ((ue::u32)(ue::u8)(c1) << 8) | \
+		((ue::u32)(ue::u8)(c2) << 16) | ((ue::u32)(ue::u8)(c3) << 24 ))
 
 #if defined(__BORLANDC__) || defined (__BCPLUSPLUS__)
 #define _strcmpi(a,b) strcmpi(a,b)

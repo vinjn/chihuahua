@@ -19,7 +19,7 @@
 #include <sipapi.h>
 #include <gx.h>
 
-namespace irr
+namespace ue
 {
 	class CIrrDeviceWinCE : public CIrrDeviceStub, video::IImagePresenter
 	{
@@ -296,7 +296,7 @@ namespace irr
 	};
 
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_WINDOWS_CE_DEVICE_
 #endif // __C_IRR_DEVICE_WINCE_H_INCLUDED__

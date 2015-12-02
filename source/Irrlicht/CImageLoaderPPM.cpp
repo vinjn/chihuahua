@@ -13,7 +13,7 @@
 #include "fast_atof.h"
 #include "coreutil.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -271,7 +271,7 @@ IImageLoader* createImageLoaderPPM()
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

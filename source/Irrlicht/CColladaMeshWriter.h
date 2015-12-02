@@ -10,7 +10,7 @@
 #include "irrMap.h"
 #include "IVideoDriver.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -26,34 +26,34 @@ namespace scene
 	{
 	public:
 		//! Which lighting model should be used in the technique (FX) section when exporting effects (materials)
-		virtual irr::scene::E_COLLADA_TECHNIQUE_FX getTechniqueFx(const irr::video::SMaterial& material) const _IRR_OVERRIDE_;
+		virtual ue::scene::E_COLLADA_TECHNIQUE_FX getTechniqueFx(const ue::video::SMaterial& material) const _IRR_OVERRIDE_;
 
 		//! Which texture index should be used when writing the texture of the given sampler color.
-		virtual irr::s32 getTextureIdx(const irr::video::SMaterial & material, irr::scene::E_COLLADA_COLOR_SAMPLER cs) const _IRR_OVERRIDE_;
+		virtual ue::s32 getTextureIdx(const ue::video::SMaterial & material, ue::scene::E_COLLADA_COLOR_SAMPLER cs) const _IRR_OVERRIDE_;
 
 		//! Return which color from Irrlicht should be used for the color requested by collada
-		virtual irr::scene::E_COLLADA_IRR_COLOR getColorMapping(const irr::video::SMaterial & material, irr::scene::E_COLLADA_COLOR_SAMPLER cs) const _IRR_OVERRIDE_;
+		virtual ue::scene::E_COLLADA_IRR_COLOR getColorMapping(const ue::video::SMaterial & material, ue::scene::E_COLLADA_COLOR_SAMPLER cs) const _IRR_OVERRIDE_;
 
 		//! Return custom colors for certain color types requested by collada.
-		virtual irr::video::SColor getCustomColor(const irr::video::SMaterial & material, irr::scene::E_COLLADA_COLOR_SAMPLER cs) const _IRR_OVERRIDE_;
+		virtual ue::video::SColor getCustomColor(const ue::video::SMaterial & material, ue::scene::E_COLLADA_COLOR_SAMPLER cs) const _IRR_OVERRIDE_;
 
 		//! Return the settings for transparence
-		virtual irr::scene::E_COLLADA_TRANSPARENT_FX getTransparentFx(const irr::video::SMaterial& material) const _IRR_OVERRIDE_;
+		virtual ue::scene::E_COLLADA_TRANSPARENT_FX getTransparentFx(const ue::video::SMaterial& material) const _IRR_OVERRIDE_;
 
 		//! Transparency value for that material.
-		virtual irr::f32 getTransparency(const irr::video::SMaterial& material) const _IRR_OVERRIDE_;
+		virtual ue::f32 getTransparency(const ue::video::SMaterial& material) const _IRR_OVERRIDE_;
 
 		//! Reflectivity value for that material
-		virtual irr::f32 getReflectivity(const irr::video::SMaterial& material) const _IRR_OVERRIDE_;
+		virtual ue::f32 getReflectivity(const ue::video::SMaterial& material) const _IRR_OVERRIDE_;
 
 		//! Return index of refraction for that material
-		virtual irr::f32 getIndexOfRefraction(const irr::video::SMaterial& material) const _IRR_OVERRIDE_;
+		virtual ue::f32 getIndexOfRefraction(const ue::video::SMaterial& material) const _IRR_OVERRIDE_;
 
 		//! Should node be used in scene export? By default all visible nodes are exported.
-		virtual bool isExportable(const irr::scene::ISceneNode * node) const _IRR_OVERRIDE_;
+		virtual bool isExportable(const ue::scene::ISceneNode * node) const _IRR_OVERRIDE_;
 
 		//! Return the mesh for the given nod. If it has no mesh or shouldn't export it's mesh return 0.
-		virtual irr::scene::IMesh* getMesh(irr::scene::ISceneNode * node) _IRR_OVERRIDE_;
+		virtual ue::scene::IMesh* getMesh(ue::scene::ISceneNode * node) _IRR_OVERRIDE_;
 
 		//! Return if the node has it's own material overwriting the mesh-materials
 		virtual bool useNodeMaterial(const scene::ISceneNode* node) const _IRR_OVERRIDE_;
@@ -63,11 +63,11 @@ namespace scene
 	{
 	public:
 		CColladaMeshWriterNames(IColladaMeshWriter * writer);
-		virtual irr::core::stringw nameForMesh(const scene::IMesh* mesh, int instance) _IRR_OVERRIDE_;
-		virtual irr::core::stringw nameForNode(const scene::ISceneNode* node) _IRR_OVERRIDE_;
-		virtual irr::core::stringw nameForMaterial(const video::SMaterial & material, int materialId, const scene::IMesh* mesh, const scene::ISceneNode* node) _IRR_OVERRIDE_;
+		virtual ue::core::stringw nameForMesh(const scene::IMesh* mesh, int instance) _IRR_OVERRIDE_;
+		virtual ue::core::stringw nameForNode(const scene::ISceneNode* node) _IRR_OVERRIDE_;
+		virtual ue::core::stringw nameForMaterial(const video::SMaterial & material, int materialId, const scene::IMesh* mesh, const scene::ISceneNode* node) _IRR_OVERRIDE_;
 	protected:
-		irr::core::stringw nameForPtr(const void* ptr) const;
+		ue::core::stringw nameForPtr(const void* ptr) const;
 	private:
 		IColladaMeshWriter * ColladaMeshWriter;
 	};
@@ -94,52 +94,52 @@ public:
 	virtual bool writeMesh(io::IWriteFile* file, scene::IMesh* mesh, s32 flags=EMWF_NONE) _IRR_OVERRIDE_;
 
 	// Restrict the characters of oldString a set of allowed characters in xs::NCName and add the prefix.
-	virtual irr::core::stringw toNCName(const irr::core::stringw& oldString, const irr::core::stringw& prefix=irr::core::stringw(L"_NC_")) const _IRR_OVERRIDE_;
+	virtual ue::core::stringw toNCName(const ue::core::stringw& oldString, const ue::core::stringw& prefix=ue::core::stringw(L"_NC_")) const _IRR_OVERRIDE_;
 
 	//! After export you can find out which name had been used for writing the geometry for this node.
-	virtual const irr::core::stringw* findGeometryNameForNode(ISceneNode* node) _IRR_OVERRIDE_;
+	virtual const ue::core::stringw* findGeometryNameForNode(ISceneNode* node) _IRR_OVERRIDE_;
 
 protected:
 
 	void reset();
 	bool hasSecondTextureCoordinates(video::E_VERTEX_TYPE type) const;
-	void writeUv(const irr::core::vector2df& vec);
-	void writeVector(const irr::core::vector2df& vec);
-	void writeVector(const irr::core::vector3df& vec);
-	void writeColor(const irr::video::SColorf& colorf, bool writeAlpha=true);
-	inline irr::core::stringw toString(const irr::video::ECOLOR_FORMAT format) const;
-	inline irr::core::stringw toString(const irr::video::E_TEXTURE_CLAMP clamp) const;
-	inline irr::core::stringw toString(const irr::scene::E_COLLADA_TRANSPARENT_FX opaque) const;
-	inline irr::core::stringw toRef(const irr::core::stringw& source) const;
+	void writeUv(const ue::core::vector2df& vec);
+	void writeVector(const ue::core::vector2df& vec);
+	void writeVector(const ue::core::vector3df& vec);
+	void writeColor(const ue::video::SColorf& colorf, bool writeAlpha=true);
+	inline ue::core::stringw toString(const ue::video::ECOLOR_FORMAT format) const;
+	inline ue::core::stringw toString(const ue::video::E_TEXTURE_CLAMP clamp) const;
+	inline ue::core::stringw toString(const ue::scene::E_COLLADA_TRANSPARENT_FX opaque) const;
+	inline ue::core::stringw toRef(const ue::core::stringw& source) const;
 	bool isCamera(const scene::ISceneNode* node) const;
-	irr::core::stringw nameForMesh(const scene::IMesh* mesh, int instance) const;
-	irr::core::stringw nameForNode(const scene::ISceneNode* node) const;
-	irr::core::stringw nameForMaterial(const video::SMaterial & material, int materialId, const scene::IMesh* mesh, const scene::ISceneNode* node);
-	irr::core::stringw nameForMaterialSymbol(const scene::IMesh* mesh, int materialId) const;
-	irr::core::stringw findCachedMaterialName(const irr::video::SMaterial& material) const;
-	irr::core::stringw minTexfilterToString(bool bilinear, bool trilinear) const;
-	irr::core::stringw magTexfilterToString(bool bilinear, bool trilinear) const;
-	irr::core::stringw pathToURI(const irr::io::path& path) const;
+	ue::core::stringw nameForMesh(const scene::IMesh* mesh, int instance) const;
+	ue::core::stringw nameForNode(const scene::ISceneNode* node) const;
+	ue::core::stringw nameForMaterial(const video::SMaterial & material, int materialId, const scene::IMesh* mesh, const scene::ISceneNode* node);
+	ue::core::stringw nameForMaterialSymbol(const scene::IMesh* mesh, int materialId) const;
+	ue::core::stringw findCachedMaterialName(const ue::video::SMaterial& material) const;
+	ue::core::stringw minTexfilterToString(bool bilinear, bool trilinear) const;
+	ue::core::stringw magTexfilterToString(bool bilinear, bool trilinear) const;
+	ue::core::stringw pathToURI(const ue::io::path& path) const;
 	inline bool isXmlNameStartChar(wchar_t c) const;
 	inline bool isXmlNameChar(wchar_t c) const;
 	s32 getCheckedTextureIdx(const video::SMaterial & material, E_COLLADA_COLOR_SAMPLER cs);
 	video::SColor getColorMapping(const video::SMaterial & material, E_COLLADA_COLOR_SAMPLER cs, E_COLLADA_IRR_COLOR colType);
 	void writeAsset();
-	void makeMeshNames(irr::scene::ISceneNode * node);
-	void writeNodeMaterials(irr::scene::ISceneNode * node);
-	void writeNodeEffects(irr::scene::ISceneNode * node);
-	void writeNodeLights(irr::scene::ISceneNode * node);
-	void writeNodeCameras(irr::scene::ISceneNode * node);
+	void makeMeshNames(ue::scene::ISceneNode * node);
+	void writeNodeMaterials(ue::scene::ISceneNode * node);
+	void writeNodeEffects(ue::scene::ISceneNode * node);
+	void writeNodeLights(ue::scene::ISceneNode * node);
+	void writeNodeCameras(ue::scene::ISceneNode * node);
 	void writeAllMeshGeometries();
-	void writeSceneNode(irr::scene::ISceneNode * node);
-	void writeMeshMaterials(scene::IMesh* mesh, irr::core::array<irr::core::stringw> * materialNamesOut=0);
+	void writeSceneNode(ue::scene::ISceneNode * node);
+	void writeMeshMaterials(scene::IMesh* mesh, ue::core::array<ue::core::stringw> * materialNamesOut=0);
 	void writeMeshEffects(scene::IMesh* mesh);
-	void writeMaterialEffect(const irr::core::stringw& materialname, const video::SMaterial & material);
-	void writeMeshGeometry(const irr::core::stringw& meshname, scene::IMesh* mesh);
-	void writeMeshInstanceGeometry(const irr::core::stringw& meshname, scene::IMesh* mesh, scene::ISceneNode* node=0);
-	void writeMaterial(const irr::core::stringw& materialname);
-	void writeLightInstance(const irr::core::stringw& lightName);
-	void writeCameraInstance(const irr::core::stringw& cameraName);
+	void writeMaterialEffect(const ue::core::stringw& materialname, const video::SMaterial & material);
+	void writeMeshGeometry(const ue::core::stringw& meshname, scene::IMesh* mesh);
+	void writeMeshInstanceGeometry(const ue::core::stringw& meshname, scene::IMesh* mesh, scene::ISceneNode* node=0);
+	void writeMaterial(const ue::core::stringw& materialname);
+	void writeLightInstance(const ue::core::stringw& lightName);
+	void writeCameraInstance(const ue::core::stringw& cameraName);
 	void writeLibraryImages();
 	void writeColorFx(const video::SMaterial & material, const wchar_t * colorname, E_COLLADA_COLOR_SAMPLER cs, const wchar_t* attr1Name=0, const wchar_t* attr1Value=0);
 	void writeAmbientLightElement(const video::SColorf & col);
@@ -148,12 +148,12 @@ protected:
 	void writeTextureSampler(s32 textureIdx);
 	void writeFxElement(const video::SMaterial & material, E_COLLADA_TECHNIQUE_FX techFx);
 	void writeNode(const wchar_t * nodeName, const wchar_t * content);
-	void writeFloatElement(irr::f32 value);
-	void writeRotateElement(const irr::core::vector3df& axis, irr::f32 angle);
-	void writeScaleElement(const irr::core::vector3df& scale);
-	void writeTranslateElement(const irr::core::vector3df& translate);
-	void writeLookAtElement(const irr::core::vector3df& eyePos, const irr::core::vector3df& targetPos, const irr::core::vector3df& upVector);
-	void writeMatrixElement(const irr::core::matrix4& matrix);
+	void writeFloatElement(ue::f32 value);
+	void writeRotateElement(const ue::core::vector3df& axis, ue::f32 angle);
+	void writeScaleElement(const ue::core::vector3df& scale);
+	void writeTranslateElement(const ue::core::vector3df& translate);
+	void writeLookAtElement(const ue::core::vector3df& eyePos, const ue::core::vector3df& targetPos, const ue::core::vector3df& upVector);
+	void writeMatrixElement(const ue::core::matrix4& matrix);
 
 	struct SComponentGlobalStartPos
 	{
@@ -185,18 +185,18 @@ protected:
 	// Helper struct for creating geometry copies for the ECGI_PER_MESH_AND_MATERIAL settings.
 	struct SGeometryMeshMaterials
 	{
-		bool equals(const core::array<irr::core::stringw>& names) const
+		bool equals(const core::array<ue::core::stringw>& names) const
 		{
 			if ( names.size() != MaterialNames.size() )
 				return false;
-			for ( irr::u32 i=0; i<MaterialNames.size(); ++i )
+			for ( ue::u32 i=0; i<MaterialNames.size(); ++i )
 				if ( names[i] != MaterialNames[i] )
 					return false;
 			return true;
 		}
 
-		irr::core::stringw GeometryName;				// replacing the usual ColladaMesh::Name
-		core::array<irr::core::stringw> MaterialNames;	// Material names exported for this instance
+		ue::core::stringw GeometryName;				// replacing the usual ColladaMesh::Name
+		core::array<ue::core::stringw> MaterialNames;	// Material names exported for this instance
 		core::array<const ISceneNode*> MaterialOwners;	// Nodes using this specific mesh-material combination
 	};
 
@@ -207,9 +207,9 @@ protected:
 		{
 		}
 
-		SGeometryMeshMaterials * findGeometryMeshMaterials(const irr::core::array<irr::core::stringw> materialNames)
+		SGeometryMeshMaterials * findGeometryMeshMaterials(const ue::core::array<ue::core::stringw> materialNames)
 		{
-			for ( irr::u32 i=0; i<GeometryMeshMaterials.size(); ++i )
+			for ( ue::u32 i=0; i<GeometryMeshMaterials.size(); ++i )
 			{
 				if ( GeometryMeshMaterials[i].equals(materialNames) )
 					return &(GeometryMeshMaterials[i]);
@@ -217,11 +217,11 @@ protected:
 			return NULL;
 		}
 
-		const irr::core::stringw& findGeometryNameForNode(const ISceneNode* node) const
+		const ue::core::stringw& findGeometryNameForNode(const ISceneNode* node) const
 		{
 			if ( GeometryMeshMaterials.size() < 2 )
 				return Name;
-			for ( irr::u32 i=0; i<GeometryMeshMaterials.size(); ++i )
+			for ( ue::u32 i=0; i<GeometryMeshMaterials.size(); ++i )
 			{
 				if ( GeometryMeshMaterials[i].MaterialOwners.linear_search(node)  >= 0 )
 					return GeometryMeshMaterials[i].GeometryName;
@@ -229,7 +229,7 @@ protected:
 			return Name; // (shouldn't get here usually)
 		}
 
-		irr::core::stringw Name;
+		ue::core::stringw Name;
 		bool MaterialsWritten;	// just an optimization doing that here in addition to the MaterialsWritten map
 		bool EffectsWritten;	// just an optimization doing that here in addition to the EffectsWritten map
 
@@ -242,30 +242,30 @@ protected:
 	struct SColladaLight
 	{
 		SColladaLight()	{}
-		irr::core::stringw Name;
+		ue::core::stringw Name;
 	};
 	typedef core::map<ISceneNode*, SColladaLight>::Node LightNode;
 	core::map<ISceneNode*, SColladaLight> LightNodes;
 
 	// structure for the camera library
-	typedef core::map<ISceneNode*, irr::core::stringw>::Node CameraNode;
-	core::map<ISceneNode*, irr::core::stringw> CameraNodes;
+	typedef core::map<ISceneNode*, ue::core::stringw>::Node CameraNode;
+	core::map<ISceneNode*, ue::core::stringw> CameraNodes;
 
 	// Check per name if stuff has been written already
 	// TODO: second parameter not needed, we just don't have a core::set class yet in Irrlicht
-	core::map<irr::core::stringw, bool> MaterialsWritten;
-	core::map<irr::core::stringw, bool> EffectsWritten;
+	core::map<ue::core::stringw, bool> MaterialsWritten;
+	core::map<ue::core::stringw, bool> EffectsWritten;
 
 	// Cache material names
 	struct MaterialName
 	{
-		MaterialName(const irr::video::SMaterial & material, const irr::core::stringw& name)
+		MaterialName(const ue::video::SMaterial & material, const ue::core::stringw& name)
 			: Material(material), Name(name)
 		{}
-		irr::video::SMaterial Material;
-		irr::core::stringw Name;
+		ue::video::SMaterial Material;
+		ue::core::stringw Name;
 	};
-	irr::core::array< MaterialName > MaterialNameCache;
+	ue::core::array< MaterialName > MaterialNameCache;
 };
 
 

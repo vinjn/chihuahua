@@ -11,7 +11,7 @@
 #include "ITimer.h"
 #include <limits.h>	// for INT_MAX (we should have a S32_MAX...)
 
-namespace irr
+namespace ue
 {
 
 class ITimer;
@@ -475,6 +475,6 @@ void IProfiler::resetAll()
 	#define IRR_PROFILE(X)
 #endif // IRR_PROFILE
 
-} // namespace irr
+} // namespace ue
 
 #endif // __I_PROFILER_H_INCLUDED__

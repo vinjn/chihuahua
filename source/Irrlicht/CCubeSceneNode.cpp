@@ -10,7 +10,7 @@
 #include "os.h"
 #include "CShadowVolumeSceneNode.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -231,5 +231,5 @@ ISceneNode* CCubeSceneNode::clone(ISceneNode* newParent, ISceneManager* newManag
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

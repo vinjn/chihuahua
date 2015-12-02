@@ -18,7 +18,7 @@
 #include "IAnimatedMesh.h"
 #include "quaternion.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -1147,4 +1147,4 @@ ISceneNode* CAnimatedMeshSceneNode::clone(ISceneNode* newParent, ISceneManager* 
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue

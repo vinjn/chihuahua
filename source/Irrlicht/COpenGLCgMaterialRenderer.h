@@ -36,7 +36,7 @@
 	#pragma comment(lib, "cgGL.lib")
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {

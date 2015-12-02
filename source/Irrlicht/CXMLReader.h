@@ -7,7 +7,7 @@
 
 #include "IXMLReader.h"
 
-namespace irr
+namespace ue
 {
 #ifdef _IRR_COMPILE_WITH_XML_
 namespace io
@@ -19,7 +19,7 @@ namespace io
 
 	//! creates an IXMLReader
 	IXMLReaderUTF8* createIXMLReaderUTF8(IReadFile* file);
-} // end namespace irr
+} // end namespace ue
 #else // _IRR_COMPILE_WITH_XML_
 	//! print a message that Irrlicht is compiled without _IRR_COMPILE_WITH_XML_
 	void noXML();

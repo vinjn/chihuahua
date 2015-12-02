@@ -15,7 +15,7 @@
 #endif
 #include <d3d9.h>
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -126,7 +126,7 @@ private:
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_DIRECT3D_9_
 

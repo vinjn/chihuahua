@@ -9,7 +9,7 @@
 #include "IWriteFile.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 
 namespace io
@@ -55,7 +55,7 @@ namespace io
 	};
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

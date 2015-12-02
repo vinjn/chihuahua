@@ -7,7 +7,7 @@
 #include "IGUIImageList.h"
 #include "IVideoDriver.h"
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -61,7 +61,7 @@ private:
 };
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

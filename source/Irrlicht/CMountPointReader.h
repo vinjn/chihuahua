@@ -12,7 +12,7 @@
 #include "IFileSystem.h"
 #include "CFileList.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {

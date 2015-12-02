@@ -14,7 +14,7 @@
 #include "ILightSceneNode.h"
 #include "IMeshSceneNode.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -175,5 +175,5 @@ ESCENE_NODE_TYPE CDefaultSceneNodeFactory::getTypeFromName(const c8* name) const
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

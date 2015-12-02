@@ -5,7 +5,7 @@
 #ifndef __IRR_KEY_CODES_H_INCLUDED__
 #define __IRR_KEY_CODES_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 
 	enum EKEY_CODE
@@ -182,7 +182,7 @@ namespace irr
 		KEY_KEY_CODES_COUNT  = 0xFF // this is not a key, but the amount of keycodes there are.
 	};
 
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -8,7 +8,7 @@
 #include "IReadFile.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 	class CUnicodeConverter;
 
@@ -56,7 +56,7 @@ namespace io
 	};
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

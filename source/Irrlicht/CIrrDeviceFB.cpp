@@ -31,7 +31,7 @@
 
 #include <linux/input.h>
 
-namespace irr
+namespace ue
 {
 	namespace video
 	{
@@ -47,7 +47,7 @@ namespace irr
 	}
 }
 
-namespace irr
+namespace ue
 {
 
 //! constructor
@@ -286,8 +286,8 @@ bool CIrrDeviceFB::run()
 			perror("Read input event");
 		if (ev.type == EV_KEY)
 		{
-			irr::SEvent irrevent;
-			irrevent.EventType = irr::EET_KEY_INPUT_EVENT;
+			ue::SEvent irrevent;
+			irrevent.EventType = ue::EET_KEY_INPUT_EVENT;
 			irrevent.KeyInput.PressedDown = (ev.value == 1);
 
 			switch (ev.code)
@@ -530,7 +530,7 @@ E_DEVICE_TYPE CIrrDeviceFB::getType() const
 }
 
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_USE_FB_DEVICE_
 

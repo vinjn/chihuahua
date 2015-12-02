@@ -14,7 +14,7 @@
 #include "EGUIAlignment.h"
 #include "IAttributes.h"
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -1051,7 +1051,7 @@ protected:
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

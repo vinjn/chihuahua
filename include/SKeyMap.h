@@ -7,7 +7,7 @@
 
 #include "Keycodes.h"
 
-namespace irr
+namespace ue
 {
 
 	//! enumeration for key actions. Used for example in the FPS Camera.
@@ -35,7 +35,7 @@ namespace irr
 		EKEY_CODE KeyCode;
 	};
 
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

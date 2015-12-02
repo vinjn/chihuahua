@@ -7,7 +7,7 @@
 
 #include "IParticleAffector.h"
 
-namespace irr
+namespace ue
 {
 	namespace scene
 	{

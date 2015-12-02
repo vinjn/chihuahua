@@ -12,7 +12,7 @@
 #include "SMesh.h"
 #include "matrix4.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -160,7 +160,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -22,7 +22,7 @@
 	#pragma comment(lib, "cg.lib")
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {

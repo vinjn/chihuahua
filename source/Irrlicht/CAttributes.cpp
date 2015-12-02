@@ -12,7 +12,7 @@
 	#include "CXMLReader.h"	// for noXML
 #endif
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -291,7 +291,7 @@ void CAttributes::setAttribute(const c8* attributeName, s32 value)
 //! \param attributeName: Name of the attribute to get.
 //! \return Returns value of the attribute previously set by setAttribute() as integer
 //! or 0 if attribute is not set.
-s32 CAttributes::getAttributeAsInt(const c8* attributeName, irr::s32 defaultNotFound) const
+s32 CAttributes::getAttributeAsInt(const c8* attributeName, ue::s32 defaultNotFound) const
 {
 	IAttribute* att = getAttributeP(attributeName);
 	if (att)
@@ -314,7 +314,7 @@ void CAttributes::setAttribute(const c8* attributeName, f32 value)
 //! \param attributeName: Name of the attribute to get.
 //! \return Returns value of the attribute previously set by setAttribute() as float value
 //! or 0 if attribute is not set.
-f32 CAttributes::getAttributeAsFloat(const c8* attributeName, irr::f32 defaultNotFound)
+f32 CAttributes::getAttributeAsFloat(const c8* attributeName, ue::f32 defaultNotFound)
 {
 	IAttribute* att = getAttributeP(attributeName);
 	if (att)
@@ -1655,5 +1655,5 @@ bool CAttributes::write(io::IXMLWriter* writer, bool writeXMLHeader,
 
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 

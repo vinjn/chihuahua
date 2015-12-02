@@ -6,7 +6,7 @@
 #include "CParticleMeshEmitter.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -186,5 +186,5 @@ void CParticleMeshEmitter::setMesh(IMesh* mesh)
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

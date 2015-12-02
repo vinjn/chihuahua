@@ -11,7 +11,7 @@
 #include "ISceneManager.h"
 #include "IQ3Shader.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -46,7 +46,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

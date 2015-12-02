@@ -44,7 +44,7 @@
 	#endif
 #endif
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -1112,6 +1112,6 @@ IAttributes* CFileSystem::createEmptyAttributes(video::IVideoDriver* driver)
 }
 
 
-} // end namespace irr
+} // end namespace ue
 } // end namespace io
 

@@ -78,7 +78,7 @@ typedef char GLchar;
 #endif
 
 
-namespace irr
+namespace ue
 {
 namespace video
 {

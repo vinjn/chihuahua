@@ -20,7 +20,7 @@
 	#pragma comment(lib, "cgD3D9.lib")
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {

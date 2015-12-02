@@ -36,7 +36,7 @@
 #endif
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -396,7 +396,7 @@ namespace video
 		bool ResetRenderStates;
 		bool Transformation3DChanged;
 		u8 AntiAlias;
-		irr::io::path OGLES2ShaderPath;
+		ue::io::path OGLES2ShaderPath;
 
 		SMaterial Material, LastMaterial;
 		COGLES2Texture* RenderTargetTexture;
@@ -536,7 +536,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_OPENGL_
 

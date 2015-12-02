@@ -11,7 +11,7 @@
 #include "IGUIEnvironment.h"
 
 // to close the device on terminate signal
-irr::CIrrDeviceConsole *DeviceToClose;
+ue::CIrrDeviceConsole *DeviceToClose;
 
 #ifdef _IRR_WINDOWS_NT_CONSOLE_
 // Callback for Windows
@@ -20,19 +20,19 @@ BOOL WINAPI ConsoleHandler(DWORD CEvent)
     switch(CEvent)
     {
     case CTRL_C_EVENT:
-		irr::os::Printer::log("Closing console device", "CTRL+C");
+		ue::os::Printer::log("Closing console device", "CTRL+C");
 		break;
 	case CTRL_BREAK_EVENT:
-		irr::os::Printer::log("Closing console device", "CTRL+Break");
+		ue::os::Printer::log("Closing console device", "CTRL+Break");
 		break;
     case CTRL_CLOSE_EVENT:
-		irr::os::Printer::log("Closing console device", "User closed console");
+		ue::os::Printer::log("Closing console device", "User closed console");
 		break;
     case CTRL_LOGOFF_EVENT:
-		irr::os::Printer::log("Closing console device", "User is logging off");
+		ue::os::Printer::log("Closing console device", "User is logging off");
 		break;
     case CTRL_SHUTDOWN_EVENT:
-		irr::os::Printer::log("Closing console device", "Computer shutting down");
+		ue::os::Printer::log("Closing console device", "Computer shutting down");
 		break;
     }
 	DeviceToClose->closeDevice();
@@ -44,16 +44,16 @@ BOOL WINAPI ConsoleHandler(DWORD CEvent)
 
 void sighandler(int sig)
 {
-	irr::core::stringc code = "Signal ";
+	ue::core::stringc code = "Signal ";
 	code += sig;
 	code += " received";
-	irr::os::Printer::log("Closing console device", code.c_str());
+	ue::os::Printer::log("Closing console device", code.c_str());
 
 	DeviceToClose->closeDevice();
 }
 #endif
 
-namespace irr
+namespace ue
 {
 
 const c8 ASCIIArtChars[] = " .,'~:;!+>=icopjtJY56SB8XDQKHNWM"; //MWNHKQDX8BS65YJtjpoci=+>!;:~',. ";
@@ -472,6 +472,6 @@ void CIrrDeviceConsole::addPostPresentText(s16 X, s16 Y, const wchar_t *text)
 	Text.push_back(p);
 }
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_CONSOLE_DEVICE_

@@ -11,7 +11,7 @@
 #include "CColorConverter.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -132,7 +132,7 @@ bool CImageWriterBMP::writeImage(io::IWriteFile* file, IImage* image, u32 param)
 }
 
 } // namespace video
-} // namespace irr
+} // namespace ue
 
 #endif
 

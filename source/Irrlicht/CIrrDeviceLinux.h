@@ -32,7 +32,7 @@
 #define KeySym s32
 #endif
 
-namespace irr
+namespace ue
 {
 
 	class CIrrDeviceLinux : public CIrrDeviceStub, public video::IImagePresenter
@@ -84,7 +84,7 @@ namespace irr
 		virtual void setResizable(bool resize=false) _IRR_OVERRIDE_;
 
 		//! Resize the render window.
-		virtual void setWindowSize(const irr::core::dimension2d<u32>& size) _IRR_OVERRIDE_;
+		virtual void setWindowSize(const ue::core::dimension2d<u32>& size) _IRR_OVERRIDE_;
 
 		//! Minimizes the window.
 		virtual void minimizeWindow() _IRR_OVERRIDE_;
@@ -126,10 +126,10 @@ namespace irr
 
 #ifdef _IRR_COMPILE_WITH_X11_
 		// convert an Irrlicht texture to a X11 cursor
-		Cursor TextureToCursor(irr::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
-		Cursor TextureToMonochromeCursor(irr::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
+		Cursor TextureToCursor(ue::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
+		Cursor TextureToMonochromeCursor(ue::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
 #ifdef _IRR_LINUX_XCURSOR_
-		Cursor TextureToARGBCursor(irr::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
+		Cursor TextureToARGBCursor(ue::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
 #endif
 #endif
 
@@ -446,7 +446,7 @@ namespace irr
 	};
 
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_X11_DEVICE_
 #endif // __C_IRR_DEVICE_LINUX_H_INCLUDED__

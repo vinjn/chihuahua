@@ -7,7 +7,7 @@
 
 #include "IParticleAttractionAffector.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -79,7 +79,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __C_PARTICLE_ATTRACTION_AFFECTOR_H_INCLUDED__

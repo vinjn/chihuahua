@@ -10,7 +10,7 @@
 #include "irrArray.h"
 #include "aabbox3d.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -85,7 +85,7 @@ protected:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

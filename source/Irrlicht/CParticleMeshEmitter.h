@@ -10,7 +10,7 @@
 #include "aabbox3d.h"
 #include "IMeshBuffer.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -152,7 +152,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __C_PARTICLE_MESH_EMITTER_H_INCLUDED__

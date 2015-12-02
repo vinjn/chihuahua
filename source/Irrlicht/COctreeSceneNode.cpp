@@ -17,7 +17,7 @@
 #include "EProfileIDs.h"
 #include "IProfiler.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -653,7 +653,7 @@ bool COctreeSceneNode::isReadOnlyMaterials() const
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

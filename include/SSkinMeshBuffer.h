@@ -9,7 +9,7 @@
 #include "S3DVertex.h"
 
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -398,7 +398,7 @@ struct SSkinMeshBuffer : public IMeshBuffer
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -7,7 +7,7 @@
 
 #include "IMeshLoader.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -39,7 +39,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif // __C_MD2_MESH_LOADER_H_INCLUDED__
 

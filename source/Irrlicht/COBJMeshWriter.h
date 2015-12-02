@@ -9,7 +9,7 @@
 #include "S3DVertex.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {

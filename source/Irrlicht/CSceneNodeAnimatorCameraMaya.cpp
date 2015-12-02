@@ -8,7 +8,7 @@
 #include "SViewFrustum.h"
 #include "ISceneManager.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {

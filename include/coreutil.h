@@ -8,7 +8,7 @@
 #include "irrString.h"
 #include "path.h"
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -205,6 +205,6 @@ inline s32 isupper(s32 c) { return c >= 'A' && c <= 'Z'; }
 
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif

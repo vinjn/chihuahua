@@ -13,7 +13,7 @@
 #include "IMeshBuffer.h"
 #include "SVertexManipulator.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -413,7 +413,7 @@ protected:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

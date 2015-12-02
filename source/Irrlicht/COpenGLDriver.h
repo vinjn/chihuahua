@@ -9,7 +9,7 @@
 
 #include "SIrrCreationParameters.h"
 
-namespace irr
+namespace ue
 {
 	class CIrrDeviceWin32;
 	class CIrrDeviceLinux;
@@ -29,7 +29,7 @@ namespace irr
 #include "Cg/cg.h"
 #endif
 
-namespace irr
+namespace ue
 {
 
 namespace video
@@ -740,7 +740,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // _IRR_COMPILE_WITH_OPENGL_

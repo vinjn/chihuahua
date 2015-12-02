@@ -10,7 +10,7 @@
 #include "IAnimatedMesh.h"
 #include "SMaterial.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -135,12 +135,12 @@ namespace scene
 
 		//! Should node be used in scene export? (only needed for scene-writing, ignored in mesh-writing)
 		//! By default all visible nodes are exported.
-		virtual bool isExportable(const irr::scene::ISceneNode * node) const = 0;
+		virtual bool isExportable(const ue::scene::ISceneNode * node) const = 0;
 
 		//! Return the mesh for the given node. If it has no mesh or shouldn't export it's mesh
 		//! you can return 0 in which case only the transformation matrix of the node will be used.
 		// TODO: Function is not const because there is no const getMesh() function for several Irrlicht nodes.
-		virtual IMesh* getMesh(irr::scene::ISceneNode * node) = 0;
+		virtual IMesh* getMesh(ue::scene::ISceneNode * node) = 0;
 
 		//! Return if the node has it's own material overwriting the mesh-materials
 		/** Usually true except for mesh-nodes which have isReadOnlyMaterials set.
@@ -171,7 +171,7 @@ namespace scene
 		\param instance When E_COLLADA_GEOMETRY_WRITING is not ECGI_PER_MESH then
 		several instances of the same mesh can be written and this counts them.
 		*/
-		virtual irr::core::stringw nameForMesh(const scene::IMesh* mesh, int instance) = 0;
+		virtual ue::core::stringw nameForMesh(const scene::IMesh* mesh, int instance) = 0;
 
 		//! Return a unique name for the given node
 		/** Note that names really must be unique here per node-pointer, so
@@ -180,7 +180,7 @@ namespace scene
 		the xs::NCName standard to be valid, you can run them through
 		IColladaMeshWriter::toNCName to ensure that.
 		*/
-		virtual irr::core::stringw nameForNode(const scene::ISceneNode* node) = 0;
+		virtual ue::core::stringw nameForNode(const scene::ISceneNode* node) = 0;
 
 		//! Return a name for the material
 		/** There is one material created in the writer for each unique name.
@@ -193,7 +193,7 @@ namespace scene
 		Names must follow the xs::NCName standard to be valid, you can run them
 		through IColladaMeshWriter::toNCName to ensure that.
 		*/
-		virtual irr::core::stringw nameForMaterial(const video::SMaterial & material, int materialId, const scene::IMesh* mesh, const scene::ISceneNode* node) = 0;
+		virtual ue::core::stringw nameForMaterial(const video::SMaterial & material, int materialId, const scene::IMesh* mesh, const scene::ISceneNode* node) = 0;
 	};
 
 
@@ -288,7 +288,7 @@ namespace scene
 
 		//! Make certain there is only one collada material generated per Irrlicht material
 		/** Checks before creating a collada material-name if an identical
-		irr:::video::SMaterial has been exported already. If so don't export it with
+		ue:::video::SMaterial has been exported already. If so don't export it with
 		another name. This is set by default and leads to way smaller .dae files.
 		Note that if you need to disable this flag for some reason you can still
 		get a similar effect using the IColladaMeshWriterNames::nameForMaterial
@@ -358,13 +358,13 @@ namespace scene
 
 		//! Restrict the characters of oldString a set of allowed characters in xs::NCName and add the prefix.
 		/** A tool function to help when using a custom name generator to generative valid names for collada names and id's. */
-		virtual irr::core::stringw toNCName(const irr::core::stringw& oldString, const irr::core::stringw& prefix=irr::core::stringw(L"_NC_")) const = 0;
+		virtual ue::core::stringw toNCName(const ue::core::stringw& oldString, const ue::core::stringw& prefix=ue::core::stringw(L"_NC_")) const = 0;
 
 		//! After export you can find out which name had been used for writing the geometry for this node.
 		/** The name comes from IColladaMeshWriterNames::nameForMesh, but you can't access the node there.
 		\return Either a pointer to the name or NULL */
 		// TODO: Function is not const because there is no const getMesh() function for several Irrlicht nodes.
-		virtual const irr::core::stringw* findGeometryNameForNode(ISceneNode* node) = 0;
+		virtual const ue::core::stringw* findGeometryNameForNode(ISceneNode* node) = 0;
 
 
 	protected:

@@ -23,7 +23,7 @@
 //! bypass full invisible/visible test
 #define OCTREE_PARENTTEST
 
-namespace irr
+namespace ue
 {
 
 //! template octree.

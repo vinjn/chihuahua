@@ -17,7 +17,7 @@
 #endif // _DEBUG
 
 
-namespace irr
+namespace ue
 {
 namespace io
 {

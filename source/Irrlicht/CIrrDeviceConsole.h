@@ -33,7 +33,7 @@
 #define _IRR_VT100_CONSOLE_
 #endif
 
-namespace irr
+namespace ue
 {
 
 	class CIrrDeviceConsole : public CIrrDeviceStub, video::IImagePresenter
@@ -329,7 +329,7 @@ namespace gui
 
 #endif // _IRR_USE_CONSOLE_FONT_
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_CONSOLE_DEVICE_
 #endif // __C_IRR_DEVICE_CONSOLE_H_INCLUDED__

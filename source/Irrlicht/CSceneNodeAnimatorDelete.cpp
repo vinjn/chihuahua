@@ -5,7 +5,7 @@
 #include "CSceneNodeAnimatorDelete.h"
 #include "ISceneManager.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -51,5 +51,5 @@ ISceneNodeAnimator* CSceneNodeAnimatorDelete::createClone(ISceneNode* node, ISce
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

@@ -29,7 +29,7 @@
 #include "../glew/GL/glew.h"
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -1034,7 +1034,7 @@ bool COGLES2Driver::endScene()
 
 		IRR_PROFILE(CProfileScope p1(EPID_ES2_DRAW_2DIMAGE_BATCH);)
 
-		const irr::u32 drawCount = core::min_<u32>(positions.size(), sourceRects.size());
+		const ue::u32 drawCount = core::min_<u32>(positions.size(), sourceRects.size());
 
 		core::array<S3DVertex> vtx(drawCount * 4);
 		core::array<u16> indices(drawCount * 6);
@@ -2712,7 +2712,7 @@ bool COGLES2Driver::endScene()
 		return UserClipPlane.size();
 	}
 
-	const core::plane3df& COGLES2Driver::getClipPlane(irr::u32 index) const
+	const core::plane3df& COGLES2Driver::getClipPlane(ue::u32 index) const
 	{
 		if (index < UserClipPlane.size())
 			return UserClipPlane[index].Plane;
@@ -3084,7 +3084,7 @@ bool COGLES2Driver::endScene()
 
 #endif // _IRR_COMPILE_WITH_OGLES2_
 
-namespace irr
+namespace ue
 {
 namespace video
 {

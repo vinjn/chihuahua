@@ -9,7 +9,7 @@
 #include "IImage.h"
 #include "path.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -47,7 +47,7 @@ public:
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

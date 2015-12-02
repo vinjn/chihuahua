@@ -11,7 +11,7 @@
 
 #include "IImageWriter.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {

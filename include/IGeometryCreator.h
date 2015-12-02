@@ -9,7 +9,7 @@
 #include "IMesh.h"
 #include "IImage.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -181,7 +181,7 @@ public:
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif // __I_GEOMETRY_CREATOR_H_INCLUDED__
 

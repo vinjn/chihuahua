@@ -7,7 +7,7 @@
 #include "IrrCompileConfig.h"
 #include "limits.h"
 
-namespace irr
+namespace ue
 {
 #ifdef _IRR_COMPILE_WITH_PROFILING_
     enum EPROFILE_ID
@@ -49,6 +49,6 @@ namespace irr
 		EPID_ES2_DRAW_SHADOW
     };
 #endif
-} // end namespace irr
+} // end namespace ue
 
 #endif // E_PROFILE_IDS_H_INCLUDED__

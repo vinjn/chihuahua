@@ -7,7 +7,7 @@
 
 #include "IMeshWriter.h"
 
-namespace irr
+namespace ue
 {
 
 namespace scene

@@ -24,7 +24,7 @@
 #pragma comment(lib, "d3dx9.lib")
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -795,6 +795,6 @@ void CD3D9Texture::setPitch(D3DFORMAT d3dformat)
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_DIRECT3D_9_

@@ -10,7 +10,7 @@
 // necessary for older compilers
 #include <memory.h>
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -118,7 +118,7 @@ enum eAllocStrategy
 
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

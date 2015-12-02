@@ -50,7 +50,7 @@ static const char* const copyright = "Irrlicht Engine (c) 2002-2012 Nikolaus Geb
 #include "CIrrDeviceConsole.h"
 #endif
 
-namespace irr
+namespace ue
 {
 	//! stub for calling createDeviceEx
 	IRRLICHT_API IrrlichtDevice* IRRCALLCONV createDevice(video::E_DRIVER_TYPE driverType,
@@ -134,7 +134,7 @@ namespace irr
 namespace core
 {
 	const matrix4 IdentityMatrix(matrix4::EM4CONST_IDENTITY);
-	irr::core::stringc LOCALE_DECIMAL_POINTS(".");
+	ue::core::stringc LOCALE_DECIMAL_POINTS(".");
 }
 
 namespace video
@@ -142,7 +142,7 @@ namespace video
 	SMaterial IdentityMaterial;
 }
 
-} // end namespace irr
+} // end namespace ue
 
 
 #if defined(_IRR_WINDOWS_API_) && !defined(_IRR_STATIC_LIB_)

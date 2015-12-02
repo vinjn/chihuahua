@@ -11,7 +11,7 @@
 #include "os.h"
 
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -467,5 +467,5 @@ void CBillboardTextSceneNode::getColor(video::SColor & topColor, video::SColor &
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

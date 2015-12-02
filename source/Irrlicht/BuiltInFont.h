@@ -12,7 +12,7 @@
 // Bin2H is Freeware. Download it freely from www.code3d.com.
 // for the source bitmap, see builtInFont.bmp
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -1067,7 +1067,7 @@ const u8 BuiltInFontData[] =
 
 #endif
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_GUI_
 

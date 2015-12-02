@@ -5,7 +5,7 @@
 #include "CSceneNodeAnimatorTexture.h"
 #include "ITexture.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -142,5 +142,5 @@ ISceneNodeAnimator* CSceneNodeAnimatorTexture::createClone(ISceneNode* node, ISc
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

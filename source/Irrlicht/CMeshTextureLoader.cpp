@@ -3,12 +3,12 @@
 #include "IVideoDriver.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
 
-CMeshTextureLoader::CMeshTextureLoader(irr::io::IFileSystem* fs, irr::video::IVideoDriver* driver)
+CMeshTextureLoader::CMeshTextureLoader(ue::io::IFileSystem* fs, ue::video::IVideoDriver* driver)
 : FileSystem(fs)
 , VideoDriver(driver)
 , MeshFile(0)
@@ -17,19 +17,19 @@ CMeshTextureLoader::CMeshTextureLoader(irr::io::IFileSystem* fs, irr::video::IVi
 }
 
 //! Set a custom texture path.
-void CMeshTextureLoader::setTexturePath(const irr::io::path& path)
+void CMeshTextureLoader::setTexturePath(const ue::io::path& path)
 {
 	TexturePath = path;
 	preparePath(TexturePath);
 }
 
 //! Get the current custom texture path.
-const irr::io::path& CMeshTextureLoader::getTexturePath() const
+const ue::io::path& CMeshTextureLoader::getTexturePath() const
 {
 	return TexturePath;
 }
 
-bool CMeshTextureLoader::checkTextureName( const irr::io::path& filename)
+bool CMeshTextureLoader::checkTextureName( const ue::io::path& filename)
 {
 	//os::Printer::log("CheckTextureName:", core::stringc(filename).c_str(), ELL_DEBUG);
 	if (FileSystem->existFile(filename))
@@ -43,13 +43,13 @@ bool CMeshTextureLoader::checkTextureName( const irr::io::path& filename)
 }
 
 //! Get the texture by searching for it in all paths that makes sense for the given textureName.
-irr::video::ITexture* CMeshTextureLoader::getTexture(const irr::io::path& textureName)
+ue::video::ITexture* CMeshTextureLoader::getTexture(const ue::io::path& textureName)
 {
 	if ( textureName.empty() || !FileSystem || !VideoDriver)
 		return NULL;
 
 	// Pre-process texture filename.
-	irr::io::path simplifiedTexName(textureName);
+	ue::io::path simplifiedTexName(textureName);
 	simplifiedTexName.replace(_IRR_TEXT('\\'),_IRR_TEXT('/'));
 
 	// user defined texture path
@@ -111,7 +111,7 @@ irr::video::ITexture* CMeshTextureLoader::getTexture(const irr::io::path& textur
 }
 
 //! Meshloaders will search paths relative to the meshFile.
-void CMeshTextureLoader::setMeshFile(const irr::io::IReadFile* meshFile)
+void CMeshTextureLoader::setMeshFile(const ue::io::IReadFile* meshFile)
 {
 	// no grab (would need a weak_ptr)
 	MeshFile = meshFile;
@@ -119,7 +119,7 @@ void CMeshTextureLoader::setMeshFile(const irr::io::IReadFile* meshFile)
 }
 
 //! Meshloaders will try to look relative to the path of the materialFile
-void CMeshTextureLoader::setMaterialFile(const irr::io::IReadFile* materialFile)
+void CMeshTextureLoader::setMaterialFile(const ue::io::IReadFile* materialFile)
 {
 	// no grab (would need a weak_ptr)
 	MaterialFile = materialFile;
@@ -127,4 +127,4 @@ void CMeshTextureLoader::setMaterialFile(const irr::io::IReadFile* materialFile)
 }
 
 } // end namespace scnene
-} // end namespace irr
+} // end namespace ue

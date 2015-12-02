@@ -10,7 +10,7 @@
 #include "irrString.h"
 #include "IrrCompileConfig.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -255,7 +255,7 @@ void CXMLWriter::writeLineBreak()
 }
 
 
-} // end namespace irr
+} // end namespace ue
 } // end namespace io
 
 #endif // _IRR_COMPILE_WITH_XML_

@@ -937,7 +937,7 @@ precision will be lower but speed higher. currently X86 only
 	#undef _IRR_COMPILE_WITH_JOYSTICK_EVENTS_
 #endif
 
-//! Define __IRR_HAS_S64 if the irr::s64 type should be enable (needs long long, available on most platforms, but not part of ISO C++ 98)
+//! Define __IRR_HAS_S64 if the ue::s64 type should be enable (needs long long, available on most platforms, but not part of ISO C++ 98)
 #define __IRR_HAS_S64
 #ifdef NO__IRR_HAS_S64
 #undef __IRR_HAS_S64

@@ -112,10 +112,10 @@ corresponding preprocessor flag to selectively disable formats.
 #ifndef ASSIMP_BUILD_NO_BVH_IMPORTER
 #   include "BVHLoader.h"
 #endif
-#ifndef ASSIMP_BUILD_NO_IRRMESH_IMPORTER
+#ifndef ASSIMP_BUILD_NOirrMESH_IMPORTER
 #   include "IRRMeshLoader.h"
 #endif
-#ifndef ASSIMP_BUILD_NO_IRR_IMPORTER
+#ifndef ASSIMP_BUILD_NOirr_IMPORTER
 #   include "IRRLoader.h"
 #endif
 #ifndef ASSIMP_BUILD_NO_Q3D_IMPORTER
@@ -249,10 +249,10 @@ void GetImporterInstanceList(std::vector< BaseImporter* >& out)
 #if (!defined ASSIMP_BUILD_NO_BVH_IMPORTER)
     out.push_back( new BVHLoader());
 #endif
-#if (!defined ASSIMP_BUILD_NO_IRRMESH_IMPORTER)
+#if (!defined ASSIMP_BUILD_NOirrMESH_IMPORTER)
     out.push_back( new IRRMeshImporter());
 #endif
-#if (!defined ASSIMP_BUILD_NO_IRR_IMPORTER)
+#if (!defined ASSIMP_BUILD_NOirr_IMPORTER)
     out.push_back( new IRRImporter());
 #endif
 #if (!defined ASSIMP_BUILD_NO_Q3D_IMPORTER)

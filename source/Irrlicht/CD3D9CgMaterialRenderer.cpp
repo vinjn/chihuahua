@@ -9,7 +9,7 @@
 #include "CD3D9Driver.h"
 #include "CD3D9Texture.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -26,7 +26,7 @@ void CD3D9CgUniformSampler2D::update(const void* data, const SMaterial& material
 
 	if (material.TextureLayer[LayerID].Texture)
 	{
-		IDirect3DBaseTexture9* Texture = reinterpret_cast<irr::video::CD3D9Texture*>(material.TextureLayer[LayerID].Texture)->getDX9Texture();
+		IDirect3DBaseTexture9* Texture = reinterpret_cast<ue::video::CD3D9Texture*>(material.TextureLayer[LayerID].Texture)->getDX9Texture();
 
 		cgD3D9SetTextureParameter(Parameter, Texture);
 	}

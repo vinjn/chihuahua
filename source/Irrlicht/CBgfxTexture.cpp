@@ -8,7 +8,7 @@
 #include "CBgfxTexture.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -188,7 +188,7 @@ CBgfxFBOTexture::~CBgfxFBOTexture()
 }
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_SOFTWARE_
 

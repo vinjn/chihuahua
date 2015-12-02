@@ -12,7 +12,7 @@
 #include "IShaderConstantSetCallBack.h"
 #include "IMaterialRendererServices.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {

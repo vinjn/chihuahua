@@ -17,7 +17,7 @@
 #endif
 
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -534,6 +534,6 @@ HRESULT CD3D9ShaderMaterialRenderer::stubD3DXCompileShaderFromFile(LPCSTR pSrcFi
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_DIRECT3D_9_

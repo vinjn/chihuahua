@@ -18,7 +18,7 @@
 #include "CReadFile.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -283,7 +283,7 @@ IImageLoader* createImageLoaderPNG()
 }
 
 
-}// end namespace irr
+}// end namespace ue
 }//end namespace video
 
 #endif

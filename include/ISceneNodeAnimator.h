@@ -12,7 +12,7 @@
 #include "IAttributes.h"
 #include "IEventReceiver.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -78,7 +78,7 @@ namespace scene
 		/** By default most animators start on object creation.
 			This value is ignored by animators which don't work with a starttime.
 			Known problems: CSceneNodeAnimatorRotation currently overwrites this value constantly (might be changed in the future).
-			\param time Commonly you will use irr::ITimer::getTime().
+			\param time Commonly you will use ue::ITimer::getTime().
 			\param resetPauseTime Reset internal pause time for enabling/diabling animators as well
 		*/
 		virtual void setStartTime(u32 time, bool resetPauseTime=true)
@@ -93,7 +93,7 @@ namespace scene
 
 		//! Get the starttime.
 		/** This will return 0 for by animators which don't work with a starttime unless a starttime was manually set */
-		virtual irr::u32 getStartTime() const
+		virtual ue::u32 getStartTime() const
 		{
 			return StartTime;
 		}
@@ -104,7 +104,7 @@ namespace scene
 		       Animators themself usually don't care. So manual calls to animateNode still work.
 		\param timeNow When set to values > 0 on enabling and disabling an internal timer will be increased by the time disabled time.
 			   Animator decide themself how to handle that timer, but generally setting it will allow you to pause an animator, so it
-			   will continue at the same position when you enable it again. To use that pass irr::ITimer::getTime() as value.
+			   will continue at the same position when you enable it again. To use that pass ue::ITimer::getTime() as value.
 			   Animators with no timers will just ignore this.
 		*/
 		virtual void setEnabled(bool enabled, u32 timeNow=0)
@@ -163,7 +163,7 @@ namespace scene
 	};
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -16,7 +16,7 @@
 #include "ITimer.h"
 #include "IOSOperator.h"
 
-namespace irr
+namespace ue
 {
 	class ILogger;
 	class IEventReceiver;
@@ -70,7 +70,7 @@ namespace irr
 		also simply use your own message loop using GetMessage,
 		DispatchMessage and whatever and simply don't use this method.
 		But note that Irrlicht will not be able to fetch user input
-		then. See irr::SIrrlichtCreationParameters::WindowId for more
+		then. See ue::SIrrlichtCreationParameters::WindowId for more
 		informations and example code.
 		*/
 		virtual bool run() = 0;
@@ -203,7 +203,7 @@ namespace irr
 		//! Sets a new user event receiver which will receive events from the engine.
 		/** Return true in IEventReceiver::OnEvent to prevent the event from continuing along
 		the chain of event receivers. The path that an event takes through the system depends
-		on its type. See irr::EEVENT_TYPE for details.
+		on its type. See ue::EEVENT_TYPE for details.
 		\param receiver New receiver to be used. */
 		virtual void setEventReceiver(IEventReceiver* receiver) = 0;
 
@@ -236,7 +236,7 @@ namespace irr
 		It does set the drawing/clientDC size of the window, the window decorations are added to that.
 		You get the current window size with IVideoDriver::getScreenSize() (might be unified in future)
 		*/
-		virtual void setWindowSize(const irr::core::dimension2d<u32>& size) = 0;
+		virtual void setWindowSize(const ue::core::dimension2d<u32>& size) = 0;
 
 		//! Minimizes the window if possible.
 		virtual void minimizeWindow() =0;
@@ -253,7 +253,7 @@ namespace irr
 		//! Activate any joysticks, and generate events for them.
 		/** Irrlicht contains support for joysticks, but does not generate joystick events by default,
 		as this would consume joystick info that 3rd party libraries might rely on. Call this method to
-		activate joystick support in Irrlicht and to receive irr::SJoystickEvent events.
+		activate joystick support in Irrlicht and to receive ue::SJoystickEvent events.
 		\param joystickInfo On return, this will contain an array of each joystick that was found and activated.
 		\return true if joysticks are supported on this device and _IRR_COMPILE_WITH_JOYSTICK_EVENTS_
 				is defined, false if joysticks are not supported or support is compiled out.
@@ -406,7 +406,7 @@ namespace irr
 		}
 	};
 
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -8,7 +8,7 @@
 #include "CAnimatedMeshMD3.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -463,6 +463,6 @@ E_ANIMATED_MESH_TYPE CAnimatedMeshMD3::getMeshType() const
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_MD3_LOADER_

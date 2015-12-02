@@ -14,7 +14,7 @@
 #include "IFileSystem.h"
 #include "IOSOperator.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -329,7 +329,7 @@ private:
 };
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_GUI_
 

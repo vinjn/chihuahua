@@ -7,7 +7,7 @@
 
 #include "SColor.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -92,7 +92,7 @@ struct SLight
 };
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

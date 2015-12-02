@@ -14,7 +14,7 @@
 #include "IrrCompileConfig.h"
 #include "IImageLoader.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -34,12 +34,12 @@ namespace video
 #include "irrunpack.h"
 
 //! An Irrlicht image loader for Quake1,2 engine lmp textures/palette
-class CImageLoaderLMP : public irr::video::IImageLoader
+class CImageLoaderLMP : public ue::video::IImageLoader
 {
 public:
 	virtual bool isALoadableFileExtension(const io::path& filename) const _IRR_OVERRIDE_;
-	virtual bool isALoadableFileFormat(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
-	virtual irr::video::IImage* loadImage(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
+	virtual bool isALoadableFileFormat(ue::io::IReadFile* file) const _IRR_OVERRIDE_;
+	virtual ue::video::IImage* loadImage(ue::io::IReadFile* file) const _IRR_OVERRIDE_;
 };
 
 #endif
@@ -47,21 +47,21 @@ public:
 #ifdef _IRR_COMPILE_WITH_WAL_LOADER_
 
 //! An Irrlicht image loader for quake2 wal engine textures
-class CImageLoaderWAL : public irr::video::IImageLoader
+class CImageLoaderWAL : public ue::video::IImageLoader
 {
 public:
 	virtual bool isALoadableFileExtension(const io::path& filename) const _IRR_OVERRIDE_;
-	virtual bool isALoadableFileFormat(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
-	virtual irr::video::IImage* loadImage(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
+	virtual bool isALoadableFileFormat(ue::io::IReadFile* file) const _IRR_OVERRIDE_;
+	virtual ue::video::IImage* loadImage(ue::io::IReadFile* file) const _IRR_OVERRIDE_;
 };
 
 //! An Irrlicht image loader for Halflife 1 engine textures
-class CImageLoaderWAL2 : public irr::video::IImageLoader
+class CImageLoaderWAL2 : public ue::video::IImageLoader
 {
 public:
 	virtual bool isALoadableFileExtension(const io::path& filename) const _IRR_OVERRIDE_;
-	virtual bool isALoadableFileFormat(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
-	virtual irr::video::IImage* loadImage(irr::io::IReadFile* file) const _IRR_OVERRIDE_;
+	virtual bool isALoadableFileFormat(ue::io::IReadFile* file) const _IRR_OVERRIDE_;
+	virtual ue::video::IImage* loadImage(ue::io::IReadFile* file) const _IRR_OVERRIDE_;
 };
 
 // byte-align structures

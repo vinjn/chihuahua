@@ -24,18 +24,18 @@
 #pragma comment(lib, "SDL.lib")
 #endif // _MSC_VER
 
-namespace irr
+namespace ue
 {
 	namespace video
 	{
 
 		#ifdef _IRR_COMPILE_WITH_DIRECT3D_8_
-		IVideoDriver* createDirectX8Driver(const irr::SIrrlichtCreationParameters& params,
+		IVideoDriver* createDirectX8Driver(const ue::SIrrlichtCreationParameters& params,
 			io::IFileSystem* io, HWND window);
 		#endif
 
 		#ifdef _IRR_COMPILE_WITH_DIRECT3D_9_
-		IVideoDriver* createDirectX9Driver(const irr::SIrrlichtCreationParameters& params,
+		IVideoDriver* createDirectX9Driver(const ue::SIrrlichtCreationParameters& params,
 			io::IFileSystem* io, HWND window);
 		#endif
 
@@ -45,10 +45,10 @@ namespace irr
 		#endif
 	} // end namespace video
 
-} // end namespace irr
+} // end namespace ue
 
 
-namespace irr
+namespace ue
 {
 
 //! constructor
@@ -294,8 +294,8 @@ bool CIrrDeviceSDL::run()
 		switch ( SDL_event.type )
 		{
 		case SDL_MOUSEMOTION:
-			irrevent.EventType = irr::EET_MOUSE_INPUT_EVENT;
-			irrevent.MouseInput.Event = irr::EMIE_MOUSE_MOVED;
+			irrevent.EventType = ue::EET_MOUSE_INPUT_EVENT;
+			irrevent.MouseInput.Event = ue::EMIE_MOUSE_MOVED;
 			MouseX = irrevent.MouseInput.X = SDL_event.motion.x;
 			MouseY = irrevent.MouseInput.Y = SDL_event.motion.y;
 			irrevent.MouseInput.ButtonStates = MouseButtonStates;
@@ -306,67 +306,67 @@ bool CIrrDeviceSDL::run()
 		case SDL_MOUSEBUTTONDOWN:
 		case SDL_MOUSEBUTTONUP:
 
-			irrevent.EventType = irr::EET_MOUSE_INPUT_EVENT;
+			irrevent.EventType = ue::EET_MOUSE_INPUT_EVENT;
 			irrevent.MouseInput.X = SDL_event.button.x;
 			irrevent.MouseInput.Y = SDL_event.button.y;
 
-			irrevent.MouseInput.Event = irr::EMIE_MOUSE_MOVED;
+			irrevent.MouseInput.Event = ue::EMIE_MOUSE_MOVED;
 
 			switch(SDL_event.button.button)
 			{
 			case SDL_BUTTON_LEFT:
 				if (SDL_event.type == SDL_MOUSEBUTTONDOWN)
 				{
-					irrevent.MouseInput.Event = irr::EMIE_LMOUSE_PRESSED_DOWN;
-					MouseButtonStates |= irr::EMBSM_LEFT;
+					irrevent.MouseInput.Event = ue::EMIE_LMOUSE_PRESSED_DOWN;
+					MouseButtonStates |= ue::EMBSM_LEFT;
 				}
 				else
 				{
-					irrevent.MouseInput.Event = irr::EMIE_LMOUSE_LEFT_UP;
-					MouseButtonStates &= !irr::EMBSM_LEFT;
+					irrevent.MouseInput.Event = ue::EMIE_LMOUSE_LEFT_UP;
+					MouseButtonStates &= !ue::EMBSM_LEFT;
 				}
 				break;
 
 			case SDL_BUTTON_RIGHT:
 				if (SDL_event.type == SDL_MOUSEBUTTONDOWN)
 				{
-					irrevent.MouseInput.Event = irr::EMIE_RMOUSE_PRESSED_DOWN;
-					MouseButtonStates |= irr::EMBSM_RIGHT;
+					irrevent.MouseInput.Event = ue::EMIE_RMOUSE_PRESSED_DOWN;
+					MouseButtonStates |= ue::EMBSM_RIGHT;
 				}
 				else
 				{
-					irrevent.MouseInput.Event = irr::EMIE_RMOUSE_LEFT_UP;
-					MouseButtonStates &= !irr::EMBSM_RIGHT;
+					irrevent.MouseInput.Event = ue::EMIE_RMOUSE_LEFT_UP;
+					MouseButtonStates &= !ue::EMBSM_RIGHT;
 				}
 				break;
 
 			case SDL_BUTTON_MIDDLE:
 				if (SDL_event.type == SDL_MOUSEBUTTONDOWN)
 				{
-					irrevent.MouseInput.Event = irr::EMIE_MMOUSE_PRESSED_DOWN;
-					MouseButtonStates |= irr::EMBSM_MIDDLE;
+					irrevent.MouseInput.Event = ue::EMIE_MMOUSE_PRESSED_DOWN;
+					MouseButtonStates |= ue::EMBSM_MIDDLE;
 				}
 				else
 				{
-					irrevent.MouseInput.Event = irr::EMIE_MMOUSE_LEFT_UP;
-					MouseButtonStates &= !irr::EMBSM_MIDDLE;
+					irrevent.MouseInput.Event = ue::EMIE_MMOUSE_LEFT_UP;
+					MouseButtonStates &= !ue::EMBSM_MIDDLE;
 				}
 				break;
 
 			case SDL_BUTTON_WHEELUP:
-				irrevent.MouseInput.Event = irr::EMIE_MOUSE_WHEEL;
+				irrevent.MouseInput.Event = ue::EMIE_MOUSE_WHEEL;
 				irrevent.MouseInput.Wheel = 1.0f;
 				break;
 
 			case SDL_BUTTON_WHEELDOWN:
-				irrevent.MouseInput.Event = irr::EMIE_MOUSE_WHEEL;
+				irrevent.MouseInput.Event = ue::EMIE_MOUSE_WHEEL;
 				irrevent.MouseInput.Wheel = -1.0f;
 				break;
 			}
 
 			irrevent.MouseInput.ButtonStates = MouseButtonStates;
 
-			if (irrevent.MouseInput.Event != irr::EMIE_MOUSE_MOVED)
+			if (irrevent.MouseInput.Event != ue::EMIE_MOUSE_MOVED)
 			{
 				postEventFromUser(irrevent);
 
@@ -408,7 +408,7 @@ bool CIrrDeviceSDL::run()
 					break;
 				}
 #endif
-				irrevent.EventType = irr::EET_KEY_INPUT_EVENT;
+				irrevent.EventType = ue::EET_KEY_INPUT_EVENT;
 				irrevent.KeyInput.Char = SDL_event.key.keysym.unicode;
 				irrevent.KeyInput.Key = key;
 				irrevent.KeyInput.PressedDown = (SDL_event.type == SDL_KEYDOWN);
@@ -443,7 +443,7 @@ bool CIrrDeviceSDL::run()
 			break;
 
 		case SDL_USEREVENT:
-			irrevent.EventType = irr::EET_USER_EVENT;
+			irrevent.EventType = ue::EET_USER_EVENT;
 			irrevent.UserEvent.UserData1 = *(reinterpret_cast<s32*>(&SDL_event.user.data1));
 			irrevent.UserEvent.UserData2 = *(reinterpret_cast<s32*>(&SDL_event.user.data2));
 
@@ -973,7 +973,7 @@ void CIrrDeviceSDL::createKeyMap()
 	KeyMap.sort();
 }
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_SDL_DEVICE_
 

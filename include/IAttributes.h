@@ -27,7 +27,7 @@
 #include "EAttributes.h"
 #include "path.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -107,7 +107,7 @@ public:
 	//! \param attributeName: Name of the attribute to get.
 	//! \param defaultNotFound Value returned when attributeName was not found
 	//! \return Returns value of the attribute previously set by setAttribute()
-	virtual s32 getAttributeAsInt(const c8* attributeName, irr::s32 defaultNotFound=0) const =0;
+	virtual s32 getAttributeAsInt(const c8* attributeName, ue::s32 defaultNotFound=0) const =0;
 
 	//! Gets an attribute as integer value
 	//! \param index: Index value, must be between 0 and getAttributeCount()-1.
@@ -132,7 +132,7 @@ public:
 	//! \param attributeName: Name of the attribute to get.
 	//! \param defaultNotFound Value returned when attributeName was not found
 	//! \return Returns value of the attribute previously set by setAttribute()
-	virtual f32 getAttributeAsFloat(const c8* attributeName, irr::f32 defaultNotFound=0.f) = 0;
+	virtual f32 getAttributeAsFloat(const c8* attributeName, ue::f32 defaultNotFound=0.f) = 0;
 
 	//! Gets an attribute as float value
 	//! \param index: Index value, must be between 0 and getAttributeCount()-1.
@@ -755,7 +755,7 @@ public:
 };
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

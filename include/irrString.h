@@ -12,7 +12,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -1376,7 +1376,7 @@ typedef string<c8> stringc;
 typedef string<wchar_t> stringw;
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

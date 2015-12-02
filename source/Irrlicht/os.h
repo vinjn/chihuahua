@@ -17,7 +17,7 @@
 #define printf(...) __android_log_print(ANDROID_LOG_INFO, "Scene3D", __VA_ARGS__);
 #endif
 
-namespace irr
+namespace ue
 {
 
 namespace os
@@ -131,7 +131,7 @@ namespace os
 	};
 
 } // end namespace os
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

@@ -9,7 +9,7 @@
 #include "IXMLReader.h"
 #include "IFileArchive.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -379,7 +379,7 @@ public:
 
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

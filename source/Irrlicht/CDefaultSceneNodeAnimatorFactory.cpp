@@ -9,7 +9,7 @@
 #include "ISceneNodeAnimatorCollisionResponse.h"
 #include "ISceneManager.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -158,5 +158,5 @@ ESCENE_NODE_ANIMATOR_TYPE CDefaultSceneNodeAnimatorFactory::getTypeFromName(cons
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

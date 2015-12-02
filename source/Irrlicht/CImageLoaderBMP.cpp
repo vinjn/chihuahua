@@ -13,7 +13,7 @@
 #include "os.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -366,7 +366,7 @@ IImageLoader* createImageLoaderBMP()
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

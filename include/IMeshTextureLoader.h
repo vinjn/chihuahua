@@ -7,7 +7,7 @@
 #include "path.h"
 #include "IReferenceCounted.h"
 
-namespace irr
+namespace ue
 {
 
 namespace video
@@ -36,30 +36,30 @@ public:
 
 	//! Set a custom texture path.
     /**	This is the first path the texture-loader should search.  */
-	virtual void setTexturePath(const irr::io::path& path) = 0;
+	virtual void setTexturePath(const ue::io::path& path) = 0;
 
 	//! Get the current custom texture path.
-	virtual const irr::io::path& getTexturePath() const = 0;
+	virtual const ue::io::path& getTexturePath() const = 0;
 
 	//! Get the texture by searching for it in all paths that makes sense for the given textureName.
 	/** Usually you do not have to use this method, it is used internally by IMeshLoader's.
 	\param textureName Texturename as used in the mesh-format
 	\return Pointer to the texture. Returns 0 if loading failed.*/
-	virtual irr::video::ITexture* getTexture(const irr::io::path& textureName) = 0;
+	virtual ue::video::ITexture* getTexture(const ue::io::path& textureName) = 0;
 
 	//! Meshloaders will search paths relative to the meshFile.
 	/** Usually you do not have to use this method, it is used internally by IMeshLoader's.
 		Any values you set here will likely be overwritten internally. */
-	virtual void setMeshFile(const irr::io::IReadFile* meshFile)  = 0;
+	virtual void setMeshFile(const ue::io::IReadFile* meshFile)  = 0;
 
 	//! Meshloaders will try to look relative to the path of the materialFile
 	/** Usually you do not have to use this method, it is used internally by IMeshLoader's.
 	Any values you set here will likely be overwritten internally.	*/
-	virtual void setMaterialFile(const irr::io::IReadFile* materialFile)  = 0;
+	virtual void setMaterialFile(const ue::io::IReadFile* materialFile)  = 0;
 };
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif

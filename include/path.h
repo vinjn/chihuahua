@@ -7,7 +7,7 @@
 
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {

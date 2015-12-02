@@ -21,7 +21,7 @@
 #include "irrString.h"
 #include "fast_atof.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -726,7 +726,7 @@ bool GetDMFWaterPlanes(const StringList& RawFile/**<StringList representing a DM
 
 } // end namespace
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif /* __DMF_SUPPORT_H__ */
 

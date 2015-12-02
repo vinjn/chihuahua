@@ -3,7 +3,7 @@
 
 #include "irrTypes.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -84,7 +84,7 @@ const c8* const GEOMETRY_SHADER_TYPE_NAMES[] = {
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // __E_SHADER_TYPES_H_INCLUDED__
 

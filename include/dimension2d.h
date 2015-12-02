@@ -6,9 +6,9 @@
 #define __IRR_DIMENSION2D_H_INCLUDED__
 
 #include "irrTypes.h"
-#include "irrMath.h" // for irr::core::equals()
+#include "irrMath.h" // for ue::core::equals()
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -218,7 +218,7 @@ namespace core
 
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

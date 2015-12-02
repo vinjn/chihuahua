@@ -9,7 +9,7 @@
 #include "IEventReceiver.h"
 #include "irrArray.h"
 
-namespace irr
+namespace ue
 {
 	struct SKeyMap;
 
@@ -40,7 +40,7 @@ namespace scene
 		virtual void setRotateSpeed(f32 rotateSpeed) = 0;
 
 		//! Sets the keyboard mapping for this animator (old style)
-		/** \param map Array of keyboard mappings, see irr::SKeyMap
+		/** \param map Array of keyboard mappings, see ue::SKeyMap
 		\param count Size of the keyboard map array. */
 		virtual void setKeyMap(SKeyMap *map, u32 count) = 0;
 
@@ -63,7 +63,7 @@ namespace scene
 		virtual void setInvertMouse(bool invert) = 0;
 	};
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

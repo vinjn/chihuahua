@@ -176,7 +176,7 @@
 
 #include "CGeometryCreator.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -2623,5 +2623,5 @@ ISceneManager* createSceneManager(video::IVideoDriver* driver,
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

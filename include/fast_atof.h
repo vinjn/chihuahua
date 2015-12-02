@@ -8,14 +8,14 @@
 #include "irrMath.h"
 #include "irrString.h"
 
-namespace irr
+namespace ue
 {
 namespace core
 {
 	//! Selection of characters which count as decimal point in fast_atof
-	// TODO: This should probably also be used in irr::core::string, but
+	// TODO: This should probably also be used in ue::core::string, but
 	// the float-to-string code used there has to be rewritten first.
-	IRRLICHT_API extern irr::core::stringc LOCALE_DECIMAL_POINTS;
+	IRRLICHT_API extern ue::core::stringc LOCALE_DECIMAL_POINTS;
 
 // we write [17] here instead of [] to work around a swig bug
 const float fast_atof_table[17] = {
@@ -358,7 +358,7 @@ inline float fast_atof(const char* floatAsString, const char** out=0)
 }
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

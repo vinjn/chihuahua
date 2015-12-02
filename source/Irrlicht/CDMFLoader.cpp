@@ -31,7 +31,7 @@
 #include "irrMath.h"
 #include "dmfsupport.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -425,7 +425,7 @@ bool CDMFLoader::isALoadableFileExtension(const io::path& filename) const
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_DMF_LOADER_
 

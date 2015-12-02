@@ -8,7 +8,7 @@
 #include "IReferenceCounted.h"
 #include "EMeshWriterEnums.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {

@@ -4,7 +4,7 @@
 #ifndef E_FOCUS_FLAGS_H_INCLUDED__
 #define E_FOCUS_FLAGS_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -32,7 +32,7 @@ enum EFOCUS_FLAG
 };
 
 } // namespace gui
-} // namespace irr
+} // namespace ue
 
 #endif
 

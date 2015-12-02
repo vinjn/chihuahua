@@ -7,7 +7,7 @@
 #include "IAttributes.h"
 #include "irrMath.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -184,5 +184,5 @@ void CParticleBoxEmitter::deserializeAttributes(io::IAttributes* in, io::SAttrib
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

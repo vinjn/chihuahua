@@ -16,7 +16,7 @@
 #include "CSkinnedMesh.h"
 #include "IReadFile.h"
 
-namespace irr
+namespace ue
 {
 
 namespace scene
@@ -134,7 +134,7 @@ private:
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif // __C_B3D_MESH_LOADER_H_INCLUDED__
 

@@ -10,7 +10,7 @@
 #include "SColor.h"
 #include "rect.h"
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -574,7 +574,7 @@ namespace gui
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

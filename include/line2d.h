@@ -8,7 +8,7 @@
 #include "irrTypes.h"
 #include "vector2d.h"
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -242,7 +242,7 @@ class line2d
 
 	// partial specialization to optimize <f32> lines (avoiding casts)
 	template <>
-	inline vector2df line2d<irr::f32>::getClosestPoint(const vector2df& point, bool checkOnlySegments) const
+	inline vector2df line2d<ue::f32>::getClosestPoint(const vector2df& point, bool checkOnlySegments) const
 	{
 		vector2df c = point - start;
 		vector2df v = end - start;
@@ -269,7 +269,7 @@ class line2d
 	typedef line2d<s32> line2di;
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

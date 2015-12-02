@@ -26,7 +26,7 @@
 #pragma warning( disable: 4996)
 #endif
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -864,7 +864,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

@@ -8,7 +8,7 @@
 #include "IAttributeExchangingObject.h"
 #include "SParticle.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -121,7 +121,7 @@ public:
 typedef IParticleEmitter IParticlePointEmitter;
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

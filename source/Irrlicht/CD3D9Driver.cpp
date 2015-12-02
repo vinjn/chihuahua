@@ -18,7 +18,7 @@
 #include "CD3D9CgMaterialRenderer.h"
 #include "SIrrCreationParameters.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -1677,7 +1677,7 @@ void CD3D9Driver::draw2DImageBatch(const video::ITexture* texture,
 
 	setRenderStates2DMode(color.getAlpha()<255, true, useAlphaChannelOfTexture);
 
-	const irr::u32 drawCount = core::min_<u32>(positions.size(), sourceRects.size());
+	const ue::u32 drawCount = core::min_<u32>(positions.size(), sourceRects.size());
 
 	core::array<S3DVertex> vtx(drawCount * 4);
 	core::array<u16> indices(drawCount * 6);
@@ -3373,7 +3373,7 @@ IImage* CD3D9Driver::createScreenShot(video::ECOLOR_FORMAT format, video::E_REND
 		return 0;
 	}
 
-	irr::core::dimension2d<u32> shotSize;
+	ue::core::dimension2d<u32> shotSize;
 	shotSize.Width = core::min_( ScreenSize.Width, (u32)(clientRect.right-clientRect.left) );
 	shotSize.Height = core::min_( ScreenSize.Height, (u32)(clientRect.bottom-clientRect.top) );
 
@@ -3796,13 +3796,13 @@ void CD3D9CallBridge::setBlend(bool enable)
 }
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_DIRECT3D_9_
 
 
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -3825,5 +3825,5 @@ IVideoDriver* createDirectX9Driver(const SIrrlichtCreationParameters& params,
 #endif // _IRR_COMPILE_WITH_DIRECT3D_9_
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 

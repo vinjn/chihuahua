@@ -13,7 +13,7 @@
 #include "irrString.h"
 #include "SIrrCreationParameters.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -22,7 +22,7 @@ namespace video
 	public:
 
 		//! constructor
-		CBurningVideoDriver(const irr::SIrrlichtCreationParameters& params, io::IFileSystem* io, video::IImagePresenter* presenter);
+		CBurningVideoDriver(const ue::SIrrlichtCreationParameters& params, io::IFileSystem* io, video::IImagePresenter* presenter);
 
 		//! destructor
 		virtual ~CBurningVideoDriver();
@@ -282,7 +282,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

@@ -14,7 +14,7 @@
 #include "CAttributes.h"
 #include "ILightManager.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {

@@ -19,10 +19,10 @@
 #ifdef _IRR_COMPILE_WITH_STB_LOADER_
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_FAILURE_USERMSG
-#include "../3rdparty/stb/stb_image.h"
+#include "../stb/stb_image.h"
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -892,7 +892,7 @@ void CNullDriver::draw2DImageBatch(const video::ITexture* texture,
 				SColor color,
 				bool useAlphaChannelOfTexture)
 {
-	const irr::u32 drawCount = core::min_<u32>(positions.size(), sourceRects.size());
+	const ue::u32 drawCount = core::min_<u32>(positions.size(), sourceRects.size());
 
 	for (u32 i=0; i<drawCount; ++i)
 	{

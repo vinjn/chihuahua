@@ -5,7 +5,7 @@
 #include "CTriangleBBSelector.h"
 #include "ISceneNode.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -76,5 +76,5 @@ void CTriangleBBSelector::getTriangles(core::triangle3df* triangles,
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

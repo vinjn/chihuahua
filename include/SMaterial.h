@@ -14,7 +14,7 @@
 #include "SMaterialLayer.h"
 #include "IShaderConstantSetCallBack.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -182,7 +182,7 @@ namespace video
 	to coverage.
 	Some drivers don't support a per-material setting of the anti-aliasing
 	modes. In those cases, FSAA/multisampling is defined by the device mode
-	chosen upon creation via irr::SIrrCreationParameters.
+	chosen upon creation via ue::SIrrCreationParameters.
 	*/
 	enum E_ANTI_ALIASING_MODE
 	{
@@ -744,6 +744,6 @@ namespace video
 	IRRLICHT_API extern SMaterial IdentityMaterial;
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif

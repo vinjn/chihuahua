@@ -8,7 +8,7 @@
 #include "ITexture.h"
 #include "CImage.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -70,7 +70,7 @@ private:
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

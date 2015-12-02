@@ -10,7 +10,7 @@
 #include "rect.h"
 #include "SColor.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -251,7 +251,7 @@ public:
 };
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

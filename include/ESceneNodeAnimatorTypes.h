@@ -5,7 +5,7 @@
 #ifndef __E_SCENE_NODE_ANIMATOR_TYPES_H_INCLUDED__
 #define __E_SCENE_NODE_ANIMATOR_TYPES_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -51,7 +51,7 @@ namespace scene
 	};
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

@@ -38,7 +38,7 @@
 	#define bswap_64(X) ((((X)&0x00000000000000FF) << 56) | (((X)&0xFF00000000000000) >> 56) | (((X)&0x000000000000FF00) << 40) | (((X)&0x00FF000000000000) >> 40) | (((X)&0x0000000000FF0000) << 24) | (((X)&0x0000FF0000000000) >> 24) | (((X)&0x00000000FF000000) << 8) | (((X) &0x000000FF00000000) >> 8))
 #endif
 
-namespace irr
+namespace ue
 {
 namespace os
 {
@@ -68,7 +68,7 @@ namespace os
 #include <time.h>
 #endif
 
-namespace irr
+namespace ue
 {
 namespace os
 {
@@ -144,7 +144,7 @@ namespace os
 
 #include <android/log.h>
 
-namespace irr
+namespace ue
 {
 namespace os
 {
@@ -199,7 +199,7 @@ namespace os
 #include <time.h>
 #include <sys/time.h>
 
-namespace irr
+namespace ue
 {
 namespace os
 {
@@ -402,6 +402,6 @@ namespace os
 	}
 
 } // end namespace os
-} // end namespace irr
+} // end namespace ue
 
 

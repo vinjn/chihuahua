@@ -9,7 +9,7 @@
 #include "CAnimatedMeshMD2.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -358,7 +358,7 @@ bool CMD2MeshFileLoader::loadFile(io::IReadFile* file, CAnimatedMeshMD2* mesh)
 }
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // _IRR_COMPILE_WITH_MD2_LOADER_

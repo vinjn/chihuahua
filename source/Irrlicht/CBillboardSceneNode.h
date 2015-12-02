@@ -8,7 +8,7 @@
 #include "IBillboardSceneNode.h"
 #include "S3DVertex.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -93,7 +93,7 @@ private:
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -15,7 +15,7 @@
 // where the wrong conversions had been in use.
 #define IRR_TEST_BROKEN_QUATERNION_USE 0
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -690,7 +690,7 @@ inline core::quaternion& quaternion::rotationFromTo(const vector3df& from, const
 
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

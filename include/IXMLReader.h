@@ -8,7 +8,7 @@
 #include "IReferenceCounted.h"
 #include "irrXML.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -25,7 +25,7 @@ namespace io
 	typedef IIrrXMLReader<c8, IReferenceCounted> IXMLReaderUTF8;
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -11,7 +11,7 @@
 
 #include "IImageWriter.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -30,7 +30,7 @@ public:
 };
 
 } // namespace video
-} // namespace irr
+} // namespace ue
 
 #endif // _I_IMAGE_WRITER_PSD_H_INCLUDED__
 #endif

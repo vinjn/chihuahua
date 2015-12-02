@@ -23,7 +23,7 @@
 #define GET_Y_LPARAM(lp) ((int)(short)HIWORD(lp))
 #endif
 
-namespace irr
+namespace ue
 {
 	struct SJoystickWin32Control;
 
@@ -78,7 +78,7 @@ namespace irr
 		virtual void setResizable(bool resize=false) _IRR_OVERRIDE_;
 
 		//! Resize the render window.
-		virtual void setWindowSize(const irr::core::dimension2d<u32>& size) _IRR_OVERRIDE_;
+		virtual void setWindowSize(const ue::core::dimension2d<u32>& size) _IRR_OVERRIDE_;
 
 		//! Minimizes the window.
 		virtual void minimizeWindow() _IRR_OVERRIDE_;
@@ -126,7 +126,7 @@ namespace irr
 		static void ReportLastWinApiError();
 
 		// convert an Irrlicht texture to a windows cursor
-		HCURSOR TextureToCursor(HWND hwnd, irr::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
+		HCURSOR TextureToCursor(HWND hwnd, ue::video::ITexture * tex, const core::rect<s32>& sourceRect, const core::position2d<s32> &hotspot);
 
 		//! Implementation of the win32 cursor control
 		class CCursorControl : public gui::ICursorControl
@@ -419,7 +419,7 @@ namespace irr
 		HWND HWnd;
 	};
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_WINDOWS_DEVICE_
 #endif // __C_IRR_DEVICE_WIN32_H_INCLUDED__

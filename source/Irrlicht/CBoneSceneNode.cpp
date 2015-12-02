@@ -7,7 +7,7 @@
 
 #include "CBoneSceneNode.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -123,7 +123,7 @@ void CBoneSceneNode::deserializeAttributes(io::IAttributes* in, io::SAttributeRe
 
 
 } // namespace scene
-} // namespace irr
+} // namespace ue
 
 #endif
 

@@ -11,7 +11,7 @@
 #include "SLight.h"
 #include "irrMath.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {

@@ -11,7 +11,7 @@
 
 #include "IImageLoader.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -58,7 +58,7 @@ public:
 };
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // compiled with PVR loader
 #endif

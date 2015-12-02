@@ -7,7 +7,7 @@
 #include "ISceneNode.h"
 #include <functional>
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -50,4 +50,4 @@ struct FunctionalAnimator : public ISceneNodeAnimator
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue

@@ -10,7 +10,7 @@
 #include "IFileSystem.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {

@@ -10,7 +10,7 @@
 #include "IVideoDriver.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -984,5 +984,5 @@ IMesh* CGeometryCreator::createVolumeLightMesh(
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

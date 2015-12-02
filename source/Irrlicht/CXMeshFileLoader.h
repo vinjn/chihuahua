@@ -10,7 +10,7 @@
 #include "CSkinnedMesh.h"
 
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -191,6 +191,6 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif

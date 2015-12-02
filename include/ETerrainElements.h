@@ -5,7 +5,7 @@
 #ifndef __E_TERRAIN_ELEMENTS_H__
 #define __E_TERRAIN_ELEMENTS_H__
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -30,7 +30,7 @@ namespace scene
 	};
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

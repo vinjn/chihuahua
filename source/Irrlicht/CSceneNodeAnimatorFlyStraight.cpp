@@ -4,7 +4,7 @@
 
 #include "CSceneNodeAnimatorFlyStraight.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -115,5 +115,5 @@ ISceneNodeAnimator* CSceneNodeAnimatorFlyStraight::createClone(ISceneNode* node,
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

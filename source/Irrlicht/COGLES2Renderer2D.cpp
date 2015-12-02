@@ -11,7 +11,7 @@
 #include "os.h"
 #include "COGLES2Driver.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {

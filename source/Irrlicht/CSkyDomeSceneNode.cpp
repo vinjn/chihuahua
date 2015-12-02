@@ -12,7 +12,7 @@
 #include "IAnimatedMesh.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -263,6 +263,6 @@ ISceneNode* CSkyDomeSceneNode::clone(ISceneNode* newParent, ISceneManager* newMa
 
 
 } // namespace scene
-} // namespace irr
+} // namespace ue
 
 #endif

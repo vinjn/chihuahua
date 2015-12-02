@@ -10,34 +10,34 @@
 #include "EDriverTypes.h"
 #include "IrrlichtDevice.h"
 
-namespace irr
+namespace ue
 {
 
 //! ask user for driver
-static irr::video::E_DRIVER_TYPE driverChoiceConsole(bool allDrivers=true)
+static ue::video::E_DRIVER_TYPE driverChoiceConsole(bool allDrivers=true)
 {
 	printf("Please select the driver you want:\n");
-	irr::u32 i=0;
-	for (i=irr::video::EDT_COUNT; i>0; --i)
+	ue::u32 i=0;
+	for (i=ue::video::EDT_COUNT; i>0; --i)
 	{
-		if (allDrivers || (irr::IrrlichtDevice::isDriverSupported(irr::video::E_DRIVER_TYPE(i-1))))
-			printf(" (%c) %s\n", 'a'+irr::video::EDT_COUNT-i, irr::video::DRIVER_TYPE_NAMES[i-1]);
+		if (allDrivers || (ue::IrrlichtDevice::isDriverSupported(ue::video::E_DRIVER_TYPE(i-1))))
+			printf(" (%c) %s\n", 'a'+ue::video::EDT_COUNT-i, ue::video::DRIVER_TYPE_NAMES[i-1]);
 	}
 
 	char c;
 	std::cin >> c;
-	c = irr::video::EDT_COUNT+'a'-c;
+	c = ue::video::EDT_COUNT+'a'-c;
 
-	for (i=irr::video::EDT_COUNT; i>0; --i)
+	for (i=ue::video::EDT_COUNT; i>0; --i)
 	{
-		if (!(allDrivers || (irr::IrrlichtDevice::isDriverSupported(irr::video::E_DRIVER_TYPE(i-1)))))
+		if (!(allDrivers || (ue::IrrlichtDevice::isDriverSupported(ue::video::E_DRIVER_TYPE(i-1)))))
 			--c;
 		if ((char)i==c)
-			return irr::video::E_DRIVER_TYPE(i-1);
+			return ue::video::E_DRIVER_TYPE(i-1);
 	}
-	return irr::video::EDT_COUNT;
+	return ue::video::EDT_COUNT;
 }
 
-} // end namespace irr
+} // end namespace ue
 
 #endif

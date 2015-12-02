@@ -16,7 +16,7 @@
 #include "SMaterial.h"
 
 
-namespace irr
+namespace ue
 {
 
 // supporting different packed pixel needs many defines...
@@ -1042,7 +1042,7 @@ inline s32 intervall_intersect_test( const sIntervall& a, const sIntervall& b)
 }
 
 
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

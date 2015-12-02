@@ -9,7 +9,7 @@
 #include "irrString.h"
 #include "vector3d.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -43,7 +43,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

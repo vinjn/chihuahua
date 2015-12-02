@@ -15,7 +15,7 @@
 #include "irrMap.h"
 #include "CAttributes.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -362,7 +362,7 @@ private:
 	//! meshbuffer reference ("geomid/matname") -> index into MeshesToBind
 	core::map<core::stringc,u32> MaterialsToBind;
 	//! Array of buffers for each material binding
-	core::array< core::array<irr::scene::IMeshBuffer*> > MeshesToBind;
+	core::array< core::array<ue::scene::IMeshBuffer*> > MeshesToBind;
 
 	bool CreateInstances;
 };
@@ -384,7 +384,7 @@ public:
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

@@ -26,7 +26,7 @@
 
 #include "IImageLoader.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -157,7 +157,7 @@ private:
 };
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_RGB_LOADER_
 #endif // __C_IMAGE_LOADER_RGB_H_INCLUDED__

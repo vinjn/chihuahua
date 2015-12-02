@@ -5,7 +5,7 @@
 #ifndef __E_DEVICE_TYPES_H_INCLUDED__
 #define __E_DEVICE_TYPES_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 
 	//! An enum for the different device types supported by the Irrlicht Engine.
@@ -64,7 +64,7 @@ namespace irr
 		EIDT_ANDROID,		
 	};
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // __E_DEVICE_TYPES_H_INCLUDED__
 

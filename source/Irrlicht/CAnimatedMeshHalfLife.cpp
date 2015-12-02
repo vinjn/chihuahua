@@ -14,7 +14,7 @@
 #include "IVideoDriver.h"
 #include "IFileSystem.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -1689,7 +1689,7 @@ void CAnimatedMeshHalfLife::setBoundingBox(const core::aabbox3df& box)
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_MD3_LOADER_
 

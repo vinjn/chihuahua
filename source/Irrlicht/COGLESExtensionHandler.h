@@ -33,7 +33,7 @@ typedef char GLchar;
 #include "os.h"
 #include "EDriverFeatures.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -508,7 +508,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // _IRR_COMPILE_WITH_OGLES1_

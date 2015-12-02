@@ -11,7 +11,7 @@
 #include "os.h"
 #include "coreutil.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -256,7 +256,7 @@ IReadFile* CWADReader::createAndOpenFile(u32 index)
 
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __IRR_COMPILE_WITH_WAD_ARCHIVE_LOADER_

@@ -5,7 +5,7 @@
 #ifndef __E_GUI_ALIGNMENT_H_INCLUDED__
 #define __E_GUI_ALIGNMENT_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -32,7 +32,7 @@ const c8* const GUIAlignmentNames[] =
 };
 
 } // namespace gui
-} // namespace irr
+} // namespace ue
 
 #endif // __E_GUI_ALIGNMENT_H_INCLUDED__
 

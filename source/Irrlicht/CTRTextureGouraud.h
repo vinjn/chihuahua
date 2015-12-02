@@ -9,21 +9,21 @@
 
 #ifndef _IRR_COMPILE_WITH_SOFTWARE_
 // forward declarations for create methods
-namespace irr
+namespace ue
 {
 namespace video
 {
 	class ITriangleRenderer;
 	class IZBuffer;
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #else
 
 #include "ITriangleRenderer.h"
 #include "IImage.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -77,7 +77,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

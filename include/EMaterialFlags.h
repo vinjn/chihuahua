@@ -5,7 +5,7 @@
 #ifndef __E_MATERIAL_FLAGS_H_INCLUDED__
 #define __E_MATERIAL_FLAGS_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -91,7 +91,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __E_MATERIAL_FLAGS_H_INCLUDED__

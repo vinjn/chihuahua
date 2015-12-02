@@ -9,7 +9,7 @@
 
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -160,6 +160,6 @@ const io::path& CFileList::getPath() const
 }
 
 
-} // end namespace irr
+} // end namespace ue
 } // end namespace io
 

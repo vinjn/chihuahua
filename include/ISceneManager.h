@@ -20,7 +20,7 @@
 #include "IGeometryCreator.h"
 #include "ISkinnedMesh.h"
 
-namespace irr
+namespace ue
 {
 	struct SKeyMap;
 	struct SEvent;
@@ -1645,7 +1645,7 @@ namespace scene
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

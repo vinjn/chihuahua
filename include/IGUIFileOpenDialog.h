@@ -8,7 +8,7 @@
 #include "IGUIElement.h"
 #include "path.h"
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -38,7 +38,7 @@ namespace gui
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

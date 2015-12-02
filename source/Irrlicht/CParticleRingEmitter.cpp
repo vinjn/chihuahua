@@ -6,7 +6,7 @@
 #include "os.h"
 #include "IAttributes.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -173,5 +173,5 @@ void CParticleRingEmitter::deserializeAttributes(io::IAttributes* in, io::SAttri
 }
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

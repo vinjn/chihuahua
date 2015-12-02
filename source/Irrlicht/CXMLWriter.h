@@ -12,7 +12,7 @@
 #include <wchar.h>
 #include "IWriteFile.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -72,7 +72,7 @@ namespace io
 		bool TextWrittenLast;
 	};
 
-} // end namespace irr
+} // end namespace ue
 } // end namespace io
 
 #endif // _IRR_COMPILE_WITH_XML_

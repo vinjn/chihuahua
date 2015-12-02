@@ -9,7 +9,7 @@
 // This method is used for error output from bzip2.
 extern "C" void bz_internal_error(int errorCode)
 {
-	irr::os::Printer::log("Error in bzip2 handling", irr::core::stringc(errorCode), irr::ELL_ERROR);
+	ue::os::Printer::log("Error in bzip2 handling", ue::core::stringc(errorCode), ue::ELL_ERROR);
 }
 
 #ifdef __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_
@@ -41,7 +41,7 @@ extern "C" void bz_internal_error(int errorCode)
 	#endif
 #endif
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -834,6 +834,6 @@ IReadFile* CZipReader::createAndOpenFile(u32 index)
 }
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif // __IRR_COMPILE_WITH_ZIP_ARCHIVE_LOADER_

@@ -28,7 +28,7 @@ inline bool isValid(T _handle) { return UINT16_MAX != _handle.idx; }
 
 #define BX_UNIMPLEMENTED() BX_TRACE("%s is not implemented.", BX_FUNCTION)
 
-namespace irr
+namespace ue
 {
     namespace video
     {
@@ -910,7 +910,7 @@ namespace irr
 #endif //  _IRR_COMPILE_WITH_BGFX_
         }
     } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_OPENGL_
 

@@ -5,7 +5,7 @@
 #ifndef __E_MESSAGE_BOX_FLAGS_H_INCLUDED__
 #define __E_MESSAGE_BOX_FLAGS_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -30,7 +30,7 @@ enum EMESSAGE_BOX_FLAG
 };
 
 } // namespace gui
-} // namespace irr
+} // namespace ue
 
 #endif
 

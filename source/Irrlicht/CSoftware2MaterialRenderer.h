@@ -10,7 +10,7 @@
 #include "IMaterialRenderer.h"
 #include "CSoftwareDriver2.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -112,7 +112,7 @@ public:
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

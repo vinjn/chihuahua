@@ -7,7 +7,7 @@
 
 #include "irrTypes.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -34,7 +34,7 @@ namespace scene
 	};
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __E_CULLING_TYPES_H_INCLUDED__

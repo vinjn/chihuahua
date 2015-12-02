@@ -7,7 +7,7 @@
 
 #include "IBillboardSceneNode.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -55,7 +55,7 @@ public:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

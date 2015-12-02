@@ -10,7 +10,7 @@
 #include "plane3d.h"
 #include "aabbox3d.h"
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -174,10 +174,10 @@ namespace core
 			const vector3d<f64> lineVectf64(lineVect.X, lineVect.Y, lineVect.Z);
 			vector3d<f64> outIntersectionf64;
 
-			core::triangle3d<irr::f64> trianglef64(vector3d<f64>((f64)pointA.X, (f64)pointA.Y, (f64)pointA.Z)
+			core::triangle3d<ue::f64> trianglef64(vector3d<f64>((f64)pointA.X, (f64)pointA.Y, (f64)pointA.Z)
 										,vector3d<f64>((f64)pointB.X, (f64)pointB.Y, (f64)pointB.Z)
 										, vector3d<f64>((f64)pointC.X, (f64)pointC.Y, (f64)pointC.Z));
-			const vector3d<irr::f64> normalf64 = trianglef64.getNormal().normalize();
+			const vector3d<ue::f64> normalf64 = trianglef64.getNormal().normalize();
 			f64 t2;
 
 			if ( core::iszero ( t2 = normalf64.dotProduct(lineVectf64) ) )
@@ -273,7 +273,7 @@ namespace core
 	typedef triangle3d<s32> triangle3di;
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

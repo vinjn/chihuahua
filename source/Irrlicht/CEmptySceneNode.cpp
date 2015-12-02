@@ -5,7 +5,7 @@
 #include "CEmptySceneNode.h"
 #include "ISceneManager.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -67,4 +67,4 @@ ISceneNode* CEmptySceneNode::clone(ISceneNode* newParent, ISceneManager* newMana
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue

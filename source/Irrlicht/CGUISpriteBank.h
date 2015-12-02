@@ -10,7 +10,7 @@
 
 #include "IGUISpriteBank.h"
 
-namespace irr
+namespace ue
 {
 
 namespace video
@@ -97,7 +97,7 @@ protected:
 };
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_GUI_
 

@@ -10,7 +10,7 @@
 
 #include "irrArray.h"
 
-namespace irr
+namespace ue
 {
 	class IReferenceCounted;
 
@@ -37,7 +37,7 @@ namespace irr
 			}
 
 			//! Access all objects which are currently reference counted.
-			static inline irr::core::array<const IReferenceCounted*> getReferenceCountedObjects()
+			static inline ue::core::array<const IReferenceCounted*> getReferenceCountedObjects()
 			{
 				return ReferenceCountedObjects;
 			}
@@ -50,19 +50,19 @@ namespace irr
 
 			static inline void removeObject(const IReferenceCounted* object)
 			{
-				irr::s32 idx = ReferenceCountedObjects.linear_search(object );
+				ue::s32 idx = ReferenceCountedObjects.linear_search(object );
 				if ( idx >= 0 )
 				{
-					irr::core::swap( ReferenceCountedObjects[idx], ReferenceCountedObjects.getLast() );
+					ue::core::swap( ReferenceCountedObjects[idx], ReferenceCountedObjects.getLast() );
 					ReferenceCountedObjects.erase( ReferenceCountedObjects.size()-1 );
 				}
 			}
 
 		private:
 			// NOTE: We don't do additional grab()/drop()'s here as we want to supervise reference counted objects and not affect them otherwise.
-			IRRLICHT_API static irr::core::array<const IReferenceCounted*> ReferenceCountedObjects;
+			IRRLICHT_API static ue::core::array<const IReferenceCounted*> ReferenceCountedObjects;
 	};
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_LEAK_HUNTER_
 

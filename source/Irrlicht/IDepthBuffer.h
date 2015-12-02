@@ -9,7 +9,7 @@
 #include "dimension2d.h"
 #include "S4DVertex.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -76,7 +76,7 @@ namespace video
 	IStencilBuffer* createStencilBuffer(const core::dimension2d<u32>& size);
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

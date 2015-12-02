@@ -10,7 +10,7 @@
 #include "SColor.h"
 #include "rect.h"
 
-namespace irr
+namespace ue
 {
 
 namespace video
@@ -136,7 +136,7 @@ public:
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // __I_GUI_SPRITE_BANK_H_INCLUDED__
 

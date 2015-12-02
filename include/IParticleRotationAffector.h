@@ -7,7 +7,7 @@
 
 #include "IParticleAffector.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -34,7 +34,7 @@ public:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __I_PARTICLE_ROTATION_AFFECTOR_H_INCLUDED__

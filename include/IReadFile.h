@@ -8,7 +8,7 @@
 #include "IReferenceCounted.h"
 #include "coreutil.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -48,7 +48,7 @@ namespace io
 	IReadFile* createLimitReadFile(const io::path& fileName, IReadFile* alreadyOpenedFile, long pos, long areaSize);
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

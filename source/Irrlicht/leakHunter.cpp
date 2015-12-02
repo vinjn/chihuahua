@@ -6,10 +6,10 @@
 
 #ifdef _IRR_COMPILE_WITH_LEAK_HUNTER_
 
-namespace irr
+namespace ue
 {
-	 irr::core::array<const IReferenceCounted*> LeakHunter::ReferenceCountedObjects;
-} // end namespace irr
+	 ue::core::array<const IReferenceCounted*> LeakHunter::ReferenceCountedObjects;
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_LEAK_HUNTER_
 

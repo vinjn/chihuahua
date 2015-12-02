@@ -9,7 +9,7 @@
 #include "IReferenceCounted.h"
 #include "irrArray.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -57,6 +57,6 @@ namespace scene
 		virtual void OnNodePostRender(ISceneNode* node) = 0;
 	};
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif

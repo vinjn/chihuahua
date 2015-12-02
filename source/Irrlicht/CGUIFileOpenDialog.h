@@ -14,7 +14,7 @@
 #include "IGUIEditBox.h"
 #include "IFileSystem.h"
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -76,7 +76,7 @@ namespace gui
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_GUI_
 

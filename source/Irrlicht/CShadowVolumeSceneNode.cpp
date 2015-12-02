@@ -11,7 +11,7 @@
 #include "SLight.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -416,4 +416,4 @@ void CShadowVolumeSceneNode::calculateAdjacency()
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue

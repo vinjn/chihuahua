@@ -5,7 +5,7 @@
 #include "CProfiler.h"
 #include "CTimer.h"
 
-namespace irr
+namespace ue
 {
 IRRLICHT_API IProfiler& IRRCALLCONV getProfiler()
 {
@@ -101,4 +101,4 @@ core::stringw CProfiler::makeTitleString() const
 	return core::stringw("name           calls       time(sum)   time(avg)   time(max)");
 }
 
-} // namespace irr
+} // namespace ue

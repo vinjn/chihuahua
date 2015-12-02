@@ -8,7 +8,7 @@
 #include "IParticleAnimatedMeshSceneNodeEmitter.h"
 #include "irrArray.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -153,7 +153,7 @@ private:
 };
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __C_PARTICLE_ANIMATED_MESH_SCENE_NODE_EMITTER_H_INCLUDED__

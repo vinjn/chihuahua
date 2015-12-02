@@ -8,7 +8,7 @@
 #include "ICameraSceneNode.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -295,5 +295,5 @@ ISceneNode* CBillboardSceneNode::clone(ISceneNode* newParent, ISceneManager* new
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

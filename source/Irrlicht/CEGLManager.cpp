@@ -9,7 +9,7 @@
 #include "irrString.h"
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {

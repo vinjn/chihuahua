@@ -23,7 +23,7 @@
 #pragma comment(lib, "libEGL.lib")
 #endif
 
-namespace irr
+namespace ue
 {
 namespace video
 {

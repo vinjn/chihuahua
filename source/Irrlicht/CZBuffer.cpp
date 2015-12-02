@@ -8,7 +8,7 @@
 
 #ifdef _IRR_COMPILE_WITH_SOFTWARE_
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -82,11 +82,11 @@ void CZBuffer::unlock()
 }
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_SOFTWARE_
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -103,7 +103,7 @@ IZBuffer* createZBuffer(const core::dimension2d<u32>& size)
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 
 

@@ -16,7 +16,7 @@
 
 #import <AppKit/NSOpenGL.h>
 
-namespace irr
+namespace ue
 {
 namespace video
 {

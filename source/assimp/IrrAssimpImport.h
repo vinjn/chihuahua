@@ -14,43 +14,43 @@ public:
     SkinnedVertex()
     {
         Moved = false;
-        Position = irr::core::vector3df(0, 0, 0);
-        Normal = irr::core::vector3df(0, 0, 0);
+        Position = ue::core::vector3df(0, 0, 0);
+        Normal = ue::core::vector3df(0, 0, 0);
     }
 
     bool Moved;
-    irr::core::vector3df Position;
-    irr::core::vector3df Normal;
+    ue::core::vector3df Position;
+    ue::core::vector3df Normal;
 };
 
-class IrrAssimpImport : public irr::scene::IMeshLoader
+class IrrAssimpImport : public ue::scene::IMeshLoader
 {
     public:
-        IrrAssimpImport(irr::scene::ISceneManager* smgr);
+        IrrAssimpImport(ue::scene::ISceneManager* smgr);
         virtual ~IrrAssimpImport();
 
-        virtual irr::scene::IAnimatedMesh* createMesh(irr::io::IReadFile* file);
-        virtual bool isALoadableFileExtension(const irr::io::path& filename) const;
+        virtual ue::scene::IAnimatedMesh* createMesh(ue::io::IReadFile* file);
+        virtual bool isALoadableFileExtension(const ue::io::path& filename) const;
 
     protected:
     private:
-        void createNode(irr::scene::ISkinnedMesh* mesh, aiNode* node, bool isRoot);
-        irr::scene::ISkinnedMesh::SJoint* findJoint (irr::scene::ISkinnedMesh* mesh, irr::core::stringc jointName);
+        void createNode(ue::scene::ISkinnedMesh* mesh, aiNode* node, bool isRoot);
+        ue::scene::ISkinnedMesh::SJoint* findJoint (ue::scene::ISkinnedMesh* mesh, ue::core::stringc jointName);
         aiNode* findNode (const aiScene* scene, aiString jointName);
-        irr::video::ITexture* getTexture(irr::core::stringc path, irr::core::stringc fileDir);
+        ue::video::ITexture* getTexture(ue::core::stringc path, ue::core::stringc fileDir);
 
-        irr::core::array<irr::video::SMaterial> Mats;
+        ue::core::array<ue::video::SMaterial> Mats;
 
-        irr::scene::ISceneManager* Smgr;
-        irr::io::IFileSystem* FileSystem;
+        ue::scene::ISceneManager* Smgr;
+        ue::io::IFileSystem* FileSystem;
 
-        irr::core::matrix4 InverseRootNodeWorldTransform;
+        ue::core::matrix4 InverseRootNodeWorldTransform;
 
-        irr::core::array<SkinnedVertex> skinnedVertex;
+        ue::core::array<SkinnedVertex> skinnedVertex;
 
-        void skinJoint(irr::scene::ISkinnedMesh* mesh, irr::scene::ISkinnedMesh::SJoint *joint, aiBone* bone);
-        void buildSkinnedVertexArray(irr::scene::IMeshBuffer* buffer);
-        void applySkinnedVertexArray(irr::scene::IMeshBuffer* buffer);
+        void skinJoint(ue::scene::ISkinnedMesh* mesh, ue::scene::ISkinnedMesh::SJoint *joint, aiBone* bone);
+        void buildSkinnedVertexArray(ue::scene::IMeshBuffer* buffer);
+        void applySkinnedVertexArray(ue::scene::IMeshBuffer* buffer);
 };
 
 #endif // IRRASSIMPIMPORT_H

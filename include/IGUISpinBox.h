@@ -7,7 +7,7 @@
 
 #include "IGUIElement.h"
 
-namespace irr
+namespace ue
 {
 namespace gui
 {
@@ -86,7 +86,7 @@ namespace gui
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // __I_GUI_SPIN_BOX_H_INCLUDED__
 

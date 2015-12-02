@@ -23,39 +23,39 @@
 #endif
 
 
-namespace irr
+namespace ue
 {
 	namespace video
 	{
 		#ifdef _IRR_COMPILE_WITH_DIRECT3D_8_
-		IVideoDriver* createDirectX8Driver(const irr::SIrrlichtCreationParameters& params,
+		IVideoDriver* createDirectX8Driver(const ue::SIrrlichtCreationParameters& params,
 			io::IFileSystem* io, HWND window);
 		#endif
 
 		#ifdef _IRR_COMPILE_WITH_DIRECT3D_9_
-		IVideoDriver* createDirectX9Driver(const irr::SIrrlichtCreationParameters& params,
+		IVideoDriver* createDirectX9Driver(const ue::SIrrlichtCreationParameters& params,
 			io::IFileSystem* io, HWND window);
 		#endif
 
 		#ifdef _IRR_COMPILE_WITH_OPENGL_
-		IVideoDriver* createOpenGLDriver(const irr::SIrrlichtCreationParameters& params, io::IFileSystem* io, this);
+		IVideoDriver* createOpenGLDriver(const ue::SIrrlichtCreationParameters& params, io::IFileSystem* io, this);
 		#endif
 	}
-} // end namespace irr
+} // end namespace ue
 
 
 
 struct SEnvMapper
 {
 	HWND hWnd;
-	irr::CIrrDeviceWinCE* irrDev;
+	ue::CIrrDeviceWinCE* irrDev;
 };
 
-irr::core::list<SEnvMapper> EnvMap;
+ue::core::list<SEnvMapper> EnvMap;
 
 SEnvMapper* getEnvMapperFromHWnd(HWND hWnd)
 {
-	irr::core::list<SEnvMapper>::Iterator it = EnvMap.begin();
+	ue::core::list<SEnvMapper>::Iterator it = EnvMap.begin();
 	for (; it!= EnvMap.end(); ++it)
 		if ((*it).hWnd == hWnd)
 			return &(*it);
@@ -63,9 +63,9 @@ SEnvMapper* getEnvMapperFromHWnd(HWND hWnd)
 	return 0;
 }
 
-irr::CIrrDeviceWinCE* getDeviceFromHWnd(HWND hWnd)
+ue::CIrrDeviceWinCE* getDeviceFromHWnd(HWND hWnd)
 {
-	irr::core::list<SEnvMapper>::Iterator it = EnvMap.begin();
+	ue::core::list<SEnvMapper>::Iterator it = EnvMap.begin();
 	for (; it!= EnvMap.end(); ++it)
 		if ((*it).hWnd == hWnd)
 			return (*it).irrDev;
@@ -83,13 +83,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	#define WHEEL_DELTA 120
 	#endif
 
-	irr::CIrrDeviceWinCE* dev = 0;
-	irr::SEvent event;
+	ue::CIrrDeviceWinCE* dev = 0;
+	ue::SEvent event;
 	SEnvMapper* envm = 0;
 
 	//BYTE allKeys[256];
 
-	static irr::s32 ClickCount=0;
+	static ue::s32 ClickCount=0;
 	if (GetCapture() != hWnd && ClickCount > 0)
 		ClickCount = 0;
 
@@ -116,9 +116,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 
 	case WM_MOUSEWHEEL:
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Wheel = ((irr::f32)((short)HIWORD(wParam))) / (irr::f32)WHEEL_DELTA;
-		event.MouseInput.Event = irr::EMIE_MOUSE_WHEEL;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Wheel = ((ue::f32)((short)HIWORD(wParam))) / (ue::f32)WHEEL_DELTA;
+		event.MouseInput.Event = ue::EMIE_MOUSE_WHEEL;
 
 		POINT p; // fixed by jox
 		p.x = 0; p.y = 0;
@@ -131,7 +131,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -141,8 +141,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDOWN:
 		ClickCount++;
 		SetCapture(hWnd);
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Event = irr::EMIE_LMOUSE_PRESSED_DOWN;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Event = ue::EMIE_LMOUSE_PRESSED_DOWN;
 		event.MouseInput.X = (short)LOWORD(lParam);
 		event.MouseInput.Y = (short)HIWORD(lParam);
 		event.MouseInput.Shift = ((LOWORD(wParam) & MK_SHIFT) != 0);
@@ -151,7 +151,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -165,8 +165,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			ClickCount=0;
 			ReleaseCapture();
 		}
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Event = irr::EMIE_LMOUSE_LEFT_UP;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Event = ue::EMIE_LMOUSE_LEFT_UP;
 		event.MouseInput.X = (short)LOWORD(lParam);
 		event.MouseInput.Y = (short)HIWORD(lParam);
 		event.MouseInput.Shift = ((LOWORD(wParam) & MK_SHIFT) != 0);
@@ -175,7 +175,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -185,8 +185,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_RBUTTONDOWN:
 		ClickCount++;
 		SetCapture(hWnd);
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Event = irr::EMIE_RMOUSE_PRESSED_DOWN;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Event = ue::EMIE_RMOUSE_PRESSED_DOWN;
 		event.MouseInput.X = (short)LOWORD(lParam);
 		event.MouseInput.Y = (short)HIWORD(lParam);
 		event.MouseInput.Shift = ((LOWORD(wParam) & MK_SHIFT) != 0);
@@ -195,7 +195,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -209,8 +209,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			ClickCount=0;
 			ReleaseCapture();
 		}
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Event = irr::EMIE_RMOUSE_LEFT_UP;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Event = ue::EMIE_RMOUSE_LEFT_UP;
 		event.MouseInput.X = (short)LOWORD(lParam);
 		event.MouseInput.Y = (short)HIWORD(lParam);
 		event.MouseInput.Shift = ((LOWORD(wParam) & MK_SHIFT) != 0);
@@ -219,7 +219,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -229,8 +229,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_MBUTTONDOWN:
 		ClickCount++;
 		SetCapture(hWnd);
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Event = irr::EMIE_MMOUSE_PRESSED_DOWN;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Event = ue::EMIE_MMOUSE_PRESSED_DOWN;
 		event.MouseInput.X = (short)LOWORD(lParam);
 		event.MouseInput.Y = (short)HIWORD(lParam);
 		event.MouseInput.Shift = ((LOWORD(wParam) & MK_SHIFT) != 0);
@@ -239,7 +239,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -253,8 +253,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			ClickCount=0;
 			ReleaseCapture();
 		}
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Event = irr::EMIE_MMOUSE_LEFT_UP;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Event = ue::EMIE_MMOUSE_LEFT_UP;
 		event.MouseInput.X = (short)LOWORD(lParam);
 		event.MouseInput.Y = (short)HIWORD(lParam);
 		event.MouseInput.Shift = ((LOWORD(wParam) & MK_SHIFT) != 0);
@@ -263,7 +263,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -271,8 +271,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return 0;
 
 	case WM_MOUSEMOVE:
-		event.EventType = irr::EET_MOUSE_INPUT_EVENT;
-		event.MouseInput.Event = irr::EMIE_MOUSE_MOVED;
+		event.EventType = ue::EET_MOUSE_INPUT_EVENT;
+		event.MouseInput.Event = ue::EMIE_MOUSE_MOVED;
 		event.MouseInput.X = (short)LOWORD(lParam);
 		event.MouseInput.Y = (short)HIWORD(lParam);
 		event.MouseInput.Shift = ((LOWORD(wParam) & MK_SHIFT) != 0);
@@ -281,7 +281,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		event.MouseInput.ButtonStates = wParam & ( MK_LBUTTON | MK_RBUTTON);
 		// middle and extra buttons
 		if (wParam & MK_MBUTTON)
-			event.MouseInput.ButtonStates |= irr::EMBSM_MIDDLE;
+			event.MouseInput.ButtonStates |= ue::EMBSM_MIDDLE;
 
 		dev = getDeviceFromHWnd(hWnd);
 		if (dev)
@@ -294,8 +294,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_KEYDOWN:
 	case WM_KEYUP:
 		{
-			event.EventType = irr::EET_KEY_INPUT_EVENT;
-			event.KeyInput.Key = (irr::EKEY_CODE)wParam;
+			event.EventType = ue::EET_KEY_INPUT_EVENT;
+			event.KeyInput.Key = (ue::EKEY_CODE)wParam;
 			event.KeyInput.PressedDown = (message==WM_KEYDOWN || message == WM_SYSKEYDOWN);
 			dev = getDeviceFromHWnd(hWnd);
 /*
@@ -331,7 +331,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
-namespace irr
+namespace ue
 {
 
 //! constructor
@@ -451,7 +451,7 @@ CIrrDeviceWinCE::~CIrrDeviceWinCE()
 	if (ChangedToFullScreen)
 		SHFullScreen(HWnd, SHFS_SHOWTASKBAR | SHFS_SHOWSTARTICON | SHFS_SHOWSIPBUTTON);
 
-	irr::core::list<SEnvMapper>::Iterator it = EnvMap.begin();
+	ue::core::list<SEnvMapper>::Iterator it = EnvMap.begin();
 	for (; it!= EnvMap.end(); ++it)
 		if ((*it).hWnd == HWnd)
 		{
@@ -610,7 +610,7 @@ void CIrrDeviceWinCE::resizeIfNecessary()
 		sprintf(tmp, "Resizing window (%ld %ld)", r.right, r.bottom);
 		os::Printer::log(tmp);
 
-		getVideoDriver()->OnResize(irr::core::dimension2d<irr::u32>(r.right, r.bottom));
+		getVideoDriver()->OnResize(ue::core::dimension2d<ue::u32>(r.right, r.bottom));
 		getWin32CursorControl()->OnResize(getVideoDriver()->getScreenSize());
 	}
 

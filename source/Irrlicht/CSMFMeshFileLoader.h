@@ -8,7 +8,7 @@
 #include "IMeshLoader.h"
 #include "SMesh.h"
 
-namespace irr
+namespace ue
 {
 
 namespace video
@@ -28,7 +28,7 @@ class CSMFMeshFileLoader : public virtual IMeshLoader
 {
 public:
 
-	CSMFMeshFileLoader(irr::io::IFileSystem* fs, video::IVideoDriver* driver);
+	CSMFMeshFileLoader(ue::io::IFileSystem* fs, video::IVideoDriver* driver);
 
 	//! Returns true if the file might be loaded by this class.
 	virtual bool isALoadableFileExtension(const io::path& filename) const _IRR_OVERRIDE_;
@@ -63,7 +63,7 @@ namespace io
 	};
 }
 
-} // end namespace irr
+} // end namespace ue
 
 #endif // __C_SMF_MESH_LOADER_H_INCLUDED__
 

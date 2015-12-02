@@ -5,7 +5,7 @@
 #include "CParticleScaleAffector.h"
 #include "IAttributes.h"
 
-namespace irr
+namespace ue
 {
 	namespace scene
 	{

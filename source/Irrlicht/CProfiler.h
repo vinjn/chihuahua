@@ -8,7 +8,7 @@
 #include "IrrCompileConfig.h"
 #include "IProfiler.h"
 
-namespace irr
+namespace ue
 {
 class CProfiler : public IProfiler
 {
@@ -27,6 +27,6 @@ protected:
 	core::stringw makeTitleString() const;
 	core::stringw getAsString(const SProfileData& data) const;
 };
-} // namespace irr
+} // namespace ue
 
 #endif // __C_PROFILER_H_INCLUDED__

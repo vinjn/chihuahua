@@ -9,7 +9,7 @@
 #include "irrString.h"
 #include "coreutil.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -39,7 +39,7 @@ public:
 };
 
 } // namespace video
-} // namespace irr
+} // namespace ue
 
 #endif // _I_IMAGE_WRITER_H_INCLUDED__
 

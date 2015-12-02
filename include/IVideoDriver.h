@@ -20,7 +20,7 @@
 #include "EDriverFeatures.h"
 #include "SExposedVideoData.h"
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -251,7 +251,7 @@ namespace video
 	the Irrlicht Engine: All rendering and texture manipulation is done with
 	this interface. You are able to use the Irrlicht Engine by only
 	invoking methods of this interface if you like to, although the
-	irr::scene::ISceneManager interface provides a lot of powerful classes
+	ue::scene::ISceneManager interface provides a lot of powerful classes
 	and methods to make the programmer's life easier.
 	*/
 	class IVideoDriver : public virtual IReferenceCounted
@@ -1490,7 +1490,7 @@ namespace video
 	};
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 
 #endif

@@ -5,7 +5,7 @@
 #include "CParticleAttractionAffector.h"
 #include "IAttributes.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -80,5 +80,5 @@ void CParticleAttractionAffector::deserializeAttributes(io::IAttributes* in, io:
 }
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

@@ -8,7 +8,7 @@
 #include "IReferenceCounted.h"
 #include "EGUIElementTypes.h"
 
-namespace irr
+namespace ue
 {
 
 namespace gui
@@ -60,7 +60,7 @@ namespace gui
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif // __I_GUI_ELEMENT_FACTORY_H_INCLUDED__
 

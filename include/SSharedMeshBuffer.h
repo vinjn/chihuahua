@@ -8,7 +8,7 @@
 #include "irrArray.h"
 #include "IMeshBuffer.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -236,7 +236,7 @@ namespace scene
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

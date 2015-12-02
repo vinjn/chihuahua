@@ -5,7 +5,7 @@
 #ifndef __E_DEBUG_SCENE_TYPES_H_INCLUDED__
 #define __E_DEBUG_SCENE_TYPES_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -43,7 +43,7 @@ namespace scene
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __E_DEBUG_SCENE_TYPES_H_INCLUDED__

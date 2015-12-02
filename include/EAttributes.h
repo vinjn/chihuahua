@@ -5,7 +5,7 @@
 #ifndef __E_ATTRIBUTES_H_INCLUDED__
 #define __E_ATTRIBUTES_H_INCLUDED__
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -96,6 +96,6 @@ enum E_ATTRIBUTE_TYPE
 };
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif

@@ -7,7 +7,7 @@
 
 #include "irrTypes.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -52,7 +52,7 @@ namespace scene
 	};
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 
 
 #endif // __E_MESH_WRITER_ENUMS_H_INCLUDED__

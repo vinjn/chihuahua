@@ -8,7 +8,7 @@
 #include "irrTypes.h"
 #include "irrMath.h"
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -1121,7 +1121,7 @@ class map
 };
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif // __IRR_MAP_H_INCLUDED__
 

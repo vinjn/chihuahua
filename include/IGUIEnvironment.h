@@ -14,7 +14,7 @@
 #include "IXMLReader.h"
 #include "path.h"
 
-namespace irr
+namespace ue
 {
 	class IOSOperator;
 	class IEventReceiver;
@@ -643,7 +643,7 @@ public:
 
 
 } // end namespace gui
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

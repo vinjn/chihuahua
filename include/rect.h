@@ -9,7 +9,7 @@
 #include "dimension2d.h"
 #include "position2d.h"
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -273,7 +273,7 @@ namespace core
 	typedef rect<s32> recti;
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

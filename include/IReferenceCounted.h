@@ -11,7 +11,7 @@
 	#include "leakHunter.h"
 #endif
 
-namespace irr
+namespace ue
 {
 
 	//! Base class of most objects of the Irrlicht Engine.
@@ -174,7 +174,7 @@ namespace irr
 		mutable s32 ReferenceCounter;
 	};
 
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

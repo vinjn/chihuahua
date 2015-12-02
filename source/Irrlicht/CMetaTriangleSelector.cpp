@@ -4,7 +4,7 @@
 
 #include "CMetaTriangleSelector.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {
@@ -184,5 +184,5 @@ const ITriangleSelector* CMetaTriangleSelector::getSelector(u32 index) const
 
 
 } // end namespace scene
-} // end namespace irr
+} // end namespace ue
 

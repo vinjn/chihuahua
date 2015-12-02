@@ -10,7 +10,7 @@
 #include "irrAllocator.h"
 #include "irrMath.h"
 
-namespace irr
+namespace ue
 {
 namespace core
 {
@@ -620,7 +620,7 @@ private:
 
 
 } // end namespace core
-} // end namespace irr
+} // end namespace ue
 
 #endif
 

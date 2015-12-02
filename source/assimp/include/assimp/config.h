@@ -807,8 +807,8 @@ enum aiComponent
  * are returned by the converter.<br>
  * Property type: integer. Default value: 100
  */
-#define AI_CONFIG_IMPORT_IRR_ANIM_FPS               \
-    "IMPORT_IRR_ANIM_FPS"
+#define AI_CONFIG_IMPORTirr_ANIM_FPS               \
+    "IMPORTirr_ANIM_FPS"
 
 // ---------------------------------------------------------------------------
 /** @brief Ogre Importer will try to find referenced materials from this file.

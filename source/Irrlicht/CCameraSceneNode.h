@@ -8,7 +8,7 @@
 #include "ICameraSceneNode.h"
 #include "SViewFrustum.h"
 
-namespace irr
+namespace ue
 {
 namespace scene
 {

@@ -27,7 +27,7 @@
 #endif
 #include "fast_atof.h"
 
-namespace irr
+namespace ue
 {
 
 #if defined(_IRR_COMPILE_WITH_X11_DEVICE_)

@@ -23,7 +23,7 @@ int GL_BGRA=GL_RGBA;
 #endif
 }
 
-namespace irr
+namespace ue
 {
 namespace video
 {
@@ -1271,7 +1271,7 @@ bool checkOGLES2FBOStatus(COGLES2Driver* Driver)
 
 
 } // end namespace video
-} // end namespace irr
+} // end namespace ue
 
 #endif // _IRR_COMPILE_WITH_OGLES2_
 

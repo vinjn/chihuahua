@@ -7,7 +7,7 @@
 
 #include "SoftwareDriver2_helper.h"
 
-namespace irr
+namespace ue
 {
 
 	struct SBlitJob

@@ -10,7 +10,7 @@
 #include "IVideoDriver.h"
 #include "SLight.h"
 
-namespace irr
+namespace ue
 {
 namespace video
 {

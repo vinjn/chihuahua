@@ -10,7 +10,7 @@
 #include "irrArray.h"
 
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -130,7 +130,7 @@ protected:
 };
 
 
-} // end namespace irr
+} // end namespace ue
 } // end namespace io
 
 

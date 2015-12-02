@@ -5,9 +5,9 @@
 #include "code/DefaultIOSystem.h"
 #include "code/MemoryIOWrapper.h"
 
-using namespace irr;
+using namespace ue;
 
-IrrAssimpImport::IrrAssimpImport(irr::scene::ISceneManager* smgr) : Smgr(smgr), FileSystem(smgr->getFileSystem())
+IrrAssimpImport::IrrAssimpImport(ue::scene::ISceneManager* smgr) : Smgr(smgr), FileSystem(smgr->getFileSystem())
 {
     //ctor
     #ifdef _DEBUG
@@ -25,7 +25,7 @@ void Log(core::vector3df vect)
     printf("Vector = %.1f, %.1f, %.1f\n", vect.X, vect.Y, vect.Z);
 }
 
-irr::core::matrix4 AssimpToIrrMatrix(aiMatrix4x4 assimpMatrix)
+ue::core::matrix4 AssimpToIrrMatrix(aiMatrix4x4 assimpMatrix)
 {
     core::matrix4 irrMatrix;
 
@@ -134,7 +134,7 @@ bool IrrAssimpImport::isALoadableFileExtension(const io::path& filename) const
     Assimp::Importer importer;
 
     io::path extension;
-    irr::core::getFileNameExtension(extension, filename);
+    ue::core::getFileNameExtension(extension, filename);
     return importer.IsExtensionSupported(extension.c_str());
 }
 
@@ -170,11 +170,11 @@ struct IrrlichtIOSystem : public Assimp::DefaultIOSystem
     io::IFileSystem* mFileSystem;
 };
 
-irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
+ue::scene::IAnimatedMesh* IrrAssimpImport::createMesh(ue::io::IReadFile* file)
 {
     Assimp::Importer Importer;
     Importer.SetIOHandler(new IrrlichtIOSystem(FileSystem));
-    irr::io::path path = file->getFileName();
+    ue::io::path path = file->getFileName();
 
     const aiScene* pScene = Importer.ReadFile(path.c_str(), 
         aiProcess_Triangulate |
@@ -276,7 +276,7 @@ irr::scene::IAnimatedMesh* IrrAssimpImport::createMesh(irr::io::IReadFile* file)
             if (paiMesh->HasVertexColors(0))
             {
                 aiColor4D color = paiMesh->mColors[0][j] * 255.f;
-                buffer->Vertices_Standard[j].Color = irr::video::SColor(color.a, color.r, color.g, color.b);
+                buffer->Vertices_Standard[j].Color = ue::video::SColor(color.a, color.r, color.g, color.b);
             }
             else
             {
@@ -444,8 +444,8 @@ void IrrAssimpImport::skinJoint(scene::ISkinnedMesh* mesh, scene::ISkinnedMesh::
 {
 	if (bone->mNumWeights)
 	{
-	    irr::core::matrix4 boneOffset = AssimpToIrrMatrix(bone->mOffsetMatrix);
-	    irr::core::matrix4 boneMat = joint->GlobalMatrix * boneOffset; //* InverseRootNodeWorldTransform;
+	    ue::core::matrix4 boneOffset = AssimpToIrrMatrix(bone->mOffsetMatrix);
+	    ue::core::matrix4 boneMat = joint->GlobalMatrix * boneOffset; //* InverseRootNodeWorldTransform;
 
         const u32 bufferId = mesh->getMeshBufferCount() - 1;
 
