@@ -53,3 +53,8 @@ xcuserdata
 *.xccheckout
 *.moved-aside
 *.xcuserstate
+
+_project
+bin
+x86
+x64
