@@ -41,6 +41,43 @@ solution "uEngine"
         defines { "NDEBUG" }
         flags { "Optimize"}
 
+    project "imgui"
+        kind "StaticLib"
+
+        includedirs {
+            "source",
+        }
+
+        files {
+            "source/imgui/*.h",
+            "source/imgui/*.cpp",
+            "source/ImWindow/*.h",
+            "source/ImWindow/*.cpp",
+        }
+
+    project "glfw"
+        kind "StaticLib"
+
+        includedirs { "source/glfw/include" }
+        files { 
+            "source/glfw/include/GLFW/*.h",
+            "source/glfw/src/context.c",
+            "source/glfw/src/init.c",
+            "source/glfw/src/input.c",
+            "source/glfw/src/monitor.c",
+            "source/glfw/src/window.c",
+        }
+
+        defines { "_GLFW_USE_OPENGL" }
+
+        configuration "windows"
+            defines { "_GLFW_WIN32", "_GLFW_WGL" }
+            files {
+                "source/glfw/src/win32*.c",
+                "source/glfw/src/wgl_context.c",
+                "source/glfw/src/winmm_joystick.c",
+            }
+
     project "glew"
         kind "StaticLib"
 
@@ -323,6 +360,8 @@ solution "uEngine"
 
             includedirs {
                 "include",
+                "source",
+                "source/glfw/include",
                 "examples/" .. leaf_name .. "/include",
             }
 
@@ -335,13 +374,23 @@ solution "uEngine"
                 "opengl32.lib",
             }
 
+            defines {
+                "GLEW_STATIC",
+            }
+
             configuration "Debug"
                 links {
                     "uEngine-d.lib",
+                    "imgui-d.lib",
+                    "glfw-d.lib",
+                    "glew-d.lib",
                 }
             configuration "Release"
                 links {
                     "uEngine.lib",
+                    "imgui.lib",
+                    "glfw.lib",
+                    "glew.lib",
                 }
     end
 

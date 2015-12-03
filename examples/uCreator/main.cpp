@@ -4,18 +4,13 @@
 #include "imgui_impl_glfw_gl3.h"
 #include <stdio.h>
 #include "glew/GL/glew.h"
-#include "glfw/include/GLFW/glfw3.h"
+#include "GLFW/glfw3.h"
 #include "ImWindow/ImwWindow.h"
 #include "ImWindow/ImwWindowManager.h"
 #include "uWindows.h"
-#include "include/bx/fpumath.h"
+#include "bx/fpumath.h"
 
-#include "Scene3D/src/Scene3D.h"
-#ifdef _DEBUG
-#pragma comment(lib, "uEngine_d.lib")
-#else
-#pragma comment(lib, "uEngine.lib")
-#endif
+#include "../Scene3D/src/Scene3D.h"
 
 static void error_callback(int error, const char* description)
 {
