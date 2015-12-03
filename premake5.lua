@@ -213,9 +213,9 @@ solution "uEngine"
 
         files {
             "include/*",
-            "Scene3D/src/Scene3D.h",
-            "Scene3D/src/Scene3D.cpp",
-            -- "Scene3D/src/Javascript/Scene3D_v7.cpp",
+            "wrapper/src/Scene3D.h",
+            "wrapper/src/Scene3D.cpp",
+            -- "wrapper/src/Javascript/Scene3D_v7.cpp",
             "source/*.h",
             "source/CAnimatedMeshHalfLife.cpp",
             "source/CAnimatedMeshMD2.cpp",

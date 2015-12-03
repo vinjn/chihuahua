@@ -10,7 +10,7 @@
 #include "uWindows.h"
 #include "bx/fpumath.h"
 
-#include "../Scene3D/src/Scene3D.h"
+#include "../wrapper/src/Scene3D.h"
 
 static void error_callback(int error, const char* description)
 {

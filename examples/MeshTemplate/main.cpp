@@ -1,7 +1,7 @@
 #include <irrlicht.h>
 #include "bx/commandline.h"
 #include "bx/float4x4_t.h"
-#include "../../Scene3D/src/Scene3D.h"
+#include "../../wrapper/src/Scene3D.h"
 
 using namespace ue;
 
