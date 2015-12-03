@@ -3,11 +3,11 @@
 
 #include "irrlicht.h"
 #include "FullScreenSceneNode.h"
-#include "../source/irrlicht/os.h"
-#include "../source/irrlicht/CLogger.h"
-#include "../source/irrlicht/COGLES2Texture.h"
-#include "../source/irrlicht/CSceneManager.h"
-#include "../source/irrlicht/CCameraSceneNode.h"
+#include "../source/os.h"
+#include "../source/CLogger.h"
+#include "../source/COGLES2Texture.h"
+#include "../source/CSceneManager.h"
+#include "../source/CCameraSceneNode.h"
 // #include "../source/XEffects/XEffects.h"
 
 #ifdef _IRR_COMPILE_WITH_IPHONE_DEVICE_
