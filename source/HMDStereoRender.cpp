@@ -20,7 +20,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #include <iostream>
 #include <cassert>
 
-using namespace irr;
+using namespace ue;
 using namespace core;
 using namespace scene;
 using namespace video;
@@ -59,7 +59,7 @@ void main()
 }
 )";
 
-HMDStereoRender::HMDStereoRender(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, irr::ITimer* timer, 
+HMDStereoRender::HMDStereoRender(ue::scene::ISceneManager* smgr, ue::video::IVideoDriver* driver, ue::ITimer* timer, 
     HMDDescriptor HMD, f32 worldScale)
 : 
 _renderTexture(NULL)

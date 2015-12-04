@@ -32,52 +32,52 @@ struct HMDDescriptor
     float distortionK[4];
 };
 
-class HMDStereoRender
+IRRLICHT_API class HMDStereoRender
 {
 public:
-    HMDStereoRender(irr::scene::ISceneManager* smgr, irr::video::IVideoDriver* driver, irr::ITimer* timer, HMDDescriptor HMD, irr::f32 worldScale = 1.0);
-    ~HMDStereoRender();
+    IRRLICHT_API HMDStereoRender(ue::scene::ISceneManager* smgr, ue::video::IVideoDriver* driver, ue::ITimer* timer, HMDDescriptor HMD, ue::f32 worldScale = 1.0);
+    IRRLICHT_API ~HMDStereoRender();
 
-    HMDDescriptor getHMD();
-    void setHMD(HMDDescriptor HMD);
+    IRRLICHT_API HMDDescriptor getHMD();
+    IRRLICHT_API void setHMD(HMDDescriptor HMD);
 
-    irr::f32 getWorldScale();
-    void setWorldScale(irr::f32 worldScale);
+    IRRLICHT_API ue::f32 getWorldScale();
+    IRRLICHT_API void setWorldScale(ue::f32 worldScale);
 
-    void drawAll();
+    IRRLICHT_API void drawAll();
 
 private:
-    irr::video::IVideoDriver* _driver;
-    irr::video::ITexture* _renderTexture;
-    irr::scene::ISceneManager* _smgr;
+    ue::video::IVideoDriver* _driver;
+    ue::video::ITexture* _renderTexture;
+    ue::scene::ISceneManager* _smgr;
 
     HMDDescriptor _HMD;
-    irr::f32 _worldScale;
-    irr::core::matrix4 _projectionLeft;
-    irr::core::matrix4 _projectionRight;
-    irr::f32 _eyeSeparation;
-    irr::f32 _lensShift;
+    ue::f32 _worldScale;
+    ue::core::matrix4 _projectionLeft;
+    ue::core::matrix4 _projectionRight;
+    ue::f32 _eyeSeparation;
+    ue::f32 _lensShift;
 
-    irr::core::rect<irr::s32> _viewportLeft;
-    irr::core::rect<irr::s32> _viewportRight;
+    ue::core::rect<ue::s32> _viewportLeft;
+    ue::core::rect<ue::s32> _viewportRight;
 
-    irr::scene::ICameraSceneNode* _pCamera;
+    ue::scene::ICameraSceneNode* _pCamera;
 
-    irr::video::SMaterial _renderMaterial;
-    irr::video::S3DVertex _planeVertices[4];
-    irr::u16 _planeIndices[6];
-    irr::ITimer* _timer;
+    ue::video::SMaterial _renderMaterial;
+    ue::video::S3DVertex _planeVertices[4];
+    ue::u16 _planeIndices[6];
+    ue::ITimer* _timer;
 
-    class OculusDistorsionCallback : public irr::video::IShaderConstantSetCallBack
+    class OculusDistorsionCallback : public ue::video::IShaderConstantSetCallBack
     {
     public:
-        irr::f32 scale[2];
-        irr::f32 scaleIn[2];
-        irr::f32 lensCenter[2];
-        irr::f32 hmdWarpParam[4];
-        virtual void OnSetConstants(irr::video::IMaterialRendererServices* services, irr::s32 userData)
+        ue::f32 scale[2];
+        ue::f32 scaleIn[2];
+        ue::f32 lensCenter[2];
+        ue::f32 hmdWarpParam[4];
+        virtual void OnSetConstants(ue::video::IMaterialRendererServices* services, ue::s32 userData)
         {
-            irr::video::IVideoDriver* driver = services->getVideoDriver();
+            ue::video::IVideoDriver* driver = services->getVideoDriver();
             services->setPixelShaderConstant("scale", scale, 2);
             services->setPixelShaderConstant("scaleIn", scaleIn, 2);
             services->setPixelShaderConstant("lensCenter", lensCenter, 2);
