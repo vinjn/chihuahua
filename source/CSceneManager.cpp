@@ -17,7 +17,7 @@
 #include "ISceneLoader.h"
 #include "EProfileIDs.h"
 #include "IProfiler.h"
-#include "../assimp/IrrAssimpImport.h"
+#include "IrrAssimpImport.h"
 
 #include "os.h"
 
