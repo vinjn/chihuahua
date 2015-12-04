@@ -413,6 +413,7 @@ solution "uEngine"
             "source/CD3D9*",
             "source/CBgfx*",
             "source/IrrAssimpImport.cpp",
+            "source/HMDStereoRender.cpp",
         }
 
         links {
