@@ -52,6 +52,9 @@ namespace Assimp    {
  *  Each #Importer instance maintains its own #ProgressHandler. The default
  *  implementation provided by Assimp doesn't do anything at all. */
 class ASSIMP_API ProgressHandler
+#ifndef SWIG
+    : public Intern::AllocateFromAssimpHeap
+#endif
 {
 protected:
     /** @brief  Default constructor */

@@ -46,8 +46,6 @@ directly (unless you are adding new steps), instead use the
 corresponding preprocessor flag to selectively disable steps.
 */
 
-#include "../../AssimpMobileConfig.h"
-
 #include "ProcessHelper.h"
 
 #ifndef ASSIMP_BUILD_NO_CALCTANGENTS_PROCESS

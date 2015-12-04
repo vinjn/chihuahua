@@ -95,6 +95,47 @@ namespace Assimp {
 }
 
 using namespace Assimp;
+using namespace Assimp::Intern;
+
+// ------------------------------------------------------------------------------------------------
+// Intern::AllocateFromAssimpHeap serves as abstract base class. It overrides
+// new and delete (and their array counterparts) of public API classes (e.g. Logger) to
+// utilize our DLL heap.
+// See http://www.gotw.ca/publications/mill15.htm
+// ------------------------------------------------------------------------------------------------
+void* AllocateFromAssimpHeap::operator new ( size_t num_bytes)  {
+    return ::operator new(num_bytes);
+}
+
+void* AllocateFromAssimpHeap::operator new ( size_t num_bytes, const std::nothrow_t& ) throw()  {
+    try {
+        return AllocateFromAssimpHeap::operator new( num_bytes );
+    }
+    catch( ... )    {
+        return NULL;
+    }
+}
+
+void AllocateFromAssimpHeap::operator delete ( void* data)  {
+    return ::operator delete(data);
+}
+
+void* AllocateFromAssimpHeap::operator new[] ( size_t num_bytes)    {
+    return ::operator new[](num_bytes);
+}
+
+void* AllocateFromAssimpHeap::operator new[] ( size_t num_bytes, const std::nothrow_t& ) throw() {
+    try {
+        return AllocateFromAssimpHeap::operator new[]( num_bytes );
+    }
+    catch( ... )    {
+        return NULL;
+    }
+}
+
+void AllocateFromAssimpHeap::operator delete[] ( void* data)    {
+    return ::operator delete[](data);
+}
 
 // ------------------------------------------------------------------------------------------------
 // Importer constructor.
@@ -450,7 +491,7 @@ const aiScene* Importer::ReadFileFromMemory( const void* pBuffer,
         pHint = "";
     }
 
-    if (!pBuffer || !pLength || strlen(pHint) > 100) {
+    if (!pBuffer || !pLength || strlen(pHint) > MaxLenHint ) {
         pimpl->mErrorString = "Invalid parameters passed to ReadFileFromMemory()";
         return NULL;
     }
@@ -462,7 +503,8 @@ const aiScene* Importer::ReadFileFromMemory( const void* pBuffer,
     SetIOHandler(new MemoryIOSystem((const uint8_t*)pBuffer,pLength));
 
     // read the file and recover the previous IOSystem
-    char fbuff[128];
+    static const size_t BufferSize(Importer::MaxLenHint + 28);
+    char fbuff[ BufferSize ];
     sprintf(fbuff,"%s.%s",AI_MEMORYIO_MAGIC_FILENAME,pHint);
 
     ReadFile(fbuff,pFlags);

@@ -68,6 +68,9 @@ class IOStream;
  *
  *  @see Importer::SetIOHandler() */
 class ASSIMP_API IOSystem
+#ifndef SWIG
+    : public Intern::AllocateFromAssimpHeap
+#endif
 {
 public:
 

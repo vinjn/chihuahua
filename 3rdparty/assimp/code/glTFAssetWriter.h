@@ -38,71 +38,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------
 */
 
-/** @file GltfExporter.h
-* Declares the exporter class to write a scene to a gltf/glb file
-*/
-#ifndef AI_GLTFEXPORTER_H_INC
-#define AI_GLTFEXPORTER_H_INC
+/** @file glTFWriter.h
+ * Declares a class to write gltf/glb files
+ *
+ * glTF Extensions Support:
+ *   KHR_binary_glTF: full
+ *   KHR_materials_common: full
+ */
+#ifndef glTFAssetWriter_H_INC
+#define glTFAssetWriter_H_INC
 
-#include <assimp/types.h>
-#include <assimp/material.h>
-#include <sstream>
-#include <vector>
-#include <map>
-
-#include "boost/scoped_ptr.hpp"
-
-
-struct aiScene;
-struct aiNode;
-struct aiMaterial;
+#include "glTFAsset.h"
 
 namespace glTF
 {
-    class Asset;
 
-    struct TexProperty;
-}
+using rapidjson::MemoryPoolAllocator;
 
-namespace Assimp
+class AssetWriter
 {
-    class IOSystem;
-    class IOStream;
-    class ExportProperties;
+    template<class T>
+    friend struct LazyDictWriter;
 
-    // ------------------------------------------------------------------------------------------------
-    /** Helper class to export a given scene to an glTF file. */
-    // ------------------------------------------------------------------------------------------------
-    class glTFExporter
-    {
-    public:
-        /// Constructor for a specific scene to export
-        glTFExporter(const char* filename, IOSystem* pIOSystem, const aiScene* pScene,
-            const ExportProperties* pProperties, bool binary);
+private:
 
-    private:
+    void WriteBinaryData(IOStream* outfile, size_t sceneLength);
 
-        const char* mFilename;
-        IOSystem* mIOSystem;
-        const aiScene* mScene;
-        const ExportProperties* mProperties;
+    void WriteMetadata();
+    void WriteExtensionsUsed();
 
-        std::map<std::string, size_t> mTexturesByPath;
+    template<class T>
+    void WriteObjects(LazyDict<T>& d);
 
-        glTF::Asset* mAsset;
+public:
+    Document mDoc;
+    Asset& mAsset;
 
-        std::vector<unsigned char> mBodyData;
+    MemoryPoolAllocator<>& mAl;
 
-        void WriteBinaryData(IOStream* outfile, std::size_t sceneLength);
+    AssetWriter(Asset& asset);
 
-        void GetMatColorOrTex(const aiMaterial* mat, glTF::TexProperty& prop, const char* propName, int type, int idx, aiTextureType tt);
-        void ExportMetadata();
-        void ExportMaterials();
-        void ExportMeshes();
-        size_t ExportNode(const aiNode* node);
-        void ExportScene();
-    };
+    void WriteFile(const char* path);
+};
 
 }
+
+// Include the implementation of the methods
+#include "glTFAssetWriter.inl"
 
 #endif

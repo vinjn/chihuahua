@@ -68,6 +68,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <new>      // for std::nothrow_t
 #include <string>   // for aiString::Set(const std::string&)
 
+namespace Assimp    {
+    //! @cond never
+namespace Intern        {
+    // --------------------------------------------------------------------
+    /** @brief Internal helper class to utilize our internal new/delete
+     *    routines for allocating object of this and derived classes.
+     *
+     * By doing this you can safely share class objects between Assimp
+     * and the application - it works even over DLL boundaries. A good
+     * example is the #IOSystem where the application allocates its custom
+     * #IOSystem, then calls #Importer::SetIOSystem(). When the Importer
+     * destructs, Assimp calls operator delete on the stored #IOSystem.
+     * If it lies on a different heap than Assimp is working with,
+     * the application is determined to crash.
+     */
+    // --------------------------------------------------------------------
+#ifndef SWIG
+    struct ASSIMP_API AllocateFromAssimpHeap    {
+        // http://www.gotw.ca/publications/mill15.htm
+
+        // new/delete overload
+        void *operator new    ( size_t num_bytes) /* throw( std::bad_alloc ) */;
+        void *operator new    ( size_t num_bytes, const std::nothrow_t& ) throw();
+        void  operator delete ( void* data);
+
+        // array new/delete overload
+        void *operator new[]    ( size_t num_bytes) /* throw( std::bad_alloc ) */;
+        void *operator new[]    ( size_t num_bytes, const std::nothrow_t& )  throw();
+        void  operator delete[] ( void* data);
+
+    }; // struct AllocateFromAssimpHeap
+#endif
+} // namespace Intern
+    //! @endcond
+} // namespace Assimp
+
 extern "C" {
 #endif
 
