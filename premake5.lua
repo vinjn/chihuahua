@@ -259,7 +259,6 @@ solution "uEngine"
             "3rdparty/assimp/code/ObjFileImporter.cpp",
             "3rdparty/assimp/code/ObjFileMtlImporter.cpp",
             "3rdparty/assimp/code/ObjFileParser.cpp",
-            "3rdparty/assimp/code/glTFUtil.cpp",
             "3rdparty/assimp/code/glTFImporter.cpp",
             "3rdparty/assimp/contrib/ConvertUTF/ConvertUTF.c",
             "3rdparty/assimp/contrib/irrXML/*",
