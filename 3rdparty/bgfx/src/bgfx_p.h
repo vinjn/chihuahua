@@ -8,31 +8,6 @@
 
 #include <bx/platform.h>
 
-//
-// Keep bgfx related configs here to secure bgfx upstream changes
-//
-#ifndef BGFX_CONFIG_MULTITHREADED
-#   define BGFX_CONFIG_MULTITHREADED 0
-#endif
-
-#if defined(_DEBUG)
-#   define BGFX_CONFIG_DEBUG 1
-#endif
-
-#ifndef BGFX_SHARED_LIB_BUILD
-#	define BGFX_SHARED_LIB_BUILD 1
-#endif
-
-#ifdef BX_PLATFORM_WINDOWS
-#ifndef BGFX_CONFIG_RENDERER_OPENGL
-#   define BGFX_CONFIG_RENDERER_OPENGL 31
-#else
-#   define BGFX_CONFIG_RENDERER_OPENGLES 20
-#endif
-#define BGFX_CONFIG_RENDERER_DIRECT3D9 1
-#define BGFX_CONFIG_RENDERER_DIRECT3D11 1
-#endif // BX_PLATFORM_WINDOWS
-
 #ifndef BGFX_CONFIG_DEBUG
 #	define BGFX_CONFIG_DEBUG 0
 #endif // BGFX_CONFIG_DEBUG
@@ -73,6 +48,33 @@
 				, _handle.idx \
 				, _handleAlloc.getMaxHandles() \
 				)
+
+#ifndef BGFX_PROFILER_SCOPE
+#	if BGFX_CONFIG_PROFILER_MICROPROFILE
+#		include <microprofile.h>
+#		define BGFX_PROFILER_SCOPE(_group, _name, _color) MICROPROFILE_SCOPEI(#_group, #_name, _color)
+#		define BGFX_PROFILER_BEGIN(_group, _name, _color) BX_NOOP()
+#		define BGFX_PROFILER_BEGIN_DYNAMIC(_namestr) BX_NOOP()
+#		define BGFX_PROFILER_END() BX_NOOP()
+#		define BGFX_PROFILER_SET_CURRENT_THREAD_NAME(_name) BX_NOOP()
+#	elif BGFX_CONFIG_PROFILER_REMOTERY
+#		define RMT_ENABLED BGFX_CONFIG_PROFILER_REMOTERY
+#		define RMT_USE_D3D11 BGFX_CONFIG_RENDERER_DIRECT3D11
+#		define RMT_USE_OPENGL BGFX_CONFIG_RENDERER_OPENGL
+#		include <remotery/lib/Remotery.h>
+#		define BGFX_PROFILER_SCOPE(_group, _name, _color) rmt_ScopedCPUSample(_group##_##_name)
+#		define BGFX_PROFILER_BEGIN(_group, _name, _color) rmt_BeginCPUSample(_group##_##_name)
+#		define BGFX_PROFILER_BEGIN_DYNAMIC(_namestr) rmt_BeginCPUSampleDynamic(_namestr)
+#		define BGFX_PROFILER_END() rmt_EndCPUSample()
+#		define BGFX_PROFILER_SET_CURRENT_THREAD_NAME(_name) rmt_SetCurrentThreadName(_name)
+#	else
+#		define BGFX_PROFILER_SCOPE(_group, _name, _color) BX_NOOP()
+#		define BGFX_PROFILER_BEGIN(_group, _name, _color) BX_NOOP()
+#		define BGFX_PROFILER_BEGIN_DYNAMIC(_namestr) BX_NOOP()
+#		define BGFX_PROFILER_END() BX_NOOP()
+#		define BGFX_PROFILER_SET_CURRENT_THREAD_NAME(_name) BX_NOOP()
+#	endif // BGFX_CONFIG_PROFILER_*
+#endif // BGFX_PROFILER_SCOPE
 
 namespace bgfx
 {
@@ -320,7 +322,7 @@ namespace bgfx
 
 	extern const uint32_t g_uniformTypeSize[UniformType::Count+1];
 	extern CallbackI* g_callback;
-	extern bx::ReallocatorI* g_allocator;
+	extern bx::AllocatorI* g_allocator;
 	extern Caps g_caps;
 
 	void setGraphicsDebuggerPresent(bool _present);
@@ -851,7 +853,7 @@ namespace bgfx
 		uint32_t reserve(uint16_t* _num)
 		{
 			uint32_t num = *_num;
-			BX_CHECK(m_num+num < BGFX_CONFIG_MAX_MATRIX_CACHE, "Matrix cache overflow. %d (max: %d)", m_num+num, BGFX_CONFIG_MAX_MATRIX_CACHE);
+			BX_WARN(m_num+num < BGFX_CONFIG_MAX_MATRIX_CACHE, "Matrix cache overflow. %d (max: %d)", m_num+num, BGFX_CONFIG_MAX_MATRIX_CACHE);
 			num = bx::uint32_min(num, BGFX_CONFIG_MAX_MATRIX_CACHE-m_num);
 			uint32_t first = m_num;
 			m_num += num;
@@ -1317,6 +1319,7 @@ namespace bgfx
 			term.m_program = invalidHandle;
 			m_sortKeys[BGFX_CONFIG_MAX_DRAW_CALLS]   = term.encodeDraw();
 			m_sortValues[BGFX_CONFIG_MAX_DRAW_CALLS] = BGFX_CONFIG_MAX_DRAW_CALLS;
+			memset(m_occlusion, 0xff, sizeof(m_occlusion) );
 		}
 
 		~Frame()
@@ -1706,6 +1709,7 @@ namespace bgfx
 		Matrix4 m_view[BGFX_CONFIG_MAX_VIEWS];
 		Matrix4 m_proj[2][BGFX_CONFIG_MAX_VIEWS];
 		uint8_t m_viewFlags[BGFX_CONFIG_MAX_VIEWS];
+		uint8_t m_occlusion[BGFX_CONFIG_MAX_OCCUSION_QUERIES];
 
 		uint64_t m_sortKeys[BGFX_CONFIG_MAX_DRAW_CALLS+1];
 		RenderItemCount m_sortValues[BGFX_CONFIG_MAX_DRAW_CALLS+1];
@@ -2038,6 +2042,7 @@ namespace bgfx
 		static int32_t renderThread(void* /*_userData*/)
 		{
 			BX_TRACE("render thread start");
+			BGFX_PROFILER_SET_CURRENT_THREAD_NAME("bgfx - Render Thread");
 			while (RenderFrame::Exiting != bgfx::renderFrame() ) {};
 			BX_TRACE("render thread exit");
 			return EXIT_SUCCESS;
@@ -3322,7 +3327,25 @@ namespace bgfx
 		BGFX_API_FUNC(OcclusionQueryHandle createOcclusionQuery() )
 		{
 			OcclusionQueryHandle handle = { m_occlusionQueryHandle.alloc() };
+			if (isValid(handle) )
+			{
+				m_submit->m_occlusion[handle.idx] = UINT8_MAX;
+			}
 			return handle;
+		}
+
+		BGFX_API_FUNC(OcclusionQueryResult::Enum getResult(OcclusionQueryHandle _handle) )
+		{
+			BGFX_CHECK_HANDLE("destroyOcclusionQuery", m_occlusionQueryHandle, _handle);
+
+			switch (m_submit->m_occlusion[_handle.idx])
+			{
+			case 0:         return OcclusionQueryResult::Invisible;
+			case UINT8_MAX: return OcclusionQueryResult::NoResult;
+			default:;
+			}
+
+			return OcclusionQueryResult::Visible;
 		}
 
 		BGFX_API_FUNC(void destroyOcclusionQuery(OcclusionQueryHandle _handle) )
@@ -3788,6 +3811,7 @@ namespace bgfx
 		{
 			if (!m_singleThreaded)
 			{
+				BGFX_PROFILER_SCOPE(bgfx, main_thread_wait, 0xff2040ff);
 				int64_t start = bx::getHPCounter();
 				bool ok = m_gameSem.wait();
 				BX_CHECK(ok, "Semaphore wait failed."); BX_UNUSED(ok);
@@ -3807,6 +3831,7 @@ namespace bgfx
 		{
 			if (!m_singleThreaded)
 			{
+				BGFX_PROFILER_SCOPE(bgfx, render_thread_wait, 0xff2040ff);
 				int64_t start = bx::getHPCounter();
 				bool ok = m_renderSem.wait();
 				BX_CHECK(ok, "Semaphore wait failed."); BX_UNUSED(ok);

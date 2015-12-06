@@ -509,6 +509,10 @@ typedef uint64_t GLuint64;
 #	define GL_TIME_ELAPSED 0x88BF
 #endif // GL_TIME_ELAPSED
 
+#ifndef GL_TIMESTAMP
+#	define GL_TIMESTAMP 0x8E28
+#endif // GL_TIMESTAMP
+
 #ifndef GL_VBO_FREE_MEMORY_ATI
 #	define GL_VBO_FREE_MEMORY_ATI 0x87FB
 #endif // GL_VBO_FREE_MEMORY_ATI
@@ -733,6 +737,10 @@ typedef uint64_t GLuint64;
 #ifndef GL_UNSIGNED_INT_10_10_10_2
 #	define GL_UNSIGNED_INT_10_10_10_2 0x8DF6
 #endif // GL_UNSIGNED_INT_10_10_10_2
+
+#ifndef GL_FRAMEBUFFER_SRGB
+#	define GL_FRAMEBUFFER_SRGB 0x8DB9
+#endif // GL_FRAMEBUFFER_SRGB
 
 // _KHR or _ARB...
 #define GL_DEBUG_OUTPUT_SYNCHRONOUS         0x8242
@@ -1205,12 +1213,22 @@ namespace bgfx { namespace gl
 
 		void create()
 		{
-			GL_CHECK(glGenQueries(BX_COUNTOF(m_frame), m_frame) );
+			for (uint32_t ii = 0; ii < BX_COUNTOF(m_frame); ++ii)
+			{
+				Frame& frame = m_frame[ii];
+				GL_CHECK(glGenQueries(1, &frame.m_begin) );
+				GL_CHECK(glGenQueries(1, &frame.m_elapsed) );
+			}
 		}
 
 		void destroy()
 		{
-			GL_CHECK(glDeleteQueries(BX_COUNTOF(m_frame), m_frame) );
+			for (uint32_t ii = 0; ii < BX_COUNTOF(m_frame); ++ii)
+			{
+				Frame& frame = m_frame[ii];
+				GL_CHECK(glDeleteQueries(1, &frame.m_begin) );
+				GL_CHECK(glDeleteQueries(1, &frame.m_elapsed) );
+			}
 		}
 
 		void begin()
@@ -1220,8 +1238,16 @@ namespace bgfx { namespace gl
 				get();
 			}
 
+			Frame& frame = m_frame[m_control.m_current];
+			if (!BX_ENABLED(BX_PLATFORM_OSX) )
+			{
+				GL_CHECK(glQueryCounter(frame.m_begin
+						, GL_TIMESTAMP
+						) );
+			}
+
 			GL_CHECK(glBeginQuery(GL_TIME_ELAPSED
-					, m_frame[m_control.m_current]
+					, frame.m_elapsed
 					) );
 		}
 
@@ -1235,18 +1261,33 @@ namespace bgfx { namespace gl
 		{
 			if (0 != m_control.available() )
 			{
+				Frame& frame = m_frame[m_control.m_read];
+
 				GLint available;
-				GL_CHECK(glGetQueryObjectiv(m_frame[m_control.m_read]
+				GL_CHECK(glGetQueryObjectiv(frame.m_elapsed
 						, GL_QUERY_RESULT_AVAILABLE
 						, &available
 						) );
 
 				if (available)
 				{
-					GL_CHECK(glGetQueryObjectui64v(m_frame[m_control.m_read]
+					if (!BX_ENABLED(BX_PLATFORM_OSX) )
+					{
+						GL_CHECK(glGetQueryObjectui64v(frame.m_begin
+								, GL_QUERY_RESULT
+								, &m_begin
+								) );
+					}
+					else
+					{
+						m_begin = 0;
+					}
+
+					GL_CHECK(glGetQueryObjectui64v(frame.m_elapsed
 							, GL_QUERY_RESULT
 							, &m_elapsed
 							) );
+					m_end = m_begin + m_elapsed;
 					m_control.consume(1);
 					return true;
 				}
@@ -1255,9 +1296,17 @@ namespace bgfx { namespace gl
 			return false;
 		}
 
+		uint64_t m_begin;
+		uint64_t m_end;
 		uint64_t m_elapsed;
 
-		GLuint m_frame[4];
+		struct Frame
+		{
+			GLuint m_begin;
+			GLuint m_elapsed;
+		};
+
+		Frame m_frame[4];
 		bx::RingBufferControl m_control;
 	};
 
@@ -1270,9 +1319,9 @@ namespace bgfx { namespace gl
 
 		void create();
 		void destroy();
-		void begin(OcclusionQueryHandle _handle);
+		void begin(Frame* _render, OcclusionQueryHandle _handle);
 		void end();
-		void resolve(bool _wait = false);
+		void resolve(Frame* _render, bool _wait = false);
 
 		struct Query
 		{

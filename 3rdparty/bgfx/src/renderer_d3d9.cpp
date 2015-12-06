@@ -11,6 +11,7 @@
 namespace bgfx { namespace d3d9
 {
 	static wchar_t s_viewNameW[BGFX_CONFIG_MAX_VIEWS][BGFX_CONFIG_MAX_VIEW_NAME];
+	static char s_viewName[BGFX_CONFIG_MAX_VIEWS][BGFX_CONFIG_MAX_VIEW_NAME];
 
 	struct PrimInfo
 	{
@@ -732,9 +733,8 @@ namespace bgfx { namespace d3d9
 			// Init reserved part of view name.
 			for (uint32_t ii = 0; ii < BGFX_CONFIG_MAX_VIEWS; ++ii)
 			{
-				char name[BGFX_CONFIG_MAX_VIEW_NAME_RESERVED+1];
-				bx::snprintf(name, sizeof(name), "%3d   ", ii);
-				mbstowcs(s_viewNameW[ii], name, BGFX_CONFIG_MAX_VIEW_NAME_RESERVED);
+				bx::snprintf(s_viewName[ii], BGFX_CONFIG_MAX_VIEW_NAME_RESERVED + 1, "%3d   ", ii);
+				mbstowcs(s_viewNameW[ii], s_viewName[ii], BGFX_CONFIG_MAX_VIEW_NAME_RESERVED);
 			}
 
 			if (NULL != m_deviceEx)
@@ -1106,6 +1106,11 @@ namespace bgfx { namespace d3d9
 					, BX_COUNTOF(s_viewNameW[0])-BGFX_CONFIG_MAX_VIEW_NAME_RESERVED
 					);
 			}
+
+			bx::strlcpy(&s_viewName[_id][BGFX_CONFIG_MAX_VIEW_NAME_RESERVED]
+				, _name
+				, BX_COUNTOF(s_viewName[0]) - BGFX_CONFIG_MAX_VIEW_NAME_RESERVED
+				);
 		}
 
 		void updateUniform(uint16_t _loc, const void* _data, uint32_t _size) BX_OVERRIDE
@@ -1565,10 +1570,10 @@ namespace bgfx { namespace d3d9
 			}
 		}
 
-		bool isVisible(OcclusionQueryHandle _handle, bool _visible)
+		bool isVisible(Frame* _render, OcclusionQueryHandle _handle, bool _visible)
 		{
-			m_occlusionQuery.resolve();
-			return _visible == m_occlusion[_handle.idx];
+			m_occlusionQuery.resolve(_render);
+			return _visible == (0 != _render->m_occlusion[_handle.idx]);
 		}
 
 		void capturePreReset()
@@ -2007,7 +2012,6 @@ namespace bgfx { namespace d3d9
 		TextureD3D9 m_textures[BGFX_CONFIG_MAX_TEXTURES];
 		VertexDeclD3D9 m_vertexDecls[BGFX_CONFIG_MAX_VERTEX_DECLS];
 		FrameBufferD3D9 m_frameBuffers[BGFX_CONFIG_MAX_FRAME_BUFFERS];
-		bool m_occlusion[BGFX_CONFIG_MAX_OCCUSION_QUERIES];
 		UniformRegistry m_uniformReg;
 		void* m_uniforms[BGFX_CONFIG_MAX_UNIFORMS];
 
@@ -3319,7 +3323,7 @@ namespace bgfx { namespace d3d9
 		{
 			Frame& frame = m_frame[ii];
 			DX_CHECK(device->CreateQuery(D3DQUERYTYPE_TIMESTAMPDISJOINT, &frame.m_disjoint) );
-			DX_CHECK(device->CreateQuery(D3DQUERYTYPE_TIMESTAMP,         &frame.m_start) );
+			DX_CHECK(device->CreateQuery(D3DQUERYTYPE_TIMESTAMP,         &frame.m_begin) );
 			DX_CHECK(device->CreateQuery(D3DQUERYTYPE_TIMESTAMP,         &frame.m_end) );
 			DX_CHECK(device->CreateQuery(D3DQUERYTYPE_TIMESTAMPFREQ,     &frame.m_freq) );
 		}
@@ -3335,7 +3339,7 @@ namespace bgfx { namespace d3d9
 		{
 			Frame& frame = m_frame[ii];
 			DX_RELEASE(frame.m_disjoint, 0);
-			DX_RELEASE(frame.m_start, 0);
+			DX_RELEASE(frame.m_begin, 0);
 			DX_RELEASE(frame.m_end, 0);
 			DX_RELEASE(frame.m_freq, 0);
 		}
@@ -3350,7 +3354,7 @@ namespace bgfx { namespace d3d9
 
 		Frame& frame = m_frame[m_control.m_current];
 		frame.m_disjoint->Issue(D3DISSUE_BEGIN);
-		frame.m_start->Issue(D3DISSUE_END);
+		frame.m_begin->Issue(D3DISSUE_END);
 	}
 
 	void TimerQueryD3D9::end()
@@ -3374,14 +3378,16 @@ namespace bgfx { namespace d3d9
 			{
 				m_control.consume(1);
 
-				uint64_t timeStart;
-				DX_CHECK(frame.m_start->GetData(&timeStart, sizeof(timeStart), 0) );
+				uint64_t timeBegin;
+				DX_CHECK(frame.m_begin->GetData(&timeBegin, sizeof(timeBegin), 0) );
 
 				uint64_t freq;
 				DX_CHECK(frame.m_freq->GetData(&freq, sizeof(freq), 0) );
 
 				m_frequency = freq;
-				m_elapsed   = timeEnd - timeStart;
+				m_begin     = timeBegin;
+				m_end       = timeEnd;
+				m_elapsed   = timeEnd - timeBegin;
 
 				return true;
 			}
@@ -3410,11 +3416,11 @@ namespace bgfx { namespace d3d9
 		}
 	}
 
-	void OcclusionQueryD3D9::begin(OcclusionQueryHandle _handle)
+	void OcclusionQueryD3D9::begin(Frame* _render, OcclusionQueryHandle _handle)
 	{
 		while (0 == m_control.reserve(1) )
 		{
-			resolve(true);
+			resolve(_render, true);
 		}
 
 		Query& query = m_query[m_control.m_current];
@@ -3429,20 +3435,20 @@ namespace bgfx { namespace d3d9
 		m_control.commit(1);
 	}
 
-	void OcclusionQueryD3D9::resolve(bool)
+	void OcclusionQueryD3D9::resolve(Frame* _render, bool)
 	{
 		while (0 != m_control.available() )
 		{
 			Query& query = m_query[m_control.m_read];
 
-			uint64_t result;
+			uint32_t result;
 			HRESULT hr = query.m_ptr->GetData(&result, sizeof(result), 0);
 			if (S_FALSE == hr)
 			{
 				break;
 			}
 
-			s_renderD3D9->m_occlusion[query.m_handle.idx] = 0 < result;
+			_render->m_occlusion[query.m_handle.idx] = 0 < result;
 			m_control.consume(1);
 		}
 	}
@@ -3518,7 +3524,7 @@ namespace bgfx { namespace d3d9
 
 		if (m_occlusionQuerySupport)
 		{
-			m_occlusionQuery.resolve();
+			m_occlusionQuery.resolve(_render);
 		}
 
 		if (0 == (_render->m_debug&BGFX_DEBUG_IFH) )
@@ -3539,7 +3545,7 @@ namespace bgfx { namespace d3d9
 				const bool hasOcclusionQuery = 0 != (draw.m_stateFlags & BGFX_STATE_INTERNAL_OCCLUSION_QUERY);
 				if (isValid(draw.m_occlusionQuery)
 				&&  !hasOcclusionQuery
-				&&  !isVisible(draw.m_occlusionQuery, 0 != (draw.m_submitFlags&BGFX_SUBMIT_INTERNAL_OCCLUSION_VISIBLE) ) )
+				&&  !isVisible(_render, draw.m_occlusionQuery, 0 != (draw.m_submitFlags&BGFX_SUBMIT_INTERNAL_OCCLUSION_VISIBLE) ) )
 				{
 					continue;
 				}
@@ -3563,6 +3569,11 @@ namespace bgfx { namespace d3d9
 
 					PIX_ENDEVENT();
 					PIX_BEGINEVENT(D3DCOLOR_RGBA(0xff, 0x00, 0x00, 0xff), s_viewNameW[key.m_view]);
+					if (item > 0)
+					{
+						BGFX_PROFILER_END();
+					}
+					BGFX_PROFILER_BEGIN_DYNAMIC(s_viewName[key.m_view]);
 
 					view = key.m_view;
 					programIdx = invalidHandle;
@@ -3637,10 +3648,11 @@ namespace bgfx { namespace d3d9
 						//
 						// GetRenderTargetData (dst must be SYSTEMMEM)
 
+						bool depth = isDepth(TextureFormat::Enum(src.m_textureFormat) );
 						HRESULT hr = m_device->StretchRect(srcSurface
-							, &srcRect
+							, depth ? NULL : &srcRect
 							, dstSurface
-							, &dstRect
+							, depth ? NULL : &dstRect
 							, D3DTEXF_NONE
 							);
 						if (FAILED(hr) )
@@ -4003,7 +4015,7 @@ namespace bgfx { namespace d3d9
 
 					if (hasOcclusionQuery)
 					{
-						m_occlusionQuery.begin(draw.m_occlusionQuery);
+						m_occlusionQuery.begin(_render, draw.m_occlusionQuery);
 					}
 
 					if (isValid(draw.m_indexBuffer) )
@@ -4076,6 +4088,8 @@ namespace bgfx { namespace d3d9
 				captureElapsed = -bx::getHPCounter();
 				capture();
 				captureElapsed += bx::getHPCounter();
+
+				BGFX_PROFILER_END();
 			}
 		}
 
@@ -4085,6 +4099,10 @@ namespace bgfx { namespace d3d9
 		elapsed += now;
 
 		static int64_t last = now;
+
+		Stats& perfStats = _render->m_perfStats;
+		perfStats.cpuTimeBegin = last;
+
 		int64_t frameTime = now - last;
 		last = now;
 
@@ -4112,10 +4130,10 @@ namespace bgfx { namespace d3d9
 
 		const int64_t timerFreq = bx::getHPFrequency();
 
-		Stats& perfStats   = _render->m_perfStats;
-		perfStats.cpuTime      = frameTime;
+		perfStats.cpuTimeEnd   = now;
 		perfStats.cpuTimerFreq = timerFreq;
-		perfStats.gpuTime      = m_gpuTimer.m_elapsed;
+		perfStats.gpuTimeBegin = m_gpuTimer.m_begin;
+		perfStats.gpuTimeEnd   = m_gpuTimer.m_end;
 		perfStats.gpuTimerFreq = m_gpuTimer.m_frequency;
 
 		if (_render->m_debug & (BGFX_DEBUG_IFH|BGFX_DEBUG_STATS) )
@@ -4147,7 +4165,7 @@ namespace bgfx { namespace d3d9
 				tvm.printf(0, pos++, 0x8f, " Memory: %s (process) ", processMemoryUsed);
 
 				pos = 10;
-				tvm.printf(10, pos++, 0x8e, "       Frame: %7.3f, % 7.3f \x1f, % 7.3f \x1e [ms] / % 6.2f FPS "
+				tvm.printf(10, pos++, 0x8e, "        Frame: %7.3f, % 7.3f \x1f, % 7.3f \x1e [ms] / % 6.2f FPS "
 					, double(frameTime)*toMs
 					, double(min)*toMs
 					, double(max)*toMs
@@ -4155,7 +4173,7 @@ namespace bgfx { namespace d3d9
 					);
 
 				const uint32_t msaa = (m_resolution.m_flags&BGFX_RESET_MSAA_MASK)>>BGFX_RESET_MSAA_SHIFT;
-				tvm.printf(10, pos++, 0x8e, " Reset flags: [%c] vsync, [%c] MSAAx%d, [%c] MaxAnisotropy "
+				tvm.printf(10, pos++, 0x8e, "  Reset flags: [%c] vsync, [%c] MSAAx%d, [%c] MaxAnisotropy "
 					, !!(m_resolution.m_flags&BGFX_RESET_VSYNC) ? '\xfe' : ' '
 					, 0 != msaa ? '\xfe' : ' '
 					, 1<<msaa
@@ -4163,7 +4181,7 @@ namespace bgfx { namespace d3d9
 					);
 
 				double elapsedCpuMs = double(elapsed)*toMs;
-				tvm.printf(10, pos++, 0x8e, "   Submitted: %5d (draw %5d, compute %4d) / CPU %7.4f [ms] %c GPU %7.4f [ms] (latency %d)"
+				tvm.printf(10, pos++, 0x8e, "    Submitted: %5d (draw %5d, compute %4d) / CPU %7.4f [ms] %c GPU %7.4f [ms] (latency %d)"
 					, _render->m_num
 					, statsKeyType[0]
 					, statsKeyType[1]
@@ -4177,7 +4195,7 @@ namespace bgfx { namespace d3d9
 
 				for (uint32_t ii = 0; ii < BX_COUNTOF(s_primName); ++ii)
 				{
-					tvm.printf(10, pos++, 0x8e, "   %9s: %7d (#inst: %5d), submitted: %7d"
+					tvm.printf(10, pos++, 0x8e, "   %10s: %7d (#inst: %5d), submitted: %7d"
 						, s_primName[ii]
 						, statsNumPrimsRendered[ii]
 						, statsNumInstances[ii]
@@ -4190,6 +4208,7 @@ namespace bgfx { namespace d3d9
 				tvm.printf(10, pos++, 0x8e, "     DVB size: %7d ", _render->m_vboffset);
 				tvm.printf(10, pos++, 0x8e, "     DIB size: %7d ", _render->m_iboffset);
 
+				pos++;
 				double captureMs = double(captureElapsed)*toMs;
 				tvm.printf(10, pos++, 0x8e, "     Capture: %7.4f [ms]", captureMs);
 
