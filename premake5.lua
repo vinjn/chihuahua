@@ -3,6 +3,12 @@
 
 local action = _ACTION or ""
 
+-- require "XCode"
+-- require "premake-android/android"
+-- require "premake-androidmk/androidmk"
+
+print (premake.path);
+
 solution "uEngine"
     location ("_project")
     configurations { "Debug", "Release" }
@@ -14,6 +20,10 @@ solution "uEngine"
         defines {
             "_CRT_SECURE_NO_WARNINGS",
             "_CRT_SECURE_NO_DEPRECATE",
+        }
+
+        includedirs {
+            "3rdparty/compat/msvc",
         }
 
         configuration "x86"
@@ -110,14 +120,10 @@ solution "uEngine"
         includedirs {
             "include",
             "3rdparty",
+            "3rdparty/dxsdk/include",
             "3rdparty/bgfx/include",
             "3rdparty/khronos",
         }
-
-        configuration "vs*"
-            includedirs {
-                "3rdparty/compat/msvc",
-            }
 
         files {
             "3rdparty/bgfx/src/*.h",
@@ -270,6 +276,7 @@ solution "uEngine"
         includedirs {
             "include",
             "3rdparty",
+            "3rdparty/dxsdk/include",
             "3rdparty/bgfx/include",
             "3rdparty/glew/include",
             "3rdparty/khronos",
