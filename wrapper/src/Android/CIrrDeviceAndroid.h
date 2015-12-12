@@ -17,7 +17,7 @@
 #include <android/sensor.h>
 #include "android_native_app_glue.h"
 
-namespace irr
+namespace ue
 {
 	class CIrrDeviceAndroid : public CIrrDeviceStub, video::IImagePresenter
 	{

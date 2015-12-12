@@ -17,7 +17,7 @@
 
 #include <android/native_activity.h>
 
-namespace irr
+namespace ue
 {
 namespace io
 {
@@ -63,7 +63,7 @@ namespace io
     };   // CAndroidAssetFileArchive
 
 } // end namespace io
-} // end namespace irr
+} // end namespace ue
 
 #endif //   _IRR_COMPILE_ANDROID_ASSET_READER_
 #endif //  __C_ANDROID_ASSET_READER_H_INCLUDED__

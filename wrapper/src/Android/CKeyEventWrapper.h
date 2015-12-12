@@ -12,7 +12,7 @@
 
 struct android_app;
 
-namespace irr
+namespace ue
 {
 namespace jni
 {
@@ -37,7 +37,7 @@ private:
 };
 
 } // namespace jni
-} // namespace irr
+} // namespace ue
 
 #endif // _IRR_COMPILE_WITH_ANDROID_DEVICE_
 #endif // __C_IRR_KEY_EVENT_WRAPPER_H_INCLUDED__

@@ -18,7 +18,7 @@
 #include <android/native_activity.h>
 #include <android/log.h>
 
-namespace irr
+namespace ue
 {
 namespace io
 {

@@ -277,20 +277,20 @@ COGLES2Driver::~COGLES2Driver()
 
 		// Create built-in materials.
 
-#include "../../media/shaders/COGLES2Solid.vsh"
-#include "../../media/shaders/COGLES2Solid.fsh"
+#include "../media/shaders/COGLES2Solid.vsh"
+#include "../media/shaders/COGLES2Solid.fsh"
 
         addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2Solid_fsh, SolidCB, EMT_SOLID);
 
-#include "../../media/shaders/COGLES2Solid2.vsh"
-#include "../../media/shaders/COGLES2Solid2Layer.fsh"
+#include "../media/shaders/COGLES2Solid2.vsh"
+#include "../media/shaders/COGLES2Solid2Layer.fsh"
         addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2Solid2Layer_fsh, Solid2LayerCB, EMT_SOLID);
 
-#include "../../media/shaders/COGLES2LightmapModulate.fsh"
+#include "../media/shaders/COGLES2LightmapModulate.fsh"
 
         addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapCB, EMT_SOLID);
 
-#include "../../media/shaders/COGLES2LightmapAdd.fsh"
+#include "../media/shaders/COGLES2LightmapAdd.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapAdd_fsh, LightmapAddCB, EMT_SOLID);
 
@@ -304,37 +304,37 @@ COGLES2Driver::~COGLES2Driver()
 
 		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2LightmapModulate_fsh, LightmapLightingM4CB, EMT_SOLID);
 
-#include "../../media/shaders/COGLES2DetailMap.fsh"
+#include "../media/shaders/COGLES2DetailMap.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2Solid2_vsh, COGLES2DetailMap_fsh, DetailMapCB, EMT_SOLID);
 
-#include "../../media/shaders/COGLES2SphereMap.vsh"
-#include "../../media/shaders/COGLES2SphereMap.fsh"
+#include "../media/shaders/COGLES2SphereMap.vsh"
+#include "../media/shaders/COGLES2SphereMap.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2SphereMap_vsh, COGLES2SphereMap_fsh, SphereMapCB, EMT_SOLID);
 
-#include "../../media/shaders/COGLES2Reflection2Layer.vsh"
-#include "../../media/shaders/COGLES2Reflection2Layer.fsh"
+#include "../media/shaders/COGLES2Reflection2Layer.vsh"
+#include "../media/shaders/COGLES2Reflection2Layer.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2Reflection2Layer_vsh, COGLES2Reflection2Layer_fsh, Reflection2LayerCB, EMT_SOLID);
 
 		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2Solid_fsh, TransparentAddColorCB, EMT_TRANSPARENT_ADD_COLOR);
 
-#include "../../media/shaders/COGLES2TransparentAlphaChannel.fsh"
+#include "../media/shaders/COGLES2TransparentAlphaChannel.fsh"
 		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2TransparentAlphaChannel_fsh, TransparentAlphaChannelCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
-#include "../../media/shaders/COGLES2TransparentAlphaChannelRef.fsh"
+#include "../media/shaders/COGLES2TransparentAlphaChannelRef.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2TransparentAlphaChannelRef_fsh, TransparentAlphaChannelRefCB, EMT_SOLID);
 
-#include "../../media/shaders/COGLES2TransparentVertexAlpha.fsh"
+#include "../media/shaders/COGLES2TransparentVertexAlpha.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2TransparentVertexAlpha_fsh, TransparentVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
 		addSimpleHighLevelShaderMaterial(COGLES2Reflection2Layer_vsh, COGLES2Reflection2Layer_fsh, TransparentReflection2LayerCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
-#include "../../media/shaders/COGLES2NormalMap.vsh"
-#include "../../media/shaders/COGLES2NormalMap.fsh"
+#include "../media/shaders/COGLES2NormalMap.vsh"
+#include "../media/shaders/COGLES2NormalMap.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2NormalMap_vsh, COGLES2NormalMap_fsh, NormalMapCB, EMT_SOLID);
 
@@ -342,8 +342,8 @@ COGLES2Driver::~COGLES2Driver()
 
 		addSimpleHighLevelShaderMaterial(COGLES2NormalMap_vsh, COGLES2NormalMap_fsh, NormalMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
-#include "../../media/shaders/COGLES2ParallaxMap.vsh"
-#include "../../media/shaders/COGLES2ParallaxMap.fsh"
+#include "../media/shaders/COGLES2ParallaxMap.vsh"
+#include "../media/shaders/COGLES2ParallaxMap.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, COGLES2ParallaxMap_fsh, ParallaxMapCB, EMT_SOLID);
 
@@ -351,7 +351,7 @@ COGLES2Driver::~COGLES2Driver()
 
 		addSimpleHighLevelShaderMaterial(COGLES2ParallaxMap_vsh, COGLES2ParallaxMap_fsh, ParallaxMapVertexAlphaCB, EMT_TRANSPARENT_ALPHA_CHANNEL);
 
-#include "../../media/shaders/COGLES2OneTextureBlend.fsh"
+#include "../media/shaders/COGLES2OneTextureBlend.fsh"
 
 		addSimpleHighLevelShaderMaterial(COGLES2Solid_vsh, COGLES2OneTextureBlend_fsh, OneTextureBlendCB, EMT_ONETEXTURE_BLEND);
 
@@ -383,8 +383,8 @@ COGLES2Driver::~COGLES2Driver()
 		OneTextureBlendCB->drop();
 
 		// Create 2D material renderer.
-#include "../../media/shaders/COGLES2Renderer2D.vsh"
-#include "../../media/shaders/COGLES2Renderer2D.fsh"
+#include "../media/shaders/COGLES2Renderer2D.vsh"
+#include "../media/shaders/COGLES2Renderer2D.fsh"
         core::array<c8> vs, ps;
         vs.set_pointer((c8*)COGLES2Renderer2D_vsh, strlen(COGLES2Renderer2D_vsh), false, false);
         ps.set_pointer((c8*)COGLES2Renderer2D_fsh, strlen(COGLES2Renderer2D_fsh), false, false);

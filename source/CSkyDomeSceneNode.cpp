@@ -2,7 +2,7 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 // Code for this scene node has been contributed by Anders la Cour-Harbo (alc)
-#include "../../include/MobileCompileConfig.h"
+#include "MobileCompileConfig.h"
 #ifndef NO_IRR_COMPILE_WITH_SKY_DOME_NODE_
 
 #include "CSkyDomeSceneNode.h"

@@ -1,6 +1,6 @@
 #include "../Scene3D.h"
 #include "irrlicht.h"
-#include "../../../source/v7/v7.c"
+#include "../../../3rdparty/v7/v7.c"
 
 using namespace ue;
 using namespace core;
