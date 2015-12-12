@@ -134,6 +134,10 @@ solution "uEngine"
             "3rdparty/bgfx/src/amalgamated.cpp",
         }
 
+        defines {
+            "BGFX_SHARED_LIB_BUILD=1",
+        }
+
     project "assimp"
         kind "StaticLib"
 
@@ -145,7 +149,7 @@ solution "uEngine"
         }
 
         defines {
-            "SWIG",
+            -- "SWIG",
             "ASSIMP_BUILD_NO_OWN_ZLIB",
 
             "ASSIMP_BUILD_NO_X_IMPORTER",
@@ -466,6 +470,7 @@ solution "uEngine"
 
             defines {
                 "GLEW_STATIC",
+                "BGFX_SHARED_LIB_USE=1",
             }
 
             configuration "Debug"
