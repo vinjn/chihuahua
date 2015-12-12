@@ -48,7 +48,7 @@ int main(int argc, char const* const* argv)
 
     auto s_fileReader = new bx::CrtFileReader;
 
-    //fs->addFileArchive("../../media");
+    //fs->addFileArchive("../media");
 
     struct MyShaderCallBack : public video::IShaderConstantSetCallBack
     {
@@ -99,14 +99,14 @@ int main(int argc, char const* const* argv)
 
     // TODO: implement assets system
     s32 mtrlId = gpu->addHighLevelShaderMaterialFromFiles(
-        "../../media/bgfx-shaders/dx11/vs_bump.bin", "main", EVST_VS_1_1,
-        "../../media/bgfx-shaders/dx11/fs_bump.bin", "main");
+        "../media/bgfx-shaders/dx11/vs_bump.bin", "main", EVST_VS_1_1,
+        "../media/bgfx-shaders/dx11/fs_bump.bin", "main");
     scene::IMesh* mesh;
 #if 0
     mesh = smgr->getGeometryCreator()->createCubeMesh({ 100, 100, 100 });
     mesh->drop();
 #else
-    mesh = smgr->getMesh("../../media/duck.fbx");
+    mesh = smgr->getMesh("../media/duck.fbx");
 #endif
     scene::IMesh* tangentMesh = smgr->getMeshManipulator()->
         createMeshWithTangents(mesh);
@@ -116,8 +116,8 @@ int main(int argc, char const* const* argv)
     node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
-    node->setMaterialTexture(0, driver->getTexture("../../media/duck.png"));
-    node->setMaterialTexture(1, driver->getTexture("../../media/fieldstone-n.tga"));
+    node->setMaterialTexture(0, driver->getTexture("../media/duck.png"));
+    node->setMaterialTexture(1, driver->getTexture("../media/fieldstone-n.tga"));
     node->setMaterialType((video::E_MATERIAL_TYPE)mtrlId);
     node->setMaterialShaderCallback(new MyShaderCallBack());
     node->setMaterialFlag(EMF_BACK_FACE_CULLING, true);

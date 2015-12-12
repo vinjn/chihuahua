@@ -749,7 +749,7 @@ int main(int argc, char* argv[])
 		video::SColorf(1.0f,1.0f,1.0f),2000);
 	smgr->setAmbientLight(video::SColorf(0.3f,0.3f,0.3f));
 	// add our media directory as "search path"
-	Device->getFileSystem()->addFileArchive("../../media/");
+	Device->getFileSystem()->addFileArchive("../media/");
 
 	/*
 	The next step is to read the configuration file. It is stored in the xml

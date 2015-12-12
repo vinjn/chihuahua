@@ -93,7 +93,7 @@ int main()
 	if (node)
 	{
 		node->setPosition(core::vector3df(0,0,30));
-		node->setMaterialTexture(0, driver->getTexture("../../media/wall.bmp"));
+		node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
 		node->setMaterialFlag(video::EMF_LIGHTING, false);
 	}
 
@@ -110,7 +110,7 @@ int main()
 
 	if (n)
 	{
-		n->setMaterialTexture(0, driver->getTexture("../../media/t351sml.jpg"));
+		n->setMaterialTexture(0, driver->getTexture("../media/t351sml.jpg"));
 		n->setMaterialFlag(video::EMF_LIGHTING, false);
 		scene::ISceneNodeAnimator* anim =
 			smgr->createFlyCircleAnimator(core::vector3df(0,0,30), 20.0f);
@@ -126,7 +126,7 @@ int main()
 	a b3d model, which uses a 'fly straight' animator to run between to points.
 	*/
 	scene::IAnimatedMeshSceneNode* anms =
-		smgr->addAnimatedMeshSceneNode(smgr->getMesh("../../media/ninja.b3d"));
+		smgr->addAnimatedMeshSceneNode(smgr->getMesh("../media/ninja.b3d"));
 
 	if (anms)
 	{
@@ -159,7 +159,7 @@ int main()
 
 		anms->setScale(core::vector3df(2.f,2.f,2.f));
 		anms->setRotation(core::vector3df(0,-90,0));
-//		anms->setMaterialTexture(0, driver->getTexture("../../media/sydney.bmp"));
+//		anms->setMaterialTexture(0, driver->getTexture("../media/sydney.bmp"));
 
 	}
 
@@ -175,7 +175,7 @@ int main()
 	Add a colorful irrlicht logo
 	*/
 	device->getGUIEnvironment()->addImage(
-		driver->getTexture("../../media/irrlichtlogoalpha2.tga"),
+		driver->getTexture("../media/irrlichtlogoalpha2.tga"),
 		core::position2d<s32>(10,20));
 
 	gui::IGUIStaticText* diagnostics = device->getGUIEnvironment()->addStaticText(

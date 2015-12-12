@@ -105,7 +105,7 @@ int main()
 	if (node)
 	{
 		node->setPosition(core::vector3df(0,0,60));
-		node->setMaterialTexture(0, driver->getTexture("../../media/wall.bmp"));
+		node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
 		node->setMaterialFlag(video::EMF_LIGHTING, false);
 	}
 
@@ -118,7 +118,7 @@ int main()
 
 	if (plane)
 	{
-		plane->setMaterialTexture(0, driver->getTexture("../../media/t351sml.jpg"));
+		plane->setMaterialTexture(0, driver->getTexture("../media/t351sml.jpg"));
 		plane->setMaterialFlag(video::EMF_LIGHTING, false);
 		plane->setMaterialFlag(video::EMF_BACK_FACE_CULLING, true);
 	}

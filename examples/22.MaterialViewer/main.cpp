@@ -670,7 +670,7 @@ bool CApp::init(int argc, char *argv[])
 
 	// set a nicer font
 	gui::IGUISkin* skin = guiEnv->getSkin();
-	gui::IGUIFont* font = guiEnv->getFont("../../media/fonthaettenschweiler.bmp");
+	gui::IGUIFont* font = guiEnv->getFont("../media/fonthaettenschweiler.bmp");
 	if (font)
 		skin->setFont(font);
 

@@ -101,7 +101,7 @@ int main(int argc, char** argv)
         fs->changeWorkingDirectoryTo(oldCWD);
     }
     else
-        smgr->loadScene("../../media/example.irr");
+        smgr->loadScene("../media/example.irr");
 
     // Create a meta triangle selector to hold several triangle selectors.
     scene::IMetaTriangleSelector * meta = smgr->createMetaTriangleSelector();

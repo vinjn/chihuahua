@@ -170,7 +170,7 @@ int main()
 
         idx++;
     }
-    //video::ITexture* texture = driver->getTexture("../../media/duck.png");
+    //video::ITexture* texture = driver->getTexture("../media/duck.png");
     //texture->lock();
     //texture->unlock();
 

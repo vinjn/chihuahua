@@ -79,13 +79,13 @@ int main()
     to drop it only *after* I have finished using it, regardless of what
     the reference count of the object is after creation.
     */
-    scene::IAnimatedMeshSceneNode* md2 = smgr->addAnimatedMeshSceneNode(smgr->getMesh("../../media/sydney.md2"));
-    md2->setMaterialTexture(0, driver->getTexture("../../media/sydney.bmp"));
+    scene::IAnimatedMeshSceneNode* md2 = smgr->addAnimatedMeshSceneNode(smgr->getMesh("../media/sydney.md2"));
+    md2->setMaterialTexture(0, driver->getTexture("../media/sydney.bmp"));
     //md2->setVisible(false);
 
     FullScreenSceneNode *myNode =
         new FullScreenSceneNode(smgr->getRootSceneNode(), smgr, 666, 3);
-    myNode->Material.setTexture(0, driver->getTexture("../../media/Shanghai5.jpg"));
+    myNode->Material.setTexture(0, driver->getTexture("../media/Shanghai5.jpg"));
 
     /*
     To animate something in this boring scene consisting only of one
