@@ -114,6 +114,17 @@ solution "uEngine"
             "3rdparty/zlib/*.c",
         }
 
+    project "choreograph"
+        kind "StaticLib"
+
+        includedirs {
+            "3rdparty/Choreograph/src",
+        }
+
+        files {
+            "3rdparty/Choreograph/src/**",
+        }
+
     project "bgfx"
         kind "StaticLib"
 
@@ -285,6 +296,7 @@ solution "uEngine"
             "3rdparty/glew/include",
             "3rdparty/khronos",
             "3rdparty/assimp/include",
+            "3rdparty/Choreograph/src",
         }
 
         defines {
@@ -456,6 +468,7 @@ solution "uEngine"
                 "3rdparty",
                 "3rdparty/bgfx/include",
                 "3rdparty/glfw/include",
+                "3rdparty/Choreograph/src",
                 "examples/" .. leaf_name .. "/include",
             }
 
@@ -479,6 +492,7 @@ solution "uEngine"
                     "imgui-d.lib",
                     "glfw-d.lib",
                     "glew-d.lib",
+                    "choreograph-d.lib",
                 }
             configuration "Release"
                 links {
@@ -486,6 +500,7 @@ solution "uEngine"
                     "imgui.lib",
                     "glfw.lib",
                     "glew.lib",
+                    "choreograph.lib",
                 }
     end
 

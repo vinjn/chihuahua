@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C9A0F726-41B3-4A78-814A-825D825E7B3E}</ProjectGuid>
+    <RootNamespace>Samples</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\src;..\include;..\..\..\..\\include;..\..\..\..\\boost;..\..\src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;NOMINMAX;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>"..\..\..\..\\include";..\include</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>cinder-$(PlatformToolset)_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>"..\..\..\..\\lib\msw\$(PlatformTarget)"</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;LIBCPMT</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\src;..\include;..\..\..\..\\include;..\..\..\..\\boost;..\..\src</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;NOMINMAX;_WIN32_WINNT=0x0502;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>"..\..\..\..\\include";..\include</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>cinder-$(PlatformToolset).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>"..\..\..\..\\lib\msw\$(PlatformTarget)"</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding />
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\choreograph\Cue.cpp" />
+    <ClCompile Include="..\..\src\choreograph\MotionGroup.cpp" />
+    <ClCompile Include="..\..\src\choreograph\Timeline.cpp" />
+    <ClCompile Include="..\..\src\choreograph\TimelineItem.cpp" />
+    <ClCompile Include="..\src\pockets\cobweb\ButtonBase.cpp" />
+    <ClCompile Include="..\src\pockets\cobweb\Node.cpp" />
+    <ClCompile Include="..\src\pockets\cobweb\RootNode.cpp" />
+    <ClCompile Include="..\src\pockets\cobweb\SimpleButton.cpp" />
+    <ClCompile Include="..\src\pockets\cobweb\TextureNode.cpp" />
+    <ClCompile Include="..\src\pockets\cobweb\TypeNode.cpp" />
+    <ClCompile Include="..\src\pockets\ConnectionManager.cpp" />
+    <ClCompile Include="..\src\pockets\Locus.cpp" />
+    <ClCompile Include="..\src\pockets\Scene.cpp" />
+    <ClCompile Include="..\src\SamplesApp.cpp" />
+    <ClCompile Include="..\src\samples\BezierConstruction.cpp" />
+    <ClCompile Include="..\src\samples\Quaternions.cpp" />
+    <ClCompile Include="..\src\samples\Repetition.cpp" />
+    <ClCompile Include="..\src\samples\SlideAndBounce.cpp" />
+    <ClCompile Include="..\src\samples\WormBuncher.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\choreograph\Choreograph.h" />
+    <ClInclude Include="..\..\src\choreograph\Connection.hpp" />
+    <ClInclude Include="..\..\src\choreograph\Cue.h" />
+    <ClInclude Include="..\..\src\choreograph\detail\VectorManipulation.hpp" />
+    <ClInclude Include="..\..\src\choreograph\Easing.h" />
+    <ClInclude Include="..\..\src\choreograph\MotionGroup.h" />
+    <ClInclude Include="..\..\src\choreograph\Output.hpp" />
+    <ClInclude Include="..\..\src\choreograph\Phrase.hpp" />
+    <ClInclude Include="..\..\src\choreograph\phrase\Combine.hpp" />
+    <ClInclude Include="..\..\src\choreograph\phrase\Hold.hpp" />
+    <ClInclude Include="..\..\src\choreograph\phrase\Procedural.hpp" />
+    <ClInclude Include="..\..\src\choreograph\phrase\Ramp.hpp" />
+    <ClInclude Include="..\..\src\choreograph\phrase\Retime.hpp" />
+    <ClInclude Include="..\..\src\choreograph\phrase\Sugar.hpp" />
+    <ClInclude Include="..\..\src\choreograph\Sequence.hpp" />
+    <ClInclude Include="..\..\src\choreograph\specialization\CinderSpecialization.hpp" />
+    <ClInclude Include="..\..\src\choreograph\Timeline.h" />
+    <ClInclude Include="..\..\src\choreograph\TimelineItem.h" />
+    <ClInclude Include="..\..\src\choreograph\TimeType.h" />
+    <ClInclude Include="..\include\Resources.h" />
+    <ClInclude Include="..\src\pockets\cobweb\ButtonBase.h" />
+    <ClInclude Include="..\src\pockets\cobweb\CobWeb.h" />
+    <ClInclude Include="..\src\pockets\cobweb\Node.h" />
+    <ClInclude Include="..\src\pockets\cobweb\RootNode.h" />
+    <ClInclude Include="..\src\pockets\cobweb\SimpleButton.h" />
+    <ClInclude Include="..\src\pockets\cobweb\TextureNode.h" />
+    <ClInclude Include="..\src\pockets\cobweb\TypeNode.h" />
+    <ClInclude Include="..\src\pockets\CollectionUtilities.hpp" />
+    <ClInclude Include="..\src\pockets\ConnectionManager.h" />
+    <ClInclude Include="..\src\pockets\Locus.h" />
+    <ClInclude Include="..\src\pockets\Pockets.h" />
+    <ClInclude Include="..\src\pockets\Scene.h" />
+    <ClInclude Include="..\src\samples\BezierConstruction.h" />
+    <ClInclude Include="..\src\samples\Quaternions.h" />
+    <ClInclude Include="..\src\samples\Repetition.h" />
+    <ClInclude Include="..\src\samples\Samples.h" />
+    <ClInclude Include="..\src\samples\SlideAndBounce.h" />
+    <ClInclude Include="..\src\samples\WormBuncher.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

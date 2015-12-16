@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{C87FFBD8-A61A-4965-AA65-652860F184EF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\Choreograph">
+      <UniqueIdentifier>{5E1E672A-6F5E-4AC5-BB83-F0A117F63EF9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\samples">
+      <UniqueIdentifier>{44289b45-3777-43bf-bd14-153bee590cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\pockets">
+      <UniqueIdentifier>{933421df-31d8-4992-9850-440b7a019f05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\pockets\cobweb">
+      <UniqueIdentifier>{aca829cf-0ac3-4f02-8ff4-cfc01b6cc63f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\SamplesApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SamplesApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\src\choreograph\Cue.cpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\choreograph\Timeline.cpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\choreograph\TimelineItem.cpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\samples\BezierConstruction.cpp">
+      <Filter>Source Files\samples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\samples\Quaternions.cpp">
+      <Filter>Source Files\samples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\samples\Repetition.cpp">
+      <Filter>Source Files\samples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\samples\SlideAndBounce.cpp">
+      <Filter>Source Files\samples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\samples\WormBuncher.cpp">
+      <Filter>Source Files\samples</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\choreograph\MotionGroup.cpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\ConnectionManager.cpp">
+      <Filter>Blocks\pockets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\Locus.cpp">
+      <Filter>Blocks\pockets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\Scene.cpp">
+      <Filter>Blocks\pockets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\cobweb\Node.cpp">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\cobweb\RootNode.cpp">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\cobweb\SimpleButton.cpp">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\cobweb\TextureNode.cpp">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\cobweb\TypeNode.cpp">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pockets\cobweb\ButtonBase.cpp">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Choreograph.h">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Connection.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Cue.h">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\detail\VectorManipulation.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Easing.h">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Output.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\phrase\Combine.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\phrase\Hold.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\phrase\Procedural.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\phrase\Ramp.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\phrase\Retime.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\phrase\Sugar.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Phrase.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Sequence.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\specialization\CinderSpecialization.hpp">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\Timeline.h">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\TimelineItem.h">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\TimeType.h">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\samples\BezierConstruction.h">
+      <Filter>Source Files\samples</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\samples\Quaternions.h">
+      <Filter>Source Files\samples</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\samples\Repetition.h">
+      <Filter>Source Files\samples</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\samples\Samples.h">
+      <Filter>Source Files\samples</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\samples\SlideAndBounce.h">
+      <Filter>Source Files\samples</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\samples\WormBuncher.h">
+      <Filter>Source Files\samples</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\choreograph\MotionGroup.h">
+      <Filter>Blocks\Choreograph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\CollectionUtilities.hpp">
+      <Filter>Blocks\pockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\ConnectionManager.h">
+      <Filter>Blocks\pockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\Locus.h">
+      <Filter>Blocks\pockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\Pockets.h">
+      <Filter>Blocks\pockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\Scene.h">
+      <Filter>Blocks\pockets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\cobweb\CobWeb.h">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\cobweb\Node.h">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\cobweb\RootNode.h">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\cobweb\SimpleButton.h">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\cobweb\TextureNode.h">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\cobweb\TypeNode.h">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pockets\cobweb\ButtonBase.h">
+      <Filter>Blocks\pockets\cobweb</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
