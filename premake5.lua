@@ -4,7 +4,7 @@ local action = _ACTION or ""
 
 -- require "XCode"
 -- require "premake-android/android"
--- require "premake-androidmk/androidmk"
+require "3rdparty/premake-androidmk/androidmk"
 
 print (premake.path);
 
