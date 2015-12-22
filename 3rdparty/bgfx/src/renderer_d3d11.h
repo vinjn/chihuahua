@@ -296,10 +296,12 @@ namespace bgfx { namespace d3d11
 		struct Frame
 		{
 			ID3D11Query* m_disjoint;
-			ID3D11Query* m_start;
+			ID3D11Query* m_begin;
 			ID3D11Query* m_end;
 		};
 
+		uint64_t m_begin;
+		uint64_t m_end;
 		uint64_t m_elapsed;
 		uint64_t m_frequency;
 
@@ -316,9 +318,9 @@ namespace bgfx { namespace d3d11
 
 		void postReset();
 		void preReset();
-		void begin(OcclusionQueryHandle _handle);
+		void begin(Frame* _render, OcclusionQueryHandle _handle);
 		void end();
-		void resolve(bool _wait = false);
+		void resolve(Frame* _render, bool _wait = false);
 
 		struct Query
 		{

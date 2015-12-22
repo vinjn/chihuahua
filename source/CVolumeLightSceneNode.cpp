@@ -1,7 +1,7 @@
 // Copyright (C) 2007-2012 Dean Wadsworth
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
-#include "../../include/MobileCompileConfig.h"
+#include "MobileCompileConfig.h"
 #ifdef NO_IRR_COMPILE_WITH_VOLUME_LIGHT_NODE_
 
 #include "CVolumeLightSceneNode.h"

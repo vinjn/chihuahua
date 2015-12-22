@@ -115,11 +115,11 @@ int main()
 	driver->setTextureCreationFlag(video::ETCF_ALWAYS_32_BIT, true);
 
 	// add irrlicht logo
-	env->addImage(driver->getTexture("../../media/irrlichtlogo2.png"),
+	env->addImage(driver->getTexture("../media/irrlichtlogo2.png"),
 		core::position2d<s32>(10,10));
 
 	//set other font
-	env->getSkin()->setFont(env->getFont("../../media/fontlucida.png"));
+	env->getSkin()->setFont(env->getFont("../media/fontlucida.png"));
 
 	// add some help text
 	env->addStaticText(
@@ -156,7 +156,7 @@ int main()
 
 	// add terrain scene node
 	scene::ITerrainSceneNode* terrain = smgr->addTerrainSceneNode(
-		"../../media/terrain-heightmap.bmp",
+		"../media/terrain-heightmap.bmp",
 		0,					// parent node
 		-1,					// node id
 		core::vector3df(0.f, 0.f, 0.f),		// position
@@ -171,9 +171,9 @@ int main()
 	terrain->setMaterialFlag(video::EMF_LIGHTING, false);
 
 	terrain->setMaterialTexture(0,
-			driver->getTexture("../../media/terrain-texture.jpg"));
+			driver->getTexture("../media/terrain-texture.jpg"));
 	terrain->setMaterialTexture(1,
-			driver->getTexture("../../media/detailmap3.jpg"));
+			driver->getTexture("../media/detailmap3.jpg"));
 	
 	terrain->setMaterialType(video::EMT_DETAIL_MAP);
 
@@ -222,13 +222,13 @@ int main()
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
 
 	scene::ISceneNode* skybox=smgr->addSkyBoxSceneNode(
-		driver->getTexture("../../media/irrlicht2_up.jpg"),
-		driver->getTexture("../../media/irrlicht2_dn.jpg"),
-		driver->getTexture("../../media/irrlicht2_lf.jpg"),
-		driver->getTexture("../../media/irrlicht2_rt.jpg"),
-		driver->getTexture("../../media/irrlicht2_ft.jpg"),
-		driver->getTexture("../../media/irrlicht2_bk.jpg"));
-	scene::ISceneNode* skydome=smgr->addSkyDomeSceneNode(driver->getTexture("../../media/skydome.jpg"),16,8,0.95f,2.0f);
+		driver->getTexture("../media/irrlicht2_up.jpg"),
+		driver->getTexture("../media/irrlicht2_dn.jpg"),
+		driver->getTexture("../media/irrlicht2_lf.jpg"),
+		driver->getTexture("../media/irrlicht2_rt.jpg"),
+		driver->getTexture("../media/irrlicht2_ft.jpg"),
+		driver->getTexture("../media/irrlicht2_bk.jpg"));
+	scene::ISceneNode* skydome=smgr->addSkyDomeSceneNode(driver->getTexture("../media/skydome.jpg"),16,8,0.95f,2.0f);
 
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
 

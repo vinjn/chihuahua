@@ -203,20 +203,20 @@ int main()
 	switch(driverType)
 	{
 	case video::EDT_DIRECT3D8:
-		psFileName = "../../media/d3d8.psh";
-		vsFileName = "../../media/d3d8.vsh";
+		psFileName = "../media/d3d8.psh";
+		vsFileName = "../media/d3d8.vsh";
 		break;
 	case video::EDT_DIRECT3D9:
 		if (UseHighLevelShaders)
 		{
 			// Cg can also handle this syntax
-			psFileName = "../../media/d3d9.hlsl";
+			psFileName = "../media/d3d9.hlsl";
 			vsFileName = psFileName; // both shaders are in the same file
 		}
 		else
 		{
-			psFileName = "../../media/d3d9.psh";
-			vsFileName = "../../media/d3d9.vsh";
+			psFileName = "../media/d3d9.psh";
+			vsFileName = "../media/d3d9.vsh";
 		}
 		break;
 
@@ -224,8 +224,8 @@ int main()
 	case video::EDT_OGLES2:
 		UseHighLevelShaders=true;
 		{
-			psFileName = "../../media/ogles2.frag";
-			vsFileName = "../../media/ogles2.vert";
+			psFileName = "../media/ogles2.frag";
+			vsFileName = "../media/ogles2.vert";
 		}
 		break;
 	case video::EDT_OPENGL:
@@ -233,20 +233,20 @@ int main()
 		{
 			if (!UseCgShaders)
 			{
-				psFileName = "../../media/opengl.frag";
-				vsFileName = "../../media/opengl.vert";
+				psFileName = "../media/opengl.frag";
+				vsFileName = "../media/opengl.vert";
 			}
 			else
 			{
 				// Use HLSL syntax for Cg
-				psFileName = "../../media/d3d9.hlsl";
+				psFileName = "../media/d3d9.hlsl";
 				vsFileName = psFileName; // both shaders are in the same file
 			}
 		}
 		else
 		{
-			psFileName = "../../media/opengl.psh";
-			vsFileName = "../../media/opengl.vsh";
+			psFileName = "../media/opengl.psh";
+			vsFileName = "../media/opengl.vsh";
 		}
 		break;
 	}
@@ -361,7 +361,7 @@ int main()
 
 	scene::ISceneNode* node = smgr->addCubeSceneNode(50);
 	node->setPosition(core::vector3df(0,0,0));
-	node->setMaterialTexture(0, driver->getTexture("../../media/wall.bmp"));
+	node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
 	node->setMaterialFlag(video::EMF_LIGHTING, false);
 	node->setMaterialType((video::E_MATERIAL_TYPE)newMaterialType1);
 
@@ -382,7 +382,7 @@ int main()
 
 	node = smgr->addCubeSceneNode(50);
 	node->setPosition(core::vector3df(0,-10,50));
-	node->setMaterialTexture(0, driver->getTexture("../../media/wall.bmp"));
+	node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
 	node->setMaterialFlag(video::EMF_LIGHTING, false);
 	node->setMaterialFlag(video::EMF_BLEND_OPERATION, true);
 	node->setMaterialType((video::E_MATERIAL_TYPE)newMaterialType2);
@@ -404,7 +404,7 @@ int main()
 
 	node = smgr->addCubeSceneNode(50);
 	node->setPosition(core::vector3df(0,50,25));
-	node->setMaterialTexture(0, driver->getTexture("../../media/wall.bmp"));
+	node->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
 	node->setMaterialFlag(video::EMF_LIGHTING, false);
 	//smgr->addTextSceneNode(gui->getBuiltInFont(), L"NO SHADER",
 		//video::SColor(255,255,255,255), node);
@@ -420,12 +420,12 @@ int main()
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
 
 	smgr->addSkyBoxSceneNode(
-		driver->getTexture("../../media/irrlicht2_up.jpg"),
-		driver->getTexture("../../media/irrlicht2_dn.jpg"),
-		driver->getTexture("../../media/irrlicht2_lf.jpg"),
-		driver->getTexture("../../media/irrlicht2_rt.jpg"),
-		driver->getTexture("../../media/irrlicht2_ft.jpg"),
-		driver->getTexture("../../media/irrlicht2_bk.jpg"));
+		driver->getTexture("../media/irrlicht2_up.jpg"),
+		driver->getTexture("../media/irrlicht2_dn.jpg"),
+		driver->getTexture("../media/irrlicht2_lf.jpg"),
+		driver->getTexture("../media/irrlicht2_rt.jpg"),
+		driver->getTexture("../media/irrlicht2_ft.jpg"),
+		driver->getTexture("../media/irrlicht2_bk.jpg"));
 
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, true);
 

@@ -89,6 +89,41 @@ namespace bx
 		return fabsf(_a);
 	}
 
+	inline float fsq(float _a)
+	{
+		return _a * _a;
+	}
+
+	inline float fsin(float _a)
+	{
+		return sinf(_a);
+	}
+
+	inline float fcos(float _a)
+	{
+		return cosf(_a);
+	}
+
+	inline float fpow(float _a, float _b)
+	{
+		return powf(_a, _b);
+	}
+
+	inline float fexp2(float _a)
+	{
+		return fpow(2.0f, _a);
+	}
+
+	inline float flog(float _a)
+	{
+		return logf(_a);
+	}
+
+	inline float flog2(float _a)
+	{
+		return flog(_a) * 1.442695041f;
+	}
+
 	inline float fsqrt(float _a)
 	{
 		return sqrtf(_a);
@@ -168,11 +203,25 @@ namespace bx
 		_result[2] = _a[2] + _b[2];
 	}
 
+	inline void vec3Add(float* __restrict _result, const float* __restrict _a, float _b)
+	{
+		_result[0] = _a[0] + _b;
+		_result[1] = _a[1] + _b;
+		_result[2] = _a[2] + _b;
+	}
+
 	inline void vec3Sub(float* __restrict _result, const float* __restrict _a, const float* __restrict _b)
 	{
 		_result[0] = _a[0] - _b[0];
 		_result[1] = _a[1] - _b[1];
 		_result[2] = _a[2] - _b[2];
+	}
+
+	inline void vec3Sub(float* __restrict _result, const float* __restrict _a, float _b)
+	{
+		_result[0] = _a[0] - _b;
+		_result[1] = _a[1] - _b;
+		_result[2] = _a[2] - _b;
 	}
 
 	inline void vec3Mul(float* __restrict _result, const float* __restrict _a, const float* __restrict _b)
@@ -206,6 +255,20 @@ namespace bx
 		return fsqrt(vec3Dot(_a, _a) );
 	}
 
+	inline void vec3Lerp(float* __restrict _result, const float* __restrict _a, const float* __restrict _b, float _t)
+	{
+		_result[0] = flerp(_a[0], _b[0], _t);
+		_result[1] = flerp(_a[1], _b[1], _t);
+		_result[2] = flerp(_a[2], _b[2], _t);
+	}
+
+	inline void vec3Lerp(float* __restrict _result, const float* __restrict _a, const float* __restrict _b, const float* __restrict _c)
+	{
+		_result[0] = flerp(_a[0], _b[0], _c[0]);
+		_result[1] = flerp(_a[1], _b[1], _c[1]);
+		_result[2] = flerp(_a[2], _b[2], _c[2]);
+	}
+
 	inline float vec3Norm(float* __restrict _result, const float* __restrict _a)
 	{
 		const float len = vec3Length(_a);
@@ -216,12 +279,41 @@ namespace bx
 		return len;
 	}
 
+	inline void vec3Min(float* __restrict _result, const float* __restrict _a, const float* __restrict _b)
+	{
+		_result[0] = fmin(_a[0], _b[0]);
+		_result[1] = fmin(_a[1], _b[1]);
+		_result[2] = fmin(_a[2], _b[2]);
+	}
+
+	inline void vec3Max(float* __restrict _result, const float* __restrict _a, const float* __restrict _b)
+	{
+		_result[0] = fmax(_a[0], _b[0]);
+		_result[1] = fmax(_a[1], _b[1]);
+		_result[2] = fmax(_a[2], _b[2]);
+	}
+
+	inline void vec3Rcp(float* __restrict _result, const float* __restrict _a)
+	{
+		_result[0] = 1.0f / _a[0];
+		_result[1] = 1.0f / _a[1];
+		_result[2] = 1.0f / _a[2];
+	}
+
 	inline void quatIdentity(float* _result)
 	{
 		_result[0] = 0.0f;
 		_result[1] = 0.0f;
 		_result[2] = 0.0f;
 		_result[3] = 1.0f;
+	}
+
+	inline void quatMove(float* __restrict _result, const float* __restrict _a)
+	{
+		_result[0] = _a[0];
+		_result[1] = _a[1];
+		_result[2] = _a[2];
+		_result[3] = _a[3];
 	}
 
 	inline void quatMulXYZ(float* __restrict _result, const float* __restrict _qa, const float* __restrict _qb)
@@ -267,6 +359,32 @@ namespace bx
 		_result[3] =  _quat[3];
 	}
 
+	inline float quatDot(const float* __restrict _a, const float* __restrict _b)
+	{
+		return _a[0]*_b[0]
+			 + _a[1]*_b[1]
+			 + _a[2]*_b[2]
+			 + _a[3]*_b[3]
+			 ;
+	}
+
+	inline void quatNorm(float* __restrict _result, const float* __restrict _quat)
+	{
+		const float norm = quatDot(_quat, _quat);
+		if (0.0f < norm)
+		{
+			const float invNorm = 1.0f / fsqrt(norm);
+			_result[0] = _quat[0] * invNorm;
+			_result[1] = _quat[1] * invNorm;
+			_result[2] = _quat[2] * invNorm;
+			_result[3] = _quat[3] * invNorm;
+		}
+		else
+		{
+			quatIdentity(_result);
+		}
+	}
+
 	inline void quatToEuler(float* __restrict _result, const float* __restrict _quat)
 	{
 		const float x = _quat[0];
@@ -281,6 +399,17 @@ namespace bx
 		_result[0] = atan2f(2.0f * (x * w - y * z), 1.0f - 2.0f * (xx + zz) );
 		_result[1] = atan2f(2.0f * (y * w + x * z), 1.0f - 2.0f * (yy + zz) );
 		_result[2] = asinf (2.0f * (x * y + z * w) );
+	}
+
+	inline void quatRotateAxis(float* __restrict _result, const float* _axis, float _angle)
+	{
+		const float ha = _angle * 0.5f;
+		const float ca = cosf(ha);
+		const float sa = sinf(ha);
+		_result[0] = _axis[0] * sa;
+		_result[1] = _axis[1] * sa;
+		_result[2] = _axis[2] * sa;
+		_result[3] = ca;
 	}
 
 	inline void quatRotateX(float* _result, float _ax)

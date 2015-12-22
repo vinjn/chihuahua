@@ -7,7 +7,7 @@
 
 #include "os.h"
 
-namespace irr
+namespace ue
 {
 namespace jni
 {
@@ -57,7 +57,7 @@ int CKeyEventWrapper::getUnicodeChar(int metaState)
 }
 	
 } // namespace jni
-} // namespace irr
+} // namespace ue
 
 
 #endif // _IRR_COMPILE_WITH_ANDROID_DEVICE_

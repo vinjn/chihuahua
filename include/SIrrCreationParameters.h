@@ -56,7 +56,7 @@ namespace ue
 	#elif defined(_IRR_ANDROID_PLATFORM_)
 			OGLES2ShaderPath("media/Shaders/")
 	#else
-			OGLES2ShaderPath("../../media/Shaders/")
+			OGLES2ShaderPath("../media/Shaders/")
 	#endif
 		{
 		}

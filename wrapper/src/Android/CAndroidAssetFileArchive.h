@@ -17,7 +17,7 @@
 
 #include <android/native_activity.h>
 
-namespace irr
+namespace ue
 {
 namespace io
 {

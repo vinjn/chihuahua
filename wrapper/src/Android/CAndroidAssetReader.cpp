@@ -16,7 +16,7 @@
 #include "android_native_app_glue.h"
 #include <android/native_activity.h>
 
-namespace irr
+namespace ue
 {
 namespace io
 {

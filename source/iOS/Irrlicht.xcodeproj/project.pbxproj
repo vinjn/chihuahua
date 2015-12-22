@@ -896,7 +896,7 @@
 		5E92ED381752B6E800B93CC0 /* CImageLoaderPVR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CImageLoaderPVR.h; path = ../CImageLoaderPVR.h; sourceTree = "<group>"; };
 		5ED2483E1731568400A13B86 /* HelloWorldMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorldMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ED2485B173157AD00A13B86 /* main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = main.cpp; path = ../../../examples/17.HelloWorld_Mobile/main.cpp; sourceTree = "<group>"; };
-		5ED2486217315FA800A13B86 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; name = media; path = ../../../media; sourceTree = "<group>"; };
+		5ED2486217315FA800A13B86 /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; name = media; path = ../../media; sourceTree = "<group>"; };
 		5ED2486E1731788700A13B86 /* COGLES2NormalMap.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = COGLES2NormalMap.fsh; sourceTree = "<group>"; };
 		5ED2486F1731788700A13B86 /* COGLES2NormalMap.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = COGLES2NormalMap.vsh; sourceTree = "<group>"; };
 		5ED248701731788700A13B86 /* COGLES2ParallaxMap.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = COGLES2ParallaxMap.fsh; sourceTree = "<group>"; };
@@ -1855,7 +1855,7 @@
 				5ED248731731788700A13B86 /* COGLES2Renderer2D.vsh */,
 			);
 			name = Shaders;
-			path = ../../../media/Shaders;
+			path = ../../media/Shaders;
 			sourceTree = "<group>";
 		};
 		7495CED31B402E570083A25C /* assimp */ = {

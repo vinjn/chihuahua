@@ -104,7 +104,7 @@ void android_main(struct android_app* app)
 #ifdef _IRR_ANDROID_PLATFORM_
 	scene::IAnimatedMesh* mesh = smgr->getMesh("media/room.3ds");
 #else
-	scene::IAnimatedMesh* mesh = smgr->getMesh("../../media/room.3ds");
+	scene::IAnimatedMesh* mesh = smgr->getMesh("../media/room.3ds");
 #endif
 
 	if (mesh)
@@ -119,7 +119,7 @@ void android_main(struct android_app* app)
 #ifdef _IRR_ANDROID_PLATFORM_
 			node->setMaterialTexture(0, driver->getTexture("media/wall.jpg"));
 #else
-			node->setMaterialTexture(0, driver->getTexture("../../media/wall.jpg"));
+			node->setMaterialTexture(0, driver->getTexture("../media/wall.jpg"));
 #endif
 			node->getMaterial(0).SpecularColor.set(0,0,0,0);
 		}
@@ -153,8 +153,8 @@ void android_main(struct android_app* app)
 			node->setMaterialTexture(0, driver->getTexture("media/stones.jpg"));
 			node->setMaterialTexture(1, driver->getTexture("media/water.jpg"));
 #else
-			node->setMaterialTexture(0, driver->getTexture("../../media/stones.jpg"));
-			node->setMaterialTexture(1, driver->getTexture("../../media/water.jpg"));
+			node->setMaterialTexture(0, driver->getTexture("../media/stones.jpg"));
+			node->setMaterialTexture(1, driver->getTexture("../media/water.jpg"));
 #endif
 
 			node->setMaterialType(video::EMT_REFLECTION_2_LAYER);
@@ -190,7 +190,7 @@ void android_main(struct android_app* app)
 #ifdef _IRR_ANDROID_PLATFORM_
 		node->setMaterialTexture(0, driver->getTexture("media/particlewhite.bmp"));
 #else
-		node->setMaterialTexture(0, driver->getTexture("../../media/particlewhite.bmp"));
+		node->setMaterialTexture(0, driver->getTexture("../media/particlewhite.bmp"));
 #endif
 	}
 
@@ -219,7 +219,7 @@ void android_main(struct android_app* app)
 #ifdef _IRR_ANDROID_PLATFORM_
 			tmp = "media/portal";
 #else
-			tmp = "../../media/portal";
+			tmp = "../media/portal";
 #endif
 			tmp += g;
 			tmp += ".bmp";
@@ -301,7 +301,7 @@ void android_main(struct android_app* app)
 		ps->setScale(core::vector3df(2,2,2));
 		ps->setMaterialFlag(video::EMF_LIGHTING, false);
 		ps->setMaterialFlag(video::EMF_ZWRITE_ENABLE, false);
-		ps->setMaterialTexture(0, driver->getTexture("../../media/fire.bmp"));
+		ps->setMaterialTexture(0, driver->getTexture("../media/fire.bmp"));
 		ps->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
 	}
 
@@ -326,7 +326,7 @@ void android_main(struct android_app* app)
 #ifdef _IRR_ANDROID_PLATFORM_
 	mesh = smgr->getMesh("media/dwarf.x");
 #else
-	mesh = smgr->getMesh("../../media/metaioman.md2");
+	mesh = smgr->getMesh("../media/metaioman.md2");
 #endif
 	scene::IAnimatedMeshSceneNode* anode = 0;
 

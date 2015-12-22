@@ -1,15 +1,14 @@
 // Wrapper of Scene3D.h for Android JNI
 #include "irrlicht.h"
-#include "../source/irrlicht/os.h"
-#include "../source/irrlicht/CLogger.h"
+#include "../source/os.h"
+#include "../source/CLogger.h"
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
-#include "../../../Scene3D/src/Android/CAndroidAssetFileArchive.h"
+#include "CAndroidAssetFileArchive.h"
+#include "../Scene3D.h"
 
-#include "../../../Scene3D/src/Scene3D.h"
-
-using namespace irr;
+using namespace ue;
 using namespace core;
 
 // extern video::IVideoDriver* driver;
@@ -19,7 +18,7 @@ using namespace core;
 extern io::IFileSystem* fs;
 // extern int screenWidth, sceenHeight;
 
-namespace irr
+namespace ue
 {
 namespace io
 {

@@ -17,7 +17,7 @@ struct AAssetManager;
 struct AAsset;
 struct ANativeActivity;
 
-namespace irr
+namespace ue
 {
 namespace io
 {

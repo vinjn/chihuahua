@@ -168,18 +168,18 @@ int main()
 
 	scene::ISceneNode* cube = smgr->addCubeSceneNode(20);
 
-	cube->setMaterialTexture(0, driver->getTexture("../../media/wall.bmp"));
-	cube->setMaterialTexture(1, driver->getTexture("../../media/water.jpg"));
+	cube->setMaterialTexture(0, driver->getTexture("../media/wall.bmp"));
+	cube->setMaterialTexture(1, driver->getTexture("../media/water.jpg"));
 	cube->setMaterialFlag( video::EMF_LIGHTING, false );
 	cube->setMaterialType( video::EMT_REFLECTION_2_LAYER );
 
 	smgr->addSkyBoxSceneNode(
-	driver->getTexture("../../media/irrlicht2_up.jpg"),
-	driver->getTexture("../../media/irrlicht2_dn.jpg"),
-	driver->getTexture("../../media/irrlicht2_lf.jpg"),
-	driver->getTexture("../../media/irrlicht2_rt.jpg"),
-	driver->getTexture("../../media/irrlicht2_ft.jpg"),
-	driver->getTexture("../../media/irrlicht2_bk.jpg"));
+	driver->getTexture("../media/irrlicht2_up.jpg"),
+	driver->getTexture("../media/irrlicht2_dn.jpg"),
+	driver->getTexture("../media/irrlicht2_lf.jpg"),
+	driver->getTexture("../media/irrlicht2_rt.jpg"),
+	driver->getTexture("../media/irrlicht2_ft.jpg"),
+	driver->getTexture("../media/irrlicht2_bk.jpg"));
 
 	// This shows that we can render to multiple windows within one application
 	//device->getGUIEnvironment()->addStaticText(core::stringw("Second screen render").c_str(),core::recti(0,0,200,200));

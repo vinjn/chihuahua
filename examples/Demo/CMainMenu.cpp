@@ -29,7 +29,7 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 	if (MenuDevice->getFileSystem()->existFile("irrlicht.dat"))
 		MenuDevice->getFileSystem()->addFileArchive("irrlicht.dat");
 	else
-		MenuDevice->getFileSystem()->addFileArchive("../../media/irrlicht.dat");
+		MenuDevice->getFileSystem()->addFileArchive("../media/irrlicht.dat");
 
 	video::IVideoDriver* driver = MenuDevice->getVideoDriver();
 	scene::ISceneManager* smgr = MenuDevice->getSceneManager();
@@ -45,7 +45,7 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 	newskin->drop();
 
 	// load font
-	gui::IGUIFont* font = guienv->getFont("../../media/fonthaettenschweiler.bmp");
+	gui::IGUIFont* font = guienv->getFont("../media/fonthaettenschweiler.bmp");
 	if (font)
 		guienv->getSkin()->setFont(font);
 
@@ -110,12 +110,12 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 
 	// add md2 model
 
-	scene::IAnimatedMesh* mesh = smgr->getMesh("../../media/faerie.md2");
+	scene::IAnimatedMesh* mesh = smgr->getMesh("../media/faerie.md2");
 	scene::IAnimatedMeshSceneNode* modelNode = smgr->addAnimatedMeshSceneNode(mesh);
 	if (modelNode)
 	{
 		modelNode->setPosition( core::vector3df(0.f, 0.f, -5.f) );
-		modelNode->setMaterialTexture(0, driver->getTexture("../../media/faerie2.bmp"));
+		modelNode->setMaterialTexture(0, driver->getTexture("../media/faerie2.bmp"));
 		modelNode->setMaterialFlag(video::EMF_LIGHTING, true);
 		modelNode->getMaterial(0).Shininess = 50.f;
 		modelNode->getMaterial(0).NormalizeNormals = true;
@@ -176,7 +176,7 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 				{
 					bill->setMaterialFlag(video::EMF_LIGHTING, false);
 					bill->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
-					bill->setMaterialTexture(0, driver->getTexture("../../media/particlered.bmp"));
+					bill->setMaterialTexture(0, driver->getTexture("../media/particlered.bmp"));
 				}
 				// add fly circle animator to the light
 				anim = smgr->createFlyCircleAnimator(core::vector3df(0.f,0.f,-5.f),20.f,
@@ -194,7 +194,7 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 				{
 					bill->setMaterialFlag(video::EMF_LIGHTING, false);
 					bill->setMaterialType(video::EMT_TRANSPARENT_ADD_COLOR);
-					bill->setMaterialTexture(0, driver->getTexture("../../media/portal1.bmp"));
+					bill->setMaterialTexture(0, driver->getTexture("../media/portal1.bmp"));
 				}
 				// add fly circle animator to the light
 				anim = smgr->createFlyCircleAnimator(core::vector3df(0.f,0.f,-5.f),20.f,
@@ -217,10 +217,10 @@ bool CMainMenu::run(bool& outFullscreen, bool& outMusic, bool& outShadows,
 	bool oldMipMapState = driver->getTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS);
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, false);
 
-	guienv->addImage(driver->getTexture("../../media/irrlichtlogo3.png"),
+	guienv->addImage(driver->getTexture("../media/irrlichtlogo3.png"),
 		core::position2d<s32>(5,5));
 
-	video::ITexture* irrlichtBack = driver->getTexture("../../media/demoback.jpg");
+	video::ITexture* irrlichtBack = driver->getTexture("../media/demoback.jpg");
 
 	driver->setTextureCreationFlag(video::ETCF_CREATE_MIP_MAPS, oldMipMapState);
 

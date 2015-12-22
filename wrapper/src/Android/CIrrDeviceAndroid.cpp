@@ -17,7 +17,7 @@
 #include "IGUIEnvironment.h"
 #include "CEGLManager.h"
 
-namespace irr
+namespace ue
 {
 	namespace video
 	{
@@ -29,7 +29,7 @@ namespace irr
 	}
 }
 
-namespace irr
+namespace ue
 {
 
 CIrrDeviceAndroid::CIrrDeviceAndroid(const SIrrlichtCreationParameters& param)

@@ -51,7 +51,7 @@ int main()
 	e.g. all black pixels transparent. Please note that
 	makeColorKeyTexture just creates an alpha channel based on the color.
 	*/
-	video::ITexture* images = driver->getTexture("../../media/2ddemo.png");
+	video::ITexture* images = driver->getTexture("../media/2ddemo.png");
 	driver->makeColorKeyTexture(images, core::position2d<s32>(0,0));
 
 	/*
@@ -63,7 +63,7 @@ int main()
 	*/
 	gui::IGUIFont* font = device->getGUIEnvironment()->getBuiltInFont();
 	gui::IGUIFont* font2 =
-		device->getGUIEnvironment()->getFont("../../media/fonthaettenschweiler.bmp");
+		device->getGUIEnvironment()->getFont("../media/fonthaettenschweiler.bmp");
 
 	core::rect<s32> imp1(349,15,385,78);
 	core::rect<s32> imp2(387,15,423,78);

@@ -90,14 +90,14 @@ int main()
 	IVideoDriver *driver = device->getVideoDriver();
 
 	//Load model
-	IAnimatedMesh *model = smgr->getMesh("../../media/sydney.md2");
+	IAnimatedMesh *model = smgr->getMesh("../media/sydney.md2");
 	if (!model)
 		return 1;
 	IAnimatedMeshSceneNode *model_node = smgr->addAnimatedMeshSceneNode(model);
 	//Load texture
 	if (model_node)
 	{
-		ITexture *texture = driver->getTexture("../../media/sydney.bmp");
+		ITexture *texture = driver->getTexture("../media/sydney.bmp");
 		model_node->setMaterialTexture(0,texture);
 		model_node->setAnimation(scene::EMAT_RUN);
 		//Disable lighting (we've got no light)
@@ -105,7 +105,7 @@ int main()
 	}
 
 	//Load map
-	device->getFileSystem()->addFileArchive("../../media/map-20kdm2.pk3");
+	device->getFileSystem()->addFileArchive("../media/map-20kdm2.pk3");
 	IAnimatedMesh *map = smgr->getMesh("20kdm2.bsp");
 	if (map)
 	{
