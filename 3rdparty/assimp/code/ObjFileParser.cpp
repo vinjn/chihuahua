@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2015, assimp team
+Copyright (c) 2006-2016, assimp team
 
 All rights reserved.
 
@@ -61,12 +61,13 @@ const std::string ObjFileParser::DEFAULT_MATERIAL = AI_DEFAULT_MATERIAL_NAME;
 
 // -------------------------------------------------------------------
 //  Constructor with loaded data and directories.
-ObjFileParser::ObjFileParser(std::vector<char> &data,const std::string &modelName, IOSystem *io ) :
+ObjFileParser::ObjFileParser(std::vector<char> &data,const std::string &modelName, IOSystem *io, ProgressHandler* progress ) :
     m_DataIt(data.begin()),
     m_DataItEnd(data.end()),
     m_pModel(NULL),
     m_uiLine(0),
-    m_pIO( io )
+    m_pIO( io ),
+    m_progress(progress)
 {
     std::fill_n(m_buffer,Buffersize,0);
 
@@ -106,8 +107,28 @@ void ObjFileParser::parseFile()
     if (m_DataIt == m_DataItEnd)
         return;
 
+    // only update every 100KB or it'll be too slow
+    const unsigned int updateProgressEveryBytes = 100 * 1024;
+    unsigned int progressCounter = 0;
+    const unsigned int bytesToProcess = std::distance(m_DataIt, m_DataItEnd);
+    const unsigned int progressTotal = 3 * bytesToProcess;
+    const unsigned int progressOffset = bytesToProcess;
+    unsigned int processed = 0;
+
+    DataArrayIt lastDataIt = m_DataIt;
+
     while (m_DataIt != m_DataItEnd)
     {
+        // Handle progress reporting
+        processed += std::distance(lastDataIt, m_DataIt);
+        lastDataIt = m_DataIt;
+        if (processed > (progressCounter * updateProgressEveryBytes))
+        {
+            progressCounter++;
+            m_progress->UpdateFileRead(progressOffset + processed*2, progressTotal);
+        }
+
+        // parse line
         switch (*m_DataIt)
         {
         case 'v': // Parse a vertex texture coordinate
@@ -457,15 +478,6 @@ void ObjFileParser::getFace(aiPrimitiveType type)
 //  Get values for a new material description
 void ObjFileParser::getMaterialDesc()
 {
-    // Each material request a new object.
-    // Sometimes the object is already created (see 'o' tag by example), but it is not initialized !
-    // So, we create a new object only if the current on is already initialized !
-    if (m_pModel->m_pCurrent != NULL &&
-        (   m_pModel->m_pCurrent->m_Meshes.size() > 1 ||
-            (m_pModel->m_pCurrent->m_Meshes.size() == 1 && m_pModel->m_Meshes[m_pModel->m_pCurrent->m_Meshes[0]]->m_Faces.size() != 0)  )
-        )
-        m_pModel->m_pCurrent = NULL;
-
     // Get next data for material data
     m_DataIt = getNextToken<DataArrayIt>(m_DataIt, m_DataItEnd);
     if (m_DataIt == m_DataItEnd) {
@@ -477,25 +489,41 @@ void ObjFileParser::getMaterialDesc()
         ++m_DataIt;
     }
 
+    // In some cases we should ignore this 'usemtl' command, this variable helps us to do so
+    bool skip = false;
+
     // Get name
     std::string strName(pStart, &(*m_DataIt));
-    if ( strName.empty())
-        return;
+    strName = trim_whitespaces(strName);
+    if (strName.empty())
+        skip = true;
 
-    // Search for material
-    std::map<std::string, ObjFile::Material*>::iterator it = m_pModel->m_MaterialMap.find( strName );
-    if ( it == m_pModel->m_MaterialMap.end() ) {
-        // Not found, use default material
-        m_pModel->m_pCurrentMaterial = m_pModel->m_pDefaultMaterial;
-        DefaultLogger::get()->error("OBJ: failed to locate material " + strName + ", skipping");
-    } else {
-        // Found, using detected material
-        m_pModel->m_pCurrentMaterial = (*it).second;
-        if ( needsNewMesh( strName ))
+    // If the current mesh has the same material, we simply ignore that 'usemtl' command
+    // There is no need to create another object or even mesh here
+    if (m_pModel->m_pCurrentMaterial && m_pModel->m_pCurrentMaterial->MaterialName == aiString(strName))
+        skip = true;
+
+    if (!skip)
+    {
+        // Search for material
+        std::map<std::string, ObjFile::Material*>::iterator it = m_pModel->m_MaterialMap.find(strName);
+        if (it == m_pModel->m_MaterialMap.end())
         {
-            createMesh( strName  );
+            // Not found, use default material
+            m_pModel->m_pCurrentMaterial = m_pModel->m_pDefaultMaterial;
+            DefaultLogger::get()->error("OBJ: failed to locate material " + strName + ", skipping");
+            strName = m_pModel->m_pDefaultMaterial->MaterialName.C_Str();
         }
-        m_pModel->m_pCurrentMesh->m_uiMaterialIndex = getMaterialIndex( strName );
+        else
+        {
+            // Found, using detected material
+            m_pModel->m_pCurrentMaterial = (*it).second;
+        }
+
+        if (needsNewMesh(strName))
+            createMesh(strName);
+
+        m_pModel->m_pCurrentMesh->m_uiMaterialIndex = getMaterialIndex(strName);
     }
 
     // Skip rest of line
@@ -555,9 +583,12 @@ void ObjFileParser::getMaterialLib()
         return;
     }
 
-    // Import material library data from file
+    // Import material library data from file.
+    // Some exporters (e.g. Silo) will happily write out empty
+    // material files if the model doesn't use any materials, so we
+    // allow that.
     std::vector<char> buffer;
-    BaseImporter::TextFileToBuffer( pFile, buffer );
+    BaseImporter::TextFileToBuffer( pFile, buffer, BaseImporter::ALLOW_EMPTY );
     m_pIO->Close( pFile );
 
     // Importing the material library
@@ -759,7 +790,7 @@ bool ObjFileParser::needsNewMesh( const std::string &rMaterialName )
     bool newMat = false;
     int matIdx = getMaterialIndex( rMaterialName );
     int curMatIdx = m_pModel->m_pCurrentMesh->m_uiMaterialIndex;
-    if ( curMatIdx != int(ObjFile::Mesh::NoMaterial) || curMatIdx != matIdx )
+    if ( curMatIdx != int(ObjFile::Mesh::NoMaterial) && curMatIdx != matIdx )
     {
         // New material -> only one material per mesh, so we need to create a new
         // material

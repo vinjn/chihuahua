@@ -38,9 +38,9 @@ solution "uEngine"
             targetdir ("x64")
 
     configuration "macosx"
-        sysincludedirs {
+        -- sysincludedirs {
 
-        }
+        -- }
         includedirs {
             "3rdparty/compat/osx",
         }
@@ -176,12 +176,12 @@ solution "uEngine"
     project "assimp"
         kind "StaticLib"
 
-        sysincludedirs {
-            "3rdparty/zlib",
-            "3rdparty/assimp/include",
-            "3rdparty/assimp/code/BoostWorkaround",
-            "3rdparty/assimp/contrib/rapidjson/include",
-        }
+        -- sysincludedirs {
+        --     "3rdparty/zlib",
+        --     "3rdparty/assimp/include",
+        --     "3rdparty/assimp/code/BoostWorkaround",
+        --     "3rdparty/assimp/contrib/rapidjson/include",
+        -- }
         
         includedirs {
             "3rdparty/zlib",
@@ -237,6 +237,7 @@ solution "uEngine"
             -- "ASSIMP_BUILD_NO_GLTF_IMPORTER",
             "ASSIMP_BUILD_NO_C4D_IMPORTER",
             "ASSIMP_BUILD_NO_STEP_EXPORTER",
+            "ASSIMP_BUILD_NO_SIB_IMPORTER",
 
             -- "ASSIMP_BUILD_NO_MAKELEFTHANDED_PROCESS",
             -- "ASSIMP_BUILD_NO_FLIPUVS_PROCESS",

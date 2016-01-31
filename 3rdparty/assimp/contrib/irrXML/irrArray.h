@@ -2,8 +2,8 @@
 // This file is part of the "Irrlicht Engine" and the "irrXML" project.
 // For conditions of distribution and use, see copyright notice in irrlicht.h and irrXML.h
 
-#ifndef _irr_ARRAY_H_INCLUDED__
-#define _irr_ARRAY_H_INCLUDED__
+#ifndef __IRR_ARRAY_H_INCLUDED__
+#define __IRR_ARRAY_H_INCLUDED__
 
 #include "irrTypes.h"
 #include "heapsort.h"
@@ -126,7 +126,7 @@ public:
 	//! \param index: Where position to insert the new element.
 	void insert(const T& element, u32 index=0) 
 	{
-		irr_DEBUG_BREAK_IF(index>used) // access violation
+		_IRR_DEBUG_BREAK_IF(index>used) // access violation
 
 		if (used + 1 > allocated)
 			reallocate(used * 2 +1);
@@ -214,7 +214,7 @@ public:
 	//! Direct access operator
 	T& operator [](u32 index)
 	{
-		irr_DEBUG_BREAK_IF(index>=used) // access violation
+		_IRR_DEBUG_BREAK_IF(index>=used) // access violation
 
 		return data[index];
 	}
@@ -224,7 +224,7 @@ public:
 	//! Direct access operator
 	const T& operator [](u32 index) const
 	{
-		irr_DEBUG_BREAK_IF(index>=used) // access violation
+		_IRR_DEBUG_BREAK_IF(index>=used) // access violation
 
 		return data[index];
 	}
@@ -232,7 +232,7 @@ public:
     //! Gets last frame
 	const T& getLast() const
 	{
-		irr_DEBUG_BREAK_IF(!used) // access violation
+		_IRR_DEBUG_BREAK_IF(!used) // access violation
 
 		return data[used-1];
 	}
@@ -240,7 +240,7 @@ public:
     //! Gets last frame
 	T& getLast()
 	{
-		irr_DEBUG_BREAK_IF(!used) // access violation
+		_IRR_DEBUG_BREAK_IF(!used) // access violation
 
 		return data[used-1];
 	}
@@ -394,7 +394,7 @@ public:
 	//! \param index: Index of element to be erased.
 	void erase(u32 index)
 	{
-		irr_DEBUG_BREAK_IF(index>=used || index<0) // access violation
+		_IRR_DEBUG_BREAK_IF(index>=used || index<0) // access violation
 
 		for (u32 i=index+1; i<used; ++i)
 			data[i-1] = data[i];
@@ -409,7 +409,7 @@ public:
 	//! \param count: Amount of elements to be erased.
 	void erase(u32 index, s32 count)
 	{
-		irr_DEBUG_BREAK_IF(index>=used || index<0 || count<1 || index+count>used) // access violation
+		_IRR_DEBUG_BREAK_IF(index>=used || index<0 || count<1 || index+count>used) // access violation
 
 		for (u32 i=index+count; i<used; ++i)
 			data[i-count] = data[i];

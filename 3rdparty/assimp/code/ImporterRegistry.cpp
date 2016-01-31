@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2015, assimp team
+Copyright (c) 2006-2016, assimp team
 
 All rights reserved.
 
@@ -100,6 +100,9 @@ corresponding preprocessor flag to selectively disable formats.
 #endif
 #ifndef ASSIMP_BUILD_NO_RAW_IMPORTER
 #   include "RawLoader.h"
+#endif
+#ifndef ASSIMP_BUILD_NO_SIB_IMPORTER
+#   include "SIBImporter.h"
 #endif
 #ifndef ASSIMP_BUILD_NO_OFF_IMPORTER
 #   include "OFFLoader.h"
@@ -238,6 +241,9 @@ void GetImporterInstanceList(std::vector< BaseImporter* >& out)
 #if (!defined ASSIMP_BUILD_NO_RAW_IMPORTER)
     out.push_back( new RAWImporter());
 #endif
+#if (!defined ASSIMP_BUILD_NO_SIB_IMPORTER)
+    out.push_back( new SIBImporter());
+#endif
 #if (!defined ASSIMP_BUILD_NO_OFF_IMPORTER)
     out.push_back( new OFFImporter());
 #endif
@@ -313,6 +319,14 @@ void GetImporterInstanceList(std::vector< BaseImporter* >& out)
 #if ( !defined ASSIMP_BUILD_NO_C4D_IMPORTER )
     out.push_back( new C4DImporter() );
 #endif
+}
+
+/** will delete all registered importers. */
+void DeleteImporterInstanceList(std::vector< BaseImporter* >& deleteList){
+	for(size_t i= 0; i<deleteList.size();++i){
+		delete deleteList[i];
+		deleteList[i]=NULL;
+	}//for
 }
 
 } // namespace Assimp

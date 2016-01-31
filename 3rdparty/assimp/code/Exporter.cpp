@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2015, assimp team
+Copyright (c) 2006-2016, assimp team
 
 All rights reserved.
 
@@ -139,9 +139,9 @@ Exporter::ExportFormatEntry gExporters[] =
 
 #ifndef ASSIMP_BUILD_NO_GLTF_EXPORTER
     Exporter::ExportFormatEntry( "gltf", "GL Transmission Format", "gltf", &ExportSceneGLTF,
-        aiProcess_JoinIdenticalVertices | aiProcess_SortByPType),
+        aiProcess_JoinIdenticalVertices /*| aiProcess_SortByPType*/),
     Exporter::ExportFormatEntry( "glb", "GL Transmission Format (binary)", "glb", &ExportSceneGLB,
-        aiProcess_JoinIdenticalVertices | aiProcess_SortByPType),
+        aiProcess_JoinIdenticalVertices /*| aiProcess_SortByPType*/),
 #endif
 
 #ifndef ASSIMP_BUILD_NO_ASSBIN_EXPORTER

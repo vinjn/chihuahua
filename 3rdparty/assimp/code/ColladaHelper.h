@@ -4,7 +4,7 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2015, assimp team
+Copyright (c) 2006-2016, assimp team
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -517,6 +517,7 @@ struct Effect
     float mTransparency;
     bool mHasTransparency;
     bool mRGBTransparency;
+    bool mInvertTransparency;
 
     // local params referring to each other by their SID
     typedef std::map<std::string, Collada::EffectParam> ParamLibrary;
@@ -536,10 +537,11 @@ struct Effect
         , mTransparent  ( 0, 0, 0, 1)
         , mShininess    (10.0f)
         , mRefractIndex (1.f)
-        , mReflectivity (1.f)
+        , mReflectivity (0.f)
         , mTransparency (1.f)
         , mHasTransparency (false)
         , mRGBTransparency(false)
+        , mInvertTransparency(false)
         , mDoubleSided  (false)
         , mWireframe    (false)
         , mFaceted      (false)

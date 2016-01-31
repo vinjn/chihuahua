@@ -1,6 +1,6 @@
 /*
- * Copyright 2011-2015 Branimir Karadzic. All rights reserved.
- * License: http://www.opensource.org/licenses/BSD-2-Clause
+ * Copyright 2011-2016 Branimir Karadzic. All rights reserved.
+ * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
 #ifndef BGFX_RENDERER_D3D9_H_HEADER_GUARD
@@ -325,10 +325,20 @@ namespace bgfx { namespace d3d9
 
 		void destroy()
 		{
-			DX_RELEASE(m_ptr, 0);
+			if (0 == (m_flags & BGFX_TEXTURE_INTERNAL_SHARED) )
+			{
+				DX_RELEASE(m_ptr, 0);
+			}
 			DX_RELEASE(m_surface, 0);
 			DX_RELEASE(m_staging, 0);
 			m_textureFormat = TextureFormat::Unknown;
+		}
+
+		void overrideInternal(uintptr_t _ptr)
+		{
+			destroy();
+			m_flags |= BGFX_TEXTURE_INTERNAL_SHARED;
+			m_ptr = (IDirect3DBaseTexture9*)_ptr;
 		}
 
 		void updateBegin(uint8_t _side, uint8_t _mip);
