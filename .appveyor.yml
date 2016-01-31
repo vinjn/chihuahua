@@ -11,7 +11,7 @@ environment:
   # - TOOLSET: vs2015
 
 configuration:
-  - Debug
+  # - Debug
   - Release
 
 install:
