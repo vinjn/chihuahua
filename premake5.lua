@@ -1,11 +1,10 @@
--- http://industriousone.com/scripting-reference
 -- https://github.com/premake/premake-core/wiki
 
 local action = _ACTION or ""
 
 -- require "XCode"
 -- require "premake-android/android"
--- require "premake-androidmk/androidmk"
+require "3rdparty/premake-androidmk/androidmk"
 
 print (premake.path);
 
@@ -37,6 +36,14 @@ solution "uEngine"
                 "x64",
             }
             targetdir ("x64")
+
+    configuration "macosx"
+        sysincludedirs {
+
+        }
+        includedirs {
+            "3rdparty/compat/osx",
+        }
 
     flags {
         "MultiProcessorCompile"
@@ -81,12 +88,25 @@ solution "uEngine"
         defines { "_GLFW_USE_OPENGL" }
 
         configuration "windows"
-            defines { "_GLFW_WIN32", "_GLFW_WGL" }
+            defines {
+                "_GLFW_WIN32",
+                "_GLFW_WGL",
+            }
             files {
                 "3rdparty/glfw/src/win32*.c",
                 "3rdparty/glfw/src/wgl_context.c",
                 "3rdparty/glfw/src/winmm_joystick.c",
             }
+
+        configuration "macosx"
+            defines {
+                "_GLFW_COCOA",
+                "_GLFW_NSGL",
+            }
+        files {
+            "3rdparty/glfw/src/*.m",
+        }
+
 
     project "glew"
         kind "StaticLib"
@@ -125,6 +145,10 @@ solution "uEngine"
             "3rdparty/Choreograph/src/**",
         }
 
+        configuration "macosx"
+            linkoptions  { "-std=c++11", "-stdlib=libc++" }
+            buildoptions { "-std=c++11", "-stdlib=libc++" }
+
     project "bgfx"
         kind "StaticLib"
 
@@ -152,6 +176,13 @@ solution "uEngine"
     project "assimp"
         kind "StaticLib"
 
+        sysincludedirs {
+            "3rdparty/zlib",
+            "3rdparty/assimp/include",
+            "3rdparty/assimp/code/BoostWorkaround",
+            "3rdparty/assimp/contrib/rapidjson/include",
+        }
+        
         includedirs {
             "3rdparty/zlib",
             "3rdparty/assimp/include",
@@ -303,7 +334,7 @@ solution "uEngine"
             "UENGINE_EXPORTS",
             "IRRLICHT_EXPORTS",
             "GLEW_STATIC",
-            "SWIG",
+            -- "SWIG",
         }
 
         files {
@@ -440,23 +471,27 @@ solution "uEngine"
         }
 
         links {
-            "Psapi.lib",
+            "Psapi",
         }
 
         configuration "Debug"
             links {
-                "assimp-d.lib",
-                "glew-d.lib",
-                "bgfx-d.lib",
-                "zlib-d.lib",
+                "assimp-d",
+                "glew-d",
+                "bgfx-d",
+                "zlib-d",
             }
         configuration "Release"
             links {
-                "assimp.lib",
-                "glew.lib",
-                "bgfx.lib",
-                "zlib.lib",
+                "assimp",
+                "glew",
+                "bgfx",
+                "zlib",
             }
+
+        configuration "macosx"
+            linkoptions  { "-std=c++11", "-stdlib=libc++" }
+            buildoptions { "-std=c++11", "-stdlib=libc++" }
 
     function create_app_project( app_path )
         leaf_name = string.sub(app_path, string.len("examples/") + 1);
@@ -478,7 +513,7 @@ solution "uEngine"
             }
 
             links {
-                "opengl32.lib",
+                "opengl32",
             }
 
             defines {
@@ -488,20 +523,23 @@ solution "uEngine"
 
             configuration "Debug"
                 links {
-                    "uEngine-d.lib",
-                    "imgui-d.lib",
-                    "glfw-d.lib",
-                    "glew-d.lib",
-                    "choreograph-d.lib",
+                    "uEngine-d",
+                    "imgui-d",
+                    "glfw-d",
+                    "glew-d",
+                    "choreograph-d",
                 }
             configuration "Release"
                 links {
-                    "uEngine.lib",
-                    "imgui.lib",
-                    "glfw.lib",
-                    "glew.lib",
-                    "choreograph.lib",
+                    "uEngine",
+                    "imgui",
+                    "glfw",
+                    "glew",
+                    "choreograph",
                 }
+            configuration "macosx"
+                linkoptions  { "-std=c++11", "-stdlib=libc++" }
+                buildoptions { "-std=c++11", "-stdlib=libc++" }
     end
 
     local apps = os.matchdirs("examples/*")

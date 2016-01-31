@@ -23,7 +23,7 @@
 #include <OpenGL/OpenGL.h>
 #include <map>
 
-namespace irr
+namespace ue
 {
 	class CIrrDeviceMacOSX : public CIrrDeviceStub, video::IImagePresenter
 	{

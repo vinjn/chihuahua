@@ -18,7 +18,7 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA
 #ifndef __HMD_STEREO_RENDER__
 #define __HMD_STEREO_RENDER__
 
-#include <irrlicht.h>
+#include "irrlicht.h"
 
 struct HMDDescriptor
 {
@@ -32,7 +32,7 @@ struct HMDDescriptor
     float distortionK[4];
 };
 
-IRRLICHT_API class HMDStereoRender
+class HMDStereoRender
 {
 public:
     IRRLICHT_API HMDStereoRender(ue::scene::ISceneManager* smgr, ue::video::IVideoDriver* driver, ue::ITimer* timer, HMDDescriptor HMD, ue::f32 worldScale = 1.0);
@@ -77,7 +77,7 @@ private:
         ue::f32 hmdWarpParam[4];
         virtual void OnSetConstants(ue::video::IMaterialRendererServices* services, ue::s32 userData)
         {
-            ue::video::IVideoDriver* driver = services->getVideoDriver();
+//            ue::video::IVideoDriver* driver = services->getVideoDriver();
             services->setPixelShaderConstant("scale", scale, 2);
             services->setPixelShaderConstant("scaleIn", scaleIn, 2);
             services->setPixelShaderConstant("lensCenter", lensCenter, 2);

@@ -402,7 +402,7 @@ E_ANIMATED_MESH_TYPE CAnimatedMeshMD2::getMeshType() const
 bool CAnimatedMeshMD2::getFrameLoop(u32 l,
 				s32& outBegin, s32& outEnd, s32& outFPS) const
 {
-	if (l < 0 || l >= EMAT_COUNT)
+	if (l >= EMAT_COUNT)
 		return false;
 
 	outBegin = (s32)AnimationData[l].begin << MD2_FRAME_SHIFT;

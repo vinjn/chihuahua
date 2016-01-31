@@ -1,7 +1,7 @@
 #ifndef FullScreenSceneNode_H
 #define FullScreenSceneNode_H
 
-#include <irrlicht.h>
+#include "irrlicht.h"
 
 namespace ue {
 
