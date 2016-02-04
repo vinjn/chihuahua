@@ -1,6 +1,6 @@
 /*
- * Copyright 2011-2015 Branimir Karadzic. All rights reserved.
- * License: http://www.opensource.org/licenses/BSD-2-Clause
+ * Copyright 2011-2016 Branimir Karadzic. All rights reserved.
+ * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
 #include "bgfx_p.h"
@@ -459,6 +459,7 @@ namespace bgfx { namespace d3d12
 		RendererContextD3D12()
 			: m_wireframe(false)
 			, m_maxAnisotropy(1)
+			, m_depthClamp(false)
 			, m_fsChanges(0)
 			, m_vsChanges(0)
 			, m_backBufferColorIdx(0)
@@ -1041,6 +1042,8 @@ namespace bgfx { namespace d3d12
 				m_gpuTimer.init();
 				m_occlusionQuery.init();
 			}
+
+			g_internalData.context = m_device;
 			return true;
 
 		error:
@@ -1358,7 +1361,7 @@ namespace bgfx { namespace d3d12
 			tc.m_sides   = 0;
 			tc.m_depth   = 0;
 			tc.m_numMips = 1;
-			tc.m_format  = texture.m_requestedFormat;
+			tc.m_format  = TextureFormat::Enum(texture.m_requestedFormat);
 			tc.m_cubeMap = false;
 			tc.m_mem     = NULL;
 			bx::write(&writer, tc);
@@ -1367,6 +1370,17 @@ namespace bgfx { namespace d3d12
 			texture.create(mem, tc.m_flags, 0);
 
 			release(mem);
+		}
+
+		void overrideInternal(TextureHandle _handle, uintptr_t _ptr) BX_OVERRIDE
+		{
+			BX_UNUSED(_handle, _ptr);
+		}
+
+		uintptr_t getInternal(TextureHandle _handle) BX_OVERRIDE
+		{
+			BX_UNUSED(_handle);
+			return 0;
 		}
 
 		void destroyTexture(TextureHandle _handle) BX_OVERRIDE
@@ -1729,7 +1743,15 @@ data.NumQualityLevels = 0;
 				m_maxAnisotropy = 1;
 			}
 
-			uint32_t flags = _resolution.m_flags & ~(BGFX_RESET_HMD_RECENTER | BGFX_RESET_MAXANISOTROPY);
+			bool depthClamp = !!(_resolution.m_flags & BGFX_RESET_DEPTH_CLAMP);
+
+			if (m_depthClamp != depthClamp)
+			{
+				m_depthClamp = depthClamp;
+				m_pipelineStateCache.invalidate();
+			}
+
+			uint32_t flags = _resolution.m_flags & ~(BGFX_RESET_HMD_RECENTER | BGFX_RESET_MAXANISOTROPY | BGFX_RESET_DEPTH_CLAMP);
 
 			if (m_resolution.m_width  != _resolution.m_width
 			||  m_resolution.m_height != _resolution.m_height
@@ -1851,8 +1873,8 @@ data.NumQualityLevels = 0;
 				if (isValid(frameBuffer.m_depth) )
 				{
 					TextureD3D12& texture = m_textures[frameBuffer.m_depth.idx];
-					const bool bufferOnly = 0 != (texture.m_flags&BGFX_TEXTURE_RT_BUFFER_ONLY);
-					if (!bufferOnly)
+					const bool writeOnly  = 0 != (texture.m_flags&BGFX_TEXTURE_RT_WRITE_ONLY);
+					if (!writeOnly)
 					{
 						texture.setState(m_commandList, D3D12_RESOURCE_STATE_DEPTH_READ);
 					}
@@ -2007,7 +2029,7 @@ data.NumQualityLevels = 0;
 			desc.DepthBias = 0;
 			desc.DepthBiasClamp = 0.0f;
 			desc.SlopeScaledDepthBias = 0.0f;
-			desc.DepthClipEnable = false;
+			desc.DepthClipEnable = !m_depthClamp;
 			desc.MultisampleEnable = !!(_state&BGFX_STATE_MSAA);
 			desc.AntialiasedLineEnable = false;
 			desc.ForcedSampleCount = 0;
@@ -2636,6 +2658,7 @@ data.NumQualityLevels = 0;
 
 		DXGI_SWAP_CHAIN_DESC m_scd;
 		uint32_t m_maxAnisotropy;
+		bool m_depthClamp;
 
 		BufferD3D12 m_indexBuffers[BGFX_CONFIG_MAX_INDEX_BUFFERS];
 		VertexBufferD3D12 m_vertexBuffers[BGFX_CONFIG_MAX_VERTEX_BUFFERS];
@@ -3791,7 +3814,7 @@ data.NumQualityLevels = 0;
 				blockHeight = blockInfo.blockHeight;
 			}
 
-			const bool bufferOnly   = 0 != (m_flags&BGFX_TEXTURE_RT_BUFFER_ONLY);
+			const bool writeOnly    = 0 != (m_flags&BGFX_TEXTURE_RT_WRITE_ONLY);
 			const bool computeWrite = 0 != (m_flags&BGFX_TEXTURE_COMPUTE_WRITE);
 			const bool renderTarget = 0 != (m_flags&BGFX_TEXTURE_RT_MASK);
 
@@ -3803,7 +3826,7 @@ data.NumQualityLevels = 0;
 				, textureHeight
 				, imageContainer.m_cubeMap ? "x6" : ""
 				, renderTarget ? 'x' : ' '
-				, bufferOnly   ? 'x' : ' '
+				, writeOnly    ? 'x' : ' '
 				, computeWrite ? 'x' : ' '
 				, swizzle ? " (swizzle BGRA8 -> RGBA8)" : ""
 				);
@@ -3959,7 +3982,7 @@ data.NumQualityLevels = 0;
 				resourceDesc.Flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
 			}
 
-			if (bufferOnly)
+			if (writeOnly)
 			{
 				resourceDesc.Flags |= D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE;
 				state              &= ~D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;
@@ -4530,7 +4553,7 @@ data.NumQualityLevels = 0;
 		ID3D12PipelineState* currentPso = NULL;
 		SortKey key;
 		uint16_t view = UINT16_MAX;
-		FrameBufferHandle fbh = BGFX_INVALID_HANDLE;
+		FrameBufferHandle fbh = { BGFX_CONFIG_MAX_FRAME_BUFFERS };
 
 		BlitKey blitKey;
 		blitKey.decode(_render->m_blitKeys[0]);

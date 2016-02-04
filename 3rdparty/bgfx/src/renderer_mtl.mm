@@ -1,6 +1,6 @@
 /*
  * Copyright 2011-2015 Attila Kocsis. All rights reserved.
- * License: http://www.opensource.org/licenses/BSD-2-Clause
+ * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
 #include "bgfx_p.h"
@@ -18,6 +18,7 @@
 #import <Foundation/Foundation.h>
 
 #define UNIFORM_BUFFER_SIZE (1024*1024)
+#define UNIFORM_BUFFER_COUNT (3)
 
 /*
 Known issues / TODOs:
@@ -328,6 +329,7 @@ namespace bgfx { namespace mtl
 			: m_metalLayer(NULL)
 			, m_backBufferPixelFormatHash(0)
 			, m_maxAnisotropy(1)
+			, m_uniformBufferIndex(0)
 			, m_numWindows(1)
 			, m_rtMsaa(false)
 			, m_drawable(NULL)
@@ -398,7 +400,10 @@ namespace bgfx { namespace mtl
 			m_textureDescriptor = newTextureDescriptor();
 			m_samplerDescriptor = newSamplerDescriptor();
 
-			m_uniformBuffer = m_device.newBufferWithLength(UNIFORM_BUFFER_SIZE, 0);
+			for (uint8_t i=0; i < UNIFORM_BUFFER_COUNT; ++i)
+			{
+				m_uniformBuffers[i] = m_device.newBufferWithLength(UNIFORM_BUFFER_SIZE, 0);
+			}
 			m_uniformBufferVertexOffset = 0;
 			m_uniformBufferFragmentOffset = 0;
 
@@ -490,6 +495,7 @@ namespace bgfx { namespace mtl
 
 			m_occlusionQuery.preReset();
 
+			g_internalData.context = m_device;
 			return true;
 		}
 
@@ -521,7 +527,10 @@ namespace bgfx { namespace mtl
 				MTL_RELEASE(m_backBufferStencil);
 			}
 
-			MTL_RELEASE(m_uniformBuffer);
+			for (uint8_t i=0; i < UNIFORM_BUFFER_COUNT; ++i)
+			{
+				MTL_RELEASE(m_uniformBuffers[i]);
+			}
 			MTL_RELEASE(m_commandQueue);
 			MTL_RELEASE(m_device);
 		}
@@ -658,7 +667,7 @@ namespace bgfx { namespace mtl
 			tc.m_sides   = 0;
 			tc.m_depth   = 0;
 			tc.m_numMips = 1;
-			tc.m_format  = texture.m_requestedFormat;
+			tc.m_format  = TextureFormat::Enum(texture.m_requestedFormat);
 			tc.m_cubeMap = false;
 			tc.m_mem     = NULL;
 			bx::write(&writer, tc);
@@ -667,6 +676,17 @@ namespace bgfx { namespace mtl
 			texture.create(mem, tc.m_flags, 0);
 
 			release(mem);
+		}
+
+		void overrideInternal(TextureHandle _handle, uintptr_t _ptr) BX_OVERRIDE
+		{
+			BX_UNUSED(_handle, _ptr);
+		}
+
+		uintptr_t getInternal(TextureHandle _handle) BX_OVERRIDE
+		{
+			BX_UNUSED(_handle);
+			return 0;
 		}
 
 		void destroyTexture(TextureHandle _handle) BX_OVERRIDE
@@ -1223,9 +1243,11 @@ namespace bgfx { namespace mtl
 
 		OcclusionQueryMTL m_occlusionQuery;
 
-		Buffer   m_uniformBuffer; //todo: use a pool of this
+		Buffer   m_uniformBuffer;
+		Buffer   m_uniformBuffers[UNIFORM_BUFFER_COUNT];
 		uint32_t m_uniformBufferVertexOffset;
 		uint32_t m_uniformBufferFragmentOffset;
+		uint8_t  m_uniformBufferIndex;
 
 		uint16_t          m_numWindows;
 		FrameBufferHandle m_windows[BGFX_CONFIG_MAX_FRAME_BUFFERS];
@@ -1877,7 +1899,7 @@ namespace bgfx { namespace mtl
 					 , 0 != (_flags&BGFX_TEXTURE_RT_MASK) ? " (render target)" : ""
 					 );
 
-			const bool bufferOnly   = 0 != (_flags&BGFX_TEXTURE_RT_BUFFER_ONLY);
+			const bool writeOnly   = 0 != (_flags&BGFX_TEXTURE_RT_WRITE_ONLY);
 //			const bool computeWrite = 0 != (_flags&BGFX_TEXTURE_COMPUTE_WRITE);
 //			const bool renderTarget = 0 != (_flags&BGFX_TEXTURE_RT_MASK);
 			const bool srgb			= 0 != (_flags&BGFX_TEXTURE_SRGB) || imageContainer.m_srgb;
@@ -1909,11 +1931,11 @@ namespace bgfx { namespace mtl
 			desc.resourceOptions  = MTLResourceStorageModePrivate;
 			desc.cpuCacheMode     = MTLCPUCacheModeDefaultCache;
 
-			desc.storageMode = (MTLStorageMode)(bufferOnly
+			desc.storageMode = (MTLStorageMode)(writeOnly
 				? 2 /*MTLStorageModePrivate*/
 				: 1 /*MTLStorageModeManaged*/
 				);
-			desc.usage       = bufferOnly
+			desc.usage       = writeOnly
 				? MTLTextureUsageShaderWrite
 				: MTLTextureUsageShaderRead
 				;
@@ -2030,7 +2052,13 @@ namespace bgfx { namespace mtl
 		if (convert)
 		{
 			temp = (uint8_t*)BX_ALLOC(g_allocator, rectpitch*_rect.m_height);
-			imageDecodeToBgra8(temp, data, _rect.m_width, _rect.m_height, srcpitch, m_requestedFormat);
+			imageDecodeToBgra8(temp
+				, data
+				, _rect.m_width
+				, _rect.m_height
+				, srcpitch
+				, TextureFormat::Enum(m_requestedFormat)
+				);
 			data = temp;
 		}
 
@@ -2170,6 +2198,8 @@ namespace bgfx { namespace mtl
 		m_drawable = m_metalLayer.nextDrawable;
 //		retain(m_drawable); // keep alive to be useable at 'flip'
 
+		m_uniformBuffer = m_uniformBuffers[m_uniformBufferIndex];
+		m_uniformBufferIndex = (m_uniformBufferIndex + 1) % UNIFORM_BUFFER_COUNT;
 		m_uniformBufferVertexOffset = 0;
 		m_uniformBufferFragmentOffset = 0;
 
@@ -2224,7 +2254,7 @@ namespace bgfx { namespace mtl
 		uint16_t programIdx = invalidHandle;
 		SortKey key;
 		uint16_t view = UINT16_MAX;
-		FrameBufferHandle fbh = BGFX_INVALID_HANDLE;
+		FrameBufferHandle fbh = { BGFX_CONFIG_MAX_FRAME_BUFFERS };
 
 		//ASK: why should we use this? It changes topology, so possible renders a big mess, doesn't it?
 		//const uint64_t primType = _render->m_debug&BGFX_DEBUG_WIREFRAME ? BGFX_STATE_PT_LINES : 0;

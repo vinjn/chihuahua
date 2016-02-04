@@ -545,6 +545,28 @@ public:
             flags_ |= kIntFlag;
     }
 
+#if defined(__APPLE__)
+    //! Constructor for unsigned long value.
+    explicit GenericValue(unsigned long u64) RAPIDJSON_NOEXCEPT : data_(), flags_(kNumberUint64Flag) {
+        data_.n.u64 = u64;
+        if (!(u64 & RAPIDJSON_UINT64_C2(0x80000000, 0x00000000)))
+            flags_ |= kInt64Flag;
+        if (!(u64 & RAPIDJSON_UINT64_C2(0xFFFFFFFF, 0x00000000)))
+            flags_ |= kUintFlag;
+        if (!(u64 & RAPIDJSON_UINT64_C2(0xFFFFFFFF, 0x80000000)))
+            flags_ |= kIntFlag;
+    }
+
+#if !defined(__x86_64__)
+    //! Constructor for size_t value.
+    explicit GenericValue( size_t u ) RAPIDJSON_NOEXCEPT : data_(), flags_( kNumberUintFlag ) {
+        data_.n.u64 = u;
+        if ( !( u&0x80000000 ) )
+            flags_ |= kIntFlag|kInt64Flag;
+    }
+#endif
+#endif
+
     //! Constructor for double value.
     explicit GenericValue(double d) RAPIDJSON_NOEXCEPT : data_(), flags_(kNumberDoubleFlag) { data_.n.d = d; }
 

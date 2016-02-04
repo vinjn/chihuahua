@@ -2,11 +2,12 @@
 #define IRRASSIMPIMPORT_H
 
 
-#include <irrlicht.h>
+#include "irrlicht.h"
 
-#include <assimp/scene.h>          // Output data structure
-#include <assimp/postprocess.h>    // Post processing flags
-#include <assimp/Importer.hpp>
+#define SWIG // work around stupid bug
+#include "assimp/scene.h"          // Output data structure
+#include "assimp/postprocess.h"    // Post processing flags
+#include "assimp/Importer.hpp"
 
 class SkinnedVertex
 {

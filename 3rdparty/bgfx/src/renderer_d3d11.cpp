@@ -1,6 +1,6 @@
 /*
- * Copyright 2011-2015 Branimir Karadzic. All rights reserved.
- * License: http://www.opensource.org/licenses/BSD-2-Clause
+ * Copyright 2011-2016 Branimir Karadzic. All rights reserved.
+ * License: https://github.com/bkaradzic/bgfx#license-bsd-2-clause
  */
 
 #include "bgfx_p.h"
@@ -487,6 +487,8 @@ namespace bgfx { namespace d3d11
 		return false;
 	};
 
+	// Reference:
+	// https://github.com/GPUOpen-LibrariesAndSDKs/AGS_SDK
 	enum AGS_RETURN_CODE
 	{
 		AGS_SUCCESS,
@@ -586,6 +588,7 @@ namespace bgfx { namespace d3d11
 			, m_captureResolve(NULL)
 			, m_wireframe(false)
 			, m_maxAnisotropy(1)
+			, m_depthClamp(false)
 			, m_currentProgram(NULL)
 			, m_vsChanges(0)
 			, m_fsChanges(0)
@@ -1464,6 +1467,8 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 			}
 
 			BGFX_GPU_PROFILER_BIND(m_device, m_deviceCtx);
+
+			g_internalData.context = m_device;
 			return true;
 
 		error:
@@ -1741,7 +1746,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 			tc.m_sides   = 0;
 			tc.m_depth   = 0;
 			tc.m_numMips = 1;
-			tc.m_format  = texture.m_requestedFormat;
+			tc.m_format  = TextureFormat::Enum(texture.m_requestedFormat);
 			tc.m_cubeMap = false;
 			tc.m_mem     = NULL;
 			bx::write(&writer, tc);
@@ -1750,6 +1755,22 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 			texture.create(mem, tc.m_flags, 0);
 
 			release(mem);
+		}
+
+		void overrideInternal(TextureHandle _handle, uintptr_t _ptr) BX_OVERRIDE
+		{
+			// Resource ref. counts might be messed up outside of bgfx.
+			// Disabling ref. count check once texture is overridden.
+			setGraphicsDebuggerPresent(true);
+			m_textures[_handle.idx].overrideInternal(_ptr);
+		}
+
+		uintptr_t getInternal(TextureHandle _handle) BX_OVERRIDE
+		{
+			// Resource ref. counts might be messed up outside of bgfx.
+			// Disabling ref. count check once texture is overridden.
+			setGraphicsDebuggerPresent(true);
+			return uintptr_t(m_textures[_handle.idx].m_ptr);
 		}
 
 		void destroyTexture(TextureHandle _handle) BX_OVERRIDE
@@ -1974,7 +1995,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 			{
 				ID3D11DeviceContext* deviceCtx = m_deviceCtx;
 
-				m_indexBuffers [_blitter.m_ib->handle.idx].update(0, _numIndices*2, _blitter.m_ib->data);
+				m_indexBuffers [_blitter.m_ib->handle.idx].update(0, _numIndices*2, _blitter.m_ib->data, true);
 				m_vertexBuffers[_blitter.m_vb->handle.idx].update(0, numVertices*_blitter.m_decl.m_stride, _blitter.m_vb->data, true);
 
 				deviceCtx->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -2166,19 +2187,33 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		{
 			bool recenter   = !!(_resolution.m_flags & BGFX_RESET_HMD_RECENTER);
 
+			uint32_t maxAnisotropy = 1;
 			if (!!(_resolution.m_flags & BGFX_RESET_MAXANISOTROPY) )
 			{
-				m_maxAnisotropy = (m_featureLevel == D3D_FEATURE_LEVEL_9_1)
+				maxAnisotropy = (m_featureLevel == D3D_FEATURE_LEVEL_9_1)
 								? D3D_FL9_1_DEFAULT_MAX_ANISOTROPY
 								: D3D11_REQ_MAXANISOTROPY
 								;
 			}
-			else
+
+			if (m_maxAnisotropy != maxAnisotropy)
 			{
-				m_maxAnisotropy = 1;
+				m_maxAnisotropy = maxAnisotropy;
+				m_samplerStateCache.invalidate();
 			}
 
-			uint32_t flags = _resolution.m_flags & ~(BGFX_RESET_HMD_RECENTER | BGFX_RESET_MAXANISOTROPY);
+			bool depthClamp = true
+				&& !!(_resolution.m_flags & BGFX_RESET_DEPTH_CLAMP)
+				&& m_featureLevel > D3D_FEATURE_LEVEL_9_3 // disabling depth clamp is only supported on 10_0+
+				;
+
+			if (m_depthClamp != depthClamp)
+			{
+				m_depthClamp = depthClamp;
+				m_rasterizerStateCache.invalidate();
+			}
+
+			uint32_t flags = _resolution.m_flags & ~(BGFX_RESET_HMD_RECENTER | BGFX_RESET_MAXANISOTROPY | BGFX_RESET_DEPTH_CLAMP);
 
 			if (m_resolution.m_width  != _resolution.m_width
 			||  m_resolution.m_height != _resolution.m_height
@@ -2209,6 +2244,9 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 				}
 				else
 				{
+					m_deviceCtx->ClearState();
+					m_deviceCtx->Flush();
+
 					if (resize)
 					{
 						m_deviceCtx->OMSetRenderTargets(1, s_zero.m_rtv, NULL);
@@ -2584,7 +2622,8 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 
 		void setDepthStencilState(uint64_t _state, uint64_t _stencil = 0)
 		{
-			_state &= BGFX_D3D11_DEPTH_STENCIL_MASK;
+			uint32_t func = (_state&BGFX_STATE_DEPTH_TEST_MASK)>>BGFX_STATE_DEPTH_TEST_SHIFT;
+			_state &= 0 == func ? 0 : BGFX_D3D11_DEPTH_STENCIL_MASK;
 
 			uint32_t fstencil = unpackStencil(0, _stencil);
 			uint32_t ref = (fstencil&BGFX_STENCIL_FUNC_REF_MASK)>>BGFX_STENCIL_FUNC_REF_SHIFT;
@@ -2601,17 +2640,16 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 			{
 				D3D11_DEPTH_STENCIL_DESC desc;
 				memset(&desc, 0, sizeof(desc) );
-				uint32_t func = (_state&BGFX_STATE_DEPTH_TEST_MASK)>>BGFX_STATE_DEPTH_TEST_SHIFT;
-				desc.DepthEnable = 0 != func;
+				desc.DepthEnable    = 0 != func;
 				desc.DepthWriteMask = !!(BGFX_STATE_DEPTH_WRITE & _state) ? D3D11_DEPTH_WRITE_MASK_ALL : D3D11_DEPTH_WRITE_MASK_ZERO;
-				desc.DepthFunc = s_cmpFunc[func];
+				desc.DepthFunc      = s_cmpFunc[func];
 
-				uint32_t bstencil = unpackStencil(1, _stencil);
+				uint32_t bstencil     = unpackStencil(1, _stencil);
 				uint32_t frontAndBack = bstencil != BGFX_STENCIL_NONE && bstencil != fstencil;
 				bstencil = frontAndBack ? bstencil : fstencil;
 
-				desc.StencilEnable = 0 != _stencil;
-				desc.StencilReadMask = (fstencil&BGFX_STENCIL_FUNC_RMASK_MASK)>>BGFX_STENCIL_FUNC_RMASK_SHIFT;
+				desc.StencilEnable    = 0 != _stencil;
+				desc.StencilReadMask  = (fstencil&BGFX_STENCIL_FUNC_RMASK_MASK)>>BGFX_STENCIL_FUNC_RMASK_SHIFT;
 				desc.StencilWriteMask = 0xff;
 				desc.FrontFace.StencilFailOp      = s_stencilOp[(fstencil&BGFX_STENCIL_OP_FAIL_S_MASK)>>BGFX_STENCIL_OP_FAIL_S_SHIFT];
 				desc.FrontFace.StencilDepthFailOp = s_stencilOp[(fstencil&BGFX_STENCIL_OP_FAIL_Z_MASK)>>BGFX_STENCIL_OP_FAIL_Z_SHIFT];
@@ -2657,7 +2695,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 				desc.DepthBias = 0;
 				desc.DepthBiasClamp = 0.0f;
 				desc.SlopeScaledDepthBias = 0.0f;
-				desc.DepthClipEnable = m_featureLevel <= D3D_FEATURE_LEVEL_9_3;	// disabling depth clip is only supported on 10_0+
+				desc.DepthClipEnable = !m_depthClamp;
 				desc.ScissorEnable = _scissor;
 				desc.MultisampleEnable = !!(_state&BGFX_STATE_MSAA);
 				desc.AntialiasedLineEnable = false;
@@ -3063,6 +3101,13 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 				D3D11_MAPPED_SUBRESOURCE mapped;
 				DX_CHECK(m_deviceCtx->Map(m_captureTexture, 0, D3D11_MAP_READ, 0, &mapped) );
 
+				imageSwizzleBgra8(getBufferWidth()
+					, getBufferHeight()
+					, mapped.RowPitch
+					, mapped.pData
+					, mapped.pData
+					);
+
 				g_callback->captureFrame(mapped.pData, getBufferHeight()*mapped.RowPitch);
 
 				m_deviceCtx->Unmap(m_captureTexture, 0);
@@ -3340,6 +3385,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 
 		SwapChainDesc m_scd;
 		uint32_t m_maxAnisotropy;
+		bool m_depthClamp;
 
 		IndexBufferD3D11 m_indexBuffers[BGFX_CONFIG_MAX_INDEX_BUFFERS];
 		VertexBufferD3D11 m_vertexBuffers[BGFX_CONFIG_MAX_VERTEX_BUFFERS];
@@ -3603,8 +3649,6 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 
 #if 0
 		BX_UNUSED(_discard);
-		ID3D11Device* device = s_renderD3D11->m_device;
-
 		D3D11_BUFFER_DESC desc;
 		desc.ByteWidth = _size;
 		desc.Usage     = D3D11_USAGE_STAGING;
@@ -3618,16 +3662,18 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		srd.SysMemPitch = 0;
 		srd.SysMemSlicePitch = 0;
 
+		D3D11_BOX srcBox;
+		srcBox.left   = 0;
+		srcBox.top    = 0;
+		srcBox.front  = 0;
+		srcBox.right  = _size;
+		srcBox.bottom = 1;
+		srcBox.back   = 1;
+
+		ID3D11Device* device = s_renderD3D11->m_device;
+
 		ID3D11Buffer* ptr;
 		DX_CHECK(device->CreateBuffer(&desc, &srd, &ptr) );
-
-		D3D11_BOX box;
-		box.left   = 0;
-		box.top    = 0;
-		box.front  = 0;
-		box.right  = _size;
-		box.bottom = 1;
-		box.back   = 1;
 
 		deviceCtx->CopySubresourceRegion(m_ptr
 			, 0
@@ -3636,14 +3682,16 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 			, 0
 			, ptr
 			, 0
-			, &box
+			, &srcBox
 			);
 
 		DX_RELEASE(ptr, 0);
 #else
 		D3D11_MAPPED_SUBRESOURCE mapped;
-		BX_UNUSED(_discard);
-		D3D11_MAP type = D3D11_MAP_WRITE_DISCARD;
+		D3D11_MAP type = _discard
+			? D3D11_MAP_WRITE_DISCARD
+			: D3D11_MAP_WRITE_NO_OVERWRITE
+			;
 		DX_CHECK(deviceCtx->Map(m_ptr, 0, type, 0, &mapped) );
 		memcpy( (uint8_t*)mapped.pData + _offset, _data, _size);
 		deviceCtx->Unmap(m_ptr, 0);
@@ -3981,7 +4029,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 				}
 			}
 
-			const bool bufferOnly   = 0 != (m_flags&(BGFX_TEXTURE_RT_BUFFER_ONLY|BGFX_TEXTURE_READ_BACK) );
+			const bool writeOnly    = 0 != (m_flags&(BGFX_TEXTURE_RT_WRITE_ONLY|BGFX_TEXTURE_READ_BACK) );
 			const bool computeWrite = 0 != (m_flags&BGFX_TEXTURE_COMPUTE_WRITE);
 			const bool renderTarget = 0 != (m_flags&BGFX_TEXTURE_RT_MASK);
 			const bool srgb         = 0 != (m_flags&BGFX_TEXTURE_SRGB) || imageContainer.m_srgb;
@@ -4025,7 +4073,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 					desc.Format     = format;
 					desc.SampleDesc = msaa;
 					desc.Usage      = kk == 0 || blit ? D3D11_USAGE_DEFAULT : D3D11_USAGE_IMMUTABLE;
-					desc.BindFlags  = bufferOnly ? 0 : D3D11_BIND_SHADER_RESOURCE;
+					desc.BindFlags  = writeOnly ? 0 : D3D11_BIND_SHADER_RESOURCE;
 					desc.CPUAccessFlags = 0;
 
 					if (isDepth( (TextureFormat::Enum)m_textureFormat) )
@@ -4098,7 +4146,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 				break;
 			}
 
-			if (!bufferOnly)
+			if (!writeOnly)
 			{
 				DX_CHECK(s_renderD3D11->m_device->CreateShaderResourceView(m_ptr, &srvd, &m_srv) );
 			}
@@ -4129,7 +4177,19 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		s_renderD3D11->m_srvUavLru.invalidateWithParent(getHandle().idx);
 		DX_RELEASE(m_srv, 0);
 		DX_RELEASE(m_uav, 0);
-		DX_RELEASE(m_ptr, 0);
+		if (0 == (m_flags & BGFX_TEXTURE_INTERNAL_SHARED) )
+		{
+			DX_RELEASE(m_ptr, 0);
+		}
+	}
+
+	void TextureD3D11::overrideInternal(uintptr_t _ptr)
+	{
+		destroy();
+		m_flags |= BGFX_TEXTURE_INTERNAL_SHARED;
+		m_ptr = (ID3D11Resource*)_ptr;
+
+		s_renderD3D11->m_device->CreateShaderResourceView(m_ptr, NULL, &m_srv);
 	}
 
 	void TextureD3D11::update(uint8_t _side, uint8_t _mip, const Rect& _rect, uint16_t _z, uint16_t _depth, uint16_t _pitch, const Memory* _mem)
@@ -4157,7 +4217,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		if (convert)
 		{
 			temp = (uint8_t*)BX_ALLOC(g_allocator, rectpitch*_rect.m_height);
-			imageDecodeToBgra8(temp, data, _rect.m_width, _rect.m_height, srcpitch, m_requestedFormat);
+			imageDecodeToBgra8(temp, data, _rect.m_width, _rect.m_height, srcpitch, TextureFormat::Enum(m_requestedFormat) );
 			data = temp;
 		}
 
@@ -4650,13 +4710,13 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		if (0 < _render->m_iboffset)
 		{
 			TransientIndexBuffer* ib = _render->m_transientIb;
-			m_indexBuffers[ib->handle.idx].update(0, _render->m_iboffset, ib->data);
+			m_indexBuffers[ib->handle.idx].update(0, _render->m_iboffset, ib->data, true);
 		}
 
 		if (0 < _render->m_vboffset)
 		{
 			TransientVertexBuffer* vb = _render->m_transientVb;
-			m_vertexBuffers[vb->handle.idx].update(0, _render->m_vboffset, vb->data);
+			m_vertexBuffers[vb->handle.idx].update(0, _render->m_vboffset, vb->data, true);
 		}
 
 		_render->sort();
@@ -4679,7 +4739,7 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		uint16_t programIdx = invalidHandle;
 		SortKey key;
 		uint16_t view = UINT16_MAX;
-		FrameBufferHandle fbh = BGFX_INVALID_HANDLE;
+		FrameBufferHandle fbh = { BGFX_CONFIG_MAX_FRAME_BUFFERS };
 
 		BlitKey blitKey;
 		blitKey.decode(_render->m_blitKeys[0]);
@@ -4709,7 +4769,8 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		{
 			// reset the framebuffer to be the backbuffer; depending on the swap effect,
 			// if we don't do this we'll only see one frame of output and then nothing
-			setFrameBuffer(fbh);
+			FrameBufferHandle invalid = BGFX_INVALID_HANDLE;
+			setFrameBuffer(invalid);
 
 			bool viewRestart = false;
 			uint8_t eye = 0;
@@ -4869,12 +4930,18 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 						}
 						else
 						{
+							bool depthStencil = isDepth(TextureFormat::Enum(src.m_textureFormat) );
+							BX_CHECK(!depthStencil
+								||  (width == src.m_width && height == src.m_height)
+								, "When blitting depthstencil surface, source resolution must match destination."
+								);
+
 							D3D11_BOX box;
 							box.left   = blit.m_srcX;
 							box.top    = blit.m_srcY;
 							box.front  = 0;
 							box.right  = blit.m_srcX + width;
-							box.bottom = blit.m_srcY + height;;
+							box.bottom = blit.m_srcY + height;
 							box.back   = 1;
 
 							const uint32_t srcZ = TextureD3D11::TextureCube == src.m_type
@@ -4886,7 +4953,6 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 								: 0
 								;
 
-							bool depthStencil = isDepth(TextureFormat::Enum(src.m_textureFormat) );
 							deviceCtx->CopySubresourceRegion(dst.m_ptr
 								, dstZ*dst.m_numMips+blit.m_dstMip
 								, blit.m_dstX
@@ -5709,6 +5775,12 @@ BX_PRAGMA_DIAGNOSTIC_POP();
 		}
 	}
 } /* namespace d3d11 */ } // namespace bgfx
+
+#undef BGFX_GPU_PROFILER_BIND
+#undef BGFX_GPU_PROFILER_UNBIND
+#undef BGFX_GPU_PROFILER_BEGIN
+#undef BGFX_GPU_PROFILER_BEGIN_DYNAMIC
+#undef BGFX_GPU_PROFILER_END
 
 #else
 

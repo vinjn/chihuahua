@@ -2,7 +2,7 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2015, assimp team
+Copyright (c) 2006-2016, assimp team
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -37,6 +37,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ----------------------------------------------------------------------
 */
+
+#include "StringUtils.h"
 
 namespace glTF {
 
@@ -840,7 +842,7 @@ inline void AssetMetadata::Read(Document& doc)
 
     if (version != 1) {
         char msg[128];
-        sprintf(msg, "Unsupported glTF version: %d", version);
+		ai_snprintf(msg, 128, "Unsupported glTF version: %d", version);
         throw DeadlyImportError(msg);
     }
 }
@@ -923,7 +925,7 @@ inline void Asset::Load(const std::string& pFile, bool isBinary)
 
     if (doc.HasParseError()) {
         char buffer[32];
-        sprintf(buffer, "%d", static_cast<int>(doc.GetErrorOffset()));
+        ai_snprintf(buffer, 32, "%d", static_cast<int>(doc.GetErrorOffset()));
         throw DeadlyImportError(std::string("JSON parse error, offset ") + buffer + ": "
             + GetParseError_En(doc.GetParseError()));
     }
@@ -1027,9 +1029,9 @@ inline std::string Asset::FindUniqueID(const std::string& str, const char* suffi
         if (it == mUsedIds.end()) break;
 
         char buffer[256];
-        int offset = sprintf(buffer, "%s_", id.c_str());
+        int offset = ai_snprintf(buffer, 256, "%s_", id.c_str());
         for (int i = 0; it != mUsedIds.end(); ++i) {
-            sprintf(buffer + offset, "%d", i);
+			ai_snprintf(buffer + offset, 256, "%d", i);
 
             id = buffer;
             it = mUsedIds.find(id);
@@ -1039,11 +1041,14 @@ inline std::string Asset::FindUniqueID(const std::string& str, const char* suffi
     return id;
 }
 
-namespace Util
-{
+namespace Util {
 
-    inline bool ParseDataURI(const char* const_uri, size_t uriLen, DataURI& out)
-    {
+    inline 
+    bool ParseDataURI(const char* const_uri, size_t uriLen, DataURI& out) {
+        if ( NULL == const_uri ) {
+            return false;
+        }
+
         if (const_uri[0] != 0x10) { // we already parsed this uri?
             if (strncmp(const_uri, "data:", 5) != 0) // not a data uri?
                 return false;
@@ -1062,28 +1067,40 @@ namespace Util
             size_t i = 5, j;
             if (uri[i] != ';' && uri[i] != ',') { // has media type?
                 uri[1] = i;
-                for (; uri[i] != ';' && uri[i] != ',' && i < uriLen; ++i) {}
+                for (; uri[i] != ';' && uri[i] != ',' && i < uriLen; ++i) {
+                    // nothing to do!
+                }
             }
             while (uri[i] == ';' && i < uriLen) {
                 uri[i++] = '\0';
-                for (j = i; uri[i] != ';' && uri[i] != ',' && i < uriLen; ++i) {}
+                for (j = i; uri[i] != ';' && uri[i] != ',' && i < uriLen; ++i) {
+                    // nothing to do!
+                }
 
-                if (strncmp(uri + j, "charset=", 8) == 0) uri[2] = j + 8;
-                else if (strncmp(uri + j, "base64", 6) == 0) uri[3] = j;
+                if ( strncmp( uri + j, "charset=", 8 ) == 0 ) {
+                    uri[ 2 ] = j + 8;
+                } else if ( strncmp( uri + j, "base64", 6 ) == 0 ) {
+                    uri[ 3 ] = j;
+                }
             }
             if (i < uriLen) {
                 uri[i++] = '\0';
                 uri[4] = i;
-            }
-            else {
+            } else {
                 uri[1] = uri[2] = uri[3] = 0;
                 uri[4] = 5;
             }
         }
 
-        if (uri[1] != 0) out.mediaType = uri + uri[1];
-        if (uri[2] != 0) out.charset = uri + uri[2];
-        if (uri[3] != 0) out.base64 = true;
+        if ( uri[ 1 ] != 0 ) {
+            out.mediaType = uri + uri[ 1 ];
+        }
+        if ( uri[ 2 ] != 0 ) {
+            out.charset = uri + uri[ 2 ];
+        }
+        if ( uri[ 3 ] != 0 ) {
+            out.base64 = true;
+        }
         out.data = uri + uri[4];
         out.dataLength = (uri + uriLen) - out.data;
 

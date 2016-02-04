@@ -113,6 +113,7 @@ SET( Common_SRCS
   StreamReader.h
   StreamWriter.h
   StringComparison.h
+  StringUtils.h
   SGSpatialSort.cpp
   SGSpatialSort.h
   VertexTriangleAdjacency.cpp
@@ -530,6 +531,11 @@ ADD_ASSIMP_IMPORTER(RAW
   RawLoader.h
 )
 
+ADD_ASSIMP_IMPORTER(SIB
+  SIBImporter.cpp
+  SIBImporter.h
+)
+
 ADD_ASSIMP_IMPORTER(SMD
   SMDLoader.cpp
   SMDLoader.h
@@ -751,8 +757,10 @@ if( MSVC )
     set(MSVC_PREFIX "vc110")
   elseif( MSVC12 )
     set(MSVC_PREFIX "vc120")
+  elseif( MSVC14 )
+    set(MSVC_PREFIX "vc140")
   else()
-    set(MSVC_PREFIX "vc130")
+    set(MSVC_PREFIX "vc150")
   endif()
   set(LIBRARY_SUFFIX "${ASSIMP_LIBRARY_SUFFIX}-${MSVC_PREFIX}-mt" CACHE STRING "the suffix for the assimp windows library")
 endif()

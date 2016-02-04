@@ -2,8 +2,8 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef _irr_HEAPSORT_H_INCLUDED__
-#define _irr_HEAPSORT_H_INCLUDED__
+#ifndef __IRR_HEAPSORT_H_INCLUDED__
+#define __IRR_HEAPSORT_H_INCLUDED__
 
 #include "irrTypes.h"
 

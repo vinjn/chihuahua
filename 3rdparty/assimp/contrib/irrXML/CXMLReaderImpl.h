@@ -76,7 +76,7 @@ public:
 			return true;
 		}
 
-		irr_IMPLEMENT_MANAGED_MARSHALLING_BUGFIX;
+		_IRR_IMPLEMENT_MANAGED_MARSHALLING_BUGFIX;
 		return false;
 	}
 
