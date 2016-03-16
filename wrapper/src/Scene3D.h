@@ -48,7 +48,7 @@ typedef enum
     API_VULKAN,
     API_COUNT,
 } ApiType;
-UENGINE_API void Scene_initializeRenderer(int width, int height, ApiType apiType);
+UENGINE_API void Scene_initializeRenderer(int width, int height, long windowHandle, ApiType apiType);
 UENGINE_API void Scene_initializeFromDevice(long device);
 UENGINE_API void Scene_destroy();
 UENGINE_API void Scene_clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a);

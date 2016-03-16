@@ -84,9 +84,10 @@ extern "C"
         return Scene_addLightNode();
     }
 
-    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Scene_1initializeRenderer)(JNIEnv * env, jclass cls, jint width, jint height)
+    JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Scene_1initializeRenderer)(JNIEnv * env, jclass cls, 
+        jint width, jint height, jlong windowHandle, jint apiType)
     {
-        Scene_initializeRenderer(width, height);
+        Scene_initializeRenderer(width, height, windowHandle, apiType);
     }
 
     JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Scene_1setVisible)(JNIEnv * env, jclass cls, jboolean visible)

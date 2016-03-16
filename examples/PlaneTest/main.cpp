@@ -33,7 +33,7 @@ int main(int argc, char const* const* argv)
 {
     bx::CommandLine cmdLine(argc, argv);
 
-    device = createDevice(video::EDT_BGFX_D3D11, dimension2d<u32>(800, 600), 16,
+    device = createDevice(video::EDT_BGFX_OPENGL, dimension2d<u32>(800, 600), 16,
         false, false, false, 0);
 
     if (!device)
@@ -99,8 +99,8 @@ int main(int argc, char const* const* argv)
 
     // TODO: implement assets system
     s32 mtrlId = gpu->addHighLevelShaderMaterialFromFiles(
-        "../media/bgfx-shaders/dx11/vs_bump.bin", "main", EVST_VS_1_1,
-        "../media/bgfx-shaders/dx11/fs_bump.bin", "main");
+        "../media/bgfx-shaders/glsl/vs_bump.bin", "main", EVST_VS_1_1,
+        "../media/bgfx-shaders/glsl/fs_bump.bin", "main");
     scene::IMesh* mesh;
 #if 0
     mesh = smgr->getGeometryCreator()->createCubeMesh({ 100, 100, 100 });

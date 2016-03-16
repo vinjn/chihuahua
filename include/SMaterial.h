@@ -320,6 +320,8 @@ namespace video
 			PolygonOffsetDirection = other.PolygonOffsetDirection;
 			UseMipMaps = other.UseMipMaps;
 
+            ShaderCallBack = other.ShaderCallBack;
+
 			return *this;
 		}
 

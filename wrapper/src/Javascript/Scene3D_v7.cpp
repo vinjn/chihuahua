@@ -52,8 +52,9 @@ v7_val_t Scene_initializeRenderer(struct v7 *v7)
 {
     int width = v7_to_number(v7_arg(v7, 0));
     int height = v7_to_number(v7_arg(v7, 1));
-    int apiType = v7_to_number(v7_arg(v7, 2));
-    ::Scene_initializeRenderer(width, height, apiType);
+    long windowHandle = v7_to_number(v7_arg(v7, 2));
+    int apiType = v7_to_number(v7_arg(v7, 3));
+    ::Scene_initializeRenderer(width, height, windowHandle, apiType);
 
     return 0;
 }

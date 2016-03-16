@@ -11,6 +11,8 @@
 #include "bx/fpumath.h"
 
 #include "../wrapper/src/Scene3D.h"
+#include "bgfx/include/bgfx/bgfxplatform.h"
+#include "bgfx/include/bgfx/c99/bgfxplatform.h"
 
 static void error_callback(int error, const char* description)
 {
@@ -188,7 +190,8 @@ int main(int, char**)
 
     glfwGetFramebufferSize(window, &displayWidth, &displayHeight);
 
-    Scene_initializeRenderer(displayWidth, displayHeight, API_OPENGL);
+    HWND hwnd = glfwGetWin32Window(window);
+    Scene_initializeRenderer(displayWidth, displayHeight, (long)hwnd, API_OPENGL_ES);
 
     // Setup ImGui binding
     ImGui_ImplGlfwGL3_Init(window, true);

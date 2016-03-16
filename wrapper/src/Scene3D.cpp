@@ -45,37 +45,37 @@ using namespace core;
 
 namespace ue
 {
-class CIrrDeviceIPhone;
-namespace video
-{
+    class CIrrDeviceIPhone;
+    namespace video
+    {
 
-IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
-                                 io::IFileSystem* io
+        IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
+            io::IFileSystem* io
 #if defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
-                                 , CIrrDeviceIPhone* device
+            , CIrrDeviceIPhone* device
 #else
-                                 , IContextManager* contextManager
+            , IContextManager* contextManager
 #endif
-                                );
+            );
 
-IVideoDriver* createBgfxDriver(const SIrrlichtCreationParameters& params,
-    io::IFileSystem* io
+        IVideoDriver* createBgfxDriver(const SIrrlichtCreationParameters& params,
+            io::IFileSystem* io
 #if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
-    , IContextManager* contextManager
+            , IContextManager* contextManager
 #elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
-    , CIrrDeviceIPhone* device
+            , CIrrDeviceIPhone* device
 #endif
-    );
-}
+            );
+    }
 
 }
 
 namespace ue
 {
-namespace io
-{
-IFileSystem* createFileSystem();
-}
+    namespace io
+    {
+        IFileSystem* createFileSystem();
+    }
 }
 
 io::IFileSystem* fs;
@@ -127,38 +127,8 @@ static void setupSceneAndCamera()
 
     auto shadowDimen = 512;
     effect->addShadowLight(SShadowLight(1024, vector3df(-15, 30, -15), vector3df(5, 0, 5),
-                                        video::SColor(255, 255, 255, 255), 20.0f, 60.0f, 30.0f * DEGTORAD));
+        video::SColor(255, 255, 255, 255), 20.0f, 60.0f, 30.0f * DEGTORAD));
 #endif
-}
-
-static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driverType)
-{
-    fs = io::createFileSystem();
-
-    SIrrlichtCreationParameters params;
-    params.DriverType = driverType;
-    params.WindowSize.Width = width;
-    params.WindowSize.Height = height;
-
-    if (params.DriverType == video::EDT_OPENGL)
-    {
-        driver = video::createOGLES2Driver(params, fs, NULL);
-    }
-    else if (params.DriverType >= video::EDT_BGFX_OPENGL && params.DriverType <= video::EDT_BGFX_VULKAN)
-    {
-        driver = video::createBgfxDriver(params, fs, NULL);
-    }
-    else
-    {
-        printf("This driver is not available.");
-        // Fatal ERROR
-    }
-
-    testGLError("video::createDriver()");
-
-    os::Timer::initTimer(true);
-
-    smgr = new scene::CSceneManager(driver, fs, NULL, 0, NULL );
 }
 
 template <typename T>
@@ -212,7 +182,7 @@ void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a)
     data.DiffuseColor.set(r, g, b, a);
 }
 
-void Scene_initializeRenderer(int width, int height, ApiType apiType)
+void Scene_initializeRenderer(int width, int height, long windowHandle, ApiType apiType)
 {
     printf("Scene_initializeRenderer\n");
 
@@ -232,7 +202,33 @@ void Scene_initializeRenderer(int width, int height, ApiType apiType)
         default:
             break;
         }
-        createDriverAndSmgr(width, height, videoType);
+        fs = io::createFileSystem();
+
+        SIrrlichtCreationParameters params;
+        params.DriverType = videoType;
+        params.WindowSize.Width = width;
+        params.WindowSize.Height = height;
+        params.WindowId = (void*)windowHandle;
+
+        if (params.DriverType == video::EDT_OPENGL)
+        {
+            driver = video::createOGLES2Driver(params, fs, NULL);
+        }
+        else if (params.DriverType >= video::EDT_BGFX_OPENGL && params.DriverType <= video::EDT_BGFX_VULKAN)
+        {
+            driver = video::createBgfxDriver(params, fs, NULL);
+        }
+        else
+        {
+            printf("This driver is not available.");
+            // Fatal ERROR
+        }
+
+        testGLError("video::createDriver()");
+
+        os::Timer::initTimer(true);
+
+        smgr = new scene::CSceneManager(driver, fs, NULL, 0, NULL);
     }
     setupSceneAndCamera();
 
@@ -271,10 +267,11 @@ static void postProcessNode(scene::ISceneNode* node, const stringc name = "")
     if (node)
     {
         node->setID(getNewNodeId(NODE_VISIBLE_CATEGORY));
-//            node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
+        //            node->setMaterialType(video::EMT_TRANSPARENT_ALPHA_CHANNEL);
         node->setMaterialFlag(video::EMF_LIGHTING, false);
         node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
         node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
+
         if (!name.empty())
             node->setName(name);
 
@@ -327,7 +324,7 @@ long Scene_addPlaneNode(float width, float height)
     sprintf(nameBuffer, "plane#%d_%.0fx%.0f", counter++, width, height);
 
     scene::IMesh* planeMesh = smgr->getGeometryCreator()->
-                              createPlaneMesh(core::dimension2d<f32>(width, height));
+        createPlaneMesh(core::dimension2d<f32>(width, height));
     scene::ISceneNode* node = smgr->addMeshSceneNode(planeMesh, addDummyNode(nameBuffer));
     node->setRotation(core::vector3df(90, 0, 0));
     planeMesh->drop();
@@ -366,9 +363,9 @@ long Scene_addTexture(const char* textureName)
 
 #define CHECK_NODE_RETURN(nodePtr) \
     if (nodePtr == 0) \
-        {\
+            {\
         return; \
-        }
+            }
 
 void Node_setLighting(long nodePtr, int enabled)
 {
@@ -418,10 +415,10 @@ void Node_setBillboard(long nodePtr, int isBillboard)
     CHECK_NODE_RETURN(nodePtr);\
     auto node = getTypedPointer<scene::ISceneNode>(nodePtr);\
     if (node->getType() != scene::ESNT_ANIMATED_MESH)\
-    {\
+        {\
         printf("%s is not an animated mesh.\n", node->getName());\
         return;\
-    }
+        }
 
 void MeshNode_setAnimationFps(long nodePtr, float fps)
 {
@@ -500,10 +497,11 @@ long Scene_addMeshNode(const char* meshFileName)
             if (node)
             {
                 postProcessNode(node, meshFileName);
+                node->getMesh()->setHardwareMappingHint(scene::EHM_STATIC);
                 // node->setAnimation(0);
             }
             if (mesh->getMeshType() == scene::EAMT_MD2 ||
-                    mesh->getMeshType() == scene::EAMT_3DS)
+                mesh->getMeshType() == scene::EAMT_3DS)
             {
                 // assimp-loaded mesh has different front / back settings
                 // TODO: make it uniformed
@@ -622,7 +620,7 @@ void Camera_setProjectionMatrix(const float* matrix)
 long Scene_addEmptyTexture(int width, int height)
 {
     dimension2du dim(width, height);
-    video::ITexture* texture =  driver->addTexture(dim, "texture#", video::ECF_A8R8G8B8);
+    video::ITexture* texture = driver->addTexture(dim, "texture#", video::ECF_A8R8G8B8);
     return (long)texture;
 }
 
@@ -738,7 +736,7 @@ long Scene_pickNodeFromScreen(int x, int y)
     vector3df hitPt;
     triangle3df hitTri;
     auto hitNode = coll->getSceneNodeAndCollisionPointFromRay(ray,
-                   hitPt, hitTri, idBitMask, arRootNode, bNoDebugObjects);
+        hitPt, hitTri, idBitMask, arRootNode, bNoDebugObjects);
 #endif
 
     if (hitNode)
@@ -754,7 +752,7 @@ long Scene_pickNodeFromScreenPrecisely(int x, int y)
     s32 idBitMask = NODE_VISIBLE_CATEGORY;
     bool bNoDebugObjects = false;
     scene::ISceneNode* hitNode = coll->getSceneNodeFromScreenCoordinatesBB(
-                                     position2di(x, y), idBitMask, bNoDebugObjects, arRootNode);
+        position2di(x, y), idBitMask, bNoDebugObjects, arRootNode);
 
     if (hitNode)
     {
@@ -794,7 +792,7 @@ void Node_setMaterialTypeAt(long nodePtr, unsigned int mtrl, MaterialType materi
 
 void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
 {
-    #if 0
+#if 0
     if (!effect) return;
 
     scene::ISceneNode* node = (scene::ISceneNode*)nodePtr;
@@ -803,7 +801,7 @@ void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
     effect->removeNodeFromShadow(node);
     E_FILTER_TYPE filterType = EFT_NONE;
     effect->addShadowToNode(node, filterType, (E_SHADOW_MODE)mode);
-    #endif
+#endif
 }
 
 void Scene_setVisible(int visible)
