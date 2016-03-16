@@ -46,7 +46,7 @@ int main(int argc, char const* const* argv)
     IGPUProgrammingServices* gpu = driver->getGPUProgrammingServices();
     auto fs = device->getFileSystem();
 
-    auto s_fileReader = new bx::CrtFileReader;
+    //auto s_fileReader = new bx::CrtFileReader;
 
     //fs->addFileArchive("../media");
 

@@ -373,10 +373,11 @@ namespace ue
                 if (!_HWBuffer) return;
 
                 SHWBufferLink_bgfx* HWBuffer = static_cast<SHWBufferLink_bgfx*>(_HWBuffer);
-                bgfx_set_dynamic_vertex_buffer(HWBuffer->vb, UINT32_MAX);
+                bgfx_set_dynamic_vertex_buffer(HWBuffer->vb, 0, UINT32_MAX);
                 bgfx_set_dynamic_index_buffer(HWBuffer->ib, 0, UINT32_MAX);
 
-                bgfx_submit(kDefaultView, CurrentProgramHandle, kDefaultDepth);
+                bool preserveState = false;
+                bgfx_submit(kDefaultView, CurrentProgramHandle, kDefaultDepth, preserveState);
             }
 
             //! draws a vertex primitive list
@@ -402,7 +403,8 @@ namespace ue
                 bgfx_set_transient_vertex_buffer(&vb, 0, UINT32_MAX);
                 bgfx_set_transient_index_buffer(&ib, 0, UINT32_MAX);
 
-                bgfx_submit(kDefaultView, CurrentProgramHandle, kDefaultDepth);
+                bool preserveState = false;
+                bgfx_submit(kDefaultView, CurrentProgramHandle, kDefaultDepth, preserveState);
             }
 
             //! queries the features of the driver, returns true if feature is available
