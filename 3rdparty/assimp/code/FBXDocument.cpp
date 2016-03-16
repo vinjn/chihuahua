@@ -44,17 +44,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef ASSIMP_BUILD_NO_FBX_IMPORTER
 
-#include <functional>
-
-#include "FBXParser.h"
 #include "FBXDocument.h"
+#include "FBXMeshGeometry.h"
+#include "FBXParser.h"
 #include "FBXUtil.h"
 #include "FBXImporter.h"
 #include "FBXImportSettings.h"
 #include "FBXDocumentUtil.h"
 #include "FBXProperties.h"
+
 #include <boost/foreach.hpp>
 #include <boost/make_shared.hpp>
+#include <functional>
+
 
 namespace Assimp {
 namespace FBX {
@@ -135,6 +137,8 @@ const Object* LazyObject::Get(bool dieOnError)
         // so avoid constructing strings all the time.
         const char* obtype = key.begin();
         const size_t length = static_cast<size_t>(key.end()-key.begin());
+        DefaultLogger::get()->debug( "obtype: " + std::string(obtype ));
+        DefaultLogger::get()->debug( "Classtag: " + classtag );
         if (!strncmp(obtype,"Geometry",length)) {
             if (!strcmp(classtag.c_str(),"Mesh")) {
                 object.reset(new MeshGeometry(id,element,name,doc));
@@ -165,10 +169,10 @@ const Object* LazyObject::Get(bool dieOnError)
                 object.reset(new Skin(id,element,doc,name));
             }
         }
-        else if (!strncmp(obtype,"Model",length)) {
+        else if ( !strncmp( obtype, "Model", length ) ) {
             // FK and IK effectors are not supported
-            if (strcmp(classtag.c_str(),"IKEffector") && strcmp(classtag.c_str(),"FKEffector")) {
-                object.reset(new Model(id,element,doc,name));
+            if ( strcmp( classtag.c_str(), "IKEffector" ) && strcmp( classtag.c_str(), "FKEffector" ) ) {
+                object.reset( new Model( id, element, doc, name ) );
             }
         }
         else if (!strncmp(obtype,"Material",length)) {
@@ -288,8 +292,10 @@ Document::~Document()
     // |dest_connections| contain the same Connection objects as the |src_connections|
 }
 
-
 // ------------------------------------------------------------------------------------------------
+static const int LowerSupportedVersion = 7100;
+static const int UpperSupportedVersion = 7400;
+
 void Document::ReadHeader()
 {
     // Read ID objects from "Objects" section
@@ -304,10 +310,10 @@ void Document::ReadHeader()
 
     // While we maye have some success with newer files, we don't support
     // the older 6.n fbx format
-    if(fbxVersion < 7100) {
+    if(fbxVersion < LowerSupportedVersion ) {
         DOMError("unsupported, old format version, supported are only FBX 2011, FBX 2012 and FBX 2013");
     }
-    if(fbxVersion > 7300) {
+    if(fbxVersion > UpperSupportedVersion ) {
         if(Settings().strictMode) {
             DOMError("unsupported, newer format version, supported are only FBX 2011, FBX 2012 and FBX 2013"
                 " (turn off strict mode to try anyhow) ");
@@ -407,7 +413,6 @@ void Document::ReadObjects()
         }
     }
 }
-
 
 // ------------------------------------------------------------------------------------------------
 void Document::ReadPropertyTemplates()

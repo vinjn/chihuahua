@@ -44,26 +44,28 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #ifndef ASSIMP_BUILD_NO_FBX_IMPORTER
 
-#include <iterator>
-#include <sstream>
-#include <boost/tuple/tuple.hpp>
-#include <vector>
-#include "FBXParser.h"
 #include "FBXConverter.h"
+#include "FBXParser.h"
+#include "FBXMeshGeometry.h"
 #include "FBXDocument.h"
 #include "FBXUtil.h"
 #include "FBXProperties.h"
 #include "FBXImporter.h"
 #include "StringComparison.h"
+
 #include "../include/assimp/scene.h"
+#include <boost/tuple/tuple.hpp>
 #include <boost/foreach.hpp>
 #include <boost/scoped_array.hpp>
 
+#include <iterator>
+#include <sstream>
+#include <vector>
 
 namespace Assimp {
 namespace FBX {
 
-    using namespace Util;
+using namespace Util;
 
 
 #define MAGIC_NODE_TAG "_$AssimpFbx$"
@@ -77,8 +79,9 @@ namespace FBX {
 class Converter
 {
 public:
-
-    /** the different parts that make up the final local transformation of a fbx node */
+    /** 
+     *  The different parts that make up the final local transformation of a fbx-node 
+     */
     enum TransformationComp
     {
         TransformationComp_Translation = 0,
@@ -100,7 +103,6 @@ public:
     };
 
 public:
-
     Converter(aiScene* out, const Document& doc)
         : defaultMaterialIndex()
         , out(out)
@@ -154,7 +156,6 @@ public:
 
 
 private:
-
     // ------------------------------------------------------------------------------------------------
     // find scene root and trigger recursive scene conversion
     void ConvertRootNode()
@@ -385,6 +386,7 @@ private:
 
         out_camera->mAspect = cam.AspectWidth() / cam.AspectHeight();
         out_camera->mPosition = cam.Position();
+        out_camera->mUp = cam.UpVector();
         out_camera->mLookAt = cam.InterestPosition() - out_camera->mPosition;
         out_camera->mHorizontalFOV = AI_DEG_TO_RAD(cam.FieldOfView());
     }
@@ -426,6 +428,7 @@ private:
         case TransformationComp_GeometricTranslation:
             return "GeometricTranslation";
         case TransformationComp_MAXIMUM: // this is to silence compiler warnings
+        default:
             break;
         }
 
@@ -855,7 +858,7 @@ private:
             }
         }
 
-        // faster codepath, just copy the data
+        // faster code-path, just copy the data
         temp.push_back(ConvertMeshSingleMaterial(mesh, model, node_global_transform));
         return temp;
     }
@@ -958,7 +961,8 @@ private:
             }
 
             if(binormals) {
-                ai_assert(tangents.size() == vertices.size() && binormals->size() == vertices.size());
+                ai_assert( tangents.size() == vertices.size() );
+                ai_assert( binormals->size() == vertices.size() );
 
                 out_mesh->mTangents = new aiVector3D[vertices.size()];
                 std::copy(tangents.begin(),tangents.end(),out_mesh->mTangents);
@@ -1213,10 +1217,12 @@ private:
 
 
     // ------------------------------------------------------------------------------------------------
-    /** - if materialIndex == NO_MATERIAL_SEPARATION, materials are not taken into
-     *  account when determining which weights to include.
+    /** 
+     *  - if materialIndex == NO_MATERIAL_SEPARATION, materials are not taken into
+     *    account when determining which weights to include.
      *  - outputVertStartIndices is only used when a material index is specified, it gives for
-     *    each output vertex the DOM index it maps to. */
+     *    each output vertex the DOM index it maps to. 
+     */
     void ConvertWeights(aiMesh* out, const Model& model, const MeshGeometry& geo,
         const aiMatrix4x4& node_global_transform = aiMatrix4x4(),
         unsigned int materialIndex = NO_MATERIAL_SEPARATION,

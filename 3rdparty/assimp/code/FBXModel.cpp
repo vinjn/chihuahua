@@ -45,6 +45,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef ASSIMP_BUILD_NO_FBX_IMPORTER
 
 #include "FBXParser.h"
+#include "FBXMeshGeometry.h"
 #include "FBXDocument.h"
 #include "FBXImporter.h"
 #include "FBXImportSettings.h"
@@ -55,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace Assimp {
 namespace FBX {
 
-    using namespace Util;
+using namespace Util;
 
 // ------------------------------------------------------------------------------------------------
 Model::Model(uint64_t id, const Element& element, const Document& doc, const std::string& name)

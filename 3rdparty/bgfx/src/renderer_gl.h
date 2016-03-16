@@ -13,6 +13,7 @@
 			|| BX_PLATFORM_BSD \
 			|| BX_PLATFORM_QNX \
 			|| BX_PLATFORM_RPI \
+			|| BX_PLATFORM_STEAMLINK \
 			|| BX_PLATFORM_WINDOWS \
 			) )
 
@@ -220,6 +221,30 @@ typedef uint64_t GLuint64;
 #ifndef GL_RG32F
 #	define GL_RG32F 0x8230
 #endif // GL_RG32F
+
+#ifndef GL_RGB8
+#	define GL_RGB8 0x8051
+#endif // GL_RGB8
+
+#ifndef GL_SRGB
+#	define GL_SRGB 0x8C40
+#endif // GL_SRGB
+
+#ifndef GL_SRGB8
+#	define GL_SRGB8 0x8C41
+#endif // GL_SRGB8
+
+#ifndef GL_RGB8I
+#	define GL_RGB8I 0x8D8F
+#endif // GL_RGB8I
+
+#ifndef GL_RGB8UI
+#	define GL_RGB8UI 0x8D7D
+#endif // GL_RGB8UI
+
+#ifndef GL_RGB8_SNORM
+#	define GL_RGB8_SNORM 0x8F96
+#endif // GL_RGB8_SNORM
 
 #ifndef GL_RGBA8I
 #	define GL_RGBA8I 0x8D8E
@@ -1033,9 +1058,17 @@ namespace bgfx { namespace gl
 			GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
 		}
 
-		void update(uint32_t _offset, uint32_t _size, void* _data)
+		void update(uint32_t _offset, uint32_t _size, void* _data, bool _discard = false)
 		{
 			BX_CHECK(0 != m_id, "Updating invalid index buffer.");
+
+			if (_discard)
+			{
+				// orphan buffer...
+				destroy();
+				create(m_size, NULL, m_flags);
+			}
+
 			GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id) );
 			GL_CHECK(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER
 				, _offset
@@ -1079,9 +1112,17 @@ namespace bgfx { namespace gl
 			GL_CHECK(glBindBuffer(m_target, 0) );
 		}
 
-		void update(uint32_t _offset, uint32_t _size, void* _data)
+		void update(uint32_t _offset, uint32_t _size, void* _data, bool _discard = false)
 		{
 			BX_CHECK(0 != m_id, "Updating invalid vertex buffer.");
+
+			if (_discard)
+			{
+				// orphan buffer...
+				destroy();
+				create(m_size, NULL, m_decl, 0);
+			}
+
 			GL_CHECK(glBindBuffer(m_target, m_id) );
 			GL_CHECK(glBufferSubData(m_target
 				, _offset
@@ -1119,7 +1160,7 @@ namespace bgfx { namespace gl
 		{
 		}
 
-		bool init(GLenum _target, uint32_t _width, uint32_t _height, uint32_t _depth, TextureFormat::Enum _format, uint8_t _numMips, uint32_t _flags);
+		bool init(GLenum _target, uint32_t _width, uint32_t _height, uint32_t _depth, uint8_t _numMips, uint32_t _flags);
 		void create(const Memory* _mem, uint32_t _flags, uint8_t _skip);
 		void destroy();
 		void overrideInternal(uintptr_t _ptr);
@@ -1169,7 +1210,7 @@ namespace bgfx { namespace gl
 			memset(m_fbo, 0, sizeof(m_fbo) );
 		}
 
-		void create(uint8_t _num, const TextureHandle* _handles);
+		void create(uint8_t _num, const Attachment* _attachment);
 		void create(uint16_t _denseIdx, void* _nwh, uint32_t _width, uint32_t _height, TextureFormat::Enum _depthFormat);
 		void postReset();
 		uint16_t destroy();
@@ -1183,7 +1224,7 @@ namespace bgfx { namespace gl
 		uint16_t m_denseIdx;
 		uint8_t  m_num;
 		uint8_t  m_numTh;
-		TextureHandle m_th[BGFX_CONFIG_MAX_FRAME_BUFFER_ATTACHMENTS];
+		Attachment m_attachment[BGFX_CONFIG_MAX_FRAME_BUFFER_ATTACHMENTS];
 	};
 
 	struct ProgramGL

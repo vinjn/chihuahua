@@ -1,10 +1,11 @@
 // ImGui Marmalade binding with IwGx
+// You can copy and use unmodified imgui_impl_* files in your project. See main.cpp for an example of using this.
+// If you use this binding you'll need to call 4 functions: ImGui_ImplXXXX_Init(), ImGui_ImplXXXX_NewFrame(), ImGui::Render() and ImGui_ImplXXXX_Shutdown().
+// If you are new to ImGui, see examples/README.txt and documentation at the top of imgui.cpp.
+// https://github.com/ocornut/imgui
+
 // Copyright (C) 2015 by Giovanni Zito
 // This file is part of ImGui
-// You can copy and use unmodified imgui_impl_* files in your project. 
-// If you use this binding you'll need to call 4 functions: ImGui_ImplXXXX_Init(), ImGui_ImplXXXX_NewFrame(), ImGui::Render() and ImGui_ImplXXXX_Shutdown(). 
-// See main.cpp for an example of using this.
-// https://github.com/ocornut/imgui
 
 #include <imgui.h>
 #include "imgui_impl_marmalade.h"
@@ -166,14 +167,13 @@ int32 ImGui_Marmalade_CharCallback(void* SystemData, void* userData)
 
 bool ImGui_Marmalade_CreateDeviceObjects()
 {
-    ImGuiIO& io = ImGui::GetIO();
-
     // Build texture atlas
+    ImGuiIO& io = ImGui::GetIO();
     unsigned char* pixels;
     int width, height;
     io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
-    // Create texture
+    // Upload texture to graphics system
     g_FontTexture = new CIwTexture();
     g_FontTexture->SetModifiable(true);
     CIwImage& image = g_FontTexture->GetImage();
@@ -186,12 +186,8 @@ bool ImGui_Marmalade_CreateDeviceObjects()
     g_FontTexture->SetFiltering(false);
     g_FontTexture->Upload();
 
-    // Store the pointer
+    // Store our identifier
     io.Fonts->TexID = (void *)g_FontTexture;
-
-    // Cleanup (don't clear the input data if you want to append new fonts later)
-    io.Fonts->ClearInputData();
-    io.Fonts->ClearTexData();
 
     return true;
 }

@@ -1,7 +1,7 @@
 // ImGui Win32 + DirectX11 binding
-// You can copy and use unmodified imgui_impl_* files in your project. 
+// You can copy and use unmodified imgui_impl_* files in your project. See main.cpp for an example of using this.
 // If you use this binding you'll need to call 4 functions: ImGui_ImplXXXX_Init(), ImGui_ImplXXXX_NewFrame(), ImGui::Render() and ImGui_ImplXXXX_Shutdown().
-// See main.cpp for an example of using this.
+// If you are new to ImGui, see examples/README.txt and documentation at the top of imgui.cpp.
 // https://github.com/ocornut/imgui
 
 #include <imgui.h>
@@ -103,10 +103,10 @@ void ImGui_ImplDX11_RenderDrawLists(ImDrawData* draw_data)
         const float R = ImGui::GetIO().DisplaySize.x;
         const float B = ImGui::GetIO().DisplaySize.y;
         const float T = 0.0f;
-        const float mvp[4][4] = 
+        const float mvp[4][4] =
         {
-            { 2.0f/(R-L),   0.0f,           0.0f,       0.0f},
-            { 0.0f,         2.0f/(T-B),     0.0f,       0.0f,},
+            { 2.0f/(R-L),   0.0f,           0.0f,       0.0f },
+            { 0.0f,         2.0f/(T-B),     0.0f,       0.0f },
             { 0.0f,         0.0f,           0.5f,       0.0f },
             { (R+L)/(L-R),  (T+B)/(B-T),    0.5f,       1.0f },
         };
@@ -184,26 +184,26 @@ IMGUI_API LRESULT ImGui_ImplDX11_WndProcHandler(HWND, UINT msg, WPARAM wParam, L
         io.MouseDown[0] = true;
         return true;
     case WM_LBUTTONUP:
-        io.MouseDown[0] = false; 
+        io.MouseDown[0] = false;
         return true;
     case WM_RBUTTONDOWN:
-        io.MouseDown[1] = true; 
+        io.MouseDown[1] = true;
         return true;
     case WM_RBUTTONUP:
-        io.MouseDown[1] = false; 
+        io.MouseDown[1] = false;
         return true;
     case WM_MBUTTONDOWN:
-        io.MouseDown[2] = true; 
+        io.MouseDown[2] = true;
         return true;
     case WM_MBUTTONUP:
-        io.MouseDown[2] = false; 
+        io.MouseDown[2] = false;
         return true;
     case WM_MOUSEWHEEL:
         io.MouseWheel += GET_WHEEL_DELTA_WPARAM(wParam) > 0 ? +1.0f : -1.0f;
         return true;
     case WM_MOUSEMOVE:
         io.MousePos.x = (signed short)(lParam);
-        io.MousePos.y = (signed short)(lParam >> 16); 
+        io.MousePos.y = (signed short)(lParam >> 16);
         return true;
     case WM_KEYDOWN:
         if (wParam < 256)
@@ -224,14 +224,13 @@ IMGUI_API LRESULT ImGui_ImplDX11_WndProcHandler(HWND, UINT msg, WPARAM wParam, L
 
 static void ImGui_ImplDX11_CreateFontsTexture()
 {
+    // Build texture atlas
     ImGuiIO& io = ImGui::GetIO();
-
-    // Build
     unsigned char* pixels;
     int width, height;
     io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
 
-    // Create DX11 texture
+    // Upload texture to graphics system
     {
         D3D11_TEXTURE2D_DESC texDesc;
         ZeroMemory(&texDesc, sizeof(texDesc));
@@ -280,10 +279,6 @@ static void ImGui_ImplDX11_CreateFontsTexture()
         samplerDesc.MaxLOD = 0.f;
         g_pd3dDevice->CreateSamplerState(&samplerDesc, &g_pFontSampler);
     }
-
-    // Cleanup (don't clear the input data if you want to append new fonts later)
-    io.Fonts->ClearInputData();
-    io.Fonts->ClearTexData();
 }
 
 bool    ImGui_ImplDX11_CreateDeviceObjects()
@@ -323,7 +318,7 @@ bool    ImGui_ImplDX11_CreateDeviceObjects()
             return output;\
             }";
 
-        D3DCompile(vertexShader, strlen(vertexShader), NULL, NULL, NULL, "main", "vs_5_0", 0, 0, &g_pVertexShaderBlob, NULL);
+        D3DCompile(vertexShader, strlen(vertexShader), NULL, NULL, NULL, "main", "vs_4_0", 0, 0, &g_pVertexShaderBlob, NULL);
         if (g_pVertexShaderBlob == NULL) // NB: Pass ID3D10Blob* pErrorBlob to D3DCompile() to get error showing in (const char*)pErrorBlob->GetBufferPointer(). Make sure to Release() the blob!
             return false;
         if (g_pd3dDevice->CreateVertexShader((DWORD*)g_pVertexShaderBlob->GetBufferPointer(), g_pVertexShaderBlob->GetBufferSize(), NULL, &g_pVertexShader) != S_OK)
@@ -353,7 +348,7 @@ bool    ImGui_ImplDX11_CreateDeviceObjects()
 
     // Create the pixel shader
     {
-        static const char* pixelShader = 
+        static const char* pixelShader =
             "struct PS_INPUT\
             {\
             float4 pos : SV_POSITION;\
@@ -369,7 +364,7 @@ bool    ImGui_ImplDX11_CreateDeviceObjects()
             return out_col; \
             }";
 
-        D3DCompile(pixelShader, strlen(pixelShader), NULL, NULL, NULL, "main", "ps_5_0", 0, 0, &g_pPixelShaderBlob, NULL);
+        D3DCompile(pixelShader, strlen(pixelShader), NULL, NULL, NULL, "main", "ps_4_0", 0, 0, &g_pPixelShaderBlob, NULL);
         if (g_pPixelShaderBlob == NULL)  // NB: Pass ID3D10Blob* pErrorBlob to D3DCompile() to get error showing in (const char*)pErrorBlob->GetBufferPointer(). Make sure to Release() the blob!
             return false;
         if (g_pd3dDevice->CreatePixelShader((DWORD*)g_pPixelShaderBlob->GetBufferPointer(), g_pPixelShaderBlob->GetBufferSize(), NULL, &g_pPixelShader) != S_OK)
@@ -434,7 +429,7 @@ bool    ImGui_ImplDX11_Init(void* hwnd, ID3D11Device* device, ID3D11DeviceContex
     g_pd3dDevice = device;
     g_pd3dDeviceContext = device_context;
 
-    if (!QueryPerformanceFrequency((LARGE_INTEGER *)&g_TicksPerSecond)) 
+    if (!QueryPerformanceFrequency((LARGE_INTEGER *)&g_TicksPerSecond))
         return false;
     if (!QueryPerformanceCounter((LARGE_INTEGER *)&g_Time))
         return false;
@@ -477,7 +472,7 @@ void ImGui_ImplDX11_Shutdown()
 
 void ImGui_ImplDX11_NewFrame()
 {
-    if (!g_pVB)
+    if (!g_pFontSampler)
         ImGui_ImplDX11_CreateDeviceObjects();
 
     ImGuiIO& io = ImGui::GetIO();
@@ -489,7 +484,7 @@ void ImGui_ImplDX11_NewFrame()
 
     // Setup time step
     INT64 current_time;
-    QueryPerformanceCounter((LARGE_INTEGER *)&current_time); 
+    QueryPerformanceCounter((LARGE_INTEGER *)&current_time);
     io.DeltaTime = (float)(current_time - g_Time) / g_TicksPerSecond;
     g_Time = current_time;
 

@@ -1,4 +1,5 @@
 // ImGui - standalone example application for DirectX 11
+// If you are new to ImGui, see examples/README.txt and documentation at the top of imgui.cpp.
 
 #include <imgui.h>
 #include "imgui_impl_dx11.h"
@@ -6,6 +7,7 @@
 #include <d3dcompiler.h>
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+#include <tchar.h>
 
 // Data
 static ID3D11Device*            g_pd3dDevice = NULL;
@@ -57,9 +59,7 @@ HRESULT CreateDeviceD3D(HWND hWnd)
     }
 
     UINT createDeviceFlags = 0;
-#ifdef _DEBUG
-    createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
+    //createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
     D3D_FEATURE_LEVEL featureLevel;
     const D3D_FEATURE_LEVEL featureLevelArray[1] = { D3D_FEATURE_LEVEL_11_0, };
     if (D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, createDeviceFlags, featureLevelArray, 1, D3D11_SDK_VERSION, &sd, &g_pSwapChain, &g_pd3dDevice, &featureLevel, &g_pd3dDeviceContext) != S_OK)
@@ -131,15 +131,15 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 int main(int, char**)
 {
     // Create application window
-    WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, LoadCursor(NULL, IDC_ARROW), NULL, NULL, L"ImGui Example", NULL };
+    WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, LoadCursor(NULL, IDC_ARROW), NULL, NULL, _T("ImGui Example"), NULL };
     RegisterClassEx(&wc);
-    HWND hwnd = CreateWindow(L"ImGui Example", L"ImGui DirectX11 Example", WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
+    HWND hwnd = CreateWindow(_T("ImGui Example"), _T("ImGui DirectX11 Example"), WS_OVERLAPPEDWINDOW, 100, 100, 1280, 800, NULL, NULL, wc.hInstance, NULL);
 
     // Initialize Direct3D
     if (CreateDeviceD3D(hwnd) < 0)
     {
         CleanupDeviceD3D();
-        UnregisterClass(L"ImGui Example", wc.hInstance);
+        UnregisterClass(_T("ImGui Example"), wc.hInstance);
         return 1;
     }
 
@@ -151,7 +151,7 @@ int main(int, char**)
     ImGui_ImplDX11_Init(hwnd, g_pd3dDevice, g_pd3dDeviceContext);
 
     // Load Fonts
-    // (see extra_fonts/README.txt for more details)
+    // (there is a default font, this is only if you want to change it. see extra_fonts/README.txt for more details)
     //ImGuiIO& io = ImGui::GetIO();
     //io.Fonts->AddFontDefault();
     //io.Fonts->AddFontFromFileTTF("../../extra_fonts/Cousine-Regular.ttf", 15.0f);
@@ -159,12 +159,6 @@ int main(int, char**)
     //io.Fonts->AddFontFromFileTTF("../../extra_fonts/ProggyClean.ttf", 13.0f);
     //io.Fonts->AddFontFromFileTTF("../../extra_fonts/ProggyTiny.ttf", 10.0f);
     //io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-
-    // Merge glyphs from multiple fonts into one (e.g. combine default font with another with Chinese glyphs, or add icons)
-    //static const ImWchar icons_ranges[] = { 0xf000, 0xf3ff, 0 }; // will not be copied by AddFont* so keep in scope.
-    //ImFontConfig icons_config; icons_config.MergeMode = true; icons_config.PixelSnapH = true;
-    //io.Fonts->AddFontFromFileTTF("../../extra_fonts/DroidSans.ttf", 18.0f);
-    //io.Fonts->AddFontFromFileTTF("../../extra_fonts/fontawesome-webfont.ttf", 18.0f, &icons_config, icons_ranges);
 
     bool show_test_window = true;
     bool show_another_window = false;
@@ -219,7 +213,7 @@ int main(int, char**)
 
     ImGui_ImplDX11_Shutdown();
     CleanupDeviceD3D();
-    UnregisterClass(L"ImGui Example", wc.hInstance);
+    UnregisterClass(_T("ImGui Example"), wc.hInstance);
 
     return 0;
 }

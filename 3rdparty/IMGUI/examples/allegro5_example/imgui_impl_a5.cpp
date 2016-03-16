@@ -1,7 +1,7 @@
 // ImGui Allegro 5 bindings
-// You can copy and use unmodified imgui_impl_* files in your project. 
+// You can copy and use unmodified imgui_impl_* files in your project. See main.cpp for an example of using this.
 // If you use this binding you'll need to call 4 functions: ImGui_ImplXXXX_Init(), ImGui_ImplXXXX_NewFrame(), ImGui::Render() and ImGui_ImplXXXX_Shutdown().
-// See main.cpp for an example of using this.
+// If you are new to ImGui, see examples/README.txt and documentation at the top of imgui.cpp.
 // https://github.com/ocornut/imgui
 // by @birthggd
 
@@ -88,9 +88,8 @@ void ImGui_ImplA5_RenderDrawLists(ImDrawData* draw_data)
 
 bool Imgui_ImplA5_CreateDeviceObjects()
 {
+    // Build texture atlas
     ImGuiIO &io = ImGui::GetIO();
-
-    // Build texture
     unsigned char *pixels;
     int width, height;
     io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
@@ -124,10 +123,6 @@ bool Imgui_ImplA5_CreateDeviceObjects()
     // Store our identifier
     io.Fonts->TexID = (void*)cloned_img;
     g_Texture = cloned_img;
-
-    // Cleanup (don't clear the input data if you want to append new fonts later)
-    io.Fonts->ClearInputData();
-    io.Fonts->ClearTexData();
 
     // Create an invisible mouse cursor
     // Because al_hide_mouse_cursor() seems to mess up with the actual inputs..

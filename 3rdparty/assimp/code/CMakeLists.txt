@@ -446,6 +446,7 @@ ADD_ASSIMP_IMPORTER(FBX
   FBXDocument.cpp
   FBXProperties.h
   FBXProperties.cpp
+  FBXMeshGeometry.h
   FBXMeshGeometry.cpp
   FBXMaterial.cpp
   FBXModel.cpp
@@ -798,7 +799,7 @@ if (ASSIMP_ANDROID_JNIIOSYSTEM)
 endif(ASSIMP_ANDROID_JNIIOSYSTEM)
 
 if(MSVC AND ASSIMP_INSTALL_PDB)
-  install(FILES ${Assimp_BINARY_DIR}/code/Debug/assimp${CMAKE_DEBUG_POSTFIX}.pdb
+  install(FILES ${Assimp_BINARY_DIR}/code/Debug/assimp${LIBRARY_SUFFIX}${CMAKE_DEBUG_POSTFIX}.pdb
     DESTINATION ${ASSIMP_LIB_INSTALL_DIR}
     CONFIGURATIONS Debug
   )
