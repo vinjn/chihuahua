@@ -27,6 +27,7 @@ UENGINE_API void Scene_runScript(const char* scriptFileName);
 
 UENGINE_API long Scene_addMeshNode(const char* meshFileName);
 UENGINE_API long Scene_addCubeNode(float size);
+
 UENGINE_API long Scene_addPlaneNode(float width, float height);
 UENGINE_API long Scene_addSphereNode(float radius);
 UENGINE_API long Scene_addFullScreenTextureNode(long texturePtr, int rotationType);
@@ -36,7 +37,18 @@ UENGINE_API long Scene_addTextureFromImage(long imagePtr);
 UENGINE_API long Scene_addTexture(const char* textureName);
 UENGINE_API long Scene_addEmptyTexture(int width, int height);
 
-UENGINE_API void Scene_initializeRenderer(int width, int height);
+typedef enum
+{
+    API_OPENGL,
+    API_OPENGL_ES,
+    API_D3D9,
+    API_D3D11,
+    API_D3D12,
+    API_METAL,
+    API_VULKAN,
+    API_COUNT,
+} ApiType;
+UENGINE_API void Scene_initializeRenderer(int width, int height, ApiType apiType);
 UENGINE_API void Scene_initializeFromDevice(long device);
 UENGINE_API void Scene_destroy();
 UENGINE_API void Scene_clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a);

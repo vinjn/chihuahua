@@ -188,7 +188,7 @@ int main(int, char**)
 
     glfwGetFramebufferSize(window, &displayWidth, &displayHeight);
 
-    Scene_initializeRenderer(displayWidth, displayHeight);
+    Scene_initializeRenderer(displayWidth, displayHeight, API_OPENGL);
 
     // Setup ImGui binding
     ImGui_ImplGlfwGL3_Init(window, true);

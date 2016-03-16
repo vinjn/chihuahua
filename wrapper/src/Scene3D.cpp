@@ -5,7 +5,7 @@
 #include "FullScreenSceneNode.h"
 #include "../source/os.h"
 #include "../source/CLogger.h"
-#include "../source/COGLES2Texture.h"
+// #include "../source/COGLES2Texture.h"
 #include "../source/CSceneManager.h"
 #include "../source/CCameraSceneNode.h"
 // #include "../source/XEffects/XEffects.h"
@@ -15,6 +15,30 @@
 #else
 #include "GLES2/gl2.h"
 #endif
+//! prints error if an error happened.
+bool testGLError(const char* comment = "")
+{
+    GLenum g = glGetError();
+    printf("%s\n", comment);
+    switch (g)
+    {
+    case GL_NO_ERROR:
+        return false;
+    case GL_INVALID_ENUM:
+        printf("GL_INVALID_ENUM");
+        break;
+    case GL_INVALID_VALUE:
+        printf("GL_INVALID_VALUE");
+        break;
+    case GL_INVALID_OPERATION:
+        printf("GL_INVALID_OPERATION");
+        break;
+    case GL_OUT_OF_MEMORY:
+        printf("GL_OUT_OF_MEMORY");
+        break;
+    };
+    return true;
+}
 
 using namespace ue;
 using namespace core;
@@ -34,27 +58,14 @@ IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
 #endif
                                 );
 
-IVideoDriver* createNullDriver(io::IFileSystem* io, const core::dimension2d<u32>& screenSize);
-
-
-IVideoDriver* createDriver(const SIrrlichtCreationParameters& params, io::IFileSystem* filesystem)
-{
-    IVideoDriver* videoDriver = NULL;
-
-    switch (params.DriverType)
-    {
-    case video::EDT_OGLES2:
-        videoDriver = video::createOGLES2Driver(params, filesystem, NULL);
-        break;
-    case video::EDT_NULL:
-        videoDriver = video::createNullDriver(filesystem, params.WindowSize);
-        break;
-    default:
-        printf("This driver is not available. Try OpenGL ES 2.0.");
-        break;
-    }
-    return videoDriver;
-}
+IVideoDriver* createBgfxDriver(const SIrrlichtCreationParameters& params,
+    io::IFileSystem* io
+#if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
+    , IContextManager* contextManager
+#elif defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
+    , CIrrDeviceIPhone* device
+#endif
+    );
 }
 
 }
@@ -89,31 +100,6 @@ s32 getNewNodeId(NodeIdCategory category)
 {
     // TODO:
     return category;
-}
-
-//! prints error if an error happened.
-bool testGLError(const char* comment = "")
-{
-    GLenum g = glGetError();
-    printf("%s\n", comment);
-    switch (g)
-    {
-    case GL_NO_ERROR:
-        return false;
-    case GL_INVALID_ENUM:
-        printf("GL_INVALID_ENUM");
-        break;
-    case GL_INVALID_VALUE:
-        printf("GL_INVALID_VALUE");
-        break;
-    case GL_INVALID_OPERATION:
-        printf("GL_INVALID_OPERATION");
-        break;
-    case GL_OUT_OF_MEMORY:
-        printf("GL_OUT_OF_MEMORY");
-        break;
-    };
-    return true;
 }
 
 static void setupSceneAndCamera()
@@ -153,7 +139,21 @@ static void createDriverAndSmgr(int width, int height, video::E_DRIVER_TYPE driv
     params.DriverType = driverType;
     params.WindowSize.Width = width;
     params.WindowSize.Height = height;
-    driver = video::createDriver(params, fs);
+
+    if (params.DriverType == video::EDT_OPENGL)
+    {
+        driver = video::createOGLES2Driver(params, fs, NULL);
+    }
+    else if (params.DriverType >= video::EDT_BGFX_OPENGL && params.DriverType <= video::EDT_BGFX_VULKAN)
+    {
+        driver = video::createBgfxDriver(params, fs, NULL);
+    }
+    else
+    {
+        printf("This driver is not available.");
+        // Fatal ERROR
+    }
+
     testGLError("video::createDriver()");
 
     os::Timer::initTimer(true);
@@ -212,14 +212,27 @@ void LightNode_setDiffuseColor(long nodePtr, float r, float g, float b, float a)
     data.DiffuseColor.set(r, g, b, a);
 }
 
-void Scene_initializeRenderer(int width, int height)
+void Scene_initializeRenderer(int width, int height, ApiType apiType)
 {
     printf("Scene_initializeRenderer\n");
 
     // TODO: memory leak
     // if (driver == NULL)
     {
-        createDriverAndSmgr(width, height, video::EDT_OGLES2);
+        video::E_DRIVER_TYPE videoType = video::EDT_NULL;
+        switch (apiType)
+        {
+        case API_OPENGL:    videoType = video::EDT_OPENGL;      break;
+        case API_OPENGL_ES: videoType = video::EDT_BGFX_OPENGL; break;
+        case API_D3D9:      videoType = video::EDT_BGFX_D3D9;   break;
+        case API_D3D11:     videoType = video::EDT_BGFX_D3D11;  break;
+        case API_D3D12:     videoType = video::EDT_BGFX_D3D12;  break;
+        case API_VULKAN:    videoType = video::EDT_BGFX_VULKAN; break;
+        case API_METAL:     videoType = video::EDT_BGFX_METAL;  break;
+        default:
+            break;
+        }
+        createDriverAndSmgr(width, height, videoType);
     }
     setupSceneAndCamera();
 

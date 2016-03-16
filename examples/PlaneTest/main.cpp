@@ -106,13 +106,15 @@ int main(int argc, char const* const* argv)
     mesh = smgr->getGeometryCreator()->createCubeMesh({ 100, 100, 100 });
     mesh->drop();
 #else
-    mesh = smgr->getMesh("../media/duck.fbx");
+    mesh = smgr->getMesh("../media/duck/duck.fbx");
 #endif
     scene::IMesh* tangentMesh = smgr->getMeshManipulator()->
         createMeshWithTangents(mesh);
 
     tangentMesh->setHardwareMappingHint(EHM_STATIC);
     scene::IMeshSceneNode* node = smgr->addMeshSceneNode(tangentMesh);
+    tangentMesh->drop();
+
     node->setRotation({ -90, 0, 0 });
     //node->setMaterialFlag(video::EMF_BACK_FACE_CULLING, false);
     //node->setMaterialFlag(video::EMF_FRONT_FACE_CULLING, true);
