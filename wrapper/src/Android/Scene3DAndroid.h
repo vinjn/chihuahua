@@ -85,7 +85,7 @@ extern "C"
     }
 
     JNIEXPORT void JNICALL WRAP_FUNCTION_NAME(Scene_1initializeRenderer)(JNIEnv * env, jclass cls, 
-        jint width, jint height, jlong windowHandle, jint apiType)
+        jint width, jint height, jlong windowHandle, ApiType apiType)
     {
         Scene_initializeRenderer(width, height, windowHandle, apiType);
     }
