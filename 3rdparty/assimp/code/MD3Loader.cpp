@@ -58,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "ParsingUtils.h"
 #include "Importer.h"
 #include "../include/assimp/DefaultLogger.hpp"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include "../include/assimp/IOSystem.hpp"
 #include "../include/assimp/material.h"
 #include "../include/assimp/scene.h"
@@ -108,7 +108,7 @@ Q3Shader::BlendFunc StringToBlendFunc(const std::string& m)
 // Load a Quake 3 shader
 bool Q3Shader::LoadShader(ShaderData& fill, const std::string& pFile,IOSystem* io)
 {
-    boost::scoped_ptr<IOStream> file( io->Open( pFile, "rt"));
+    std::unique_ptr<IOStream> file( io->Open( pFile, "rt"));
     if (!file.get())
         return false; // if we can't access the file, don't worry and return
 
@@ -233,7 +233,7 @@ bool Q3Shader::LoadShader(ShaderData& fill, const std::string& pFile,IOSystem* i
 // Load a Quake 3 skin
 bool Q3Shader::LoadSkin(SkinData& fill, const std::string& pFile,IOSystem* io)
 {
-    boost::scoped_ptr<IOStream> file( io->Open( pFile, "rt"));
+    std::unique_ptr<IOStream> file( io->Open( pFile, "rt"));
     if (!file.get())
         return false; // if we can't access the file, don't worry and return
 
@@ -745,7 +745,7 @@ void MD3Importer::InternReadFile( const std::string& pFile,
             return;
     }
 
-    boost::scoped_ptr<IOStream> file( pIOHandler->Open( pFile));
+    std::unique_ptr<IOStream> file( pIOHandler->Open( pFile));
 
     // Check whether we can read from the file
     if( file.get() == NULL)
@@ -763,7 +763,7 @@ void MD3Importer::InternReadFile( const std::string& pFile,
 
     pcHeader = (BE_NCONST MD3::Header*)mBuffer;
 
-    // Ensure correct endianess
+    // Ensure correct endianness
 #ifdef AI_BUILD_BIG_ENDIAN
 
     AI_SWAP4(pcHeader->VERSION);
@@ -832,7 +832,7 @@ void MD3Importer::InternReadFile( const std::string& pFile,
     unsigned int iNumMaterials = 0;
     while (iNum-- > 0)  {
 
-        // Ensure correct endianess
+        // Ensure correct endianness
 #ifdef AI_BUILD_BIG_ENDIAN
 
         AI_SWAP4(pcSurfaces->FLAGS);
@@ -965,7 +965,7 @@ void MD3Importer::InternReadFile( const std::string& pFile,
         pScene->mMaterials[iNumMaterials] = (aiMaterial*)pcHelper;
         pcMesh->mMaterialIndex = iNumMaterials++;
 
-            // Ensure correct endianess
+            // Ensure correct endianness
 #ifdef AI_BUILD_BIG_ENDIAN
 
         for (uint32_t i = 0; i < pcSurfaces->NUM_VERTICES;++i)  {

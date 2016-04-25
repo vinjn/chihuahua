@@ -57,3 +57,5 @@ _project
 bin
 x86
 x64
+/3rdparty/assimp/contrib/zlib
+/3rdparty/IMGUI/examples/

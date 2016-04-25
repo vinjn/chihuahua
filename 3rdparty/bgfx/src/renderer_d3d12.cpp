@@ -908,6 +908,7 @@ namespace bgfx { namespace d3d12
 									| BGFX_CAPS_TEXTURE_BLIT
 									| BGFX_CAPS_TEXTURE_READ_BACK
 									| BGFX_CAPS_OCCLUSION_QUERY
+									| BGFX_CAPS_ALPHA_TO_COVERAGE
 									);
 				g_caps.maxTextureSize   = 16384;
 				g_caps.maxFBAttachments = uint8_t(bx::uint32_min(16, BGFX_CONFIG_MAX_FRAME_BUFFER_ATTACHMENTS) );
@@ -1973,7 +1974,7 @@ data.NumQualityLevels = 0;
 
 		void setBlendState(D3D12_BLEND_DESC& _desc, uint64_t _state, uint32_t _rgba = 0)
 		{
-			_desc.AlphaToCoverageEnable  = false;
+			_desc.AlphaToCoverageEnable  = !!(BGFX_STATE_BLEND_ALPHA_TO_COVERAGE & _state);
 			_desc.IndependentBlendEnable = !!(BGFX_STATE_BLEND_INDEPENDENT & _state);
 
 			D3D12_RENDER_TARGET_BLEND_DESC* drt = &_desc.RenderTarget[0];
@@ -2058,14 +2059,17 @@ data.NumQualityLevels = 0;
 				;
 			_desc.CullMode = s_cullMode[cull];
 			_desc.FrontCounterClockwise = false;
-			_desc.DepthBias = 0;
-			_desc.DepthBiasClamp = 0.0f;
-			_desc.SlopeScaledDepthBias = 0.0f;
-			_desc.DepthClipEnable = !m_depthClamp;
-			_desc.MultisampleEnable = !!(_state&BGFX_STATE_MSAA);
-			_desc.AntialiasedLineEnable = false;
-			_desc.ForcedSampleCount = 0;
-			_desc.ConservativeRaster = D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF;
+			_desc.DepthBias             = 0;
+			_desc.DepthBiasClamp        = 0.0f;
+			_desc.SlopeScaledDepthBias  = 0.0f;
+			_desc.DepthClipEnable       = !m_depthClamp;
+			_desc.MultisampleEnable     = !!(_state&BGFX_STATE_MSAA);
+			_desc.AntialiasedLineEnable = !!(_state&BGFX_STATE_LINEAA);
+			_desc.ForcedSampleCount     = 0;
+			_desc.ConservativeRaster    = !!(_state&BGFX_STATE_CONSERVATIVE_RASTER)
+				? D3D12_CONSERVATIVE_RASTERIZATION_MODE_ON
+				: D3D12_CONSERVATIVE_RASTERIZATION_MODE_OFF
+				;
 		}
 
 		void setDepthStencilState(D3D12_DEPTH_STENCIL_DESC& _desc, uint64_t _state, uint64_t _stencil = 0)
@@ -2210,8 +2214,11 @@ data.NumQualityLevels = 0;
 				| BGFX_STATE_BLEND_MASK
 				| BGFX_STATE_BLEND_EQUATION_MASK
 				| BGFX_STATE_BLEND_INDEPENDENT
+				| BGFX_STATE_BLEND_ALPHA_TO_COVERAGE
 				| BGFX_STATE_CULL_MASK
 				| BGFX_STATE_MSAA
+				| BGFX_STATE_LINEAA
+				| BGFX_STATE_CONSERVATIVE_RASTER
 				| BGFX_STATE_PT_MASK
 				;
 

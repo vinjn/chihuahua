@@ -53,7 +53,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "MD2FileData.h"
 #include "StringUtils.h"
 #include "../include/assimp/Importer.hpp"
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 #include "../include/assimp/IOSystem.hpp"
 #include "../include/assimp/scene.h"
 #include "../include/assimp/DefaultLogger.hpp"
@@ -156,7 +156,7 @@ void MDLImporter::InternReadFile( const std::string& pFile,
 {
     pScene     = _pScene;
     pIOHandler = _pIOHandler;
-    boost::scoped_ptr<IOStream> file( pIOHandler->Open( pFile));
+    std::unique_ptr<IOStream> file( pIOHandler->Open( pFile));
 
     // Check whether we can read from the file
     if( file.get() == NULL) {
@@ -1290,7 +1290,7 @@ void MDLImporter::SortByMaterials_3DGS_MDL7(
                     iMatIndex2 = iNumMaterials-1;
                 }
 
-                // do a slow seach in the list ...
+                // do a slow search in the list ...
                 iNum = 0;
                 bool bFound = false;
                 for (std::vector<MDL::IntMaterial_MDL7>::iterator i =  avMats.begin();i != avMats.end();++i,++iNum){
