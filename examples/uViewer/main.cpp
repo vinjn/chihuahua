@@ -11,7 +11,6 @@ Lets start: Create an Irrlicht device and setup the window.
 */
 
 #include <irrlicht.h>
-#include "driverChoice.h"
 #include "HMDStereoRender.h"
 
 using namespace ue;

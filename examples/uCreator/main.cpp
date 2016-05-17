@@ -28,7 +28,6 @@ ImGuiStyle getDarkTheme()
     mStyle.ItemSpacing = ImVec2(6, 2);
     mStyle.ItemInnerSpacing = ImVec2(6, 4);
     mStyle.Alpha = 0.95f;
-    mStyle.WindowFillAlphaDefault = 1.0f;
     mStyle.WindowRounding = 4.0f;
     mStyle.FrameRounding = 2.0f;
     mStyle.IndentSpacing = 6.0f;
@@ -82,7 +81,6 @@ ImGuiStyle getDarkTheme()
     style.Colors[ImGuiCol_PlotHistogram] = ImVec4(0.86f, 0.93f, 0.89f, 0.63f);
     style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.92f, 0.18f, 0.29f, 1.00f);
     style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.92f, 0.18f, 0.29f, 0.43f);
-    style.Colors[ImGuiCol_TooltipBg] = ImVec4(0.47f, 0.77f, 0.83f, 0.72f);
     style.Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.20f, 0.22f, 0.27f, 0.73f);
 
     return mStyle;
@@ -191,7 +189,7 @@ int main(int, char**)
     glfwGetFramebufferSize(window, &displayWidth, &displayHeight);
 
     HWND hwnd = glfwGetWin32Window(window);
-    Scene_initializeRenderer(displayWidth, displayHeight, (long)hwnd, API_OPENGL_ES);
+    Scene_initializeRenderer(displayWidth, displayHeight, (long)hwnd, API_OPENGL);
 
     // Setup ImGui binding
     ImGui_ImplGlfwGL3_Init(window, true);

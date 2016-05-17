@@ -348,9 +348,7 @@ solution "uEngine"
             "wrapper/src/Scene3D.cpp",
             "wrapper/src/Javascript/Scene3D_v7.cpp",
             "source/*.h",
-            "source/CAnimatedMeshHalfLife.cpp",
             "source/CAnimatedMeshMD2.cpp",
-            "source/CAnimatedMeshMD3.cpp",
             "source/CAnimatedMeshSceneNode.cpp",
             "source/CAttributes.cpp",
             "source/CBillboardSceneNode.cpp",
@@ -369,24 +367,6 @@ solution "uEngine"
             "source/leakHunter.cpp",
             "source/CGeometryCreator.cpp",
             "source/CImage.cpp",
-            "source/CImageLoaderBMP.cpp",
-            "source/CImageLoaderDDS.cpp",
-            "source/CImageLoaderJPG.cpp",
-            "source/CImageLoaderPCX.cpp",
-            "source/CImageLoaderPNG.cpp",
-            "source/CImageLoaderPPM.cpp",
-            "source/CImageLoaderPSD.cpp",
-            "source/CImageLoaderRGB.cpp",
-            "source/CImageLoaderTGA.cpp",
-            "source/CImageLoaderWAL.cpp",
-            "source/CImageWriterBMP.cpp",
-            "source/CImageWriterJPG.cpp",
-            "source/CImageWriterPCX.cpp",
-            "source/CImageWriterPNG.cpp",
-            "source/CImageWriterPPM.cpp",
-            "source/CImageWriterPSD.cpp",
-            "source/CImageWriterTGA.cpp",
-            "source/CImageLoaderPVR.cpp",
             "source/CLightSceneNode.cpp",
             "source/CLimitReadFile.cpp",
             "source/CLogger.cpp",
@@ -530,12 +510,12 @@ solution "uEngine"
 
     local apps = os.matchdirs("examples/*")
     for _, app in ipairs(apps) do
-        -- if not string.contains(app, "_") 
-        --     and not string.contains(app, "Android")
-        --     and not string.contains(app, "Mac")
-        --     and not string.contains(app, "Demo")
-        --     and not string.contains(app, "OculusSimple")
-        --     and not string.contains(app, "Metaio")then
-        --     create_app_project(app)
-        -- end
+        if not string.contains(app, "_") and not string.contains(app, ".") 
+            and not string.contains(app, "Android")
+            and not string.contains(app, "Mac")
+            and not string.contains(app, "Demo")
+            and not string.contains(app, "OculusSimple")
+            and not string.contains(app, "Metaio")then
+            create_app_project(app)
+        end
     end 
