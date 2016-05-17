@@ -9,3 +9,5 @@ cp -r ../../assimp/include/* ./assimp/include/
 cp ../../imgui/*.h ./imgui/
 cp ../../imgui/*.cpp ./imgui/
 cp -r ../../imgui/examples ./imgui/examples
+cp ../../v7/*.h ./v7/
+cp ../../v7/*.c ./v7/

@@ -15,30 +15,6 @@
 #else
 #include "GLES2/gl2.h"
 #endif
-//! prints error if an error happened.
-bool testGLError(const char* comment = "")
-{
-    GLenum g = glGetError();
-    printf("%s\n", comment);
-    switch (g)
-    {
-    case GL_NO_ERROR:
-        return false;
-    case GL_INVALID_ENUM:
-        printf("GL_INVALID_ENUM");
-        break;
-    case GL_INVALID_VALUE:
-        printf("GL_INVALID_VALUE");
-        break;
-    case GL_INVALID_OPERATION:
-        printf("GL_INVALID_OPERATION");
-        break;
-    case GL_OUT_OF_MEMORY:
-        printf("GL_OUT_OF_MEMORY");
-        break;
-    };
-    return true;
-}
 
 using namespace ue;
 using namespace core;
@@ -48,16 +24,6 @@ namespace ue
     class CIrrDeviceIPhone;
     namespace video
     {
-
-        IVideoDriver* createOGLES2Driver(const SIrrlichtCreationParameters& params,
-            io::IFileSystem* io
-#if defined(_IRR_COMPILE_WITH_IPHONE_DEVICE_)
-            , CIrrDeviceIPhone* device
-#else
-            , IContextManager* contextManager
-#endif
-            );
-
         IVideoDriver* createBgfxDriver(const SIrrlichtCreationParameters& params,
             io::IFileSystem* io
 #if defined(_IRR_COMPILE_WITH_X11_DEVICE_) || defined(_IRR_WINDOWS_API_) || defined(_IRR_COMPILE_WITH_ANDROID_DEVICE_) || defined(_IRR_COMPILE_WITH_FB_DEVICE_)
@@ -189,16 +155,16 @@ void Scene_initializeRenderer(int width, int height, long windowHandle, ApiType 
     // TODO: memory leak
     // if (driver == NULL)
     {
-        video::E_DRIVER_TYPE videoType = video::EDT_NULL;
+        video::E_DRIVER_TYPE videoType = video::EDT_COUNT;
         switch (apiType)
         {
-        case API_OPENGL:    videoType = video::EDT_OPENGL;      break;
-        case API_OPENGL_ES: videoType = video::EDT_BGFX_OPENGL; break;
-        case API_D3D9:      videoType = video::EDT_BGFX_D3D9;   break;
-        case API_D3D11:     videoType = video::EDT_BGFX_D3D11;  break;
-        case API_D3D12:     videoType = video::EDT_BGFX_D3D12;  break;
-        case API_VULKAN:    videoType = video::EDT_BGFX_VULKAN; break;
-        case API_METAL:     videoType = video::EDT_BGFX_METAL;  break;
+        case API_OPENGL:    videoType = video::EDT_BGFX_OPENGL;     break;
+        case API_OPENGL_ES: videoType = video::EDT_BGFX_OPENGL_ES;  break;
+        case API_D3D9:      videoType = video::EDT_BGFX_D3D9;       break;
+        case API_D3D11:     videoType = video::EDT_BGFX_D3D11;      break;
+        case API_D3D12:     videoType = video::EDT_BGFX_D3D12;      break;
+        case API_VULKAN:    videoType = video::EDT_BGFX_VULKAN;     break;
+        case API_METAL:     videoType = video::EDT_BGFX_METAL;      break;
         default:
             break;
         }
@@ -210,11 +176,7 @@ void Scene_initializeRenderer(int width, int height, long windowHandle, ApiType 
         params.WindowSize.Height = height;
         params.WindowId = (void*)windowHandle;
 
-        if (params.DriverType == video::EDT_OPENGL)
-        {
-            driver = video::createOGLES2Driver(params, fs, NULL);
-        }
-        else if (params.DriverType >= video::EDT_BGFX_OPENGL && params.DriverType <= video::EDT_BGFX_VULKAN)
+        if (params.DriverType <= video::EDT_BGFX_VULKAN)
         {
             driver = video::createBgfxDriver(params, fs, NULL);
         }
@@ -224,7 +186,7 @@ void Scene_initializeRenderer(int width, int height, long windowHandle, ApiType 
             // Fatal ERROR
         }
 
-        testGLError("video::createDriver()");
+        //testGLError("video::createDriver()");
 
         os::Timer::initTimer(true);
 
@@ -234,7 +196,7 @@ void Scene_initializeRenderer(int width, int height, long windowHandle, ApiType 
 
     dimension2d<u32> dim(width, height);
     driver->OnResize(dim);
-    testGLError("driver->OnResize()");
+    //testGLError("driver->OnResize()");
 }
 
 void Scene_clear(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
@@ -807,15 +769,4 @@ void MeshNode_setShadowMode(long nodePtr, ShadowMode mode)
 void Scene_setVisible(int visible)
 {
     Node_setVisible(Scene_getRootNode(), visible);
-}
-
-void Scene_initializeFromDevice(long irrlichtDevice)
-{
-    auto device = (IrrlichtDevice*)irrlichtDevice;
-
-    fs = device->getFileSystem();
-    driver = device->getVideoDriver();
-    smgr = device->getSceneManager();
-
-    setupSceneAndCamera();
 }

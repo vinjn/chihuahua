@@ -66,7 +66,7 @@
 #if defined(_WIN32) || defined(_WIN64) || defined(WIN32) || defined(WIN64)
 #define _IRR_WINDOWS_
 #define _IRR_WINDOWS_API_
-#define _IRR_COMPILE_WITH_WINDOWS_DEVICE_
+//#define _IRR_COMPILE_WITH_WINDOWS_DEVICE_
 // vinjn: add gles2 support to windows desktop simulator
 // #define NO_IRR_COMPILE_WITH_OGLES1_
 //#define NO_IRR_COMPILE_WITH_OGLES2_

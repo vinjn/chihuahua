@@ -5,7 +5,7 @@
 #include "CImage.h"
 #include "irrString.h"
 #include "CColorConverter.h"
-#include "CBlit.h"
+//#include "CBlit.h"
 #include "os.h"
 
 namespace ue
@@ -216,7 +216,7 @@ void CImage::setPixel(u32 x, u32 y, const SColor &color, bool blend)
 		case ECF_A8R8G8B8:
 		{
 			u32 * dest = (u32*) (Data + ( y * Pitch ) + ( x << 2 ));
-			*dest = blend ? PixelBlend32 ( *dest, color.color ) : color.color;
+			*dest = color.color;
 		} break;
 		default:
 			break;
@@ -273,7 +273,7 @@ void CImage::copyTo(IImage* target, const core::position2d<s32>& pos)
 		return;
 	}
 
-	Blit(BLITTER_TEXTURE, target, 0, &pos, this, 0, 0);
+	//Blit(BLITTER_TEXTURE, target, 0, &pos, this, 0, 0);
 }
 
 
@@ -286,7 +286,7 @@ void CImage::copyTo(IImage* target, const core::position2d<s32>& pos, const core
 		return;
 	}
 
-	Blit(BLITTER_TEXTURE, target, clipRect, &pos, this, &sourceRect, 0);
+	//Blit(BLITTER_TEXTURE, target, clipRect, &pos, this, &sourceRect, 0);
 }
 
 
@@ -300,8 +300,7 @@ void CImage::copyToWithAlpha(IImage* target, const core::position2d<s32>& pos, c
 	}
 
 	// color blend only necessary on not full spectrum aka. color.color != 0xFFFFFFFF
-	Blit(color.color == 0xFFFFFFFF ? BLITTER_TEXTURE_ALPHA_BLEND: BLITTER_TEXTURE_ALPHA_COLOR_BLEND,
-			target, clipRect, &pos, this, &sourceRect, color.color);
+	//Blit(color.color == 0xFFFFFFFF ? BLITTER_TEXTURE_ALPHA_BLEND: BLITTER_TEXTURE_ALPHA_COLOR_BLEND, target, clipRect, &pos, this, &sourceRect, color.color);
 }
 
 
@@ -471,7 +470,7 @@ void CImage::fill(const SColor &color)
 		// TODO: Handle other formats
 			return;
 	}
-	memset32( Data, c, getImageDataSizeInBytes() );
+	//memset32( Data, c, getImageDataSizeInBytes() );
 }
 
 
@@ -517,7 +516,7 @@ inline SColor CImage::getPixelBox( s32 x, s32 y, s32 fx, s32 fy, s32 bias ) cons
 
 	}
 
-	s32 sdiv = s32_log2_s32(fx * fy);
+    s32 sdiv = -1;// s32_log2_s32(fx * fy);
 
 	a = core::s32_clamp( ( a >> sdiv ) + bias, 0, 255 );
 	r = core::s32_clamp( ( r >> sdiv ) + bias, 0, 255 );

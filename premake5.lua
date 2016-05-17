@@ -342,10 +342,11 @@ solution "uEngine"
         }
 
         files {
+            "3rdparty/v7/v7.c",
             "include/*",
             "wrapper/src/Scene3D.h",
             "wrapper/src/Scene3D.cpp",
-            -- "wrapper/src/Javascript/Scene3D_v7.cpp",
+            "wrapper/src/Javascript/Scene3D_v7.cpp",
             "source/*.h",
             "source/CAnimatedMeshHalfLife.cpp",
             "source/CAnimatedMeshMD2.cpp",
@@ -386,13 +387,6 @@ solution "uEngine"
             "source/CImageWriterPSD.cpp",
             "source/CImageWriterTGA.cpp",
             "source/CImageLoaderPVR.cpp",
-            "source/CIrrDeviceConsole.cpp",
-            "source/CIrrDeviceFB.cpp",
-            "source/CIrrDeviceLinux.cpp",
-            "source/CIrrDeviceSDL.cpp",
-            "source/CIrrDeviceStub.cpp",
-            "source/CIrrDeviceWin32.cpp",
-            "source/CIrrDeviceWinCE.cpp",
             "source/CLightSceneNode.cpp",
             "source/CLimitReadFile.cpp",
             "source/CLogger.cpp",
@@ -407,15 +401,6 @@ solution "uEngine"
             "source/CNullDriver.cpp",
             "source/COctreeSceneNode.cpp",
             "source/COctreeTriangleSelector.cpp",
-            "source/CEGLManager.cpp",
-            "source/COGLES2Driver.cpp",
-            "source/COGLES2ExtensionHandler.cpp",
-            "source/COGLES2MaterialRenderer.cpp",
-            "source/COGLES2FixedPipelineRenderer.cpp",
-            "source/COGLES2NormalMapRenderer.cpp",
-            "source/COGLES2ParallaxMapRenderer.cpp",
-            "source/COGLES2Renderer2D.cpp",
-            "source/COGLES2Texture.cpp",
             "source/COSOperator.cpp",
             "source/CParticleAnimatedMeshSceneNodeEmitter.cpp",
             "source/CParticleAttractionAffector.cpp",
@@ -457,7 +442,6 @@ solution "uEngine"
             "source/CTriangleSelector.cpp",
             "source/CVideoModeList.cpp",
             "source/CVolumeLightSceneNode.cpp",
-            "source/CWADReader.cpp",
             "source/CWaterSurfaceSceneNode.cpp",
             "source/CWriteFile.cpp",
             "source/CXMLReader.cpp",
@@ -467,8 +451,6 @@ solution "uEngine"
             "source/Irrlicht.cpp",
             "source/irrXML.cpp",
             "source/os.cpp",
-            "source/CWGLManager.cpp",
-            "source/CD3D9*",
             "source/CBgfx*",
             "source/IrrAssimpImport.cpp",
             "source/HMDStereoRender.cpp",
@@ -548,12 +530,12 @@ solution "uEngine"
 
     local apps = os.matchdirs("examples/*")
     for _, app in ipairs(apps) do
-        if not string.contains(app, "_") 
-            and not string.contains(app, "Android")
-            and not string.contains(app, "Mac")
-            and not string.contains(app, "Demo")
-            and not string.contains(app, "OculusSimple")
-            and not string.contains(app, "Metaio")then
-            create_app_project(app)
-        end
+        -- if not string.contains(app, "_") 
+        --     and not string.contains(app, "Android")
+        --     and not string.contains(app, "Mac")
+        --     and not string.contains(app, "Demo")
+        --     and not string.contains(app, "OculusSimple")
+        --     and not string.contains(app, "Metaio")then
+        --     create_app_project(app)
+        -- end
     end 
