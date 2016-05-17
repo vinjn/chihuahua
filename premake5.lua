@@ -167,6 +167,7 @@ solution "uEngine"
 
         removefiles {
             "3rdparty/bgfx/src/amalgamated.cpp",
+            "3rdparty/bgfx/src/hmd*.cpp",
         }
 
         defines {
@@ -236,6 +237,7 @@ solution "uEngine"
             "ASSIMP_BUILD_NO_ASSBIN_IMPORTER",
             -- "ASSIMP_BUILD_NO_GLTF_IMPORTER",
             "ASSIMP_BUILD_NO_C4D_IMPORTER",
+            "ASSIMP_BUILD_NO_3MF_IMPORTER",
             "ASSIMP_BUILD_NO_STEP_EXPORTER",
             "ASSIMP_BUILD_NO_SIB_IMPORTER",
 
@@ -313,6 +315,7 @@ solution "uEngine"
             "3rdparty/assimp/code/ObjFileMtlImporter.cpp",
             "3rdparty/assimp/code/ObjFileParser.cpp",
             "3rdparty/assimp/code/glTFImporter.cpp",
+            "3rdparty/assimp/code/MakeVerboseFormat.cpp",
             "3rdparty/assimp/contrib/ConvertUTF/ConvertUTF.c",
             "3rdparty/assimp/contrib/irrXML/*",
         }
