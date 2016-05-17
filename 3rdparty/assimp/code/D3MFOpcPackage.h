@@ -10,18 +10,18 @@ with or without modification, are permitted provided that the
 following conditions are met:
 
 * Redistributions of source code must retain the above
-copyright notice, this list of conditions and the
-following disclaimer.
+  copyright notice, this list of conditions and the
+  following disclaimer.
 
 * Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the
-following disclaimer in the documentation and/or other
-materials provided with the distribution.
+  copyright notice, this list of conditions and the
+  following disclaimer in the documentation and/or other
+  materials provided with the distribution.
 
 * Neither the name of the assimp team, nor the names of its
-contributors may be used to endorse or promote products
-derived from this software without specific prior
-written permission of the assimp team.
+  contributors may be used to endorse or promote products
+  derived from this software without specific prior
+  written permission of the assimp team.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,52 +38,39 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------
 */
 
-/** @file glTFWriter.h
- * Declares a class to write gltf/glb files
- *
- * glTF Extensions Support:
- *   KHR_binary_glTF: full
- *   KHR_materials_common: full
- */
-#ifndef glTFAssetWriter_H_INC
-#define glTFAssetWriter_H_INC
+#ifndef D3MFOPCPACKAGE_H
+#define D3MFOPCPACKAGE_H
 
-#include "glTFAsset.h"
+#include <string>
+#include <memory>
 
-namespace glTF
+#include "../include/assimp/IOSystem.hpp"
+#include "irrXMLWrapper.h"
+
+namespace Assimp {
+
+namespace D3MF {
+
+typedef irr::io::IrrXMLReader XmlReader;
+typedef std::shared_ptr<XmlReader> XmlReaderPtr;
+
+class D3MFZipArchive;
+
+class D3MFOpcPackage
 {
-
-using rapidjson::MemoryPoolAllocator;
-
-class AssetWriter
-{
-    template<class T>
-    friend void WriteLazyDict(LazyDict<T>& d, AssetWriter& w);
-
-private:
-
-    void WriteBinaryData(IOStream* outfile, size_t sceneLength);
-
-    void WriteMetadata();
-    void WriteExtensionsUsed();
-
-    template<class T>
-    void WriteObjects(LazyDict<T>& d);
-
 public:
-    Document mDoc;
-    Asset& mAsset;
+    D3MFOpcPackage(IOSystem* pIOHandler, const std::string& rFile);
+    ~D3MFOpcPackage();
 
-    MemoryPoolAllocator<>& mAl;
-
-    AssetWriter(Asset& asset);
-
-    void WriteFile(const char* path);
+    IOStream* RootStream() const;
+private:
+    std::string ReadPackageRootRelationship(IOStream* stream);
+private:
+    IOStream* m_RootStream;
+    std::unique_ptr<D3MFZipArchive> zipArchive;
 };
 
 }
+}
 
-// Include the implementation of the methods
-#include "glTFAssetWriter.inl"
-
-#endif
+#endif // D3MFOPCPACKAGE_H

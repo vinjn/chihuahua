@@ -50,7 +50,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assimp/DefaultLogger.hpp>
 #include <memory>
 
+#include "MakeVerboseFormat.h"
+
 #include "glTFAsset.h"
+// This is included here so WriteLazyDict<T>'s definition is found.
+#include "glTFAssetWriter.h"
 
 using namespace Assimp;
 using namespace glTF;
@@ -180,7 +184,7 @@ inline void SetMaterialColorProperty(std::vector<int>& embeddedTexIdxs, Asset& r
 
 void glTFImporter::ImportMaterials(glTF::Asset& r)
 {
-    mScene->mNumMaterials = r.materials.Size();
+    mScene->mNumMaterials = unsigned(r.materials.Size());
     mScene->mMaterials = new aiMaterial*[mScene->mNumMaterials];
 
     for (unsigned int i = 0; i < mScene->mNumMaterials; ++i) {
@@ -210,14 +214,14 @@ void glTFImporter::ImportMaterials(glTF::Asset& r)
 }
 
 
-inline void SetFace(aiFace& face, int a)
+static inline void SetFace(aiFace& face, int a)
 {
     face.mNumIndices = 1;
     face.mIndices = new unsigned int[1];
     face.mIndices[0] = a;
 }
 
-inline void SetFace(aiFace& face, int a, int b)
+static inline void SetFace(aiFace& face, int a, int b)
 {
     face.mNumIndices = 2;
     face.mIndices = new unsigned int[2];
@@ -225,13 +229,25 @@ inline void SetFace(aiFace& face, int a, int b)
     face.mIndices[1] = b;
 }
 
-inline void SetFace(aiFace& face, int a, int b, int c)
+static inline void SetFace(aiFace& face, int a, int b, int c)
 {
     face.mNumIndices = 3;
     face.mIndices = new unsigned int[3];
     face.mIndices[0] = a;
     face.mIndices[1] = b;
     face.mIndices[2] = c;
+}
+
+static inline bool CheckValidFacesIndices(aiFace* faces, unsigned nFaces, unsigned nVerts)
+{
+    for (unsigned i = 0; i < nFaces; ++i) {
+        for (unsigned j = 0; j < faces[i].mNumIndices; ++j) {
+            unsigned idx = faces[i].mIndices[j];
+            if (idx >= nVerts)
+                return false;
+        }
+    }
+    return true;
 }
 
 void glTFImporter::ImportMeshes(glTF::Asset& r)
@@ -244,7 +260,7 @@ void glTFImporter::ImportMeshes(glTF::Asset& r)
         Mesh& mesh = r.meshes[m];
 
         meshOffsets.push_back(k);
-        k += mesh.primitives.size();
+        k += unsigned(mesh.primitives.size());
 
         for (unsigned int p = 0; p < mesh.primitives.size(); ++p) {
             Mesh::Primitive& prim = mesh.primitives[p];
@@ -256,7 +272,7 @@ void glTFImporter::ImportMeshes(glTF::Asset& r)
             if (mesh.primitives.size() > 1) {
                 size_t& len = aim->mName.length;
                 aim->mName.data[len] = '-';
-                len += 1 + ASSIMP_itoa10(aim->mName.data + len + 1, MAXLEN - len - 1, p);
+                len += 1 + ASSIMP_itoa10(aim->mName.data + len + 1, unsigned(MAXLEN - len - 1), p);
             }
 
             switch (prim.mode) {
@@ -290,16 +306,22 @@ void glTFImporter::ImportMeshes(glTF::Asset& r)
             for (size_t tc = 0; tc < attr.texcoord.size() && tc <= AI_MAX_NUMBER_OF_TEXTURECOORDS; ++tc) {
                 attr.texcoord[tc]->ExtractData(aim->mTextureCoords[tc]);
                 aim->mNumUVComponents[tc] = attr.texcoord[tc]->GetNumComponents();
+
+                aiVector3D* values = aim->mTextureCoords[tc];
+                for (unsigned int i = 0; i < aim->mNumVertices; ++i) {
+                    values[i].y = 1 - values[i].y; // Flip Y coords
+                }
             }
 
 
             if (prim.indices) {
                 aiFace* faces = 0;
-                size_t nFaces = 0;
+                unsigned int nFaces = 0;
 
                 unsigned int count = prim.indices->count;
 
                 Accessor::Indexer data = prim.indices->GetIndexer();
+                ai_assert(data.IsValid());
 
                 switch (prim.mode) {
                     case PrimitiveMode_POINTS: {
@@ -364,6 +386,7 @@ void glTFImporter::ImportMeshes(glTF::Asset& r)
                 if (faces) {
                     aim->mFaces = faces;
                     aim->mNumFaces = nFaces;
+                    ai_assert(CheckValidFacesIndices(faces, nFaces, aim->mNumVertices));
                 }
             }
 
@@ -451,7 +474,7 @@ aiNode* ImportNode(aiScene* pScene, glTF::Asset& r, std::vector<unsigned int>& m
     aiNode* ainode = new aiNode(node.id);
 
     if (!node.children.empty()) {
-        ainode->mNumChildren = node.children.size();
+        ainode->mNumChildren = unsigned(node.children.size());
         ainode->mChildren = new aiNode*[ainode->mNumChildren];
 
         for (unsigned int i = 0; i < ainode->mNumChildren; ++i) {
@@ -461,7 +484,7 @@ aiNode* ImportNode(aiScene* pScene, glTF::Asset& r, std::vector<unsigned int>& m
         }
     }
 
-    aiMatrix4x4 matrix = ainode->mTransformation;
+    aiMatrix4x4& matrix = ainode->mTransformation;
     if (node.matrix.isPresent) {
         CopyValue(node.matrix.value, matrix);
     }
@@ -503,7 +526,7 @@ aiNode* ImportNode(aiScene* pScene, glTF::Asset& r, std::vector<unsigned int>& m
         int k = 0;
         for (size_t i = 0; i < node.meshes.size(); ++i) {
             int idx = node.meshes[i].GetIndex();
-            for (size_t j = meshOffsets[idx]; j < meshOffsets[idx + 1]; ++j, ++k) {
+            for (unsigned int j = meshOffsets[idx]; j < meshOffsets[idx + 1]; ++j, ++k) {
                 ainode->mMeshes[k] = j;
             }
         }
@@ -527,7 +550,7 @@ void glTFImporter::ImportNodes(glTF::Asset& r)
     std::vector< Ref<Node> > rootNodes = r.scene->nodes;
 
     // The root nodes
-    unsigned int numRootNodes = rootNodes.size();
+    unsigned int numRootNodes = unsigned(rootNodes.size());
     if (numRootNodes == 1) { // a single root node: use it
         mScene->mRootNode = ImportNode(mScene, r, meshOffsets, rootNodes[0]);
     }
@@ -617,7 +640,10 @@ void glTFImporter::InternReadFile(const std::string& pFile, aiScene* pScene, IOS
     ImportNodes(asset);
 
     // TODO: it does not split the loaded vertices, should it?
-    pScene->mFlags |= AI_SCENE_FLAGS_NON_VERBOSE_FORMAT;
+    //pScene->mFlags |= AI_SCENE_FLAGS_NON_VERBOSE_FORMAT;
+    Assimp::MakeVerboseFormatProcess process;
+    process.Execute(pScene);
+    
 
     if (pScene->mNumMeshes == 0) {
         pScene->mFlags |= AI_SCENE_FLAGS_INCOMPLETE;

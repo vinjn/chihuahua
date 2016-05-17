@@ -808,6 +808,7 @@ namespace bgfx
 
 	const char* getName(SpvDecoration::Enum _enum)
 	{
+		BX_UNUSED(s_spvDecorationInfo);
 		BX_CHECK(_enum <= SpvDecoration::Count, "Unknown decoration id %d.", _enum);
 		return _enum <= SpvDecoration::Count
 			?  s_spvDecoration[_enum]
@@ -920,7 +921,7 @@ namespace bgfx
 			break;
 
 		default:
-			size += bx::read(_reader, _operand.data[0], _err);
+			size += bx::read(_reader, _operand.data, _err);
 			break;
 		}
 
@@ -1046,7 +1047,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%sAddressingModel(%d)"
 							, 0 == ii ? " " : ", "
-							, operand.data[0]
+							, operand.data
 							);
 				break;
 
@@ -1054,7 +1055,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%s%s"
 							, 0 == ii ? " " : ", "
-							, getName(SpvDecoration::Enum(operand.data[0]) )
+							, getName(SpvDecoration::Enum(operand.data) )
 							);
 				break;
 
@@ -1062,7 +1063,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%s0x%08x"
 							, 0 == ii ? " " : ", "
-							, operand.data[0]
+							, operand.data
 							);
 				break;
 
@@ -1070,7 +1071,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%s%d"
 							, 0 == ii ? " " : ", "
-							, operand.data[0]
+							, operand.data
 							);
 				break;
 
@@ -1086,7 +1087,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%sMemoryModel(%d)"
 							, 0 == ii ? " " : ", "
-							, operand.data[0]
+							, operand.data
 							);
 				break;
 
@@ -1094,7 +1095,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%s%s"
 							, 0 == ii ? " " : ", "
-							, getName(SpvStorageClass::Enum(operand.data[0]) )
+							, getName(SpvStorageClass::Enum(operand.data) )
 							);
 				break;
 
@@ -1102,7 +1103,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%s__%d__"
 							, 0 == ii ? " " : ", "
-							, operand.data[0]
+							, operand.data
 							);
 				break;
 
@@ -1110,7 +1111,7 @@ namespace bgfx
 				size += bx::snprintf(&_out[size], bx::uint32_imax(0, _size-size)
 							, "%sr%d"
 							, 0 == ii ? " " : ", "
-							, operand.data[0]
+							, operand.data
 							);
 				break;
 

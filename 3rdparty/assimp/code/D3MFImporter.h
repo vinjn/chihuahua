@@ -10,18 +10,18 @@ with or without modification, are permitted provided that the
 following conditions are met:
 
 * Redistributions of source code must retain the above
-copyright notice, this list of conditions and the
-following disclaimer.
+  copyright notice, this list of conditions and the
+  following disclaimer.
 
 * Redistributions in binary form must reproduce the above
-copyright notice, this list of conditions and the
-following disclaimer in the documentation and/or other
-materials provided with the distribution.
+  copyright notice, this list of conditions and the
+  following disclaimer in the documentation and/or other
+  materials provided with the distribution.
 
 * Neither the name of the assimp team, nor the names of its
-contributors may be used to endorse or promote products
-derived from this software without specific prior
-written permission of the assimp team.
+  contributors may be used to endorse or promote products
+  derived from this software without specific prior
+  written permission of the assimp team.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,52 +38,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ----------------------------------------------------------------------
 */
 
-/** @file glTFWriter.h
- * Declares a class to write gltf/glb files
- *
- * glTF Extensions Support:
- *   KHR_binary_glTF: full
- *   KHR_materials_common: full
- */
-#ifndef glTFAssetWriter_H_INC
-#define glTFAssetWriter_H_INC
+#ifndef AI_D3MFLOADER_H_INCLUDED
+#define AI_D3MFLOADER_H_INCLUDED
 
-#include "glTFAsset.h"
+#include <vector>
+#include <cstdint>
 
-namespace glTF
+#include "BaseImporter.h"
+
+namespace Assimp {
+
+class D3MFImporter : public BaseImporter
 {
-
-using rapidjson::MemoryPoolAllocator;
-
-class AssetWriter
-{
-    template<class T>
-    friend void WriteLazyDict(LazyDict<T>& d, AssetWriter& w);
-
-private:
-
-    void WriteBinaryData(IOStream* outfile, size_t sceneLength);
-
-    void WriteMetadata();
-    void WriteExtensionsUsed();
-
-    template<class T>
-    void WriteObjects(LazyDict<T>& d);
-
 public:
-    Document mDoc;
-    Asset& mAsset;
+    D3MFImporter();
+    ~D3MFImporter();
 
-    MemoryPoolAllocator<>& mAl;
+    // BaseImporter interface
+public:
+    bool CanRead(const std::string &pFile, IOSystem *pIOHandler, bool checkSig) const;
+    void SetupProperties(const Importer *pImp);
+    const aiImporterDesc *GetInfo() const;
 
-    AssetWriter(Asset& asset);
+protected:
+    void InternReadFile(const std::string &pFile, aiScene *pScene, IOSystem *pIOHandler);
 
-    void WriteFile(const char* path);
 };
-
 }
-
-// Include the implementation of the methods
-#include "glTFAssetWriter.inl"
-
-#endif
+#endif // AI_D3MFLOADER_H_INCLUDED
