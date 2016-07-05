@@ -311,7 +311,7 @@ public final class MainActivity extends Activity implements Renderer {
 		// update tracking.
 		metaioSDK.render();
 
-		Scene3D.Scene_clear();
+		Scene3D.Scene_clear(122, 122, 122, 122);
 
 		mCameraImageRenderer.draw(gl, mScreenRotation);
 
@@ -327,7 +327,7 @@ public final class MainActivity extends Activity implements Renderer {
 			Scene3D.Node_setModelMatrix(mSmallPlane, modelMatrix);
 
 			// DebugLog.w("offsetZ:" + modelMatrix[14]);
-//			Scene3D.Node_setPosition(mMeshNode, k, k, k);
+			// Scene3D.Node_setPosition(mMeshNode, k, k, k);
 
 			Scene3D.Camera_setProjectionMatrix(projMatrix);
 			Scene3D.Scene_setVisible(true);
@@ -371,7 +371,7 @@ public final class MainActivity extends Activity implements Renderer {
 			Scene3D.Node_setTexture(mMeshNode,
 					Scene3D.Scene_addTexture("metaioman.png"));
 			Scene3D.Node_setPosition(mMeshNode, 100, 300, 100);
-			
+
 			k = 5;
 		} else {
 			mMeshNode = Scene3D.Scene_loadScene("test.uscene");

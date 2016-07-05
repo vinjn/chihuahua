@@ -1,2 +1,2 @@
 cp -r ../MetaioSDK/libs/ ./
-cp -r ../../UGraphics/libs/armeabi-v7a ./libs/
+cp -r ../../wrapper/libs/armeabi-v7a ./libs/
