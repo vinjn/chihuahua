@@ -1,0 +1,27 @@
+
+优擎，无处不在的渲染引擎
+
+功能：
+
+支持各种应用类型，不论是 3D 游戏、VR 体验，还是 AR 互动。
+支持各种操作系统，不论是安卓、iOS，还是 Windows、Linux、Mac。
+支持各种编程语言，不论是 C、C++、Java，还是 Lua、JavaScript。
+支持各种图形 API，不论是 OpenGL、Direct3D、Metal，还是 Vulkan。
+支持各种 3D 模型，不论是 OBJ、MD2，还是 DAE、FBX、GLTF。
+支持各种贴图格式，不论是 JPG、BMP、PNG，还是 DDS、KTX、ETC。
+支持各种 3D 效果，不论是骨骼动画、粒子系统，还是地形系统。
+支持各种 AR SDK，不论是国外的 Vuforia、Metaio、ArToolKit，还是国内的 EasyAR、HiAR、VoidAR。
+支持各种 VR SDK，不论是移动端的 Cardboard、GearVR，还是 PC 端的 Oculus Rift、Steam VR。
+
+特色：
+
+支持以上功能的库尺寸不到 3 M，既保证了安装包的尺寸，又降低了内存占用。
+在 Windows 和 Mac 端提供 3D 场景编辑器，配合脚本语言，可以实现一次编辑，各处发布。
+所有数据都存放在本地，不强制用户使用云端服务器。
+
+1. 更快的启动速度，当竞争对手还在显示 logo 时，你已经开始互动了
+2. 更小的尺寸，< 3M，不浪费用户带宽
+3. 更少的内存占用，不需要运行硕大无比的虚拟机
+4. 更广阔的应用场景，不局限于游戏，普通 app 也可以拥有三维渲染的能力
+5. 场景编辑后可立即在手机端查看，不需要等待重新生成
+？6. native 接口，逻辑部分可直接与引擎交互
