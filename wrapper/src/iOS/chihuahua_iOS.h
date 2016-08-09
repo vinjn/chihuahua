@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Scene3D.h"
+#include "../chihuahua.h"
 
 void Scene_initializeFileSystem();
 

@@ -2,4 +2,4 @@ clear
 ndk-build -j
 echo "Please rebuild and install APK"
 adb logcat -c
-adb logcat | grep Scene3D
+adb logcat | grep chihuahua

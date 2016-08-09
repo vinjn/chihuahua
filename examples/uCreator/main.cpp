@@ -259,7 +259,7 @@ int main(int, char**)
         {
             auto sceneWindowPos = sceneWindow->GetLastPosition();
             auto sceneWindowSize = sceneWindow->GetLastSize();
-            glViewport(sceneWindowPos.x, displayHeight - 1 - sceneWindowPos.y - sceneWindowSize.y, sceneWindowSize.x, sceneWindowSize.y);
+            //glViewport(sceneWindowPos.x, displayHeight - 1 - sceneWindowPos.y - sceneWindowSize.y, sceneWindowSize.x, sceneWindowSize.y);
 
             float scale[16];
             float rot[16];

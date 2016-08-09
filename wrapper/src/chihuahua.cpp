@@ -1,4 +1,4 @@
-#include "Scene3D.h"
+#include "chihuahua.h"
 #include "FullScreenSceneNode.h"
 
 #include "irrlicht.h"

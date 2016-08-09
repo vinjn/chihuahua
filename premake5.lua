@@ -8,7 +8,7 @@ require "3rdparty/premake-androidmk/androidmk"
 
 print (premake.path);
 
-solution "uEngine"
+solution "chihuahua"
     location ("_project")
     configurations { "Debug", "Release" }
     platforms {"x64", "x86"}
@@ -320,7 +320,7 @@ solution "uEngine"
             "3rdparty/assimp/contrib/irrXML/*",
         }
 -- 
-    project "uEngine"
+    project "chihuahua"
         kind "SharedLib"
 
         includedirs {
@@ -335,7 +335,7 @@ solution "uEngine"
         }
 
         defines {
-            "UENGINE_EXPORTS",
+            "CHIHUAHUA_EXPORTS",
             "IRRLICHT_EXPORTS",
             "GLEW_STATIC",
             -- "SWIG",
@@ -489,7 +489,7 @@ solution "uEngine"
 
             configuration "Debug"
                 links {
-                    "uEngine-d",
+                    "chihuahua-d",
                     "imgui-d",
                     "glfw-d",
                     "glew-d",
@@ -497,7 +497,7 @@ solution "uEngine"
                 }
             configuration "Release"
                 links {
-                    "uEngine",
+                    "chihuahua",
                     "imgui",
                     "glfw",
                     "glew",

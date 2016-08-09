@@ -1,4 +1,4 @@
-#include "../Scene3D.h"
+#include "../chihuahua.h"
 #include "irrlicht.h"
 
 extern "C"

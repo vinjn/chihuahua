@@ -9,7 +9,7 @@ PNG_PATH := $(THIRDPARTY_PATH)/libpng
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := Scene3D
+LOCAL_MODULE := chihuahua
 
 LOCAL_CFLAGS := -Wall -pipe -fno-exceptions -fno-rtti -fstrict-aliasing
 LOCAL_CFLAGS += -D_IRR_ANDROID_PLATFORM_
@@ -89,9 +89,9 @@ LOCAL_C_INCLUDES := ../include \
                     ../3rdparty/assimp/contrib/rapidjson/include
 
 LOCAL_SRC_FILES := \
-                    $(WRAPPER_PATH)/Scene3D.cpp \
-                    $(WRAPPER_PATH)/Javascript/Scene3D_v7.cpp \
-                    $(WRAPPER_PATH)/Android/Scene3DAndroid.cpp \
+                    $(WRAPPER_PATH)/chihuahua.cpp \
+                    $(WRAPPER_PATH)/Javascript/chihuahua_v7.cpp \
+                    $(WRAPPER_PATH)/Android/chihuahua_Android.cpp \
                     $(WRAPPER_PATH)/Android/CAndroidAssetFileArchive.cpp \
                     $(WRAPPER_PATH)/Android/CAndroidAssetReader.cpp \
                     $(ASSIMP_PATH)/contrib/irrXML/irrXML.cpp \

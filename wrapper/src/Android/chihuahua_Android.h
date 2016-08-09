@@ -1,4 +1,4 @@
-// Wrapper of Scene3D.h for Android JNI
+// Wrapper of chihuahua.h for Android JNI
 #include "irrlicht.h"
 #include "../source/os.h"
 #include "../source/CLogger.h"
@@ -6,7 +6,7 @@
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include "CAndroidAssetFileArchive.h"
-#include "../Scene3D.h"
+#include "../chihuahua.h"
 
 using namespace ue;
 using namespace core;

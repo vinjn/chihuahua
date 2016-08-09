@@ -1,4 +1,4 @@
-#include "Scene3DiOS.h"
+#include "chihuahua_iOS.h"
 #include "irrlicht.h"
 #include "../source/irrlicht/os.h"
 #include "../source/irrlicht/CLogger.h"

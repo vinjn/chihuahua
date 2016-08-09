@@ -123,7 +123,7 @@ namespace ue
             //! presents the rendered scene on the screen, returns false if failed
             virtual bool endScene()
             {
-                bgfx_frame();
+                bgfx_frame(false);
 
                 return true;
             }
